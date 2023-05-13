@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FimiAppUI", "FimiAppUI\FimiAppUI.csproj", "{E1C61E0C-432D-4364-A7D0-B26F1A8FB3F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FimiAppUI", "FimiAppUI\FimiAppUI.csproj", "{E1C61E0C-432D-4364-A7D0-B26F1A8FB3F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FimiAppLibrary", "FimiAppLibrary\FimiAppLibrary.csproj", "{03E354C0-2711-490A-8BCE-355F45C87C61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FimiAppLibrary", "FimiAppLibrary\FimiAppLibrary.csproj", "{03E354C0-2711-490A-8BCE-355F45C87C61}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{328F54DC-7AEF-4923-9C8E-A48153DCB27C}"
 	ProjectSection(SolutionItems) = preProject

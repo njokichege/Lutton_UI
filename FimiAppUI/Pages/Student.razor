@@ -1,0 +1,41 @@
+﻿@page "/Pages/Student"
+
+@inject IStudentData _db;
+
+<h1>Student Page</h1>
+
+<h4>Current Students</h4>
+@if(students is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Surname</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var student in students)
+            {
+                <tr>@student.FirstName</tr>
+                <tr>@student.MiddleName</tr>
+                <tr>@student.Surname</tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<StudentModel> students;
+
+    protected override async Task OnInitializedAsync()
+    {
+        students = await _db.GetStudent();
+
+    }
+}

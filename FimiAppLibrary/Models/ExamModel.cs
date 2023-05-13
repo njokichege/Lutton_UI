@@ -1,6 +1,6 @@
 ﻿namespace FimiAppLibrary.Models
 {
-    public class Exam
+    public class ExamModel
     {
         public int ExamId { get; set; }
         public DateTime StartDate { get; set; }

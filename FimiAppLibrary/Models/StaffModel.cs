@@ -1,6 +1,6 @@
 ﻿namespace FimiAppLibrary.Models
 {
-    public class Staff
+    public class StaffModel
     {
         public int NationalId { get; set; }
         public string FirstName { get; set; }

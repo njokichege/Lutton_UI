@@ -1,6 +1,6 @@
 ﻿namespace FimiAppLibrary.Models
 {
-    public class ExamResult
+    public class ExamResultModel
     {
         public int Marks { get; set; }
         public int ExamId { get; set; }
