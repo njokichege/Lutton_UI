@@ -8,12 +8,14 @@
 
   <ItemGroup>
     <Folder Include="Components\" />
+    <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Identity.Web" Version="2.10.0" />
     <PackageReference Include="Microsoft.Identity.Web.UI" Version="2.10.0" />
+    <PackageReference Include="MudBlazor" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>

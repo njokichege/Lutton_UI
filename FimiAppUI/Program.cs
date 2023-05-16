@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using FimiAppUI;
+using MudBlazor.Services;
+using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.ConfigureServices();
+builder.Services.AddMudServices();
 
 var app = builder.Build();
 
