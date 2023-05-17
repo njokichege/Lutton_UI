@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.ConfigureServices();
 builder.Services.AddMudServices();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 

@@ -1,41 +1,106 @@
 ﻿@page "/Pages/Student"
 
 @inject IStudentData _db;
+@inject HttpClient httpClient;
 
-<h1>Student Page</h1>
+<p>
+    <MudText Typo="Typo.h6"> View Students</MudText>
+</p>
 
-<h4>Current Students</h4>
-@if(students is null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Middle Name</th>
-                <th>Surname</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var student in students)
-            {
-                <tr>@student.FirstName</tr>
-                <tr>@student.MiddleName</tr>
-                <tr>@student.Surname</tr>
-            }
-        </tbody>
-    </table>
-}
+<MudGrid>
+    <MudItem xs="6" sm="3">
+        <MudCard>
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">Select Year</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardActions>
+                <MudSelect Margin="Margin.Dense" T="string" Label="Coffee" Variant="Variant.Filled">
+                    <MudSelectItem Value="@("Tyrannosaur")" />
+                    <MudSelectItem Value="@("Triceratops")" />
+                    <MudSelectItem Value="@("Benno Rex")" />
+                </MudSelect>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="6" sm="3">
+        <MudCard>
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">Select Class</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardActions>
+                <MudSelect Margin="Margin.Dense" T="string" Label="Coffee" Variant="Variant.Filled">
+                    <MudSelectItem Value="@("Tyrannosaur")" />
+                    <MudSelectItem Value="@("Triceratops")" />
+                    <MudSelectItem Value="@("Benno Rex")" />
+                </MudSelect>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="6" sm="3">
+        <MudCard>
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">Select Stream</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardActions>
+                <MudSelect Margin="Margin.Dense" T="string" Label="Coffee" Variant="Variant.Filled">
+                    <MudSelectItem Value="@("Tyrannosaur")" />
+                    <MudSelectItem Value="@("Triceratops")" />
+                    <MudSelectItem Value="@("Benno Rex")" />
+                </MudSelect>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="6" sm="3">
+        <MudCard>
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">Total Students</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>...45...</MudText>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="16">
+        <MudDataGrid Items="@students.Take(5)">
+            <Columns>
+                <PropertyColumn Property="newStudent => newStudent.StudentNumber" Title="Student Number" />
+                <PropertyColumn Property="newStudent => newStudent.FirstName" Title="First Name" />
+                <PropertyColumn Property="newStudent => newStudent.MiddleName" Title="Middle Name" />
+                <PropertyColumn Property="newStudent => newStudent.Surname" Title="Surname" />
+                <PropertyColumn Property="newStudent => newStudent.DateOfBirth.ToShortDateString()" Title="Date of Birth" />
+                <PropertyColumn Property="newStudent => newStudent.AdmissionDate.ToShortDateString()" Title="Admission Date" />
+            </Columns>
+        </MudDataGrid>
+    </MudItem>
+</MudGrid>
 
 @code {
-    private List<StudentModel> students;
+    private List<StudentModel> students { get; set; } = new();
+    private DisplayStudentModel newStudent = new DisplayStudentModel();
 
     protected override async Task OnInitializedAsync()
     {
         students = await _db.GetStudent();
 
+    }
+    private async Task InsertStudent()
+    {
+        StudentModel studentModel = new StudentModel
+            {
+                FirstName = newStudent.FirstName,
+                MiddleName = newStudent.MiddleName,
+                Surname = newStudent.Surname,
+            };
+        await _db.InsertStudent(studentModel);
+        students.Add(studentModel);
+        newStudent = new DisplayStudentModel();
     }
 }

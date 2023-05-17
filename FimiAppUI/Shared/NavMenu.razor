@@ -1,12 +1,25 @@
-﻿<MudPaper Width="250px" Elevation="0" Class="py-3">
+﻿<MudPaper Width="250px" Elevation="0" Class="py-3" Style="@($"background:#264653;")">
     <MudNavMenu Color="Color.Info">
-        <MudNavLink Href="/dashboard" Icon="@Icons.Material.Filled.Dashboard">Dashboard</MudNavLink>
-        <MudNavLink Href="/components/navmenu" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Storage">Servers</MudNavLink>
-        <MudNavLink Href="/billing" Disabled="true">Billing</MudNavLink>
-        <MudNavGroup Title="Settings" Expanded="true">
-            <MudNavLink Href="/users">Users</MudNavLink>
-            <MudNavLink Href="/security">Security</MudNavLink>
+        <MudNavLink Style="color:#adb5bd" Href="/" Icon="@Icons.Material.Filled.Dashboard">Dashboard</MudNavLink>
+        <MudNavGroup Style="color:#adb5bd" Title="Student" Expanded="false" Icon="@Icons.Material.Filled.School">
+            <MudNavLink Style="color:#adb5bd" Href="/Pages/Student" Match="NavLinkMatch.Prefix">View Student</MudNavLink>
+            <MudNavLink Style="color:#adb5bd" Href="/security">Add Student</MudNavLink>
         </MudNavGroup>
-        <MudNavLink Href="/about">About</MudNavLink>
+        <MudNavGroup Style="color:#adb5bd" Title="Teacher" Expanded="false" Icon="@Icons.Material.Filled.People">
+            <MudNavLink Style="color:#adb5bd" Href="/Pages/Teacher" Match="NavLinkMatch.Prefix">View Teacher</MudNavLink>
+            <MudNavLink Style="color:#adb5bd" Href="/security">Add Teacher</MudNavLink>
+        </MudNavGroup>
+        <MudNavGroup Style="color:#adb5bd" Title="Classroom" Expanded="false" Icon="@Icons.Material.Filled.OtherHouses">
+            <MudNavLink Style="color:#adb5bd" Href="/Pages/Classroom" Match="NavLinkMatch.Prefix">Manage Classroom</MudNavLink>
+            <MudNavLink Style="color:#adb5bd" Href="/security">Manage Subjects</MudNavLink>
+        </MudNavGroup>
+        <MudNavGroup Style="color:#adb5bd" Title="Examination" Expanded="false" Icon="@Icons.Material.Filled.LibraryBooks">
+            <MudNavLink Style="color:#adb5bd" Href="/Pages/Examination" Match="NavLinkMatch.Prefix">Manage Exam</MudNavLink>
+            <MudNavLink Style="color:#adb5bd" Href="/security">Manage Results</MudNavLink>
+        </MudNavGroup>
+        <MudNavGroup Style="color:#adb5bd" Title="Accounts" Expanded="false" Icon="@Icons.Material.Filled.AccountBalance">
+            <MudNavLink Style="color:#adb5bd" Href="/Pages/Accounts" Match="NavLinkMatch.Prefix">Manage Fees</MudNavLink>
+            <MudNavLink Style="color:#adb5bd" Href="/security">Fees Payment</MudNavLink>
+        </MudNavGroup>
     </MudNavMenu>
 </MudPaper>
