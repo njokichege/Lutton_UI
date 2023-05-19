@@ -1,7 +1,11 @@
 ﻿@page "/Pages/Student"
 
-@inject IStudentData _db;
 @inject HttpClient httpClient;
+@inject IStudentData _studentData;
+@inject IFormData _formData;
+@inject IStreamData _streamData;
+@inject ISessionYearData _sessionYearData;
+
 
 <p>
     <MudText Typo="Typo.h6"> View Students</MudText>
@@ -10,48 +14,36 @@
 <MudGrid>
     <MudItem xs="6" sm="3">
         <MudCard>
-            <MudCardHeader>
-                <CardHeaderContent>
-                    <MudText Typo="Typo.h6">Select Year</MudText>
-                </CardHeaderContent>
-            </MudCardHeader>
             <MudCardActions>
-                <MudSelect Margin="Margin.Dense" T="string" Label="Coffee" Variant="Variant.Filled">
-                    <MudSelectItem Value="@("Tyrannosaur")" />
-                    <MudSelectItem Value="@("Triceratops")" />
-                    <MudSelectItem Value="@("Benno Rex")" />
+                <MudSelect T="string" Label="Session Year" Variant="Variant.Outlined" @bind-Value="selectedSessionYear">
+                    @foreach (SessionYearModel sessionYearModel in sessionYearModels)
+                    {
+                        <MudSelectItem Value="sessionYearModel.SessionYear" />
+                    }
                 </MudSelect>
             </MudCardActions>
         </MudCard>
     </MudItem>
     <MudItem xs="6" sm="3">
         <MudCard>
-            <MudCardHeader>
-                <CardHeaderContent>
-                    <MudText Typo="Typo.h6">Select Class</MudText>
-                </CardHeaderContent>
-            </MudCardHeader>
             <MudCardActions>
-                <MudSelect Margin="Margin.Dense" T="string" Label="Coffee" Variant="Variant.Filled">
-                    <MudSelectItem Value="@("Tyrannosaur")" />
-                    <MudSelectItem Value="@("Triceratops")" />
-                    <MudSelectItem Value="@("Benno Rex")" />
+                <MudSelect T="int" Label="Class" Variant="Variant.Outlined" @bind-Value="selectedForm">
+                    @foreach (FormModel formModel in formModels)
+                    {
+                        <MudSelectItem Value="formModel.Form" />
+                    }
                 </MudSelect>
             </MudCardActions>
         </MudCard>
     </MudItem>
     <MudItem xs="6" sm="3">
         <MudCard>
-            <MudCardHeader>
-                <CardHeaderContent>
-                    <MudText Typo="Typo.h6">Select Stream</MudText>
-                </CardHeaderContent>
-            </MudCardHeader>
             <MudCardActions>
-                <MudSelect Margin="Margin.Dense" T="string" Label="Coffee" Variant="Variant.Filled">
-                    <MudSelectItem Value="@("Tyrannosaur")" />
-                    <MudSelectItem Value="@("Triceratops")" />
-                    <MudSelectItem Value="@("Benno Rex")" />
+                <MudSelect T="string" Label="Stream" Variant="Variant.Outlined" @bind-Value="selectedStream">
+                    @foreach (StreamModel streamModel in streamModels)
+                    {
+                        <MudSelectItem Value="streamModel.Stream"/>
+                    }
                 </MudSelect>
             </MudCardActions>
         </MudCard>
@@ -83,24 +75,23 @@
 </MudGrid>
 
 @code {
+    private int lastForm = 0;
+    private string lastStream =string.Empty;
     private List<StudentModel> students { get; set; } = new();
-    private DisplayStudentModel newStudent = new DisplayStudentModel();
+    private List<FormModel> formModels { get; set; } = new();
+    private List<StreamModel> streamModels { get; set; } = new();
+    private List<SessionYearModel> sessionYearModels { get; set; } = new();
+    private string selectedStream;
+    private string selectedSessionYear;
+    private int selectedForm;
+    private SessionYearModel sessionYearModel { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
-        students = await _db.GetStudent();
-
-    }
-    private async Task InsertStudent()
-    {
-        StudentModel studentModel = new StudentModel
-            {
-                FirstName = newStudent.FirstName,
-                MiddleName = newStudent.MiddleName,
-                Surname = newStudent.Surname,
-            };
-        await _db.InsertStudent(studentModel);
-        students.Add(studentModel);
-        newStudent = new DisplayStudentModel();
+        students = await _studentData.GetStudent();
+        formModels = await _formData.GetAllForms();
+        streamModels = await _streamData.GetAllStreams();
+        sessionYearModels = await _sessionYearData.GetAllSessionYears();
+        sessionYearModel = await _sessionYearData.FindSessionYear(selectedSessionYear);
     }
 }

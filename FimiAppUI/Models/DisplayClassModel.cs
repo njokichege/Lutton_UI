@@ -1,7 +1,10 @@
-﻿namespace FimiAppLibrary.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FimiAppUI.Models
 {
-    public class ClassModel
+    public class DisplayClassModel
     {
+        [Required]
         public int ClassId { get; set; }
         public int Form { get; set; }
         public string Stream { get; set; }

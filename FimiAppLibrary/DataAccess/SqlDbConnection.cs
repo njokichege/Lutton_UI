@@ -24,6 +24,15 @@ public class SqlDbConnection : ISqlDbConnection
             return data.ToList();
         }
     }
+    public async Task<T> LoadSingleData<T, U>(string sql, U parameters)
+    {
+        string connectionString = _config.GetConnectionString(ConnecctionStringName);
+        using (IDbConnection connection = new SqlConnection(connectionString))
+        {
+            var data = await connection.QueryFirstOrDefaultAsync<T>(sql, parameters);
+            return data;
+        }
+    }
     public async Task SaveData<T>(string sql,T parameters)
     {
         string connectionString = _config.GetConnectionString(ConnecctionStringName);

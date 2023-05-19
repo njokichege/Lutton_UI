@@ -9,6 +9,9 @@
             builder.Services.AddMemoryCache();
             builder.Services.AddTransient<ISqlDbConnection, SqlDbConnection>();
             builder.Services.AddTransient<IStudentData, StudentData>();
+            builder.Services.AddTransient<IStreamData,StreamData>();
+            builder.Services.AddTransient<IFormData, FormData>();
+            builder.Services.AddTransient<ISessionYearData, SessionYearData>();
         }
     }
 }
