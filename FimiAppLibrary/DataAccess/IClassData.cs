@@ -4,6 +4,5 @@
     {
         Task<List<ClassModel>> GetClass();
         Task InsertClass(ClassModel student);
-        Task InsertStudent(ClassModel student);
     }
 }

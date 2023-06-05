@@ -1,0 +1,41 @@
+﻿@*Show loading content while students are loading*@
+
+@inject ISessionYearData _isessionDb;
+
+@if (!StudentList.Any())
+{
+    @LoadingContent
+}
+else
+{
+    <label>Select a Student: </label>
+    <select @onchange="HandleStudentChanged" class="form-select w-25" on>
+        @foreach (var student in StudentList)
+        {
+            <option value="@student.StudentNumber">@student.FirstName</option>
+        }
+    </select>
+}
+@code 
+{
+    [Parameter] public EventCallback<StudentModel> OnStudentChanged { get; set; }
+    [Parameter] public IEnumerable<StudentModel> StudentList { get; set; } = Enumerable.Empty<StudentModel>();
+    [Parameter] public RenderFragment LoadingContent { get; set; }
+
+    /// <summary>
+    /// This transforms the ChangeEventArgs into a StudentModel
+    /// </summary>
+    private async Task HandleStudentChanged(ChangeEventArgs args)
+    {
+        if (OnStudentChanged.HasDelegate)
+        {
+            if (args is not null && int.TryParse((string)args.Value, out var id))
+            {
+                var selectedStudent = StudentList.FirstOrDefault(a => a.StudentNumber.Equals(id));
+
+                if (selectedStudent is not null)
+                    await OnStudentChanged.InvokeAsync(selectedStudent);
+            }
+        }
+    }
+}

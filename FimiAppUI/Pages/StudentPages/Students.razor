@@ -1,0 +1,50 @@
+﻿@page "/Pages/StudentPages/Students"
+
+@inject ISessionYearData _isessionDb;
+
+<StudentSelectors OnFormChanged="HandleFormInput"
+                  SessionList="@_sessionYears">
+    <LoadingContent>
+        Loading...
+    </LoadingContent>
+</StudentSelectors>
+
+@if (_selectedSession is not null)
+{
+    <div class="container-lg pt-4">
+        <StudentDisplays SelectedSession="@_selectedSession">
+            <SessionContent Context="sessionYear">
+                <p> SessionYearId: @sessionYear.SessionYearId </p>
+                <p> SessionYear: @sessionYear.SessionYear </p>
+            </SessionContent>
+        </StudentDisplays>
+    </div>
+}
+
+@code 
+{
+    private IEnumerable<SessionYearModel> _sessionYears = Enumerable.Empty<SessionYearModel>();
+    private SessionYearModel _selectedSession;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await GetSessions();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    private void HandleFormInput(SessionYearModel sessionYear)
+    {
+        _selectedSession = sessionYear;
+    }
+
+    private async Task GetSessions()
+    {
+        _sessionYears = await _isessionDb.GetAllSessionYears();
+    }
+}

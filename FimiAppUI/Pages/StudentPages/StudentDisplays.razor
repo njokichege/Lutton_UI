@@ -1,0 +1,9 @@
+﻿@if (SelectedSession is not null)
+{
+    @SessionContent(SelectedSession)
+}
+
+@code {
+    [Parameter] public SessionYearModel? SelectedSession { get; set; }
+    [Parameter] public RenderFragment<SessionYearModel> SessionContent { get; set; } = default!;
+}

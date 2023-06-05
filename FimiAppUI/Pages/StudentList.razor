@@ -1,0 +1,74 @@
+﻿
+@inject HttpClient httpClient;
+@inject IStudentData _studentData;
+@inject IFormData _formData;
+@inject IStreamData _streamData;
+@inject ISessionYearData _sessionYearData;
+
+<MudGrid>
+    <MudItem xs="6" sm="3">
+        <Student OnClassSelected="SelectedClass">
+            <ChildContent>
+                <p>Loading Students...</p>
+                <MudText>"@SelectedValues[0]"</MudText>
+            </ChildContent>
+            
+            
+        </Student>
+        <StudentDisplay SelectedSessionYear="SessionYear">
+            <MudText>"@SessionYear.SessionYear"</MudText>
+        </StudentDisplay>
+        <MudCard>
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">Total Students</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText>@sessionYears.Count()</MudText>
+            </MudCardContent>
+        </MudCard>
+        <MudDataGrid Items="@StudentLists">
+            <Columns>
+                <PropertyColumn Property="newStudent => newStudent.StudentNumber" Title="Student Number" />
+                <PropertyColumn Property="newStudent => newStudent.FirstName" Title="First Name" />
+                <PropertyColumn Property="newStudent => newStudent.MiddleName" Title="Middle Name" />
+                <PropertyColumn Property="newStudent => newStudent.Surname" Title="Surname" />
+                <PropertyColumn Property="newStudent => newStudent.DateOfBirth.ToShortDateString()" Title="Date of Birth" />
+                <PropertyColumn Property="newStudent => newStudent.AdmissionDate.ToShortDateString()" Title="Admission Date" />
+            </Columns>
+        </MudDataGrid>
+    </MudItem>
+</MudGrid>
+
+
+@code {
+    private SessionYearModel SessionYear { get; set; } = new();
+    private List<string> SelectedValues { get; set; } = new();
+    private IEnumerable<SessionYearModel> sessionYears = Enumerable.Empty<SessionYearModel>();
+
+    private FormModel Form { get; set; } = new();
+    private StreamModel Stream { get; set; } = new();
+
+    private List<StudentModel> StudentLists { get; set; } = new();
+    private StudentModel StudentModel;
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+        try
+        {
+            StudentLists = await _studentData.GetStudent();
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+    }
+    protected void SelectedClass(string year)
+    {
+        SelectedValues.Add(year);
+    }
+    
+}
