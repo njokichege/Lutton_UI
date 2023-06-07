@@ -1,6 +1,6 @@
 ﻿namespace FimiAppUI.Pages
 {
-    public class Accounts
+    public partial class Accounts
     {
     }
 }
