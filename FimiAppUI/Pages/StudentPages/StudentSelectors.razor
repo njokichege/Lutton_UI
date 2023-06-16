@@ -3,7 +3,7 @@
 
 @if (!SessionList.Any())
 {
-    @LoadingContent
+    @SessionContent
 }
 else
 {
@@ -21,23 +21,26 @@ else
         </MudForm>
     </MudCard>
 }
+
 @code
 {
+    [Parameter] public EventCallback<SessionYearModel> OnSessionChanged { get; set; }
     [Parameter] public IEnumerable<SessionYearModel> SessionList { get; set; } = Enumerable.Empty<SessionYearModel>();
-    [Parameter] public EventCallback<SessionYearModel> OnFormChanged { get; set; }
-    [Parameter] public RenderFragment LoadingContent { get; set; }
+    [Parameter] public RenderFragment SessionContent { get; set; }
 
-    private async Task HandleFormInput(ChangeEventArgs args)
+    /// <summary>
+    /// This transforms the ChangeEventArgs into a StudentModel
+    /// </summary>
+    private async Task HandleStudentChanged(ChangeEventArgs args)
     {
-        if (OnFormChanged.HasDelegate)
+        if (OnSessionChanged.HasDelegate)
         {
             if (args is not null)
             {
-                var selectedSession = SessionList.FirstOrDefault(a => a.SessionYear.Equals(args.ToString());
-                if (selectedSession is not null)
-                {
-                    await OnFormChanged.InvokeAsync(selectedSession);
-                }
+                var selectedStudent = SessionList.FirstOrDefault(a => a.SessionYear.Equals(args.ToString()));
+
+                if (selectedStudent is not null)
+                    await OnSessionChanged.InvokeAsync(selectedStudent);
             }
         }
     }
