@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FimiAppApi\FimiAppApi.csproj" />
     <ProjectReference Include="..\FimiAppLibrary\FimiAppLibrary.csproj" />
   </ItemGroup>
 

@@ -12,6 +12,8 @@
             builder.Services.AddTransient<IStreamData,StreamData>();
             builder.Services.AddTransient<IFormData, FormData>();
             builder.Services.AddTransient<ISessionYearData, SessionYearData>();
+            builder.Services.AddTransient<DapperContext>();
+            builder.Services.AddTransient<IClassData, ClassData>();
         }
     }
 }
