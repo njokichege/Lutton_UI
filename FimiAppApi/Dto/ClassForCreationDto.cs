@@ -1,13 +1,11 @@
-﻿namespace FimiAppLibrary.Models
+﻿namespace FimiAppApi.Dto
 {
-    public class ClassModel
+    public class ClassForCreationDto
     {
-        public int ClassId { get; set; }
         public int FormId { get; set; }
         public int StreamId { get; set; }
         public int SessionYearId { get; set; }
         public int Capacity { get; set; }
         public int ClassTeacherId { get; set; }
-        public int GradeId { get; set; }
     }
 }

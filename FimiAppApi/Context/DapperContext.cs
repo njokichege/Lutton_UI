@@ -30,12 +30,21 @@ namespace FimiAppApi.Context
                 return data;
             }
         }
-        public async Task SaveData<T>(string sql, T parameters)
+        public async Task<int> AddData<T,U>(string sql, DynamicParameters parameters)
         {
             string connectionString = _config.GetConnectionString(ConnecctionStringName);
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                await connection.ExecuteAsync(sql, parameters);
+                var data = await connection.QuerySingleAsync<int>(sql, parameters);
+                return data;
+            }
+        }
+        public async Task UpdateData<T, U>(string sql, U parameters)
+        {
+            string connectionString = _config.GetConnectionString(ConnecctionStringName);
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                var data = await connection.ExecuteAsync(sql, parameters);
             }
         }
     }
