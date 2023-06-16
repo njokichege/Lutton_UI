@@ -12,7 +12,7 @@ namespace FimiAppApi.Context
         {
             _config = config;
         }
-        public async Task<List<T>> LoadData<T, U>(string sql, U parameters)
+        public async Task<IEnumerable<T>> LoadData<T, U>(string sql, U parameters)
         {
             string connectionString = _config.GetConnectionString(ConnecctionStringName);
             using (IDbConnection connection = new SqlConnection(connectionString))

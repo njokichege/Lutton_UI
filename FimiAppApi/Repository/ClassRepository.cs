@@ -8,7 +8,14 @@ namespace FimiAppApi.Repository
         {
             _context = context;
         }
-        public Task<List<ClassModel>> GetClass()
+
+        public Task<ClassModel> GetClass(int id)
+        {
+            string sql = "SELECT * FROM dbo.Class WHERE ClassId = @Id";
+            return _context.LoadSingleData<ClassModel, dynamic>(sql, new { id });
+        }
+
+        public Task<IEnumerable<ClassModel>> GetClasses()
         {
             string sql = "SELECT* FROM dbo.Class";
             return _context.LoadData<ClassModel, dynamic>(sql, new { });
