@@ -5,13 +5,16 @@
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar Elevation="1">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="ToggleSidebar" />
+    <MudAppBar Elevation="0">
         <MudSpacer />
         <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
         <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
     </MudAppBar>
-    <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+    <MudDrawer Open="true" Elevation="0" Variant="@DrawerVariant.Persistent" >
+        <MudDrawerHeader>
+            <MudText Typo="Typo.h6" Align="Align.Center" Style="@($"text:#ffffff;margin-top:20px;")">GLOBAL MENU</MudText>
+        </MudDrawerHeader>
+        <MudDivider DividerType="DividerType.Middle" Class="my-6" />
         <NavMenu/>
     </MudDrawer>
     <MudMainContent>
@@ -22,18 +25,30 @@
 </MudLayout>
 
 @code {
-    bool _drawerOpen = true;
-    private void ToggleSidebar() => _drawerOpen = !_drawerOpen;
+    
     MudTheme MyCustomTheme = new MudTheme()
         {
             Palette = new Palette()
             {
-                AppbarBackground = "#e9ecef",
-                AppbarText ="#000000",   
-                //Surface = "#264653",
-                DrawerBackground = "#264653",
-                DrawerIcon = "#adb5bd",
-                DrawerText = "#adb5bd"
+                AppbarBackground = "#F7F6F4",
+                Background = "#F7F6F4",
+                AppbarText ="#000000",
+                DrawerBackground = "#163236",
+                DrawerIcon = "#ffffff",
+                DrawerText = "#ffffff",
+                Primary = "#163236",
+            },
+            Typography = new Typography()
+            {
+
+                H6 = new H6()
+                {
+                    FontWeight = 100
+                }
+            },
+             LayoutProperties = new LayoutProperties()
+            {
+                DefaultBorderRadius = "0px"
             }
         };
 }

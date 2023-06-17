@@ -1,0 +1,70 @@
+﻿@page "/Pages/ManageClassroom"
+
+<MudDivider DividerType="DividerType.FullWidth" Class="my-6"/>
+<MudPaper Width="300px">
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent >
+                <MudText Style="@($"margin-top:20px;")" Typo="Typo.h5" Align="Align.Center">Add Class</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+        <MudCardContent>
+            <MudSelect T="int"Label="Form" AnchorOrigin="Origin.BottomCenter">
+                <MudSelectItem T="int" Value="1" />
+                <MudSelectItem T="int" Value="2" />
+                <MudSelectItem T="int" Value="3" />
+                <MudSelectItem T="int" Value="4" />
+            </MudSelect>
+            <MudSelect T="string" Label="Stream" AnchorOrigin="Origin.BottomCenter">
+                <MudSelectItem T="string" Value="@("K")" />
+                <MudSelectItem T="string" Value="@("W")" />
+            </MudSelect>
+            <MudSelect T="string" Label="Session Year" AnchorOrigin="Origin.BottomCenter">
+                <MudSelectItem T="string" Value="@("January 2020 - July 2021K")" />
+                <MudSelectItem T="string" Value="@("July 2021 - April 2022")" />
+                <MudSelectItem T="string" Value="@("April 2022 - November 2022")" />
+                <MudSelectItem T="string" Value="@("July 2021 - April 2022")" />
+            </MudSelect>
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Variant="Variant.Filled" FullWidth="true" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Add Class</MudButton>
+        </MudCardActions>
+    </MudCard>
+</MudPaper>
+<MudPaper Width="300px" Style="margin-top:20px">
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Style="@($"margin-top:20px;")" Typo="Typo.h5" Align="Align.Center">Assign Class Teacher</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+        <MudCardContent>
+            <MudSelect T="string" Label="Select Class" AnchorOrigin="Origin.BottomCenter">
+                <MudSelectItem T="string" Value="@("1K")" />
+                <MudSelectItem T="string" Value="@("1W")" />
+                <MudSelectItem T="string" Value="@("2K")" />
+                <MudSelectItem T="string" Value="@("2W")" />
+                <MudSelectItem T="string" Value="@("3K")" />
+                <MudSelectItem T="string" Value="@("3W")" />
+                <MudSelectItem T="string" Value="@("4K")" />
+                <MudSelectItem T="string" Value="@("4W")" />
+            </MudSelect>
+            <MudSelect T="string" Label="Select Teacher" AnchorOrigin="Origin.BottomCenter">
+                <MudSelectItem T="string" Value="@("Alice Wambui")" />
+                <MudSelectItem T="string" Value="@("Christine Karume")" />
+                <MudSelectItem T="string" Value="@("Bednah Nzimbi")" />
+                <MudSelectItem T="string" Value="@("Pauline Njue")" />
+            </MudSelect>
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Variant="Variant.Filled" FullWidth="true" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Add Class</MudButton>
+        </MudCardActions>
+    </MudCard>
+</MudPaper>
+
+@code 
+{
+    
+}
