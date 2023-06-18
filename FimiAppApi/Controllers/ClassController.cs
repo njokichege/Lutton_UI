@@ -1,7 +1,4 @@
-﻿using FimiAppApi.Dto;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
+﻿
 namespace FimiAppApi.Controllers
 {
     [Route("api/class")]
@@ -23,23 +20,23 @@ namespace FimiAppApi.Controllers
         public async Task<IActionResult> GetClass(int id)
         {
             var oneclass = await _classRepository.GetClass(id);
-            if(oneclass is null)
+            if (oneclass is null)
             {
                 return NotFound();
             }
             return Ok(oneclass);
         }
         [HttpPost]
-        public async Task<IActionResult> CreateClass([FromBody]ClassForCreationDto classForCreation)
+        public async Task<IActionResult> CreateClass([FromBody] ClassForCreationDto classForCreation)
         {
             var createdClass = await _classRepository.CreateClass(classForCreation);
-            return CreatedAtRoute("ClassById", new { id = createdClass.ClassId},createdClass);
+            return CreatedAtRoute("ClassById", new { id = createdClass.ClassId }, createdClass);
         }
         [HttpPut("id")]
         public async Task<IActionResult> UpdateClassGrade(int id, [FromBody] ClassForUpdateGradesDto classForUpdateDto)
         {
             var dbClass = await _classRepository.GetClass(id);
-            if(dbClass is null)
+            if (dbClass is null)
             {
                 return NotFound();
             }

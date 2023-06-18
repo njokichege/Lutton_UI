@@ -10,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddScoped<IClassRepository, ClassRepository>();
+builder.Services.AddScoped<IFormRepository, FormRepository>();
 
 var app = builder.Build();
 

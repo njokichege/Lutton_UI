@@ -1,5 +1,6 @@
 ﻿using FimiAppApi.Contracts;
 using FimiAppApi.Repository;
+using FimiAppUI.Services;
 
 namespace FimiAppUI
 {
@@ -10,13 +11,15 @@ namespace FimiAppUI
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
             builder.Services.AddMemoryCache();
-            builder.Services.AddScoped<ISqlDbConnection, SqlDbConnection>();
-            builder.Services.AddScoped<IStudentData, StudentData>();
-            builder.Services.AddScoped<IStreamData,StreamData>();
-            builder.Services.AddScoped<IFormData, FormData>();
-            builder.Services.AddScoped<ISessionYearData, SessionYearData>();
-            builder.Services.AddScoped<DapperContext>();
-            builder.Services.AddScoped<IClassData, ClassData>();
+            builder.Services.AddHttpClient<IClassService, ClassService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7263/");
+            });
+            builder.Services.AddHttpClient<IFormService, FormService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7263/");
+            });
+
         }
     }
 }
