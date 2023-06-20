@@ -1,7 +1,6 @@
 ﻿
-using Dapper;
-using FimiAppApi.Dto;
-using System.Data;
+using Microsoft.SqlServer.Server;
+using System.Data.SqlClient;
 
 namespace FimiAppApi.Repository
 {
@@ -56,6 +55,12 @@ namespace FimiAppApi.Repository
         {
             string sql = "SELECT* FROM dbo.Class";
             return await _context.LoadData<ClassModel, dynamic>(sql, new { });
+        }
+
+        public async Task<IEnumerable<ClassModel>> GetClassFormStreamMultipleMapping()
+        {
+            string query = "SELECT Class.ClassId,\r\n    Form.FormId,\r\n    Form.Form\r\nFROM Form\r\nINNER JOIN Class ON Class.FormId = Form.FormId";
+            return await _context.ClassFormStreamMapping(query);
         }
 
         public async Task UpdateClassGrade(int id, ClassForUpdateGradesDto classForUpdate)

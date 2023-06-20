@@ -2,15 +2,20 @@
 {
     public class ClassService : IClassService
     {
-        private readonly HttpClient httpClient;
+        private readonly HttpClient _httpClient;
 
         public ClassService(HttpClient httpClient)
         {
-            this.httpClient = httpClient;
+            _httpClient = httpClient;
         }
         public async Task<IEnumerable<ClassModel>> GetClasses()
         {
-            return await httpClient.GetFromJsonAsync<ClassModel[]>("api/class");
+            return await _httpClient.GetFromJsonAsync<ClassModel[]>("api/class");
+        }
+
+        public async Task<IEnumerable<ClassModel>> GetClassFormStreamMultipleMapping()
+        {
+            return await _httpClient.GetFromJsonAsync<ClassModel[]>("api/class");
         }
     }
 }

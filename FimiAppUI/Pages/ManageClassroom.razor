@@ -14,22 +14,12 @@
             </MudCardHeader>
             <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
             <MudCardContent>
-                <MudSelect T="FormModel" Label="Form" AnchorOrigin="Origin.BottomCenter">
-                    @foreach(var form in Forms)
-                    {
-                        <MudSelectItem T="int" Value="@form.Form" />
-                    }
-                </MudSelect>
-                <MudSelect T="string" Label="Stream" AnchorOrigin="Origin.BottomCenter">
-                    <MudSelectItem T="string" Value="@("K")" />
-                    <MudSelectItem T="string" Value="@("W")" />
-                </MudSelect>
-                <MudSelect T="string" Label="Session Year" AnchorOrigin="Origin.BottomCenter">
-                    <MudSelectItem T="string" Value="@("January 2020 - July 2021K")" />
-                    <MudSelectItem T="string" Value="@("July 2021 - April 2022")" />
-                    <MudSelectItem T="string" Value="@("April 2022 - November 2022")" />
-                    <MudSelectItem T="string" Value="@("July 2021 - April 2022")" />
-                </MudSelect>
+                <MudAutocomplete T="FormModel" Label="Form" @bind-Value="SelectedForm" ShowProgressIndicator="true"
+                                 SearchFunc="@FormSearch" ToStringFunc="@(e=> e==null?null : $"{e.Form}")" />
+                <MudAutocomplete T="StreamModel" Label="Stream" @bind-Value="SelectedStream" ShowProgressIndicator="true"
+                                 SearchFunc="@StreamSearch" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
+                <MudAutocomplete T="SessionYearModel" Label="Session Year" @bind-Value="SelectedSessionYear" ShowProgressIndicator="true"
+                                 SearchFunc="@SessionYearSearch" ToStringFunc="@(e=> e==null?null : $"{e.SessionYear}")" />
             </MudCardContent>
             <MudCardActions>
                 <MudButton Variant="Variant.Filled" FullWidth="true" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Add Class</MudButton>
@@ -43,16 +33,8 @@
             </MudCardHeader>
             <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
             <MudCardContent>
-                <MudSelect T="string" Label="Select Class" AnchorOrigin="Origin.BottomCenter">
-                    <MudSelectItem T="string" Value="@("1K")" />
-                    <MudSelectItem T="string" Value="@("1W")" />
-                    <MudSelectItem T="string" Value="@("2K")" />
-                    <MudSelectItem T="string" Value="@("2W")" />
-                    <MudSelectItem T="string" Value="@("3K")" />
-                    <MudSelectItem T="string" Value="@("3W")" />
-                    <MudSelectItem T="string" Value="@("4K")" />
-                    <MudSelectItem T="string" Value="@("4W")" />
-                </MudSelect>
+                <MudAutocomplete T="FormModel" Label="Form" @bind-Value="SelectedForm2" ShowProgressIndicator="true"
+                                 SearchFunc="@FormSearch2" ToStringFunc="@(e=> e==null?null : $"{e.Form}{e.FormId}")" />
                 <MudSelect T="string" Label="Select Teacher" AnchorOrigin="Origin.BottomCenter">
                     <MudSelectItem T="string" Value="@("Alice Wambui")" />
                     <MudSelectItem T="string" Value="@("Christine Karume")" />
@@ -69,17 +51,13 @@
         <MudCard Style="margin-bottom: 20px">
             <MudCardHeader>
                 <CardHeaderContent>
-                    <MudText Style="@($"margin-top:20px;")" Typo="Typo.h5" Align="Align.Center">Session Year : January 2020 - December 2020</MudText>
+                    <MudText Style="@($"margin-top:20px;")" Typo="Typo.h5" Align="Align.Center">School Year : @SessionYearModelTitle</MudText>
                 </CardHeaderContent>
             </MudCardHeader>
             <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
             <MudCardContent>
-                <MudSelect T="string" Label="Change Sesion Year" AnchorOrigin="Origin.BottomCenter">
-                    <MudSelectItem T="string" Value="@("January 2020 - December 2020")" />
-                    <MudSelectItem T="string" Value="@("January 2021 - December 2021")" />
-                    <MudSelectItem T="string" Value="@("January 2022 - December 2022")" />
-                    <MudSelectItem T="string" Value="@("January 2023 - December 2023")" />
-                </MudSelect>
+                <MudAutocomplete T="SessionYearModel" Label="Session Year" @bind-Value="SessionYear2" ShowProgressIndicator="true"
+                                 SearchFunc="@SessionYearSearch2" ToStringFunc="@(e=> e==null?null : $"{e.SessionYear}")" />
             </MudCardContent>
             <MudCardActions>
                 <MudButton Variant="Variant.Filled" FullWidth="true" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>

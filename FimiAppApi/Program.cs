@@ -11,6 +11,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddScoped<IClassRepository, ClassRepository>();
 builder.Services.AddScoped<IFormRepository, FormRepository>();
+builder.Services.AddScoped<IStreamRepository, StreamRepository>();
+builder.Services.AddScoped<ISessionYearRepository, SessionYearRepository>();
 
 var app = builder.Build();
 

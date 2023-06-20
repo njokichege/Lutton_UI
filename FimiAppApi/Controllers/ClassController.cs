@@ -13,48 +13,107 @@ namespace FimiAppApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetClasses()
         {
-            var classes = await _classRepository.GetClasses();
-            return Ok(classes);
+            try
+            {
+                var classes = await _classRepository.GetClasses();
+                return Ok(classes);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500,ex.Message);
+            }
+            
         }
         [HttpGet("{id}", Name = "ClassById")]
         public async Task<IActionResult> GetClass(int id)
         {
-            var oneclass = await _classRepository.GetClass(id);
-            if (oneclass is null)
+            try
             {
-                return NotFound();
+                var oneclass = await _classRepository.GetClass(id);
+                if (oneclass is null)
+                {
+                    return NotFound();
+                }
+                return Ok(oneclass);
             }
-            return Ok(oneclass);
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+        [HttpGet("MultipleMapping")]
+        public async Task<IActionResult> GetMultipleMapping()
+        {
+            try
+            {
+                var classes = await _classRepository.GetClassFormStreamMultipleMapping();
+                return Ok(classes);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+
         }
         [HttpPost]
         public async Task<IActionResult> CreateClass([FromBody] ClassForCreationDto classForCreation)
         {
-            var createdClass = await _classRepository.CreateClass(classForCreation);
-            return CreatedAtRoute("ClassById", new { id = createdClass.ClassId }, createdClass);
+            try
+            {
+                var createdClass = await _classRepository.CreateClass(classForCreation);
+                return CreatedAtRoute("ClassById", new { id = createdClass.ClassId }, createdClass);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+
         }
         [HttpPut("id")]
         public async Task<IActionResult> UpdateClassGrade(int id, [FromBody] ClassForUpdateGradesDto classForUpdateDto)
         {
-            var dbClass = await _classRepository.GetClass(id);
-            if (dbClass is null)
+            try
             {
-                return NotFound();
+                var dbClass = await _classRepository.GetClass(id);
+                if (dbClass is null)
+                {
+                    return NotFound();
+                }
+
+                await _classRepository.UpdateClassGrade(id, classForUpdateDto);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
             }
 
-            await _classRepository.UpdateClassGrade(id, classForUpdateDto);
-            return NoContent();
         }
         [HttpDelete("id")]
         public async Task<IActionResult> DeleteClass(int id)
         {
-            var dbClass = await _classRepository.GetClass(id);
-            if (dbClass is null)
+            try
             {
-                return NotFound();
-            }
+                var dbClass = await _classRepository.GetClass(id);
+                if (dbClass is null)
+                {
+                    return NotFound();
+                }
 
-            await _classRepository.DeleteClass(id);
-            return NoContent();
+                await _classRepository.DeleteClass(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }

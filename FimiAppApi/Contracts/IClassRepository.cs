@@ -1,5 +1,4 @@
-﻿using FimiAppApi.Dto;
-
+﻿
 namespace FimiAppApi.Contracts
 {
     public interface IClassRepository
@@ -9,5 +8,6 @@ namespace FimiAppApi.Contracts
         Task<ClassModel> CreateClass(ClassForCreationDto classForCreation);
         Task UpdateClassGrade(int id, ClassForUpdateGradesDto classForUpdate);
         Task DeleteClass(int id);
+        Task<IEnumerable<ClassModel>> GetClassFormStreamMultipleMapping();
     }
 }
