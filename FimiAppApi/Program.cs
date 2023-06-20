@@ -13,6 +13,7 @@ builder.Services.AddScoped<IClassRepository, ClassRepository>();
 builder.Services.AddScoped<IFormRepository, FormRepository>();
 builder.Services.AddScoped<IStreamRepository, StreamRepository>();
 builder.Services.AddScoped<ISessionYearRepository, SessionYearRepository>();
+builder.Services.AddScoped<ITeacherRepository,  TeacherRepository>();
 
 var app = builder.Build();
 

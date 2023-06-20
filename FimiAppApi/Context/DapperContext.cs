@@ -45,7 +45,7 @@ namespace FimiAppApi.Context
                         currentStream.Classes.Add(classOne);
                         return currentForm;
                     },
-                    splitOn: "FormId");
+                    splitOn: "FormId,");
                 return data.Distinct().ToList();
             }
         }

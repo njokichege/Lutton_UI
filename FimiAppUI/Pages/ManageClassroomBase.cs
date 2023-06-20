@@ -11,14 +11,16 @@ namespace FimiAppUI.Pages
         [Inject] public IClassService ClassService { get; set; }
         [Inject] public IFormService FormService { get; set; }
         [Inject] public IStreamService StreamService { get; set; }
+        [Inject] public ITeacherService TeacherService { get; set; }
         [Inject] public ISessionYearService SessionYearService { get; set; }
         public IEnumerable<ClassModel> Classes { get; set; }
-        public FormModel SelectedForm { get; set; }
-        public FormModel SelectedForm2 { get; set; }
-        public StreamModel SelectedStream { get; set; }
-        public SessionYearModel SelectedSessionYear { get; set; }
-        public ClassModel SelectedClass { get; set; }
-        public SessionYearModel SessionYear2 { get; set; }
+        public FormModel SelectedFormOnClassCard { get; set; }
+        public FormModel SelectedFormOnTeacherCard { get; set; }
+        public TeacherModel SelectedTeacherOnTeacherCard { get; set; }
+        public StreamModel SelectedStreamOnClassCard { get; set; }
+        public StreamModel SelectedStreamOnTeacherCard { get; set; }
+        public SessionYearModel SelectedSessionYearOnClassCard { get; set; }
+        public SessionYearModel SelectedSessionYearOnSessionYearCard { get; set; }
         public IEnumerable<SessionYearModel> SessionYearTiltle { get; set; }
         public string SessionYearModelTitle { get; set; }
         protected override async Task OnInitializedAsync()
@@ -33,25 +35,33 @@ namespace FimiAppUI.Pages
                 }
             }
         }
-        public async Task<IEnumerable<FormModel>> FormSearch(string value)
+        public async Task<IEnumerable<FormModel>> FormSearchOnClassCard(string value)
         {
             return (await FormService.GetForms()).ToList();
         }
-        public async Task<IEnumerable<StreamModel>> StreamSearch(string value)
+        public async Task<IEnumerable<FormModel>> FormSearchOnTeacherCard(string value)
+        {
+            return (await FormService.GetForms()).ToList();
+        }
+        public async Task<IEnumerable<TeacherModel>> TeacherSearchOnTeacherCard(string value)
+        {
+            return (await TeacherService.GetTeachers()).ToList();
+        }
+        public async Task<IEnumerable<StreamModel>> StreamSearchOnClassCard(string value)
         {
             return (await StreamService.GetStreams()).ToList();
         }
-        public async Task<IEnumerable<SessionYearModel>> SessionYearSearch(string value)
+        public async Task<IEnumerable<StreamModel>> StreamSearchOnTeacherCard(string value)
+        {
+            return (await StreamService.GetStreams()).ToList();
+        }
+        public async Task<IEnumerable<SessionYearModel>> SessionYearSearchOnClassCard(string value)
         {
             return (await SessionYearService.GetSessionYear()).ToList();
         }
-        public async Task<IEnumerable<SessionYearModel>> SessionYearSearch2(string value)
+        public async Task<IEnumerable<SessionYearModel>> SessionYearSearchOnSessionYearCard(string value)
         {
             return (await SessionYearService.GetSessionYear()).ToList();
-        }
-        public async Task<IEnumerable<FormModel>> FormSearch2(string value)
-        {
-            return (await FormService.GetClassFormMapping()).ToList();
         }
     }
 }
