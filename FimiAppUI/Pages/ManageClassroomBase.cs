@@ -23,6 +23,8 @@ namespace FimiAppUI.Pages
         public SessionYearModel SelectedSessionYearOnSessionYearCard { get; set; }
         public IEnumerable<SessionYearModel> SessionYearTiltle { get; set; }
         public string SessionYearModelTitle { get; set; }
+        public DateTime? startDate = DateTime.Today;
+        public DateTime? endDate = DateTime.Today;
         protected override async Task OnInitializedAsync()
         {
             Classes = (await ClassService.GetMultipleMapping()).ToList();
@@ -30,9 +32,9 @@ namespace FimiAppUI.Pages
             SessionYearTiltle = (await SessionYearService.GetSessionYear()).ToList();
             foreach (var session in SessionYearTiltle)
             {
-                if (session.SessionYear.Contains("2023"))
+                if (session.StartDate.Year == 2023)
                 {
-                    SessionYearModelTitle = session.SessionYear;
+                    SessionYearModelTitle = session.SessionString;
                 }
             }
         }
@@ -46,7 +48,7 @@ namespace FimiAppUI.Pages
         }
         public async Task<IEnumerable<TeacherModel>> TeacherSearchOnTeacherCard(string value)
         {
-            return (await TeacherService.GetTeachers()).ToList();
+            return (await TeacherService.GetMultipleMapping()).ToList();
         }
         public async Task<IEnumerable<StreamModel>> StreamSearchOnClassCard(string value)
         {

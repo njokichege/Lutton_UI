@@ -3,7 +3,7 @@
     public class FormModel
     {
         public int FormId { get; set; }
-        public int Form { get; set; }
+        public string Form { get; set; }
         public ICollection<ClassModel> Classes { get; set; }
         public FormModel()
         {

@@ -6,7 +6,7 @@
 
 <MudGrid>
     <MudItem xs="3">
-        <MudCard>
+        <MudCard Style="margin-top:20px">
             <MudCardHeader>
                 <CardHeaderContent>
                     <MudText Style="@($"margin-top:20px;")" Typo="Typo.h5" Align="Align.Center">Add Class</MudText>
@@ -19,7 +19,7 @@
                 <MudAutocomplete T="StreamModel" Label="Stream" @bind-Value="SelectedStreamOnClassCard" ShowProgressIndicator="true"
                                  SearchFunc="@StreamSearchOnClassCard" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
                 <MudAutocomplete T="SessionYearModel" Label="Session Year" @bind-Value="SelectedSessionYearOnClassCard" ShowProgressIndicator="true"
-                                 SearchFunc="@SessionYearSearchOnClassCard" ToStringFunc="@(e=> e==null?null : $"{e.SessionYear}")" />
+                                 SearchFunc="@SessionYearSearchOnClassCard" ToStringFunc="@(e=> e==null?null : $"{e.SessionString}")" />
             </MudCardContent>
             <MudCardActions>
                 <MudButton Variant="Variant.Filled" FullWidth="true" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Add Class</MudButton>
@@ -38,7 +38,22 @@
                 <MudAutocomplete T="StreamModel" Label="Stream" @bind-Value="SelectedStreamOnTeacherCard" ShowProgressIndicator="true"
                                  SearchFunc="@StreamSearchOnTeacherCard" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
                 <MudAutocomplete T="TeacherModel" Label="Teacher" @bind-Value="SelectedTeacherOnTeacherCard" ShowProgressIndicator="true"
-                                 SearchFunc="@TeacherSearchOnTeacherCard" ToStringFunc="@(e=> e==null?null : $"{e.TeacherId}")" />
+                                 SearchFunc="@TeacherSearchOnTeacherCard" ToStringFunc="@(e=> e==null?null : $"{e.ClassTeacherName}")" />
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Filled" FullWidth="true" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
+            </MudCardActions>
+        </MudCard>
+        <MudCard Style="margin-top:20px">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Style="@($"margin-top:20px;")" Typo="Typo.h5" Align="Align.Center">Create New School Year</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+            <MudCardContent>
+                <MudDatePicker Label="Start Date" @bind-Date="startDate" />
+                <MudDatePicker Label="End Date" @bind-Date="endDate" />
             </MudCardContent>
             <MudCardActions>
                 <MudButton Variant="Variant.Filled" FullWidth="true" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
@@ -46,7 +61,7 @@
         </MudCard>
     </MudItem>
     <MudItem xs="8">
-        <MudCard Style="margin-bottom: 20px">
+        <MudCard Style="margin-top:20px">
             <MudCardHeader>
                 <CardHeaderContent>
                     <MudText Style="@($"margin-top:20px;")" Typo="Typo.h5" Align="Align.Center">School Year : @SessionYearModelTitle</MudText>
@@ -55,17 +70,17 @@
             <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
             <MudCardContent>
                 <MudAutocomplete T="SessionYearModel" Label="Change School Year" @bind-Value="SelectedSessionYearOnSessionYearCard" ShowProgressIndicator="true"
-                                 SearchFunc="@SessionYearSearchOnSessionYearCard" ToStringFunc="@(e=> e==null?null : $"{e.SessionYear}")" />
+                                 SearchFunc="@SessionYearSearchOnSessionYearCard" ToStringFunc="@(e=> e==null?null : $"{e.SessionString}")" />
             </MudCardContent>
             <MudCardActions>
                 <MudButton Variant="Variant.Filled" FullWidth="true" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
             </MudCardActions>
         </MudCard>
-        <MudDataGrid Items="@Classes">
+        <MudDataGrid Items="@Classes" Style="margin-top:20px">
             <Columns>
                 <PropertyColumn Property="x => x.ClassId" Title="#" />
-                <PropertyColumn Property="x => x.Form.Form" Title="Form" />
-                <PropertyColumn Property="x => x.Stream.Stream" Title="Stream" />
+                <PropertyColumn Property="x => x.FullClass" Title="Class" />
+                <PropertyColumn Property="x => x.ClassTeacherName" Title="Class Teacher" />
             </Columns>
         </MudDataGrid>
     </MudItem>

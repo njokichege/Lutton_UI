@@ -28,5 +28,20 @@ namespace FimiAppApi.Controllers
             }
 
         }
+        [HttpGet("MultipleMapping")]
+        public async Task<IActionResult> GetMultipleMapping()
+        {
+            try
+            {
+                var classes = await _teacherRepository.GetMapStaffOnTeacher();
+                return Ok(classes);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+
+        }
     }
 }

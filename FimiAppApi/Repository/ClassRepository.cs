@@ -69,17 +69,7 @@ namespace FimiAppApi.Repository
         }
         public async Task<IEnumerable<ClassModel>> GetMultipleMapping()
         {
-            string query = "SELECT " +
-                                "Class.ClassId," +
-                                "Class.FormId," +
-                                "Class.StreamId," +
-                                "Form.FormId," +
-                                "Form.Form," +
-                                "Stream.StreamId," +
-                                "Stream.Stream " +
-                           "FROM Class " +
-                           "INNER JOIN Form ON Class.FormId = Form.FormId " +
-                           "INNER JOIN Stream ON Class.StreamId = Stream.StreamId";
+            string query = "SELECT \r\n    Class.ClassId,\r\n    Class.FormId,\r\n    Class.StreamId,\r\n    Class.TeacherId,\r\n    Form.FormId,\r\n    Form.Form,\r\n    Stream.StreamId,\r\n    Stream.Stream,\r\n    Teacher.TeacherId,\r\n    Staff.NationalId,\r\n    Staff.FirstName,\r\n    Staff.MiddleName,\r\n    Staff.Surname\r\nFROM Class\r\nINNER JOIN Form ON Class.FormId = Form.FormId\r\nINNER JOIN Stream ON Class.StreamId = Stream.StreamId\r\nINNER JOIN Teacher ON Class.TeacherId = Teacher.TeacherId\r\nINNER JOIN Staff ON Teacher.NationalId = Staff.NationalId\r\n";
             return await _context.MapMultipleObjects(query);
         }
     }
