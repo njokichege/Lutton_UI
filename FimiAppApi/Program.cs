@@ -9,11 +9,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<DapperContext>();
-builder.Services.AddScoped<IClassRepository, ClassRepository>();
-builder.Services.AddScoped<IFormRepository, FormRepository>();
-builder.Services.AddScoped<IStreamRepository, StreamRepository>();
-builder.Services.AddScoped<ISessionYearRepository, SessionYearRepository>();
-builder.Services.AddScoped<ITeacherRepository,  TeacherRepository>();
+builder.Services.AddSingleton<IClassRepository, ClassRepository>();
+builder.Services.AddSingleton<IFormRepository, FormRepository>();
+builder.Services.AddSingleton<IStreamRepository, StreamRepository>();
+builder.Services.AddSingleton<ISessionYearRepository, SessionYearRepository>();
+builder.Services.AddSingleton<ITeacherRepository,  TeacherRepository>();
 
 var app = builder.Build();
 

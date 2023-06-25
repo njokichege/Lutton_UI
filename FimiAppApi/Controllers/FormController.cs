@@ -27,20 +27,5 @@ namespace FimiAppApi.Controllers
             }
 
         }
-        [HttpGet("MultipleMapping")]
-        public async Task<IActionResult> GetMultipleMapping()
-        {
-            try
-            {
-                var classes = await _formRepository.ClassFormMapping();
-                return Ok(classes);
-            }
-            catch (Exception ex)
-            {
-                await Console.Out.WriteLineAsync(ex.Message);
-                return StatusCode(500, ex.Message);
-            }
-
-        }
     }
 }

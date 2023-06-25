@@ -54,7 +54,7 @@
             </MudCardHeader>
             <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
             <MudCardContent>
-                <MudAutocomplete T="SessionYearModel" Label="Session Year" @bind-Value="SelectedSessionYearOnSessionYearCard" ShowProgressIndicator="true"
+                <MudAutocomplete T="SessionYearModel" Label="Change School Year" @bind-Value="SelectedSessionYearOnSessionYearCard" ShowProgressIndicator="true"
                                  SearchFunc="@SessionYearSearchOnSessionYearCard" ToStringFunc="@(e=> e==null?null : $"{e.SessionYear}")" />
             </MudCardContent>
             <MudCardActions>
@@ -63,11 +63,9 @@
         </MudCard>
         <MudDataGrid Items="@Classes">
             <Columns>
-                <PropertyColumn Property="x => x.FormId" Title="Form" />
-                <PropertyColumn Property="x => x.StreamId" Title="Stream" />
-                <PropertyColumn Property="x => x.SessionYearId" Title="SessionYear" />
-                <PropertyColumn Property="x => x.ClassTeacherId" Title="Class Teacher" />
-                <PropertyColumn Property="x => x.Capacity" Title="Capacity" />
+                <PropertyColumn Property="x => x.ClassId" Title="#" />
+                <PropertyColumn Property="x => x.Form.Form" Title="Form" />
+                <PropertyColumn Property="x => x.Stream.Stream" Title="Stream" />
             </Columns>
         </MudDataGrid>
     </MudItem>

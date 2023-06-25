@@ -6,3 +6,4 @@ global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc;
 global using Dapper;
 global using System.Data;
+global using Slapper;

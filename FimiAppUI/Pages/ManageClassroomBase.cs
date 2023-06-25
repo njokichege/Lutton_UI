@@ -25,7 +25,8 @@ namespace FimiAppUI.Pages
         public string SessionYearModelTitle { get; set; }
         protected override async Task OnInitializedAsync()
         {
-            Classes = (await ClassService.GetClasses()).ToList();
+            Classes = (await ClassService.GetMultipleMapping()).ToList();
+
             SessionYearTiltle = (await SessionYearService.GetSessionYear()).ToList();
             foreach (var session in SessionYearTiltle)
             {

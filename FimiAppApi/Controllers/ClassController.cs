@@ -44,21 +44,6 @@ namespace FimiAppApi.Controllers
             }
 
         }
-        [HttpGet("MultipleMapping")]
-        public async Task<IActionResult> GetMultipleMapping()
-        {
-            try
-            {
-                var classes = await _classRepository.GetClassFormStreamMultipleMapping();
-                return Ok(classes);
-            }
-            catch (Exception ex)
-            {
-                await Console.Out.WriteLineAsync(ex.Message);
-                return StatusCode(500, ex.Message);
-            }
-
-        }
         [HttpPost]
         public async Task<IActionResult> CreateClass([FromBody] ClassForCreationDto classForCreation)
         {
@@ -114,6 +99,21 @@ namespace FimiAppApi.Controllers
                 await Console.Out.WriteLineAsync(ex.Message);
                 return StatusCode(500, ex.Message);
             }
+        }
+        [HttpGet("MultipleMapping")]
+        public async Task<IActionResult> GetMultipleMapping()
+        {
+            try
+            {
+                var classes = await _classRepository.GetMultipleMapping();
+                return Ok(classes);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+
         }
     }
 }

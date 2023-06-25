@@ -21,53 +21,20 @@ namespace FimiAppApi.Context
                 return data.ToList();
             }
         }
-        public async Task<IEnumerable<FormModel>> ClassFormMapping(string sql)
+        public async Task<IEnumerable<ClassModel>> MapMultipleObjects(string sql)
         {
-            var formDict = new Dictionary<int, FormModel>();
-            var streamDict = new Dictionary<int, StreamModel>();
             string connectionString = _config.GetConnectionString(ConnecctionStringName);
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                var data = await connection.QueryAsync<FormModel,ClassModel,StreamModel, FormModel>(sql,
-                    map: (formOne,classOne,streamOne) =>
+                var data = await connection.QueryAsync<ClassModel,FormModel,StreamModel, ClassModel>(sql,
+                    (classModel,formModel,streamModel) =>
                     {
-                        if (!formDict.TryGetValue(formOne.FormId, out var currentForm))
-                        {
-                            currentForm = formOne;
-                            formDict.Add(currentForm.FormId, formOne);
-                        }
-                        currentForm.Classes.Add(classOne);
-                        if (!streamDict.TryGetValue(streamOne.StreamId, out var currentStream))
-                        {
-                            currentStream = streamOne;
-                            streamDict.Add(currentStream.StreamId, streamOne);
-                        }
-                        currentStream.Classes.Add(classOne);
-                        return currentForm;
+                        classModel.Form = formModel;
+                        classModel.Stream = streamModel;
+                        return classModel;
                     },
-                    splitOn: "FormId,");
-                return data.Distinct().ToList();
-            }
-        }
-        public async Task<IEnumerable<ClassModel>> ClassFormStreamMapping(string sql)
-        {
-            var classDict = new Dictionary<int, ClassModel>();
-            string connectionString = _config.GetConnectionString(ConnecctionStringName);
-            using (IDbConnection connection = new SqlConnection(connectionString))
-            {
-                var data = await connection.QueryAsync<ClassModel, FormModel, ClassModel>(sql,
-                    map: (classOne, formOne) =>
-                    {
-                        if(!classDict.TryGetValue(classOne.ClassId,out var currentClass))
-                        {
-                            currentClass = classOne;
-                            classDict.Add(currentClass.ClassId, classOne);
-                        }
-                        currentClass.Forms.Add(formOne);
-                        return currentClass;
-                    },
-                    splitOn: "FormId");
-                return data.Distinct().ToList();
+                    splitOn: "FormId,StreamId");
+                return data.ToList();
             }
         }
         public async Task<T> LoadSingleData<T, U>(string sql, U parameters)

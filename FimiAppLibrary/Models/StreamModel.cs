@@ -4,6 +4,10 @@
     {
         public int StreamId { get; set; }
         public string Stream { get; set; }
-        public List<ClassModel> Classes { get; set; } = new List<ClassModel>();
+        public ICollection<ClassModel> Classes { get; set; }
+        public StreamModel()
+        {
+            Classes = new List<ClassModel>();
+        }
     }
 }

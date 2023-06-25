@@ -8,6 +8,6 @@ namespace FimiAppApi.Contracts
         Task<ClassModel> CreateClass(ClassForCreationDto classForCreation);
         Task UpdateClassGrade(int id, ClassForUpdateGradesDto classForUpdate);
         Task DeleteClass(int id);
-        Task<IEnumerable<ClassModel>> GetClassFormStreamMultipleMapping();
+        Task<IEnumerable<ClassModel>> GetMultipleMapping();
     }
 }

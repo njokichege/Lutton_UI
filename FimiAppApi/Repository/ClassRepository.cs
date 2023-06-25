@@ -1,6 +1,8 @@
 ﻿
+using FimiAppApi.Context;
 using Microsoft.SqlServer.Server;
 using System.Data.SqlClient;
+using System.Security.Claims;
 
 namespace FimiAppApi.Repository
 {
@@ -29,11 +31,11 @@ namespace FimiAppApi.Repository
             var createdClass = new ClassModel
             {
                 ClassId = id,
-                FormId = classForCreation.FormId,
-                StreamId = classForCreation.StreamId,
-                SessionYearId = classForCreation.SessionYearId,
-                Capacity = classForCreation.Capacity,
-                ClassTeacherId = classForCreation.ClassTeacherId
+                //FormId = classForCreation.FormId,
+                //StreamId = classForCreation.StreamId,
+                //SessionYearId = classForCreation.SessionYearId,
+                //Capacity = classForCreation.Capacity,
+                //ClassTeacherId = classForCreation.ClassTeacherId
             };
             return createdClass;
         }
@@ -56,13 +58,6 @@ namespace FimiAppApi.Repository
             string sql = "SELECT* FROM dbo.Class";
             return await _context.LoadData<ClassModel, dynamic>(sql, new { });
         }
-
-        public async Task<IEnumerable<ClassModel>> GetClassFormStreamMultipleMapping()
-        {
-            string query = "SELECT Class.ClassId,\r\n    Form.FormId,\r\n    Form.Form\r\nFROM Form\r\nINNER JOIN Class ON Class.FormId = Form.FormId";
-            return await _context.ClassFormStreamMapping(query);
-        }
-
         public async Task UpdateClassGrade(int id, ClassForUpdateGradesDto classForUpdate)
         {
             string sql = "UPDATE dbo.Class SET GradeId=@GradeId WHERE ClassId=@ClassId";
@@ -71,6 +66,21 @@ namespace FimiAppApi.Repository
             parameters.Add("GradeId", classForUpdate.GradeId, DbType.Int32);
 
             await _context.UpdateData<ClassModel, dynamic>(sql, parameters);
+        }
+        public async Task<IEnumerable<ClassModel>> GetMultipleMapping()
+        {
+            string query = "SELECT " +
+                                "Class.ClassId," +
+                                "Class.FormId," +
+                                "Class.StreamId," +
+                                "Form.FormId," +
+                                "Form.Form," +
+                                "Stream.StreamId," +
+                                "Stream.Stream " +
+                           "FROM Class " +
+                           "INNER JOIN Form ON Class.FormId = Form.FormId " +
+                           "INNER JOIN Stream ON Class.StreamId = Stream.StreamId";
+            return await _context.MapMultipleObjects(query);
         }
     }
 }
