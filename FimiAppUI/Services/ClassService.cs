@@ -18,5 +18,13 @@ namespace FimiAppUI.Services
         {
             return await _httpClient.GetFromJsonAsync<IEnumerable<ClassModel>>("api/class/MultipleMapping");
         }
+        public async Task<HttpResponseMessage> CreateClass(ClassModel classDetails)
+        {
+           return await _httpClient.PostAsJsonAsync<ClassModel>("api/class",classDetails);
+        }
+        public async Task<HttpResponseMessage> UpdateClass(ClassModel classDetails)
+        {
+            return await _httpClient.PutAsJsonAsync<ClassModel>("api/class/id", classDetails);
+        }
     }
 }

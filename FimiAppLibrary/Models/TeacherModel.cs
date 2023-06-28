@@ -8,17 +8,9 @@
         public StaffModel Staff { get; set; }
         public int SubjectSpecializationOne { get; set; }
         public int SubjectSpecializationTwo { get; set; }
-        public string ClassTeacherName
+        public string ClassTeacherName()
         {
-            get
-            {
-                return this.classTeacherName;
-            }
-            set
-            {
-                classTeacherName = $"{Staff.FirstName} {Staff.MiddleName} {Staff.Surname}";
-            }
+            return $"{Staff.FirstName} {Staff.MiddleName} {Staff.Surname}";
         }
-        private string classTeacherName;
     }
 }

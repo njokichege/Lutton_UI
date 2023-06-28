@@ -13,64 +13,94 @@ namespace FimiAppApi.Repository
         {
             _context = context;
         }
-        public async Task<ClassModel> CreateClass(ClassForCreationDto classForCreation)
+        public async Task<int> CreateClass(ClassModel classDetails)
         {
             string sql = "INSERT INTO Class" +
-                "(FormId,StreamId,SessionYearId,Capacity,ClassTeacherId)" +
+                "(FormId,StreamId,SessionYearId)" +
                 "VALUES" +
-                "(@FormId,@StreamId,@SessionYearId,@Capacity,@ClassTeacherId)" +
-                "SELECT CAST(SCOPE_IDENTITY() AS INT)";
+                "(@FormId,@StreamId,@SessionYearId)" +
+                "SELECT CAST(SCOPE_IDENTITY() AS INT)"; 
             var parameters = new DynamicParameters();
-            parameters.Add("FormId", classForCreation.FormId, DbType.Int32);
-            parameters.Add("StreamId", classForCreation.StreamId, DbType.Int32);
-            parameters.Add("SessionYearId", classForCreation.SessionYearId, DbType.Int32);
-            parameters.Add("Capacity", classForCreation.Capacity, DbType.Int32);
-            parameters.Add("ClassTeacherId", classForCreation.ClassTeacherId, DbType.Int32);
+            parameters.Add("FormId", classDetails.FormId, DbType.Int32);
+            parameters.Add("StreamId", classDetails.StreamId, DbType.Int32);
+            parameters.Add("SessionYearId", classDetails.SessionYearId, DbType.Int32);
 
-            var id = await _context.AddData<ClassModel,dynamic>(sql, parameters);
-            var createdClass = new ClassModel
-            {
-                ClassId = id,
-                //FormId = classForCreation.FormId,
-                //StreamId = classForCreation.StreamId,
-                //SessionYearId = classForCreation.SessionYearId,
-                //Capacity = classForCreation.Capacity,
-                //ClassTeacherId = classForCreation.ClassTeacherId
-            };
-            return createdClass;
+            var id = await _context.CreateData<ClassModel,dynamic>(sql, parameters);
+            return id;
         }
-
         public async Task DeleteClass(int id)
         {
             string sql = "DELETE FROM dbo.Class WHERE ClassId=@Id";
             
             await _context.UpdateData<ClassModel, dynamic>(sql, new {id});
         }
+        public async Task<ClassModel> GetClassByForeignKeys(ClassModel classDetails)
+        {
+            string sql = "SELECT " +
+                               "* " +
+                         "FROM Class " +
+                         "WHERE FormId = @FormId " +
+                         "AND StreamId = @StreamId " +
+                         "AND SessionYearId = @SessionYearId";
+            var parameters = new DynamicParameters();
+            parameters.Add("FormId", classDetails.FormId, DbType.Int32);
+            parameters.Add("StreamId", classDetails.StreamId, DbType.Int32);
+            parameters.Add("SessionYearId", classDetails.SessionYearId, DbType.Int32);
 
+            return await _context.LoadSingleData<ClassModel, dynamic>(sql, parameters);
+        }
         public async Task<ClassModel> GetClass(int id)
         {
             string sql = "SELECT * FROM dbo.Class WHERE ClassId = @Id";
-            return await _context.LoadSingleData<ClassModel, dynamic>(sql, new { id });
+            var parameters = new DynamicParameters();
+            parameters.Add("Id", id, DbType.Int32);
+            return await _context.LoadSingleData<ClassModel, dynamic>(sql, parameters);
         }
-
         public async Task<IEnumerable<ClassModel>> GetClasses()
         {
             string sql = "SELECT* FROM dbo.Class";
             return await _context.LoadData<ClassModel, dynamic>(sql, new { });
         }
-        public async Task UpdateClassGrade(int id, ClassForUpdateGradesDto classForUpdate)
+        public async Task UpdateClassGrade(int id, ClassModel classModel)
         {
             string sql = "UPDATE dbo.Class SET GradeId=@GradeId WHERE ClassId=@ClassId";
             var parameters = new DynamicParameters();
             parameters.Add("ClassId", id, DbType.Int32);
-            parameters.Add("GradeId", classForUpdate.GradeId, DbType.Int32);
+            //parameters.Add("GradeId", classModel.GradeId, DbType.Int32);
+
+            await _context.UpdateData<ClassModel, dynamic>(sql, parameters);
+        }
+        public async Task UpdateClassTeacher(int id, ClassModel classModel)
+        {
+            string sql = "UPDATE dbo.Class SET TeacherId=@TeacherId WHERE ClassId=@ClassId";
+            var parameters = new DynamicParameters();
+            parameters.Add("TeacherId", classModel.TeacherId, DbType.Int32);
+            parameters.Add("ClassId", id, DbType.Int32);
 
             await _context.UpdateData<ClassModel, dynamic>(sql, parameters);
         }
         public async Task<IEnumerable<ClassModel>> GetMultipleMapping()
         {
-            string query = "SELECT \r\n    Class.ClassId,\r\n    Class.FormId,\r\n    Class.StreamId,\r\n    Class.TeacherId,\r\n    Form.FormId,\r\n    Form.Form,\r\n    Stream.StreamId,\r\n    Stream.Stream,\r\n    Teacher.TeacherId,\r\n    Staff.NationalId,\r\n    Staff.FirstName,\r\n    Staff.MiddleName,\r\n    Staff.Surname\r\nFROM Class\r\nINNER JOIN Form ON Class.FormId = Form.FormId\r\nINNER JOIN Stream ON Class.StreamId = Stream.StreamId\r\nINNER JOIN Teacher ON Class.TeacherId = Teacher.TeacherId\r\nINNER JOIN Staff ON Teacher.NationalId = Staff.NationalId\r\n";
-            return await _context.MapMultipleObjects(query);
+            string query = "SELECT  " +
+                                "Class.ClassId," +
+                                "Class.FormId," +
+                                "Class.StreamId," +
+                                "Class.TeacherId," +
+                                "Form.FormId," +
+                                "Form.Form," +
+                                "Stream.StreamId," +
+                                "Stream.Stream," +
+                                "Teacher.TeacherId," +
+                                "Staff.NationalId," +
+                                "Staff.FirstName," +
+                                "Staff.MiddleName," +
+                                "Staff.Surname " +
+                          "FROM Class " +
+                          "INNER JOIN Form ON Class.FormId = Form.FormId " +
+                          "INNER JOIN Stream ON Class.StreamId = Stream.StreamId " +
+                          "INNER JOIN Teacher ON Class.TeacherId = Teacher.TeacherId " +
+                          "INNER JOIN Staff ON Teacher.NationalId = Staff.NationalId";
+            return await _context.MapMultipleObjects(query);   
         }
     }
 }

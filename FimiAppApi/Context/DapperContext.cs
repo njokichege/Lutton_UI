@@ -37,18 +37,18 @@ namespace FimiAppApi.Context
                     },
                     obj =>
                     {
-                        ClassModel classModel = obj[0] as ClassModel;
+                        ClassModel classDetails = obj[0] as ClassModel;
                         FormModel formModel = obj[1] as FormModel;
                         StreamModel streamModel = obj[2] as StreamModel;
                         TeacherModel teacherModel = obj[3] as TeacherModel;
                         StaffModel staffModel = obj[4] as StaffModel;
 
-                        classModel.Form = formModel;
-                        classModel.Stream = streamModel;
-                        classModel.Teacher = teacherModel;
+                        classDetails.Form = formModel;
+                        classDetails.Stream = streamModel;
+                        classDetails.Teacher = teacherModel;
                         teacherModel.Staff = staffModel;
 
-                        return classModel;
+                        return classDetails;
                     },
                     splitOn: "FormId,StreamId,TeacherId,NationalId");
                 return data.ToList();
@@ -69,7 +69,7 @@ namespace FimiAppApi.Context
                 return data.ToList();
             }
         }
-        public async Task<T> LoadSingleData<T, U>(string sql, U parameters)
+        public async Task<T> LoadSingleData<T, U>(string sql, DynamicParameters parameters)
         {
             string connectionString = _config.GetConnectionString(ConnecctionStringName);
             using (IDbConnection connection = new SqlConnection(connectionString))
@@ -78,12 +78,12 @@ namespace FimiAppApi.Context
                 return data;
             }
         }
-        public async Task<int> AddData<T,U>(string sql, DynamicParameters parameters)
+        public async Task<int> CreateData<T,U>(string sql, DynamicParameters parameters)
         {
             string connectionString = _config.GetConnectionString(ConnecctionStringName);
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                var data = await connection.QuerySingleAsync<int>(sql, parameters);
+                var data = await connection.ExecuteAsync(sql, parameters);
                 return data;
             }
         }

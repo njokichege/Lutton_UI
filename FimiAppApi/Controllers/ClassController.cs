@@ -1,4 +1,4 @@
-﻿
+﻿ 
 namespace FimiAppApi.Controllers
 {
     [Route("api/class")]
@@ -20,17 +20,16 @@ namespace FimiAppApi.Controllers
             }
             catch (Exception ex)
             {
-                await Console.Out.WriteLineAsync(ex.Message);
                 return StatusCode(500,ex.Message);
             }
             
         }
-        [HttpGet("{id}", Name = "ClassById")]
-        public async Task<IActionResult> GetClass(int id)
+        [HttpGet("{id}", Name = "ClassByForeignKeys")]
+        public async Task<IActionResult> GetClassByForeignKeys(ClassModel classModel)
         {
             try
             {
-                var oneclass = await _classRepository.GetClass(id);
+                var oneclass = await _classRepository.GetClassByForeignKeys(classModel);
                 if (oneclass is null)
                 {
                     return NotFound();
@@ -39,43 +38,52 @@ namespace FimiAppApi.Controllers
             }
             catch (Exception ex)
             {
-                await Console.Out.WriteLineAsync(ex.Message);
                 return StatusCode(500, ex.Message);
             }
 
         }
         [HttpPost]
-        public async Task<IActionResult> CreateClass([FromBody] ClassForCreationDto classForCreation)
+        public async Task<IActionResult> CreateClass(int id,[FromBody] ClassModel classDetails)
         {
             try
             {
-                var createdClass = await _classRepository.CreateClass(classForCreation);
-                return CreatedAtRoute("ClassById", new { id = createdClass.ClassId }, createdClass);
+                var dbClassExists = await _classRepository.GetClassByForeignKeys(classDetails);
+                if (dbClassExists is null)
+                {
+                    if (classDetails is null)
+                    {
+                        return BadRequest();
+                    }
+                    var createdClass = await _classRepository.CreateClass(classDetails);
+                    return Ok(createdClass);
+                }
+                else
+                {
+                    return Conflict();
+                }
             }
             catch (Exception ex)
             {
-                await Console.Out.WriteLineAsync(ex.Message);
                 return StatusCode(500, ex.Message);
             }
 
         }
         [HttpPut("id")]
-        public async Task<IActionResult> UpdateClassGrade(int id, [FromBody] ClassForUpdateGradesDto classForUpdateDto)
+        public async Task<IActionResult> UpdateClass(int id,[FromBody] ClassModel classDetails)
         {
             try
             {
-                var dbClass = await _classRepository.GetClass(id);
+                var dbClass = await _classRepository.GetClassByForeignKeys(classDetails);
                 if (dbClass is null)
                 {
                     return NotFound();
                 }
-
-                await _classRepository.UpdateClassGrade(id, classForUpdateDto);
-                return NoContent();
+                id = dbClass.ClassId;
+                await _classRepository.UpdateClassTeacher(id, classDetails);
+                return Ok();
             }
             catch (Exception ex)
             {
-                await Console.Out.WriteLineAsync(ex.Message);
                 return StatusCode(500, ex.Message);
             }
 
@@ -96,7 +104,6 @@ namespace FimiAppApi.Controllers
             }
             catch (Exception ex)
             {
-                await Console.Out.WriteLineAsync(ex.Message);
                 return StatusCode(500, ex.Message);
             }
         }
@@ -110,7 +117,6 @@ namespace FimiAppApi.Controllers
             }
             catch (Exception ex)
             {
-                await Console.Out.WriteLineAsync(ex.Message);
                 return StatusCode(500, ex.Message);
             }
 

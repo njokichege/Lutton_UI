@@ -21,10 +21,15 @@ namespace FimiAppUI.Pages
         public StreamModel SelectedStreamOnTeacherCard { get; set; }
         public SessionYearModel SelectedSessionYearOnClassCard { get; set; }
         public SessionYearModel SelectedSessionYearOnSessionYearCard { get; set; }
+        public SessionYearModel SelectedSessionYearOnTeacherCard { get; set; }
         public IEnumerable<SessionYearModel> SessionYearTiltle { get; set; }
+        public string ModelFail { get; set; }
+        public string ModelSuccess { get; set; }
         public string SessionYearModelTitle { get; set; }
         public DateTime? startDate = DateTime.Today;
         public DateTime? endDate = DateTime.Today;
+        public bool showSuccessAlert = false;
+        public bool showFailAlert = false;
         protected override async Task OnInitializedAsync()
         {
             Classes = (await ClassService.GetMultipleMapping()).ToList();
@@ -34,9 +39,13 @@ namespace FimiAppUI.Pages
             {
                 if (session.StartDate.Year == 2023)
                 {
-                    SessionYearModelTitle = session.SessionString;
+                    SessionYearModelTitle = session.SessionString();
                 }
             }
+        }
+        public void ChangeSchoolYear()
+        {
+            SessionYearModelTitle = SelectedSessionYearOnSessionYearCard.SessionString();
         }
         public async Task<IEnumerable<FormModel>> FormSearchOnClassCard(string value)
         {
@@ -65,6 +74,93 @@ namespace FimiAppUI.Pages
         public async Task<IEnumerable<SessionYearModel>> SessionYearSearchOnSessionYearCard(string value)
         {
             return (await SessionYearService.GetSessionYear()).ToList();
+        }
+        public async Task<IEnumerable<SessionYearModel>> SessionYearSearchOnTeacherCard(string value)
+        {
+            return (await SessionYearService.GetSessionYear()).ToList();
+        }
+        public async Task<HttpResponseMessage> CreateClass()
+        {
+            var classModel = new ClassModel
+            {
+                FormId = SelectedFormOnClassCard.FormId,
+                StreamId = SelectedStreamOnClassCard.StreamId,
+                SessionYearId = SelectedSessionYearOnClassCard.SessionYearId
+            };
+
+            var response = await ClassService.CreateClass(classModel).ConfigureAwait(false);
+            if (response.StatusCode == System.Net.HttpStatusCode.Created)
+            {
+                ShowSuccessAlert($"Class {SelectedFormOnClassCard.Form}{SelectedStreamOnClassCard.Stream} year {SelectedSessionYearOnClassCard.StartDate.Year} added");
+            }
+            else if(response.StatusCode == System.Net.HttpStatusCode.Conflict)
+            {
+                
+                ShowFailAlert($"Class {SelectedFormOnClassCard.Form}{SelectedStreamOnClassCard.Stream} year {SelectedSessionYearOnClassCard.StartDate.Year} already exists");
+            }
+            return response;
+        }
+        public async Task<HttpResponseMessage> AssignClassTeacher()
+        {
+            var classModel = new ClassModel
+            {
+                FormId = SelectedFormOnTeacherCard.FormId,
+                StreamId = SelectedStreamOnTeacherCard.StreamId,
+                SessionYearId = SelectedSessionYearOnTeacherCard.SessionYearId,
+                TeacherId = SelectedTeacherOnTeacherCard.TeacherId
+            };
+            var response = await ClassService.UpdateClass(classModel).ConfigureAwait(false);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                ShowSuccessAlert($"Class Teacher added for class {SelectedFormOnTeacherCard.Form}{SelectedStreamOnTeacherCard.Stream} year {SelectedSessionYearOnTeacherCard.SessionString()}");
+            }
+            else  
+            {
+
+                ShowFailAlert($"Class {SelectedFormOnTeacherCard.Form}{SelectedStreamOnTeacherCard.Stream} year {SelectedSessionYearOnTeacherCard.StartDate.Year} doesn't exists");
+            }
+            return response;
+        }
+        public async Task CreateNewSchoolYear()
+        {
+            var sessionYear = new SessionYearModel
+            {
+                StartDate = (DateTime)startDate,
+                EndDate = (DateTime)endDate
+            };
+            var response = await SessionYearService.CreateSessionYear(sessionYear).ConfigureAwait(false);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                ShowSuccessAlert($"School year : {startDate} - {endDate} has been created");
+            }
+            else if(response.StatusCode == System.Net.HttpStatusCode.Conflict)
+            {
+
+                ShowFailAlert($"School year : {startDate} - {endDate} already exists");
+            }
+        }
+        public void ShowSuccessAlert(string modelType)
+        {
+            ModelSuccess = modelType;
+            showSuccessAlert = true;
+        }
+        public void ShowFailAlert(string modelType)
+        {
+            ModelFail = modelType;
+            showFailAlert = true;
+        }
+        public void CloseMe(bool value)
+        {
+            if (value)
+            {
+                showSuccessAlert = false;
+                showFailAlert = false;
+            }
+            else
+            {
+                showSuccessAlert = false;
+                showFailAlert = false;
+            }
         }
     }
 }
