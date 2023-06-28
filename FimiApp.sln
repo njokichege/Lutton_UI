@@ -12,7 +12,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FimiAppLibrary", "FimiAppLi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FimiAppUI", "FimiAppUI\FimiAppUI.csproj", "{34CBC156-E1A7-4417-AA7B-CC47D5DA19FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FimiAppApi", "FimiAppApi\FimiAppApi.csproj", "{577B9A0C-692A-4067-9F81-557EE8D303D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FimiAppApi", "FimiAppApi\FimiAppApi.csproj", "{577B9A0C-692A-4067-9F81-557EE8D303D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

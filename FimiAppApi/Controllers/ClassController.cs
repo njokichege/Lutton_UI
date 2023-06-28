@@ -24,7 +24,21 @@ namespace FimiAppApi.Controllers
             }
             
         }
-        [HttpGet("{id}", Name = "ClassByForeignKeys")]
+        [HttpGet("{ClassId}")]
+        public async Task<IActionResult> GetClassById(int id)
+        {
+            try
+            {
+                var classes = await _classRepository.GetClassById(id);
+                return Ok(classes);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+        [HttpGet("{FormId}/{StreamId}/{SessionYearId}")]
         public async Task<IActionResult> GetClassByForeignKeys(ClassModel classModel)
         {
             try
@@ -93,7 +107,7 @@ namespace FimiAppApi.Controllers
         {
             try
             {
-                var dbClass = await _classRepository.GetClass(id);
+                var dbClass = await _classRepository.GetClassById(id);
                 if (dbClass is null)
                 {
                     return NotFound();

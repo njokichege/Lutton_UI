@@ -49,7 +49,7 @@ namespace FimiAppApi.Repository
 
             return await _context.LoadSingleData<ClassModel, dynamic>(sql, parameters);
         }
-        public async Task<ClassModel> GetClass(int id)
+        public async Task<ClassModel> GetClassById(int id)
         {
             string sql = "SELECT * FROM dbo.Class WHERE ClassId = @Id";
             var parameters = new DynamicParameters();

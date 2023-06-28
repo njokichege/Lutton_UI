@@ -53,6 +53,23 @@
                 <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@AssignClassTeacher" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
             </MudCardActions>
         </MudCard>
+    </MudItem>
+    <MudItem xs="3">
+        <MudCard Style="margin-top:20px">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Style="@($"margin-top:20px;")" Typo="Typo.h5" Align="Align.Center"><u>Current School Year</u> @SessionYearModelTitle</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+            <MudCardContent>
+                <MudAutocomplete T="SessionYearModel" Label="Change School Year" @bind-Value="SelectedSessionYearOnSessionYearCard" ShowProgressIndicator="true"
+                                 SearchFunc="@SessionYearSearchOnSessionYearCard" ToStringFunc="@(e=> e==null?null : $"{e.SessionString()}")" />
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Filled" FullWidth="true" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43" OnClick="@ChangeSchoolYear">Submit</MudButton>
+            </MudCardActions>
+        </MudCard>
         <MudCard Style="margin-top:20px">
             <MudCardHeader>
                 <CardHeaderContent>
@@ -69,29 +86,44 @@
             </MudCardActions>
         </MudCard>
     </MudItem>
-    <MudItem xs="8">
-        <MudCard Style="margin-top:20px">
-            <MudCardHeader>
-                <CardHeaderContent>
-                    <MudText Style="@($"margin-top:20px;")" Typo="Typo.h5" Align="Align.Center">School Year : @SessionYearModelTitle</MudText>
-                </CardHeaderContent>
-            </MudCardHeader>
-            <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
-            <MudCardContent>
-                <MudAutocomplete T="SessionYearModel" Label="Change School Year" @bind-Value="SelectedSessionYearOnSessionYearCard" ShowProgressIndicator="true"
-                                 SearchFunc="@SessionYearSearchOnSessionYearCard" ToStringFunc="@(e=> e==null?null : $"{e.SessionString()}")" />
-            </MudCardContent>
-            <MudCardActions>
-                <MudButton Variant="Variant.Filled" FullWidth="true" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43" OnClick="@ChangeSchoolYear">Submit</MudButton>
-            </MudCardActions>
-        </MudCard>
-        <MudDataGrid Items="@Classes" Style="margin-top:20px">
-            <Columns>
-                <PropertyColumn Property="x => x.ClassId" Title="#" />
-                <PropertyColumn Property="x => x.FullClass()" Title="#" />
-                <PropertyColumn Property="x => x.Teacher.ClassTeacherName()" Title="#" />
-            </Columns>
-        </MudDataGrid>
+    <MudItem xs="5" Class="d-flex justify-space-between flex-grow-1 gap-4">
+        
+        @if(Classes is null)
+        {
+            <MudProgressCircular Style="@($"margin-top:20px;")" Size="Size.Large" Color="Color.Secondary" Indeterminate="true" Class="d-flex justify-space-between " />
+        }
+        else
+        {
+            /*<MudDataGrid Items="@Classes" Style="margin-top:20px">
+                <Columns>
+                    <PropertyColumn Property="x => x.ClassId" Title="#" />
+                    <PropertyColumn Property="x => x.FullClass()" Title="Class" />
+                    <PropertyColumn Property="x => x.Teacher.ClassTeacherName()" Title="Class Teacher" />
+                    <TemplateColumn CellClass="d-flex justify-center" Title="Option">
+                        <CellTemplate>
+                            <MudStack Row>
+                            <MudMenu EndIcon="@Icons.Material.Filled.KeyboardArrowDown" Label="Action" Color="Color.Tertiary" Variant="Variant.Filled">
+                                <MudMenuItem OnClick="OnClickViewClass">View Class</MudMenuItem>
+                                <MudMenuItem>Edit Class</MudMenuItem>
+                            </MudMenu>
+                        </MudStack>
+                    </CellTemplate>
+                </TemplateColumn>
+                </Columns>
+            </MudDataGrid>*/
+            <MudTable Items="@Classes" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable"  OnRowClick="RowClickEvent" T="ClassModel">
+                <HeaderContent>
+                    <MudTh>#</MudTh>
+                    <MudTh>Class</MudTh>
+                    <MudTh>Class Teacher</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="#">@context.ClassId</MudTd>
+                    <MudTd DataLabel="Class">@context.FullClass()</MudTd>
+                    <MudTd DataLabel="Class Teacher">@context.ClassTeacherName()</MudTd>
+                </RowTemplate>
+            </MudTable>
+        }
     </MudItem>
 </MudGrid>
 <MudGrid>

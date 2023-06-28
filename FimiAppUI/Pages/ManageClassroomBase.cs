@@ -3,11 +3,16 @@ using static MudBlazor.CategoryTypes;
 using System.Net.Http;
 using static MudBlazor.Colors;
 using Microsoft.AspNetCore.Http;
+using System.Net.NetworkInformation;
+using System.Threading;
+using MudBlazor;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace FimiAppUI.Pages
 {
     public class ManageClassroomBase : Microsoft.AspNetCore.Components.ComponentBase
     {
+        [Inject] public NavigationManager Navigation { get; set; }
         [Inject] public IClassService ClassService { get; set; }
         [Inject] public IFormService FormService { get; set; }
         [Inject] public IStreamService StreamService { get; set; }
@@ -30,6 +35,7 @@ namespace FimiAppUI.Pages
         public DateTime? endDate = DateTime.Today;
         public bool showSuccessAlert = false;
         public bool showFailAlert = false;
+        public MudTable<ClassModel> mudTable;
         protected override async Task OnInitializedAsync()
         {
             Classes = (await ClassService.GetMultipleMapping()).ToList();
@@ -89,9 +95,9 @@ namespace FimiAppUI.Pages
             };
 
             var response = await ClassService.CreateClass(classModel).ConfigureAwait(false);
-            if (response.StatusCode == System.Net.HttpStatusCode.Created)
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                ShowSuccessAlert($"Class {SelectedFormOnClassCard.Form}{SelectedStreamOnClassCard.Stream} year {SelectedSessionYearOnClassCard.StartDate.Year} added");
+                ShowSuccessAlert($"Class {SelectedFormOnClassCard.Form}{SelectedStreamOnClassCard.Stream} year {SelectedSessionYearOnClassCard.StartDate.Year} was created");
             }
             else if(response.StatusCode == System.Net.HttpStatusCode.Conflict)
             {
@@ -161,6 +167,10 @@ namespace FimiAppUI.Pages
                 showSuccessAlert = false;
                 showFailAlert = false;
             }
+        }
+        public void RowClickEvent(TableRowClickEventArgs<ClassModel> tableRowClickEventArgs)
+        {
+            Navigation.NavigateTo($"/classdetails/{tableRowClickEventArgs.Item.ClassId}");
         }
     }
 }

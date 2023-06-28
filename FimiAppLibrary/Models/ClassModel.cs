@@ -21,6 +21,7 @@ namespace FimiAppLibrary.Models
         public string ClassTeacherName() 
         { 
             return $"{Teacher.Staff.FirstName} {Teacher.Staff.MiddleName} {Teacher.Staff.Surname}";
-        }
+        }   
+        
     }
 }

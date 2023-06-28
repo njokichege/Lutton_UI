@@ -26,5 +26,9 @@ namespace FimiAppUI.Services
         {
             return await _httpClient.PutAsJsonAsync<ClassModel>("api/class/id", classDetails);
         }
+        public async Task<ClassModel> GetClassById(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<ClassModel>($"api/class/{id}");
+        }
     }
 }
