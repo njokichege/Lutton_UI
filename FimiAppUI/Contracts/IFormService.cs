@@ -1,4 +1,4 @@
-﻿namespace FimiAppUI.Services
+﻿namespace FimiAppUI.Contracts
 {
     public interface IFormService
     {

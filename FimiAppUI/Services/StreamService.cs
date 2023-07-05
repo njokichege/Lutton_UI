@@ -1,4 +1,6 @@
 ﻿
+using FimiAppUI.Contracts;
+
 namespace FimiAppUI.Services
 {
     public class StreamService : IStreamService

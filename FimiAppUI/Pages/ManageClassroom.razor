@@ -2,7 +2,6 @@
 
 @inherits ManageClassroomBase
 
-<MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
 @if (showSuccessAlert)
 {
     <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelSuccess</MudAlert>
@@ -13,10 +12,10 @@
 }
 <MudGrid>
     <MudItem xs="3">
-        <MudCard Style="margin-top:20px">
+        <MudCard>
             <MudCardHeader>
                 <CardHeaderContent>
-                    <MudText Style="@($"margin-top:20px;")" Typo="Typo.h5" Align="Align.Center">Add Class</MudText>
+                    <MudText Typo="Typo.h5" Align="Align.Center">Add Class</MudText>
                 </CardHeaderContent>
             </MudCardHeader>
             <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
@@ -35,7 +34,7 @@
         <MudCard Style="margin-top:20px">
             <MudCardHeader>
                 <CardHeaderContent>
-                    <MudText Style="@($"margin-top:20px;")" Typo="Typo.h5" Align="Align.Center">Assign Class Teacher</MudText>
+                    <MudText Typo="Typo.h5" Align="Align.Center">Assign Class Teacher</MudText>
                 </CardHeaderContent>
             </MudCardHeader>
             <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
@@ -58,7 +57,7 @@
         <MudCard Style="margin-top:20px">
             <MudCardHeader>
                 <CardHeaderContent>
-                    <MudText Style="@($"margin-top:20px;")" Typo="Typo.h5" Align="Align.Center"><u>Current School Year</u> @SessionYearModelTitle</MudText>
+                    <MudText Typo="Typo.h5" Align="Align.Center"><u>Current School Year</u> @SessionYearModelTitle</MudText>
                 </CardHeaderContent>
             </MudCardHeader>
             <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
@@ -73,7 +72,7 @@
         <MudCard Style="margin-top:20px">
             <MudCardHeader>
                 <CardHeaderContent>
-                    <MudText Style="@($"margin-top:20px;")" Typo="Typo.h5" Align="Align.Center">Create New School Year</MudText>
+                    <MudText Typo="Typo.h5" Align="Align.Center">Create New School Year</MudText>
                 </CardHeaderContent>
             </MudCardHeader>
             <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
@@ -94,35 +93,22 @@
         }
         else
         {
-            /*<MudDataGrid Items="@Classes" Style="margin-top:20px">
+            <MudDataGrid Items="@Classes" Filterable="false" SortMode="@SortMode.None" Groupable="false">
                 <Columns>
-                    <PropertyColumn Property="x => x.ClassId" Title="#" />
+                    <PropertyColumn Property="x => x.ClassId" Title="#"/>
                     <PropertyColumn Property="x => x.FullClass()" Title="Class" />
-                    <PropertyColumn Property="x => x.Teacher.ClassTeacherName()" Title="Class Teacher" />
-                    <TemplateColumn CellClass="d-flex justify-center" Title="Option">
+                    <PropertyColumn Property="x => x.ClassTeacherName()" Title="Class Teacher" />
+                    <TemplateColumn CellClass="d-flex justify-end">
                         <CellTemplate>
                             <MudStack Row>
                             <MudMenu EndIcon="@Icons.Material.Filled.KeyboardArrowDown" Label="Action" Color="Color.Tertiary" Variant="Variant.Filled">
-                                <MudMenuItem OnClick="OnClickViewClass">View Class</MudMenuItem>
-                                <MudMenuItem>Edit Class</MudMenuItem>
+                                <MudMenuItem Href="@($"/classdetails/{context.Item.ClassId}")">View Class</MudMenuItem>
                             </MudMenu>
                         </MudStack>
                     </CellTemplate>
                 </TemplateColumn>
-                </Columns>
-            </MudDataGrid>*/
-            <MudTable Items="@Classes" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable"  OnRowClick="RowClickEvent" T="ClassModel">
-                <HeaderContent>
-                    <MudTh>#</MudTh>
-                    <MudTh>Class</MudTh>
-                    <MudTh>Class Teacher</MudTh>
-                </HeaderContent>
-                <RowTemplate>
-                    <MudTd DataLabel="#">@context.ClassId</MudTd>
-                    <MudTd DataLabel="Class">@context.FullClass()</MudTd>
-                    <MudTd DataLabel="Class Teacher">@context.ClassTeacherName()</MudTd>
-                </RowTemplate>
-            </MudTable>
+            </Columns>
+        </MudDataGrid>
         }
     </MudItem>
 </MudGrid>

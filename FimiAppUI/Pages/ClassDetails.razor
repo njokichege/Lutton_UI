@@ -2,30 +2,35 @@
 @page "/classdetails/{id}"
 @inherits ClassDetailsBase
 
-<MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+@if(ClassSelected is not null)
+{
+    @foreach(var classType in ClassSelected)
+    {
+        <MudCard>
+            <MudCardHeader>
+                <MudAvatar Size="Size.Large" Color="Color.Primary" Variant="Variant.Outlined">
+                    <MudImage Src="images/image3.png"></MudImage>
+                </MudAvatar>
+            </MudCardHeader>
+            <MudCardMedia Image="images/door.jpg" Height="200" />
+            <MudCardContent>
+                <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+                <MudText Typo="Typo.h5">Name : @classType.ClassTeacherName()</MudText>
+                <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+                <MudText Typo="Typo.h5">TSC Number : @classType.Teacher.TSCNumber</MudText>
+                <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+                <MudText Typo="Typo.body2">Designation : @classType.Teacher.Staff.Designation</MudText>
+                <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+                <MudText Typo="Typo.body2">Employment Date : @classType.Teacher.Staff.EmploymentDate</MudText>
+                <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+                <MudText Typo="Typo.body2">Subjects @classType.Teacher.SubjectSpecializationOne | @classType.Teacher.SubjectSpecializationTwo</MudText>
+                <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary">Remove as class teacher</MudButton>
+            </MudCardActions>
+        </MudCard>
+    }
+}
 
-<MudCard>
-    <MudCardHeader>
-        <MudAvatar Size="Size.Large" Color="Color.Primary" Variant="Variant.Outlined">
-            <MudImage Src="images/image3.png"></MudImage>
-        </MudAvatar>
-    </MudCardHeader>
-    <MudCardMedia Image="images/door.jpg" Height="200" />
-    <MudCardContent>
-        <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
-        <MudText Typo="Typo.h5">Name : @Class.ClassTeacherName()</MudText>
-        <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
-        <MudText Typo="Typo.h5">TSC Number : @Class.Teacher.TSCNumber</MudText>
-        <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
-        <MudText Typo="Typo.body2">Designation : @Class.Teacher.Staff.Designation</MudText>
-        <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
-        <MudText Typo="Typo.body2">Employment Date : @Class.Teacher.Staff.EmploymentDate</MudText>
-        <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
-        <MudText Typo="Typo.body2">Subjects @Class.Teacher.SubjectSpecializationOne | @Class.Teacher.SubjectSpecializationTwo</MudText>
-        <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
-    </MudCardContent>
-    <MudCardActions>
-        <MudButton Variant="Variant.Text" Color="Color.Primary">Remove as class teacher</MudButton>
-    </MudCardActions>
-</MudCard>
 

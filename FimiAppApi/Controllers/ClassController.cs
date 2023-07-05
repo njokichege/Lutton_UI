@@ -25,11 +25,11 @@ namespace FimiAppApi.Controllers
             
         }
         [HttpGet("{ClassId}")]
-        public async Task<IActionResult> GetClassById(int id)
+        public async Task<IActionResult> GetClassById(int ClassId)
         {
             try
             {
-                var classes = await _classRepository.GetClassById(id);
+                var classes = await _classRepository.GetClassMultipleMappingById(ClassId);
                 return Ok(classes);
             }
             catch (Exception ex)
@@ -39,11 +39,11 @@ namespace FimiAppApi.Controllers
 
         }
         [HttpGet("{FormId}/{StreamId}/{SessionYearId}")]
-        public async Task<IActionResult> GetClassByForeignKeys(ClassModel classModel)
+        public async Task<IActionResult> GetClassByForeignKeys(int formId, int streamId, int sessionYearId)
         {
             try
             {
-                var oneclass = await _classRepository.GetClassByForeignKeys(classModel);
+                var oneclass = await _classRepository.GetClassByForeignKeys(formId,streamId,sessionYearId);
                 if (oneclass is null)
                 {
                     return NotFound();
@@ -57,18 +57,14 @@ namespace FimiAppApi.Controllers
 
         }
         [HttpPost]
-        public async Task<IActionResult> CreateClass(int id,[FromBody] ClassModel classDetails)
+        public async Task<IActionResult> CreateClass(int formId, int streamId, int sessionYearId)
         {
             try
             {
-                var dbClassExists = await _classRepository.GetClassByForeignKeys(classDetails);
+                var dbClassExists = await _classRepository.GetClassByForeignKeys(formId,streamId,sessionYearId);
                 if (dbClassExists is null)
                 {
-                    if (classDetails is null)
-                    {
-                        return BadRequest();
-                    }
-                    var createdClass = await _classRepository.CreateClass(classDetails);
+                    var createdClass = await _classRepository.CreateClass(formId, streamId, sessionYearId);
                     return Ok(createdClass);
                 }
                 else
@@ -82,18 +78,17 @@ namespace FimiAppApi.Controllers
             }
 
         }
-        [HttpPut("id")]
-        public async Task<IActionResult> UpdateClass(int id,[FromBody] ClassModel classDetails)
+        [HttpPut("ClassTeacher")]
+        public async Task<IActionResult> UpdateClassTeacher(ClassModel classModel)
         {
             try
             {
-                var dbClass = await _classRepository.GetClassByForeignKeys(classDetails);
+                var dbClass = await _classRepository.GetClassByForeignKeys(classModel.FormId, classModel.StreamId, classModel.SessionYearId);
                 if (dbClass is null)
                 {
                     return NotFound();
                 }
-                id = dbClass.ClassId;
-                await _classRepository.UpdateClassTeacher(id, classDetails);
+                await _classRepository.UpdateClassTeacher(classModel.ClassId, classModel.TeacherId);
                 return Ok();
             }
             catch (Exception ex)
@@ -107,8 +102,8 @@ namespace FimiAppApi.Controllers
         {
             try
             {
-                var dbClass = await _classRepository.GetClassById(id);
-                if (dbClass is null)
+                //var dbClass = await _classRepository.GetClassById(id);
+                //if (dbClass is null)
                 {
                     return NotFound();
                 }
@@ -126,7 +121,7 @@ namespace FimiAppApi.Controllers
         {
             try
             {
-                var classes = await _classRepository.GetMultipleMapping();
+                var classes = await _classRepository.GetClassMultipleMapping();
                 return Ok(classes);
             }
             catch (Exception ex)

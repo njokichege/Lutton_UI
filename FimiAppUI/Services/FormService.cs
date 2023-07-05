@@ -1,4 +1,6 @@
-﻿namespace FimiAppUI.Services
+﻿using FimiAppUI.Contracts;
+
+namespace FimiAppUI.Services
 {
     public class FormService : IFormService
     {

@@ -1,6 +1,6 @@
 ﻿using FimiAppApi.Contracts;
 using FimiAppApi.Repository;
-using FimiAppUI.Services;
+using FimiAppUI.Contracts;
 
 namespace FimiAppUI
 {
@@ -29,6 +29,10 @@ namespace FimiAppUI
                 client.BaseAddress = new Uri(uriLink);
             });
             builder.Services.AddHttpClient<ITeacherService, TeacherService>(client =>
+            {
+                client.BaseAddress = new Uri(uriLink);
+            });
+            builder.Services.AddHttpClient<IStudentService, StudentService>(client =>
             {
                 client.BaseAddress = new Uri(uriLink);
             });

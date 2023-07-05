@@ -1,0 +1,65 @@
+﻿@page "/Pages/ViewStudents"
+
+@inherits ViewStudentsBase
+
+<MudGrid>
+    <MudItem xs="3">
+        <MudCard>
+            <MudCardContent>
+                <MudAutocomplete T="SessionYearModel" Label="School Year" @bind-Value="SelectedStudentSchoolYear" ShowProgressIndicator="true"
+                                 SearchFunc="@SelectedSessionYearSearch" ToStringFunc="@(e=> e==null?null : $"{e.SessionString()}")" />
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="3">
+        <MudCard>
+            <MudCardContent>
+                <MudAutocomplete T="FormModel" Label="Form" @bind-Value="SelectedStudentForm" ShowProgressIndicator="true"
+                                 SearchFunc="@SelectedFormSearch" ToStringFunc="@(e=> e==null?null : $"{e.Form}")" />
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="3">
+        <MudCard>
+            <MudCardContent>
+                <MudAutocomplete T="StreamModel" Label="Stream" @bind-Value="SelectedStudentStream" ShowProgressIndicator="true"
+                                 SearchFunc="@SelectedStreamSearch" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="3">
+        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@FindClass" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
+    </MudItem>
+</MudGrid>
+<MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+<MudGrid>
+    <MudItem xs="3">
+        <MudCard>
+            <MudCardContent>
+                <MudText Typo="Typo.body2">Total Students : </MudText>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="3">
+        <MudTable Items="@Students" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" OnRowClick="RowClickEvent" T="StudentModel">
+            <HeaderContent>
+                <MudTh>Student Number</MudTh>
+                <MudTh>Name</MudTh>
+                <MudTh>Admission Date</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="#">@context.StudentNumber</MudTd>
+                <MudTd DataLabel="Class">@context.StudentName()</MudTd>
+                <MudTd DataLabel="Class Teacher">@context.AdmissionDate</MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudItem>
+</MudGrid>
+
+
+
+
+
+

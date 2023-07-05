@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿
+using FimiAppUI.Contracts;
 
 namespace FimiAppUI.Services
 {
@@ -22,13 +23,17 @@ namespace FimiAppUI.Services
         {
            return await _httpClient.PostAsJsonAsync<ClassModel>("api/class",classDetails);
         }
-        public async Task<HttpResponseMessage> UpdateClass(ClassModel classDetails)
+        public async Task<HttpResponseMessage> UpdateClass(ClassModel classModel)
         {
-            return await _httpClient.PutAsJsonAsync<ClassModel>("api/class/id", classDetails);
+            return await _httpClient.PutAsJsonAsync<ClassModel>("api/class/ClassTeacher",classModel);
         }
-        public async Task<ClassModel> GetClassById(int id)
+        public async Task<IEnumerable<ClassModel>> GetClassById(int id)
         {
-            return await _httpClient.GetFromJsonAsync<ClassModel>($"api/class/{id}");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<ClassModel>>($"api/class/{id}");
+        }
+        public async Task<ClassModel> GetClassByForeignKeys(int formId, int streamId, int sessionYearId)
+        {
+            return await _httpClient.GetFromJsonAsync<ClassModel>($"api/class/{formId}/{streamId}/{sessionYearId}");
         }
     }
 }

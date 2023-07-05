@@ -1,8 +1,8 @@
-﻿namespace FimiAppUI.Services
+﻿namespace FimiAppUI.Contracts
 {
     public interface ISessionYearService
     {
         Task<HttpResponseMessage> CreateSessionYear(SessionYearModel sessionYear);
-        Task<IEnumerable<SessionYearModel>> GetSessionYear();
+        Task<IEnumerable<SessionYearModel>> GetSessionYears();
     }
 }

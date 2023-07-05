@@ -14,6 +14,7 @@ builder.Services.AddSingleton<IFormRepository, FormRepository>();
 builder.Services.AddSingleton<IStreamRepository, StreamRepository>();
 builder.Services.AddSingleton<ISessionYearRepository, SessionYearRepository>();
 builder.Services.AddSingleton<ITeacherRepository,  TeacherRepository>();
+builder.Services.AddSingleton<IStudentRepository,  StudentRepository>();
 
 var app = builder.Build();
 

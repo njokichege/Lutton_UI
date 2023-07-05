@@ -28,7 +28,7 @@ namespace FimiAppApi.Controllers
             }
 
         }
-        [HttpGet("MultipleMapping")]
+        [HttpGet("MapStaffOnTeacher")]
         public async Task<IActionResult> GetMultipleMapping()
         {
             try

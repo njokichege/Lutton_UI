@@ -6,12 +6,12 @@ namespace FimiAppApi.Contracts
     public interface IClassRepository
     {
         Task<IEnumerable<ClassModel>> GetClasses();
-        Task<int> CreateClass(ClassModel classDetails);
+        Task<int> CreateClass(int formId, int streamId, int sessionYearId);
         Task DeleteClass(int id);
-        Task<IEnumerable<ClassModel>> GetMultipleMapping();
-        Task<ClassModel> GetClassByForeignKeys(ClassModel classDetails);
-        Task UpdateClassTeacher(int id, ClassModel classModel);
-        Task UpdateClassGrade(int id, ClassModel classModel);
-        Task<ClassModel> GetClassById(int id);
+        Task<ClassModel> GetClassByForeignKeys(int formId, int streamId, int sessionYearId);
+        Task UpdateClassTeacher(int classId, int teacherId);
+        Task UpdateClassGrade(int classId, int gradeId);
+        Task<IEnumerable<ClassModel>> GetClassMultipleMappingById(int id);
+        Task<IEnumerable<ClassModel>> GetClassMultipleMapping();
     }
 }

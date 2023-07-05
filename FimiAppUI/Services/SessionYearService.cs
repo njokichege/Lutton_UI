@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using FimiAppUI.Contracts;
 using System.Data;
 
 namespace FimiAppUI.Services
@@ -11,7 +12,7 @@ namespace FimiAppUI.Services
         {
             _httpClient = httpClient;
         }
-        public async Task<IEnumerable<SessionYearModel>> GetSessionYear()
+        public async Task<IEnumerable<SessionYearModel>> GetSessionYears()
         {
             return await _httpClient.GetFromJsonAsync<SessionYearModel[]>("api/sessionyear");
         }

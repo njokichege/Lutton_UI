@@ -1,24 +1,18 @@
-﻿using FimiAppUI.Services;
-using static MudBlazor.CategoryTypes;
-using System.Net.Http;
-using static MudBlazor.Colors;
-using Microsoft.AspNetCore.Http;
-using System.Net.NetworkInformation;
-using System.Threading;
-using MudBlazor;
-using Microsoft.AspNetCore.Components.Web;
+﻿
+using FimiAppUI.Contracts;
 
 namespace FimiAppUI.Pages
 {
-    public class ManageClassroomBase : Microsoft.AspNetCore.Components.ComponentBase
+    public class ManageClassroomBase : ComponentBase
     {
-        [Inject] public NavigationManager Navigation { get; set; }
         [Inject] public IClassService ClassService { get; set; }
         [Inject] public IFormService FormService { get; set; }
         [Inject] public IStreamService StreamService { get; set; }
         [Inject] public ITeacherService TeacherService { get; set; }
         [Inject] public ISessionYearService SessionYearService { get; set; }
+        [Parameter] public string PageTitle { get; set; }
         public IEnumerable<ClassModel> Classes { get; set; }
+        public ClassModel SelectedDataRow { get; set; }
         public FormModel SelectedFormOnClassCard { get; set; }
         public FormModel SelectedFormOnTeacherCard { get; set; }
         public TeacherModel SelectedTeacherOnTeacherCard { get; set; }
@@ -40,7 +34,9 @@ namespace FimiAppUI.Pages
         {
             Classes = (await ClassService.GetMultipleMapping()).ToList();
 
-            SessionYearTiltle = (await SessionYearService.GetSessionYear()).ToList();
+            PageTitle = "Manage Classroom";
+
+            SessionYearTiltle = (await SessionYearService.GetSessionYears()).ToList();
             foreach (var session in SessionYearTiltle)
             {
                 if (session.StartDate.Year == 2023)
@@ -75,15 +71,15 @@ namespace FimiAppUI.Pages
         }
         public async Task<IEnumerable<SessionYearModel>> SessionYearSearchOnClassCard(string value)
         {
-            return (await SessionYearService.GetSessionYear()).ToList();
+            return (await SessionYearService.GetSessionYears()).ToList();
         }
         public async Task<IEnumerable<SessionYearModel>> SessionYearSearchOnSessionYearCard(string value)
         {
-            return (await SessionYearService.GetSessionYear()).ToList();
+            return (await SessionYearService.GetSessionYears()).ToList();
         }
         public async Task<IEnumerable<SessionYearModel>> SessionYearSearchOnTeacherCard(string value)
         {
-            return (await SessionYearService.GetSessionYear()).ToList();
+            return (await SessionYearService.GetSessionYears()).ToList();
         }
         public async Task<HttpResponseMessage> CreateClass()
         {
@@ -167,10 +163,6 @@ namespace FimiAppUI.Pages
                 showSuccessAlert = false;
                 showFailAlert = false;
             }
-        }
-        public void RowClickEvent(TableRowClickEventArgs<ClassModel> tableRowClickEventArgs)
-        {
-            Navigation.NavigateTo($"/classdetails/{tableRowClickEventArgs.Item.ClassId}");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using FimiAppUI.Contracts;
+using System.Net.Http;
 
 namespace FimiAppUI.Services
 {

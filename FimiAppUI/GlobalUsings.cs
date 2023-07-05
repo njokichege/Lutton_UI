@@ -2,3 +2,11 @@
 global using FimiAppApi.Context;
 global using Microsoft.AspNetCore.Components;
 global using System.Net.Http.Json;
+global using FimiAppUI.Services;
+global using System.Net.Http;
+global using static MudBlazor.Colors;
+global using Microsoft.AspNetCore.Http;
+global using System.Net.NetworkInformation;
+global using System.Threading;
+global using MudBlazor;
+global using Microsoft.AspNetCore.Components.Web;

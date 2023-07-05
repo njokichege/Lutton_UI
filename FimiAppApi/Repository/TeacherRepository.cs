@@ -15,8 +15,31 @@
         }
         public async Task<IEnumerable<TeacherModel>> GetMapStaffOnTeacher()
         {
-            string sql = "SELECT\r\n    Teacher.TeacherId,\r\n    Staff.NationalId,\r\n    Staff.FirstName,\r\n    Staff.MiddleName,\r\n    Staff.Surname\r\nFROM Teacher\r\nINNER JOIN Staff ON Teacher.NationalId = Staff.NationalId";
-            return await _dapperContext.MapStaffOnTeacher(sql);
+            string sql = "SELECT " +
+                                "Teacher.TeacherId, " +
+                                "Staff.NationalId, " +
+                                "Staff.FirstName, " +
+                                "Staff.MiddleName, " +
+                                "Staff.Surname " +
+                         "FROM Teacher " +
+                         "INNER JOIN Staff ON Teacher.NationalId = Staff.NationalId";
+            Type[] types =
+            {
+                 typeof(TeacherModel),
+                 typeof(StaffModel)
+            };
+            Func<object[], TeacherModel> map = delegate (object[] obj)
+            {
+                TeacherModel teacherModel = obj[0] as TeacherModel;
+                StaffModel staffModel = obj[1] as StaffModel;
+
+                teacherModel.Staff = staffModel;
+
+                return teacherModel;
+            };
+            string splitOn = "NationalId";
+
+            return await _dapperContext.MapMultipleObjects(sql, types, map, splitOn);
         }
     }
 }
