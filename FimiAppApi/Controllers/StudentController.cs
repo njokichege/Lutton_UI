@@ -11,7 +11,7 @@ namespace FimiAppApi.Controllers
         {
             _studentRepository = studentRepository;
         }
-        [HttpGet("MapStudentOnClass")]
+        [HttpGet("{classId}")]
         public async Task<IActionResult> GetMultipleMapping(int classId)
         {
             try

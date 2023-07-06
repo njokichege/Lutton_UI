@@ -15,8 +15,8 @@ namespace FimiAppApi.Controllers
         {
             try
             {
-                var classes = await _classRepository.GetClasses();
-                return Ok(classes);
+                var classModels = await _classRepository.GetClasses();
+                return Ok(classModels);
             }
             catch (Exception ex)
             {
@@ -24,13 +24,13 @@ namespace FimiAppApi.Controllers
             }
             
         }
-        [HttpGet("{ClassId}")]
-        public async Task<IActionResult> GetClassById(int ClassId)
+        [HttpGet("{classId}")]
+        public async Task<IActionResult> GetClassById(int classId)
         {
             try
             {
-                var classes = await _classRepository.GetClassMultipleMappingById(ClassId);
-                return Ok(classes);
+                var classModel = await _classRepository.GetClassMultipleMappingById(classId);
+                return Ok(classModel);
             }
             catch (Exception ex)
             {

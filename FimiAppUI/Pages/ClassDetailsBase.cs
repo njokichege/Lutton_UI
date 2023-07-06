@@ -6,10 +6,12 @@ namespace FimiAppUI.Pages
     {
         [Inject] public IClassService ClassService { get; set; }
         [Parameter] public string Id { get; set; }
-        public IEnumerable<ClassModel> ClassSelected { get; set; } = new List<ClassModel>();
+        public ClassModel ClassSelected { get; set; } = new ClassModel();
+        public bool dataIsLoaded = false;
         protected async override Task OnInitializedAsync()
         {
             ClassSelected = await ClassService.GetClassById(int.Parse(Id));
+            dataIsLoaded = true;
         }
     }
 }

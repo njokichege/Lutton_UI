@@ -35,7 +35,8 @@ namespace FimiAppUI.Pages
         public async void FindClass()
         {
             SelectedClass = await ClassService.GetClassByForeignKeys(SelectedStudentForm.FormId, SelectedStudentStream.StreamId, SelectedStudentSchoolYear.SessionYearId);
-            Students = (await StudentService.MapClassOnStudent(SelectedClass.ClassId)).ToList();
+            Students = (await StudentService.MapClassOnStudent(SelectedClass.ClassId));
+            this.StateHasChanged();
         }
         public void RowClickEvent(TableRowClickEventArgs<StudentModel> tableRowClickEventArgs)
         {

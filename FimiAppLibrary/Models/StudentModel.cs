@@ -13,4 +13,8 @@ public class StudentModel
     {
         return $"{FirstName} {MiddleName} {Surname}";
     }
+    public int Age()
+    {
+        return DateTime.Now.Year - DateOfBirth.Year;
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using FimiAppUI.Contracts;
+using System.Collections.Generic;
 using System.IO;
 
 namespace FimiAppUI.Services
@@ -13,7 +14,7 @@ namespace FimiAppUI.Services
         }
         public async Task<IEnumerable<StudentModel>> MapClassOnStudent(int classId)
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<StudentModel>>($"api/student/");
+            return await _httpClient.GetFromJsonAsync< IEnumerable<StudentModel>> ($"api/student/{classId}");
         }
     }
 }

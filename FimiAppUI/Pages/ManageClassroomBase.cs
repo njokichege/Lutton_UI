@@ -1,5 +1,7 @@
 ﻿
 using FimiAppUI.Contracts;
+using Microsoft.JSInterop;
+using static MudBlazor.Colors;
 
 namespace FimiAppUI.Pages
 {
@@ -10,7 +12,6 @@ namespace FimiAppUI.Pages
         [Inject] public IStreamService StreamService { get; set; }
         [Inject] public ITeacherService TeacherService { get; set; }
         [Inject] public ISessionYearService SessionYearService { get; set; }
-        [Parameter] public string PageTitle { get; set; }
         public IEnumerable<ClassModel> Classes { get; set; }
         public ClassModel SelectedDataRow { get; set; }
         public FormModel SelectedFormOnClassCard { get; set; }
@@ -21,7 +22,7 @@ namespace FimiAppUI.Pages
         public SessionYearModel SelectedSessionYearOnClassCard { get; set; }
         public SessionYearModel SelectedSessionYearOnSessionYearCard { get; set; }
         public SessionYearModel SelectedSessionYearOnTeacherCard { get; set; }
-        public IEnumerable<SessionYearModel> SessionYearTiltle { get; set; }
+        public IEnumerable<SessionYearModel> SessionYears { get; set; }
         public string ModelFail { get; set; }
         public string ModelSuccess { get; set; }
         public string SessionYearModelTitle { get; set; }
@@ -34,10 +35,8 @@ namespace FimiAppUI.Pages
         {
             Classes = (await ClassService.GetMultipleMapping()).ToList();
 
-            PageTitle = "Manage Classroom";
-
-            SessionYearTiltle = (await SessionYearService.GetSessionYears()).ToList();
-            foreach (var session in SessionYearTiltle)
+            SessionYears = (await SessionYearService.GetSessionYears()).ToList();
+            foreach (var session in SessionYears)
             {
                 if (session.StartDate.Year == 2023)
                 {

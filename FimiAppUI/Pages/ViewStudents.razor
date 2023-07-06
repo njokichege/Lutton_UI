@@ -2,7 +2,9 @@
 
 @inherits ViewStudentsBase
 
-<MudGrid>
+<MudDivider DividerType="DividerType.FullWidth"/>
+
+<MudGrid Class="px-4 mt-4">
     <MudItem xs="3">
         <MudCard>
             <MudCardContent>
@@ -27,36 +29,41 @@
             </MudCardContent>
         </MudCard>
     </MudItem>
-    <MudItem xs="3">
+    <MudItem xs="2">
         <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@FindClass" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
     </MudItem>
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
-<MudGrid>
-    <MudItem xs="3">
-        <MudCard>
-            <MudCardContent>
-                <MudText Typo="Typo.body2">Total Students : </MudText>
-            </MudCardContent>
-        </MudCard>
-    </MudItem>
-</MudGrid>
-<MudGrid>
-    <MudItem xs="3">
-        <MudTable Items="@Students" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" OnRowClick="RowClickEvent" T="StudentModel">
-            <HeaderContent>
-                <MudTh>Student Number</MudTh>
-                <MudTh>Name</MudTh>
-                <MudTh>Admission Date</MudTh>
-            </HeaderContent>
-            <RowTemplate>
-                <MudTd DataLabel="#">@context.StudentNumber</MudTd>
-                <MudTd DataLabel="Class">@context.StudentName()</MudTd>
-                <MudTd DataLabel="Class Teacher">@context.AdmissionDate</MudTd>
-            </RowTemplate>
-        </MudTable>
-    </MudItem>
-</MudGrid>
+@if(Students is not null)
+{
+    <MudGrid Class="px-4">
+        <MudItem xs="3">
+            <MudCard>
+                <MudCardContent>
+                    <MudText Typo="Typo.h5">Total Students : @Students.Count()</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+    <MudGrid Class="px-4">
+        <MudItem xs="6">
+            <MudTable Items="@Students" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" OnRowClick="RowClickEvent" T="StudentModel">
+                <HeaderContent>
+                    <MudTh>Student Number</MudTh>
+                    <MudTh>Name</MudTh>
+                    <MudTh>Admission Date</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Student Number">@context.StudentNumber</MudTd>
+                    <MudTd DataLabel="Name">@context.StudentName()</MudTd>
+                    <MudTd DataLabel="Age">@context.Age()</MudTd>
+                    <MudTd DataLabel="Admission Date">@context.AdmissionDate.ToShortDateString()</MudTd>
+                </RowTemplate>
+            </MudTable>
+        </MudItem>
+    </MudGrid>
+
+}
 
 
 

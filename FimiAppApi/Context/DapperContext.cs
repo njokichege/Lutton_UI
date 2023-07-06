@@ -37,7 +37,7 @@ namespace FimiAppApi.Context
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 var data = await connection.QueryAsync<T>(sql,types,map:map, parameters, splitOn:splitOn);
-                return data.ToList();
+                return data;
             }
         }
         public async Task<T> LoadSingleData<T, U>(string sql, DynamicParameters parameters)

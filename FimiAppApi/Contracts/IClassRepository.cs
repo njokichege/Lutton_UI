@@ -11,7 +11,7 @@ namespace FimiAppApi.Contracts
         Task<ClassModel> GetClassByForeignKeys(int formId, int streamId, int sessionYearId);
         Task UpdateClassTeacher(int classId, int teacherId);
         Task UpdateClassGrade(int classId, int gradeId);
-        Task<IEnumerable<ClassModel>> GetClassMultipleMappingById(int id);
+        Task<ClassModel> GetClassMultipleMappingById(int id);
         Task<IEnumerable<ClassModel>> GetClassMultipleMapping();
     }
 }

@@ -6,7 +6,7 @@
 
 <MudLayout>
     <MudAppBar Elevation="0">
-        <MudText Typo="Typo.h6">@PageTitle</MudText>
+        <FimiApp.FimiAppUI.Shared.PageTitle Title="Manage Classroom" />
         <MudSpacer />
         <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
         <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
@@ -19,17 +19,12 @@
         <NavMenu/>
     </MudDrawer>
     <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.Large">
-            <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
-            @Body
-        </MudContainer>
+        @Body
     </MudMainContent>
 </MudLayout>
 
 @code 
 {
-    public string PageTitle { get; set; }
-
     MudTheme MyCustomTheme = new MudTheme()
         {
             Palette = new Palette()
