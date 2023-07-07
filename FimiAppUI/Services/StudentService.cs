@@ -16,5 +16,9 @@ namespace FimiAppUI.Services
         {
             return await _httpClient.GetFromJsonAsync< IEnumerable<StudentModel>> ($"api/student/{classId}");
         }
+        public async Task<StudentModel> GetStudentByStudentNumber(int studentNumber)
+        {
+            return await _httpClient.GetFromJsonAsync<StudentModel>($"api/student/{studentNumber}");
+        }
     }
 }

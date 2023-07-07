@@ -46,7 +46,7 @@
         </MudItem>
     </MudGrid>
     <MudGrid Class="px-4">
-        <MudItem xs="6">
+        <MudItem xs="8">
             <MudTable Items="@Students" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" OnRowClick="RowClickEvent" T="StudentModel">
                 <HeaderContent>
                     <MudTh>Student Number</MudTh>
@@ -56,13 +56,12 @@
                 <RowTemplate>
                     <MudTd DataLabel="Student Number">@context.StudentNumber</MudTd>
                     <MudTd DataLabel="Name">@context.StudentName()</MudTd>
-                    <MudTd DataLabel="Age">@context.Age()</MudTd>
                     <MudTd DataLabel="Admission Date">@context.AdmissionDate.ToShortDateString()</MudTd>
+                    <MudTd DataLabel="Student Age">@context.Age()</MudTd>
                 </RowTemplate>
             </MudTable>
         </MudItem>
     </MudGrid>
-
 }
 
 

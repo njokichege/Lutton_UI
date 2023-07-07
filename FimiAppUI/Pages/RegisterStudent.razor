@@ -1,0 +1,34 @@
+﻿@page "/Pages/RegisterStudent"
+
+@inherits RegisterStudentBase
+
+<MudText Typo="Typo.h4">Register Student</MudText>
+
+<MudGrid Class="pa-10">
+    <MudItem xs="5" sm="7">
+        <MudPaper>
+            <MudForm @ref="registerStudentForm" @bind-IsValid="@success" Validation="@(StudentValidator.ValidateValue)" ValidationDelay="0">
+                <MudTextField T="string" Label="First Name" Required="true" RequiredError="First name is required!" />
+                <MudTextField T="string" Label="Middle Name" Required="true" RequiredError="Middle name is required!"/>
+                <MudTextField T="string" Label="Surname" Required="true" RequiredError="Surname is required!" />
+                <MudDatePicker Label="Basic example" @bind-Date="newStudentDateOfBirth" OpenTo="OpenTo.Year" />
+                <MudAutocomplete T="FormModel" Label="Form" @bind-Value="NewStudentForm" ShowProgressIndicator="true"
+                                 SearchFunc="@FormSearch" ToStringFunc="@(e=> e==null?null : $"{e.Form}")" />
+                <MudAutocomplete T="StreamModel" Label="Stream" @bind-Value="NewStudentStream" ShowProgressIndicator="true"
+                                 SearchFunc="@StreamSearch" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
+            </MudForm>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="5" sm="7">
+        <MudPaper>
+            <MudForm @ref="registerStudentForm" @bind-IsValid="@success" @bind-Errors="@errors" Validation="@(ParentValidator.ValidateValue)" ValidationDelay="0">
+                <MudTextField T="int" Label="National Id" Required="true" RequiredError="National Id is required!" />
+                <MudTextField T="string" Label="First Name" Required="true" RequiredError="First name is required!" />
+                <MudTextField T="string" Label="Middle Name" Required="true" RequiredError="Middle name is required!" />
+                <MudTextField T="string" Label="Surname" Required="true" RequiredError="Surname is required!" />
+                <MudTextField T="int" Label="Phone number" Required="true" RequiredError="Phone number is required!" />
+            </MudForm>
+        </MudPaper>
+    </MudItem>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await Submit())">Register</MudButton>
+</MudGrid>

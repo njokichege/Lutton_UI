@@ -33,6 +33,44 @@ else
                 </MudCardActions>
             </MudCard>
         </MudItem>
+        <MudItem xs="8" Class="d-flex justify-space-between gap-1">
+            <MudTabs ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
+                <MudTabPanel Text="Students">
+                    @if (Students is null)
+                    {
+                        <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+                    }
+                    else
+                    {
+                        <MudDataGrid Items="@Students" Filterable="false" SortMode="@SortMode.None" Groupable="false">
+                            <Columns>
+                                <PropertyColumn Property="x => x.StudentNumber" Title="Student Number" />
+                                <PropertyColumn Property="x => x.StudentName()" Title="Name" />
+                                <PropertyColumn Property="x => x.Age()" Title="Age" />
+                                <PropertyColumn Property="x => x.AdmissionDate.ToShortDateString()" Title="Admission Date" />
+                            </Columns>
+                        </MudDataGrid>
+                    }
+                </MudTabPanel>
+                <MudTabPanel Text="Students">
+                    @if (Students is null)
+                    {
+                        <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+                    }
+                    else
+                    {
+                        <MudDataGrid Items="@Students" Filterable="false" SortMode="@SortMode.None" Groupable="false">
+                            <Columns>
+                                <PropertyColumn Property="x => x.StudentNumber" Title="Student Number" />
+                                <PropertyColumn Property="x => x.StudentName()" Title="Name" />
+                                <PropertyColumn Property="x => x.Age()" Title="Age" />
+                                <PropertyColumn Property="x => x.AdmissionDate.ToShortDateString()" Title="Admission Date" />
+                            </Columns>
+                        </MudDataGrid>
+                    }
+                </MudTabPanel>
+            </MudTabs>
+        </MudItem>
     </MudGrid>
 }
 

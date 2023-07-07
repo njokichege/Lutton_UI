@@ -47,7 +47,7 @@ namespace FimiAppApi.Repository
             parameters.Add("StreamId", streamId, DbType.Int32);
             parameters.Add("SessionYearId",sessionYearId, DbType.Int32);
 
-            return await _context.LoadSingleData<ClassModel, dynamic>(sql, parameters);
+            return await _context.LoadSingleData<ClassModel>(sql, parameters);
         }
         public async Task<ClassModel> GetClassMultipleMappingById(int id)
         {

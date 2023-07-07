@@ -40,7 +40,7 @@ namespace FimiAppApi.Context
                 return data;
             }
         }
-        public async Task<T> LoadSingleData<T, U>(string sql, DynamicParameters parameters)
+        public async Task<T> LoadSingleData<T>(string sql, DynamicParameters parameters)
         {
             string connectionString = _config.GetConnectionString(ConnecctionStringName);
             using (IDbConnection connection = new SqlConnection(connectionString))

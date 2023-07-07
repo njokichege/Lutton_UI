@@ -25,5 +25,19 @@ namespace FimiAppApi.Controllers
             }
 
         }
+        [HttpGet("{studentNumber}")]
+        public async Task<IActionResult> GetStudentByStudentNumber(int studentNumber)
+        {
+            try
+            {
+                var studentModel = await _studentRepository.GetStudent(studentNumber);
+                return Ok(studentModel);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
     }
 }

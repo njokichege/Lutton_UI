@@ -10,6 +10,15 @@ namespace FimiAppApi.Repository
         {
             _dapperContext = dapperContext;
         }
+        public async Task<StudentModel> GetStudent(int studentNumber)
+        {
+            string sql = "SELECT " +
+                                "* " +
+                         "FROM Student WHERE Student.StudentNumber = @StudentNumber";
+            var parameteres = new DynamicParameters();
+            parameteres.Add("StudentNumber", studentNumber);
+            return await _dapperContext.LoadSingleData<StudentModel>(sql,parameteres);
+        }
         public async Task<IEnumerable<StudentModel>> MapClassOnStudent(int classId)
         {
             string sql = "SELECT " +

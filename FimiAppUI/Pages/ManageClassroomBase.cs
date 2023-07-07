@@ -26,8 +26,8 @@ namespace FimiAppUI.Pages
         public string ModelFail { get; set; }
         public string ModelSuccess { get; set; }
         public string SessionYearModelTitle { get; set; }
-        public DateTime? startDate = DateTime.Today;
-        public DateTime? endDate = DateTime.Today;
+        public DateTime? startDate;
+        public DateTime? endDate;
         public bool showSuccessAlert = false;
         public bool showFailAlert = false;
         public MudTable<ClassModel> mudTable;
