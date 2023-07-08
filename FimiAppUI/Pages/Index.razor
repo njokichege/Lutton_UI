@@ -1,8 +1,15 @@
-﻿@page "/index"
+﻿@page "/"
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
+<MudGrid Class="mt-n12 px-5">
+    <MudItem xs="9">
+        <MudText Typo="Typo.h5" Class="d-flex justify-start">DASHBOARD</MudText>
+    </MudItem>
+    <MudItem xs="3" Class="d-flex justify-end">
+        <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
+        <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
+    </MudItem>
+</MudGrid>
+<MudDivider DividerType="DividerType.FullWidth" />
 
 
 

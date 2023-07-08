@@ -2,7 +2,16 @@
 
 @inherits RegisterStudentBase
 
-<MudText Typo="Typo.h4">Register Student</MudText>
+<MudGrid Class="mt-n12 px-5">
+    <MudItem xs="9">
+        <MudText Typo="Typo.h5" Class="d-flex justify-start">REGISTER STUDENTS</MudText>
+    </MudItem>
+    <MudItem xs="3" Class="d-flex justify-end">
+        <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
+        <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
+    </MudItem>
+</MudGrid>
+<MudDivider DividerType="DividerType.FullWidth" />
 
 <MudGrid Class="pa-10">
     <MudItem xs="5" sm="7">
@@ -11,7 +20,7 @@
                 <MudTextField T="string" Label="First Name" Required="true" RequiredError="First name is required!" />
                 <MudTextField T="string" Label="Middle Name" Required="true" RequiredError="Middle name is required!"/>
                 <MudTextField T="string" Label="Surname" Required="true" RequiredError="Surname is required!" />
-                <MudDatePicker Label="Basic example" @bind-Date="newStudentDateOfBirth" OpenTo="OpenTo.Year" />
+                <MudDatePicker Label="Basic example" OpenTo="OpenTo.Year" />
                 <MudAutocomplete T="FormModel" Label="Form" @bind-Value="NewStudentForm" ShowProgressIndicator="true"
                                  SearchFunc="@FormSearch" ToStringFunc="@(e=> e==null?null : $"{e.Form}")" />
                 <MudAutocomplete T="StreamModel" Label="Stream" @bind-Value="NewStudentStream" ShowProgressIndicator="true"

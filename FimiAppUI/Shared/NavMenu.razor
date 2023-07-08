@@ -3,25 +3,25 @@
 <MudPaper Width="250px" Elevation="0" Class="py-4" Style="@($"background:#163236;")">
     <MudNavMenu Margin="Margin.Normal" Color="Color.Info">
         <MudNavLink Style="color:white " Href="/" Icon="@Icons.Material.Filled.Dashboard">DASHBOARD</MudNavLink>
-        <MudNavGroup Style="color:white" Title="STUDENT" Icon="@Icons.Material.Filled.School">
-            <MudNavLink Style="color:white" Href="/Pages/ViewStudents" Match="NavLinkMatch.Prefix">VIEW STUDENT</MudNavLink>
-            <MudNavLink Style="color:white" Href="/Pages/RegisterStudent">ADD STUDENT</MudNavLink>
+        <MudNavGroup Style="color:white;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" Title="STUDENT" Icon="@Icons.Material.Filled.School" Expanded="true">
+            <MudNavLink Style="color:white;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" Href="/Pages/ViewStudents" Match="NavLinkMatch.Prefix">VIEW STUDENT</MudNavLink>
+            <MudNavLink Style="color:white;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" Href="/Pages/RegisterStudent">ADD STUDENT</MudNavLink>
         </MudNavGroup>
-        <MudNavGroup Style="color:white"  Title="TEACHER" Icon="@Icons.Material.Filled.People">
-            <MudNavLink Style="color:white;font-family:'Roboto', sans-serif;" Href="/Pages/Teacher" Match="NavLinkMatch.Prefix">VIEW TEACHER</MudNavLink>
-            <MudNavLink Style="color:white" Href="/security">ADD TEACHER</MudNavLink>
+        <MudNavGroup Style="color:white;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" Title="TEACHER" Icon="@Icons.Material.Filled.People" Expanded="true">
+            <MudNavLink Style="color:white;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" Href="/Pages/ViewTeachers" Match="NavLinkMatch.Prefix">VIEW TEACHER</MudNavLink>
+            <MudNavLink Style="color:white;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" Href="/Pages/AddTeacher">ADD TEACHER</MudNavLink>
         </MudNavGroup>
-        <MudNavGroup Style="color:white" Title="CLASSROOM" Icon="@Icons.Material.Filled.OtherHouses">
-            <MudNavLink Style="color:white" Href="/Pages/ManageClassroom" Match="NavLinkMatch.Prefix">MANAGE CLASSROOM</MudNavLink>
-            <MudNavLink Style="color:white" Href="/security">MANAGE SUBJECTS</MudNavLink>
+        <MudNavGroup Style="color:white;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" Title="CLASSROOM" Icon="@Icons.Material.Filled.OtherHouses" Expanded="true">
+            <MudNavLink Style="color:white;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" Href="/Pages/ManageClassroom" Match="NavLinkMatch.Prefix">MANAGE CLASSROOM</MudNavLink>
+            <MudNavLink Style="color:white;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" Href="/Pages/ManageSubjects">MANAGE SUBJECTS</MudNavLink>
         </MudNavGroup>
-        <MudNavGroup Style="color:white" Title="EXAMINATION" Icon="@Icons.Material.Filled.LibraryBooks">
-            <MudNavLink Style="color:white" Href="/Pages/Examination" Match="NavLinkMatch.Prefix">MANAGE EXAM</MudNavLink>
-            <MudNavLink Style="color:white" Href="/security">MANAGE RESULTS</MudNavLink>
+        <MudNavGroup Style="color:white;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" Title="EXAMINATION" Icon="@Icons.Material.Filled.LibraryBooks" Expanded="true">
+            <MudNavLink Style="color:white;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" Href="/Pages/ManageExaminations" Match="NavLinkMatch.Prefix">MANAGE EXAM</MudNavLink>
+            <MudNavLink Style="color:white;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" Href="/Pages/ManageResults">MANAGE RESULTS</MudNavLink>
         </MudNavGroup>
-        <MudNavGroup Style="color:white" Title="ACCOUNTS" Icon="@Icons.Material.Filled.AccountBalance">
-            <MudNavLink Style="color:white" Href="/Pages/Accounts" Match="NavLinkMatch.Prefix">MANAGE FEES</MudNavLink>
-            <MudNavLink Style="color:white" Href="/security">FEES PAYMENT</MudNavLink>
+        <MudNavGroup Style="color:white;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" Title="ACCOUNTS" Icon="@Icons.Material.Filled.AccountBalance" Expanded="true">
+            <MudNavLink Style="color:white;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" Href="/Pages/Accounts" Match="NavLinkMatch.Prefix">MANAGE FEES</MudNavLink>
+            <MudNavLink Style="color:white;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" Href="/security">FEES PAYMENT</MudNavLink>
         </MudNavGroup>
     </MudNavMenu>
 </MudPaper>
