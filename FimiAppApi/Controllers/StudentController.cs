@@ -12,7 +12,18 @@ namespace FimiAppApi.Controllers
             _studentRepository = studentRepository;
         }
         [HttpGet("{classId}")]
-        public async Task<IActionResult> GetMultipleMapping(int classId)
+        public async Task<IActionResult> GetStudentById(int classId,int studentNumber)
+        {
+            if(classId == 0)
+            {
+                return await GetStudentByStudentNumber(studentNumber);
+            }
+            else
+            {
+                return await GetMultipleMapping(classId);
+            }
+        }
+        private async Task<IActionResult> GetMultipleMapping(int classId)
         {
             try
             {
@@ -25,8 +36,7 @@ namespace FimiAppApi.Controllers
             }
 
         }
-        [HttpGet("{studentNumber}")]
-        public async Task<IActionResult> GetStudentByStudentNumber(int studentNumber)
+        private async Task<IActionResult> GetStudentByStudentNumber(int studentNumber)
         {
             try
             {
