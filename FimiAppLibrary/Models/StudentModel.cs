@@ -5,7 +5,8 @@ public class StudentModel
     public string FirstName { get; set; }
     public string MiddleName { get; set; }
     public string Surname { get; set; }
-    public DateTime DateOfBirth { get; set; }
+    public string Gender { get; set; }
+    public DateTime? DateOfBirth { get; set; }
     public DateTime AdmissionDate { get; set; }
     public int ParentId { get; set; }
     public List<ClassModel> StudentClasses { get; set; } = new List<ClassModel>();
@@ -15,6 +16,6 @@ public class StudentModel
     }
     public int Age()
     {
-        return DateTime.Now.Year - DateOfBirth.Year;
+        return DateTime.Now.Year - DateOfBirth.Value.Year;
     }
 }

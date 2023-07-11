@@ -14,3 +14,4 @@ global using Microsoft.AspNetCore.Components.Web;
 global using System.Text.RegularExpressions;
 global using System.ComponentModel.DataAnnotations;
 global using FluentValidation;
+global using FimiAppUI.Validators;
