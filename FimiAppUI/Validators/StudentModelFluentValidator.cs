@@ -8,12 +8,8 @@
             RuleFor(x => x.FirstName).NotEmpty().Length(1, 200);
             RuleFor(x => x.MiddleName).NotEmpty().Length(1, 200);
             RuleFor(x => x.Surname).NotEmpty().Length(1, 200);
-            RuleFor(x => x.DateOfBirth).Must(BeAValidDate);
+            RuleFor(x => x.DateOfBirth).NotEmpty();
             RuleFor(x => x.Gender).NotEmpty();
-        }
-        private bool BeAValidDate(DateTime? date)
-        {
-            return !date.Equals(default(DateTime?));
         }
         public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
         {

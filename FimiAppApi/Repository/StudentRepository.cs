@@ -10,6 +10,23 @@ namespace FimiAppApi.Repository
         {
             _dapperContext = dapperContext;
         }
+        public async Task<int> CreateStudent(StudentModel student)
+        {
+            string sql = "DECLARE @stnum INT; " +
+                         "SELECT @stnum = MAX(StudentNumber) FROM Student " +
+                         "INSERT INTO Student " +
+                            "(StudentNumber,FirstName,MiddleName,Surname,Gender,DateOfBirth,AdmissionDate) " +
+                         "VALUES " +
+                            "((@stnum + 1),@FirstName,@MiddleName,@Surname,@Gender,@DateOfBirth,GETDATE())";
+            var parameters = new DynamicParameters();
+            parameters.Add("FirstName", student.FirstName, DbType.String);
+            parameters.Add("MiddleName", student.MiddleName, DbType.String);
+            parameters.Add("Surname", student.Surname, DbType.String);
+            parameters.Add("Gender", student.Gender, DbType.String);
+            parameters.Add("DateOfBirth", student.DateOfBirth, DbType.Date);
+            
+            return await _dapperContext.CreateData<StudentModel, dynamic>(sql, parameters);
+        }
         public async Task<StudentModel> GetStudent(int studentNumber)
         {
             string sql = "SELECT " +

@@ -13,6 +13,15 @@
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" />
 
+@if (showSuccessAlert)
+{
+    <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelSuccess</MudAlert>
+}
+@if (showFailAlert)
+{
+    <MudAlert Severity="Severity.Error" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelFail</MudAlert>
+}
+
 <MudGrid Class="pa-10">
     <MudItem xs="6">
         <MudPaper Class="pa-4">
@@ -21,15 +30,15 @@
                 <MudTextField Immediate="true" @bind-Value="Student.FirstName" For="@(() => Student.FirstName)" Label="First name" Variant="Variant.Outlined" />
                 <MudTextField Immediate="true" @bind-Value="Student.MiddleName" For="@(() => Student.MiddleName)" Label="Middle name" Variant="Variant.Outlined" />
                 <MudTextField Immediate="true" @bind-Value="Student.Surname" For="@(() => Student.Surname)" Label="Surname" Variant="Variant.Outlined" />
-                <MudDatePicker For="@(() => Student.DateOfBirth)" Label="Date of birth" OpenTo="OpenTo.Year" Variant="Variant.Outlined" />
+                <MudDatePicker @bind-Date="Student.DateOfBirth" For="@(() => Student.DateOfBirth)" Label="Date of birth" OpenTo="OpenTo.Year" Variant="Variant.Outlined" />
                 <MudAutocomplete T="FormModel" Label="Form" Variant="Variant.Outlined" @bind-Value="NewStudentForm" ShowProgressIndicator="true" Required="true" RequiredError="Form is required!"
                                  SearchFunc="@FormSearch" ToStringFunc="@(e=> e==null?null : $"{e.Form}")" />
                 <MudAutocomplete T="StreamModel" Label="Stream" Variant="Variant.Outlined" @bind-Value="NewStudentStream" ShowProgressIndicator="true" Required="true" RequiredError="Stream is required!"
                                  SearchFunc="@StreamSearch" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
                 <div class="d-flex">
-                    <MudRadioGroup T="string" For="@(() => Student.Gender)">
-                        <MudRadio Option="@("Female")">Female</MudRadio>
-                        <MudRadio Option="@("Male")">Male</MudRadio>
+                    <MudRadioGroup @bind-SelectedOption="Student.Gender" T="string" For="@(() => Student.Gender)">
+                        <MudRadio Option="@("F")">Female</MudRadio>
+                        <MudRadio Option="@("M")">Male</MudRadio>
                     </MudRadioGroup>
                 </div>
             </MudForm>
@@ -37,20 +46,22 @@
     </MudItem>
     <MudItem xs="6">
         <MudPaper Class="pa-4">
+           @*
             <MudForm Model="@Parent" @ref="@registerParentForm" Validation="@(ParentValidator.ValidateValue)" ValidationDelay="0">
-                <MudText Align="Align.Center" Typo="Typo.h6"><b>Parent Details</b></MudText>
-                <MudTextField Immediate="true" @bind-Value="Parent.FirstName" For="@(() => Parent.FirstName)" Label="First name" Variant="Variant.Outlined" />
-                <MudTextField Immediate="true" @bind-Value="Parent.MiddleName" For="@(() => Parent.MiddleName)" Label="Middle name" Variant="Variant.Outlined" />
-                <MudTextField Immediate="true" @bind-Value="Parent.Surname" For="@(() => Parent.Surname)" Label="Surname" Variant="Variant.Outlined" />
-                <MudTextField Immediate="true" @bind-Value="Parent.NationalId" For="@(() => Parent.NationalId)" Label="National Id" Variant="Variant.Outlined" />
-                <MudTextField Immediate="true" @bind-Value="Parent.PhoneNumber" For="@(() => Parent.PhoneNumber)" Label="Phone number" Variant="Variant.Outlined" />
-                <div class="d-flex">
-                    <MudRadioGroup T="string" For="@(() => Parent.Gender)">
-                        <MudRadio Option="@("Female")">Female</MudRadio>
-                        <MudRadio Option="@("Male")">Male</MudRadio>
-                    </MudRadioGroup>
-                </div>
+            <MudText Align="Align.Center" Typo="Typo.h6"><b>Parent Details</b></MudText>
+            <MudTextField Immediate="true" @bind-Value="Parent.FirstName" For="@(() => Parent.FirstName)" Label="First name" Variant="Variant.Outlined" />
+            <MudTextField Immediate="true" @bind-Value="Parent.MiddleName" For="@(() => Parent.MiddleName)" Label="Middle name" Variant="Variant.Outlined" />
+            <MudTextField Immediate="true" @bind-Value="Parent.Surname" For="@(() => Parent.Surname)" Label="Surname" Variant="Variant.Outlined" />
+            <MudTextField Immediate="true" @bind-Value="Parent.NationalId" For="@(() => Parent.NationalId)" Label="National Id" Variant="Variant.Outlined" />
+            <MudTextField Immediate="true" @bind-Value="Parent.PhoneNumber" For="@(() => Parent.PhoneNumber)" Label="Phone number" Variant="Variant.Outlined" />
+            <div class="d-flex">
+            <MudRadioGroup T="string" For="@(() => Parent.Gender)">
+            <MudRadio Option="@("Female")">Female</MudRadio>
+            <MudRadio Option="@("Male")">Male</MudRadio>
+            </MudRadioGroup>
+            </div>
             </MudForm>
+           *@ 
         </MudPaper>
     </MudItem>
 </MudGrid>

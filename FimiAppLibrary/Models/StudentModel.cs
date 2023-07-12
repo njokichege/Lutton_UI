@@ -8,7 +8,6 @@ public class StudentModel
     public string Gender { get; set; }
     public DateTime? DateOfBirth { get; set; }
     public DateTime AdmissionDate { get; set; }
-    public int ParentId { get; set; }
     public List<ClassModel> StudentClasses { get; set; } = new List<ClassModel>();
     public string StudentName()
     {

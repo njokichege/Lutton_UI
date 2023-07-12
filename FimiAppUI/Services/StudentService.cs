@@ -1,6 +1,7 @@
 ﻿using FimiAppUI.Contracts;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace FimiAppUI.Services
 {
@@ -19,6 +20,10 @@ namespace FimiAppUI.Services
         public async Task<StudentModel> GetStudentByStudentNumber(int studentNumber)
         {
             return await _httpClient.GetFromJsonAsync<StudentModel>($"api/student/{studentNumber}");
+        }
+        public async Task<HttpResponseMessage> AddStudent(StudentModel student)
+        {
+            return await _httpClient.PostAsJsonAsync<StudentModel>("api/student",student);
         }
     }
 }

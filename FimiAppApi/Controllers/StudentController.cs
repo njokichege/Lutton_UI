@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.AspNetCore.Mvc;
+
 namespace FimiAppApi.Controllers
 {
     [Route("api/student")]
@@ -11,19 +13,8 @@ namespace FimiAppApi.Controllers
         {
             _studentRepository = studentRepository;
         }
-        [HttpGet("{classId}")]
-        public async Task<IActionResult> GetStudentById(int classId,int studentNumber)
-        {
-            if(classId == 0)
-            {
-                return await GetStudentByStudentNumber(studentNumber);
-            }
-            else
-            {
-                return await GetMultipleMapping(classId);
-            }
-        }
-        private async Task<IActionResult> GetMultipleMapping(int classId)
+        [HttpGet("class/{classId}")]
+        public async Task<IActionResult> GetMultipleMapping(int classId)
         {
             try
             {
@@ -36,7 +27,8 @@ namespace FimiAppApi.Controllers
             }
 
         }
-        private async Task<IActionResult> GetStudentByStudentNumber(int studentNumber)
+        [HttpGet("studentnumber/{studentnumber}")]
+        public async Task<IActionResult> GetStudentByStudentNumber(int studentNumber)
         {
             try
             {
@@ -47,7 +39,30 @@ namespace FimiAppApi.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
-
+        }
+        [HttpPost]
+        public async Task<ActionResult> CreateStudent(StudentModel student)
+        {
+            try
+            {
+                if(student is not null)
+                {
+                    var rowChanged = await _studentRepository.CreateStudent(student);
+                    if (rowChanged == 1)
+                    {
+                        return StatusCode(201,student);
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }
