@@ -1,5 +1,7 @@
 ﻿@page "/"
 
+@inherits IndexBase
+
 <MudGrid Class="mt-n12 px-5">
     <MudItem xs="9">
         <MudText Typo="Typo.h5" Class="d-flex justify-start">DASHBOARD</MudText>
@@ -11,5 +13,59 @@
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" />
 
+@if(AllStudents is not null && AllTeachers is not null && AllParents is not null)
+{
+    <MudGrid Class="pa-5">
+        <MudItem xs="3">
+            <MudPaper Class="d-flex flex-row gap-0">
+                <MudImage Src="images/fastforward.png" Width="100" Height="100" Elevation="0" Class="rounded-lg pa-1" />
+                <MudDivider Vertical="true" FlexItem="true" />
+                <MudCard Elevation="0">
+                    <MudCardContent>
+                        <MudText><b>Running Session</b></MudText>
+                        <MudText>@SessionYearModelTitle</MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="3">
+            <MudPaper Class="d-flex flex-row gap-0">
+                <MudImage Src="images/graduationcap.png" Width="100" Height="100" Elevation="0" Class="rounded-lg pa-1" />
+                <MudDivider Vertical="true" FlexItem="true" />
+                <MudCard Elevation="0">
+                    <MudCardContent>
+                        <MudText><b>STUDENTS</b></MudText>
+                        <MudText>@AllStudents.Count()</MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="3">
+            <MudPaper Class="d-flex flex-row gap-0">
+                <MudImage Src="images/teacher.jpg" Width="100" Height="100" Elevation="0" Class="rounded-lg pa-1" />
+                <MudDivider Vertical="true" FlexItem="true" />
+                <MudCard Elevation="0">
+                    <MudCardContent>
+                        <MudText ><b>TEACHERS</b></MudText>
+                        <MudText>@AllTeachers.Count()</MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="3">
+            <MudPaper Class="d-flex flex-row gap-0">
+                <MudImage Src="images/parents.png" Width="100" Height="100" Elevation="0" Class="rounded-lg pa-1" />
+                <MudDivider Vertical="true" FlexItem="true" />
+                <MudCard Elevation="0">
+                    <MudCardContent>
+                        <MudText><b>PARENTS</b></MudText>
+                        <MudText>@AllParents.Count()</MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+}
+<MudDivider DividerType="DividerType.FullWidth" />
 
 

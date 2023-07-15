@@ -1,6 +1,4 @@
-﻿using FimiAppUI.Contracts;
-
-namespace FimiAppUI.Pages
+﻿namespace FimiAppUI.Pages
 {
     public class ViewStudentsBase : ComponentBase
     {
@@ -11,14 +9,18 @@ namespace FimiAppUI.Pages
         [Inject] public IStudentService StudentService { get; set; }
         [Inject] public NavigationManager Navigation { get; set; }
         public IEnumerable<StudentModel> Students { get; set; }
+        public IEnumerable<StudentModel> AllStudents { get; set; } 
         public ClassModel SelectedClass { get; set; }
         public SessionYearModel SelectedStudentSchoolYear { get; set; }
         public FormModel SelectedStudentForm { get; set; }
         public StreamModel SelectedStudentStream { get; set; }
+        public StudentModel selectedStudent = null;
         public MudTable<StudentModel> mudTable;
-        protected override void OnInitialized()
+        public bool visible = false;
+        public bool visibleAllStudents = true;
+        protected override async Task OnInitializedAsync()
         {
-            base.OnInitialized();
+            AllStudents = (await StudentService.GetStudents()).ToList();
         }
         public async Task<IEnumerable<SessionYearModel>> SelectedSessionYearSearch(string value)
         {
@@ -34,6 +36,8 @@ namespace FimiAppUI.Pages
         }
         public async void FindClass()
         {
+            visibleAllStudents = false;
+            visible = true;
             SelectedClass = await ClassService.GetClassByForeignKeys(SelectedStudentForm.FormId, SelectedStudentStream.StreamId, SelectedStudentSchoolYear.SessionYearId);
             Students = (await StudentService.MapClassOnStudent(SelectedClass.ClassId));
             this.StateHasChanged();

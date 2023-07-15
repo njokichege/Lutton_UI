@@ -8,6 +8,9 @@ namespace FimiAppUI.Pages
         [Inject] public IFormService FormService { get; set; }
         [Inject] public IStreamService StreamService { get; set; }
         [Inject] public IStudentService StudentService { get; set; }
+        [Inject] public IParentService ParentService { get; set; }
+        [Inject] public IParentStudentService ParentStudentService { get; set; }
+        [Inject] public IDialogService DialogService { get; set; }
         public StudentModelFluentValidator StudentValidator { get; set; } = new StudentModelFluentValidator();
         public ParentModelFluentValidator ParentValidator { get; set; } = new ParentModelFluentValidator();
         public StudentModel Student { get; set; } = new StudentModel();
@@ -17,11 +20,17 @@ namespace FimiAppUI.Pages
         public string SelectedGender { get; set; }
         public string ModelFail { get; set; }
         public string ModelSuccess { get; set; }
+        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+        public string ContentText { get; set; }
+        public string ButtonText { get; set; }
+        public DialogOptions dialogOptions = new() { FullWidth = true };
         public DateTime newStudentDateOfBirth;
         public MudForm registerStudentForm;
         public MudForm registerParentForm;
+        public MudDialog registerDialog;
         public bool showSuccessAlert = false;
         public bool showFailAlert = false;
+        public bool visible;
         protected override Task OnInitializedAsync()
         {
             return base.OnInitializedAsync();
@@ -36,14 +45,33 @@ namespace FimiAppUI.Pages
         }
         public async Task Submit()
         {
+            visible = true;
+        }
+        public async Task DialogSubmit()
+        {
+            visible = false;
+
             await registerStudentForm.Validate();
-            //await registerParentForm.Validate();
-            if (registerStudentForm.IsValid)
+            await registerParentForm.Validate();
+            if (registerStudentForm.IsValid && registerParentForm.IsValid)
             {
                 var studentResponse = await StudentService.AddStudent(Student);
-                if (studentResponse.StatusCode == HttpStatusCode.Created)
+                var parentResponse = await ParentService.AddParent(Parent);
+                if (studentResponse.StatusCode == HttpStatusCode.Created && parentResponse.StatusCode == HttpStatusCode.Created)
                 {
-                    ShowSuccessAlert($"Student {Student.StudentName()} added!");
+                    var parentStudentResponse = await ParentStudentService.AddParentStudent(Parent);
+                    if(parentStudentResponse.StatusCode == HttpStatusCode.Created)
+                    {
+                        ShowSuccessAlert($"{Student.StudentName()} has been added and {Parent.FirstName} {Parent.Surname} linked as the parent");
+                    }
+                }
+                else if(parentResponse.StatusCode == HttpStatusCode.Conflict)
+                {
+                    var parentStudentResponse = await ParentStudentService.AddParentStudent(Parent);
+                    if (parentStudentResponse.StatusCode == HttpStatusCode.Created)
+                    {
+                        ShowSuccessAlert($"{Student.StudentName()} has been added and {Parent.FirstName} {Parent.Surname} linked as the parent");
+                    }
                 }
                 else
                 {
@@ -51,6 +79,7 @@ namespace FimiAppUI.Pages
                 }
             }
         }
+        public void Cancel() => MudDialog.Cancel();
         public void ShowSuccessAlert(string modelType)
         {
             ModelSuccess = modelType;

@@ -1,5 +1,7 @@
 ﻿@page "/Pages/AddTeacher"
 
+@inherits AddTeacherBase
+
 <MudGrid Class="mt-n12 px-5">
     <MudItem xs="9">
         <MudText Typo="Typo.h5" Class="d-flex justify-start">ADD TEACHER</MudText>
@@ -11,66 +13,51 @@
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" />
 
-@*
-    @page "/Pages/RegisterStudent"
 
-@inherits RegisterStudentBase
-
-<MudGrid Class="mt-n12 px-5">
-    <MudItem xs="9">
-        <MudText Typo="Typo.h5" Class="d-flex justify-start">REGISTER STUDENTS</MudText>
-    </MudItem>
-    <MudItem xs="3" Class="d-flex justify-end">
-        <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
-        <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
-    </MudItem>
-</MudGrid>
-<MudDivider DividerType="DividerType.FullWidth" />
+@if (showSuccessAlert)
+{
+    <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelSuccess</MudAlert>
+}
+@if (showFailAlert)
+{
+    <MudAlert Severity="Severity.Error" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelFail</MudAlert>
+}
 
 <MudGrid Class="pa-10">
     <MudItem xs="6">
         <MudPaper Class="pa-4">
-            <MudForm Model="@Student"@ref="@registerStudentForm" Validation="@(StudentValidator.ValidateValue)" ValidationDelay="0">
-                <MudText Align="Align.Center" Typo="Typo.h6"><b>Student Details</b></MudText>
-                <MudTextField Immediate="true" @bind-Value="Student.FirstName" For="@(() => Student.FirstName)" Label="First name" Variant="Variant.Outlined" />
-                <MudTextField Immediate="true" @bind-Value="Student.MiddleName" For="@(() => Student.MiddleName)" Label="Middle name" Variant="Variant.Outlined" />
-                <MudTextField Immediate="true" @bind-Value="Student.Surname" For="@(() => Student.Surname)" Label="Surname" Variant="Variant.Outlined" />
-                <MudDatePicker For="@(() => Student.DateOfBirth)" Label="Date of birth" OpenTo="OpenTo.Year" Variant="Variant.Outlined" />
-                <MudAutocomplete T="FormModel" Label="Form" Variant="Variant.Outlined" @bind-Value="NewStudentForm" ShowProgressIndicator="true"
-                                 SearchFunc="@FormSearch" ToStringFunc="@(e=> e==null?null : $"{e.Form}")" />
-                <MudAutocomplete T="StreamModel" Label="Stream" Variant="Variant.Outlined" @bind-Value="NewStudentStream" ShowProgressIndicator="true"
-                                 SearchFunc="@StreamSearch" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
-                <div class="d-flex">
-                    <MudRadioGroup T="string" For="@(() => Student.Gender)">
-                        <MudRadio Option="@("Female")">Female</MudRadio>
-                        <MudRadio Option="@("Male")">Male</MudRadio>
-                    </MudRadioGroup>
-                </div>
+            <MudForm Model="@Staff" @ref="@registerStaffForm" Validation="@(StaffValidator.ValidateValue)" ValidationDelay="0">
+                <MudText Align="Align.Center" Typo="Typo.h6"><b>Teacher Details</b></MudText>
+                <MudTextField Immediate="true" @bind-Value="Staff.NationalId" For="@(() => Staff.NationalId)" Label="National Id" Variant="Variant.Outlined" />
+                <MudTextField Immediate="true" @bind-Value="Staff.FirstName" For="@(() => Staff.FirstName)" Label="First name" Variant="Variant.Outlined" />
+                <MudTextField Immediate="true" @bind-Value="Staff.MiddleName" For="@(() => Staff.MiddleName)" Label="Middle name" Variant="Variant.Outlined" />
+                <MudTextField Immediate="true" @bind-Value="Staff.Surname" For="@(() => Staff.Surname)" Label="Surname" Variant="Variant.Outlined" />
+                <MudTextField Immediate="true" @bind-Value="Staff.PhoneNumber" For="@(() => Staff.PhoneNumber)" Label="Phone number" Variant="Variant.Outlined" />
+                <MudTextField Immediate="true" @bind-Value="Staff.Designation" For="@(() => Staff.Designation)" Label="Designation" Variant="Variant.Outlined" />
             </MudForm>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="6">
-        <MudPaper Class="pa-4">
-            <MudForm Model="@Parent" @ref="@registerParentForm"Validation="@(ParentValidator.ValidateValue)" ValidationDelay="0">
-                <MudText Align="Align.Center" Typo="Typo.h6"><b>Parent Details</b></MudText>
-                <MudTextField Immediate="true" @bind-Value="Parent.FirstName" For="@(() => Parent.FirstName)" Label="First name" Variant="Variant.Outlined" />
-                <MudTextField Immediate="true" @bind-Value="Parent.MiddleName" For="@(() => Parent.MiddleName)" Label="Middle name" Variant="Variant.Outlined" />
-                <MudTextField Immediate="true" @bind-Value="Parent.Surname" For="@(() => Parent.Surname)" Label="Surname" Variant="Variant.Outlined" />
-                <MudTextField Immediate="true" @bind-Value="Parent.NationalId" For="@(() => Parent.NationalId)" Label="National Id" Variant="Variant.Outlined" />
-                <MudTextField Immediate="true" @bind-Value="Parent.PhoneNumber" For="@(() => Parent.PhoneNumber)" Label="Phone number" Variant="Variant.Outlined" />
-                <div class="d-flex">
-                    <MudRadioGroup T="string" For="@(() => Parent.Gender)">
-                        <MudRadio Option="@("Female")">Female</MudRadio>
-                        <MudRadio Option="@("Male")">Male</MudRadio>
-                    </MudRadioGroup>
-                </div>
-            </MudForm>
+            
+            <MudForm Model="@Teacher" @ref="@registerTeacherForm" Validation="@(TeacherValidator.ValidateValue)" ValidationDelay="0">
+                
+                <MudSelect For="@(() => Teacher.TeacherType)" @bind-Value="Teacher.TeacherType" T="string" Label="Teacher Type" AnchorOrigin="Origin.BottomCenter">
+                <MudSelectItem Value="@("Board Of Governors")" />
+                <MudSelectItem Value="@("Teachers Service Commission")" />
+                </MudSelect>
+                <MudTextField Immediate="true" @bind-Value="Teacher.TSCNumber" For="@(() => Teacher.TSCNumber)" Label="TSC Number" Variant="Variant.Outlined" />
+                </MudForm>
+            <MudForm Model="@Teacher" @ref="@registerTeacherForm" Validation="@(TeacherValidator.ValidateValue)" ValidationDelay="0">
+                
+                <MudSelect For="@(() => Teacher.TeacherType)" @bind-Value="Teacher.TeacherType" T="string" Label="Teacher Type" AnchorOrigin="Origin.BottomCenter">
+                <MudSelectItem Value="@("Board Of Governors")" />
+                <MudSelectItem Value="@("Teachers Service Commission")" />
+                </MudSelect>
+                
+                <MudTextField Immediate="true" @bind-Value="Teacher.TSCNumber" For="@(() => Teacher.TSCNumber)" Label="TSC Number" Variant="Variant.Outlined" />
+                </MudForm>
         </MudPaper>
     </MudItem>
 </MudGrid>
 <MudGrid Class="mt-n12 px-5">
     <MudItem xs="12">
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto"Style="background-color:#e38d43" OnClick="@(async () => await Submit())" FullWidth="true" StartIcon="@Icons.Material.Filled.Save">Register</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Style="background-color:#e38d43" OnClick="@(async () => await Submit())" FullWidth="true" StartIcon="@Icons.Material.Filled.Save">Register</MudButton>
     </MudItem>
 </MudGrid>
-*@

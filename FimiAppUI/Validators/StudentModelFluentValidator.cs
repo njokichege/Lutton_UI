@@ -5,11 +5,27 @@
         [Inject] public IStudentService StudentService { get; set; }
         public StudentModelFluentValidator()
         {
-            RuleFor(x => x.FirstName).NotEmpty().Length(1, 200);
-            RuleFor(x => x.MiddleName).NotEmpty().Length(1, 200);
-            RuleFor(x => x.Surname).NotEmpty().Length(1, 200);
-            RuleFor(x => x.DateOfBirth).NotEmpty();
-            RuleFor(x => x.Gender).NotEmpty();
+            RuleFor(x => x.FirstName)
+                .NotEmpty().WithMessage("'{PropertyName}' is required")
+                .NotNull().WithMessage("'{PropertyName}' is required")
+                .Length(1, 100).WithMessage("'{PropertyName}' has exceeded the maximum length")
+                .Matches(@"^[A-Za-z\s]*$").WithMessage("'{PropertyName}' should only contain letters");
+            RuleFor(x => x.MiddleName)
+                .NotEmpty().WithMessage("'{PropertyName}' is required")
+                .NotNull().WithMessage("'{PropertyName}' is required")
+                .Length(1, 100).WithMessage("'{PropertyName}' has exceeded the maximum length")
+                .Matches(@"^[A-Za-z\s]*$").WithMessage("'{PropertyName}' should only contain letters");
+            RuleFor(x => x.Surname)
+                .NotEmpty().WithMessage("'{PropertyName}' is required")
+                .NotNull().WithMessage("'{PropertyName}' is required")
+                .Length(1, 100).WithMessage("'{PropertyName}' has exceeded the maximum length")
+                .Matches(@"^[A-Za-z\s]*$").WithMessage("'{PropertyName}' should only contain letters");
+            RuleFor(x => x.DateOfBirth)
+                .NotEmpty().WithMessage("'{PropertyName}' is required")
+                .LessThan(p => DateTime.Now).WithMessage("'{PropertyName}' should be less cannot be today");
+            RuleFor(x => x.Gender)
+                .NotEmpty().WithMessage("'{PropertyName}' is required")
+                .NotNull().WithMessage("'{PropertyName}' is required");
         }
         public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
         {

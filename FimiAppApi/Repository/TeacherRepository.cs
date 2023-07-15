@@ -39,7 +39,7 @@
             };
             string splitOn = "NationalId";
 
-            return await _dapperContext.MapMultipleObjects(sql, types, map, splitOn);
+            return await _dapperContext.MapMultipleObjects<TeacherModel,dynamic>(sql, types, map, splitOn, new {});
         }
     }
 }

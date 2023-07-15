@@ -10,6 +10,11 @@ namespace FimiAppApi.Repository
         {
             _dapperContext = dapperContext;
         }
+        public async Task<IEnumerable<StudentModel>> GetAllStudents()
+        {
+            string sql = "SELECT * FROM Student";
+            return await _dapperContext.LoadData<StudentModel, dynamic>(sql, new {});
+        }
         public async Task<int> CreateStudent(StudentModel student)
         {
             string sql = "DECLARE @stnum INT; " +
@@ -34,7 +39,7 @@ namespace FimiAppApi.Repository
                          "FROM Student WHERE Student.StudentNumber = @StudentNumber";
             var parameteres = new DynamicParameters();
             parameteres.Add("StudentNumber", studentNumber);
-            return await _dapperContext.LoadSingleData<StudentModel>(sql,parameteres);
+            return await _dapperContext.LoadSingleData<StudentModel,dynamic>(sql,parameteres);
         }
         public async Task<IEnumerable<StudentModel>> MapClassOnStudent(int classId)
         {
@@ -64,7 +69,7 @@ namespace FimiAppApi.Repository
             };
             string splitOn = "StudentNumber,ClassId";
 
-            return await _dapperContext.MapMultipleObjectsById(sql,types, map, splitOn, parameters);
+            return await _dapperContext.MapMultipleObjects<StudentModel,dynamic>(sql,types, map, splitOn, parameters);
         }
     }
 }

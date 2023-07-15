@@ -47,7 +47,7 @@ namespace FimiAppApi.Repository
             parameters.Add("StreamId", streamId, DbType.Int32);
             parameters.Add("SessionYearId",sessionYearId, DbType.Int32);
 
-            return await _context.LoadSingleData<ClassModel>(sql, parameters);
+            return await _context.LoadSingleData<ClassModel,dynamic>(sql, parameters);
         }
         public async Task<ClassModel> GetClassMultipleMappingById(int id)
         {
@@ -100,7 +100,7 @@ namespace FimiAppApi.Repository
                 return classDetails;
             };
             string splitOn = "FormId,StreamId,TeacherId,NationalId";
-            var data = await _context.MapMultipleObjectsById<ClassModel>(sql, types, map, splitOn, parameters);
+            var data = await _context.MapMultipleObjects<ClassModel,dynamic>(sql, types, map, splitOn, parameters);
             return data.FirstOrDefault();
         }
         public async Task<IEnumerable<ClassModel>> GetClasses()
@@ -171,7 +171,7 @@ namespace FimiAppApi.Repository
                 return classDetails;
             };
             string splitOn = "FormId,StreamId,TeacherId,NationalId";
-            return await _context.MapMultipleObjects(query, types, map, splitOn);   
+            return await _context.MapMultipleObjects<ClassModel,dynamic>(query, types, map, splitOn, new {});   
         }
     }
 }

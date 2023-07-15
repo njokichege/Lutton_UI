@@ -22,16 +22,7 @@ namespace FimiAppApi.Context
                 return data.ToList();
             }
         }
-        public async Task<IEnumerable<T>> MapMultipleObjects<T>(string sql, Type[] types, Func<object[], T> map, string splitOn)
-        {
-            string connectionString = _config.GetConnectionString(ConnecctionStringName);
-            using (IDbConnection connection = new SqlConnection(connectionString))
-            {
-                var data = await connection.QueryAsync<T>(sql, types, map: map, splitOn: splitOn);
-                return data.ToList();
-            }
-        }
-        public async Task<IEnumerable<T>> MapMultipleObjectsById<T>(string sql, Type[] types, Func<object[], T> map, string splitOn, DynamicParameters parameters)
+        public async Task<IEnumerable<T>> MapMultipleObjects<T,U>(string sql, Type[] types, Func<object[], T> map, string splitOn, U parameters)
         {
             string connectionString = _config.GetConnectionString(ConnecctionStringName);
             using (IDbConnection connection = new SqlConnection(connectionString))
@@ -40,7 +31,7 @@ namespace FimiAppApi.Context
                 return data;
             }
         }
-        public async Task<T> LoadSingleData<T>(string sql, DynamicParameters parameters)
+        public async Task<T> LoadSingleData<T,U>(string sql, U parameters)
         {
             string connectionString = _config.GetConnectionString(ConnecctionStringName);
             using (IDbConnection connection = new SqlConnection(connectionString))

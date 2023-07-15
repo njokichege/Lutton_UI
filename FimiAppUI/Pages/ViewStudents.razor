@@ -1,4 +1,5 @@
-﻿@page "/Pages/ViewStudents"
+﻿
+@page "/Pages/ViewStudents"
 
 @inherits ViewStudentsBase
 
@@ -43,38 +44,57 @@
     </MudItem>
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
-@if(Students is not null)
-{
-    <MudGrid Class="px-4">
-        <MudItem xs="3">
-            <MudCard>
-                <MudCardContent>
-                    <MudText Typo="Typo.h5">Total Students : @Students.Count()</MudText>
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
-    </MudGrid>
-    <MudGrid Class="px-4">
-        <MudItem xs="8">
-            <MudTable Items="@Students" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" OnRowClick="RowClickEvent" T="StudentModel">
+
+<MudGrid Class="px-4" @bind-IsVisible="visible">
+    <MudItem xs="8">
+        @if (AllStudents is null)
+        {
+            <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+        }
+        else if(AllStudents is not null && Students is null)
+        {
+            <MudTable  Items="@AllStudents" Hover="true" Striped="true" @bind-SelectedItem="selectedStudent">
                 <HeaderContent>
                     <MudTh>Student Number</MudTh>
                     <MudTh>Name</MudTh>
+                    <MudTh>Age</MudTh>
+                    <MudTh>Gender</MudTh>
+                    <MudTh>Date of Birth</MudTh>
                     <MudTh>Admission Date</MudTh>
                 </HeaderContent>
                 <RowTemplate>
                     <MudTd DataLabel="Student Number">@context.StudentNumber</MudTd>
                     <MudTd DataLabel="Name">@context.StudentName()</MudTd>
+                    <MudTd DataLabel="Age">@context.Age()</MudTd>
+                    <MudTd DataLabel="Gender">@context.Gender</MudTd>
+                    <MudTd DataLabel="Date of Birth">@context.DateOfBirth.Value.ToShortDateString()</MudTd>
                     <MudTd DataLabel="Admission Date">@context.AdmissionDate.ToShortDateString()</MudTd>
-                    <MudTd DataLabel="Student Age">@context.Age()</MudTd>
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager />
+                </PagerContent>
+            </MudTable>
+        }
+        else if (AllStudents is not null && Students is not null)
+        {
+            <MudTable Items="@Students" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" OnRowClick="RowClickEvent" T="StudentModel">
+                <HeaderContent>
+                    <MudTh>Student Number</MudTh>
+                    <MudTh>Name</MudTh>
+                    <MudTh>Age</MudTh>
+                    <MudTh>Gender</MudTh>
+                    <MudTh>Date of Birth</MudTh>
+                    <MudTh>Admission Date</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Student Number">@context.StudentNumber</MudTd>
+                    <MudTd DataLabel="Name">@context.StudentName()</MudTd>
+                    <MudTd DataLabel="Age">@context.Age()</MudTd>
+                    <MudTd DataLabel="Gender">@context.Gender</MudTd>
+                    <MudTd DataLabel="Date of Birth">@context.DateOfBirth.Value.ToShortDateString()</MudTd>
+                    <MudTd DataLabel="Admission Date">@context.AdmissionDate.ToShortDateString()</MudTd>
                 </RowTemplate>
             </MudTable>
-        </MudItem>
-    </MudGrid>
-}
-
-
-
-
-
-
+        }
+    </MudItem>
+</MudGrid>

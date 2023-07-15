@@ -13,6 +13,20 @@ namespace FimiAppApi.Controllers
         {
             _studentRepository = studentRepository;
         }
+        [HttpGet]
+        public async Task<IActionResult> GetStudents()
+        {
+            try
+            {
+                var students = await _studentRepository.GetAllStudents();
+                return Ok(students);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
         [HttpGet("class/{classId}")]
         public async Task<IActionResult> GetMultipleMapping(int classId)
         {
@@ -41,7 +55,7 @@ namespace FimiAppApi.Controllers
             }
         }
         [HttpPost]
-        public async Task<ActionResult> CreateStudent(StudentModel student)
+        public async Task<ActionResult> CreateStudent([FromBody]StudentModel student)
         {
             try
             {

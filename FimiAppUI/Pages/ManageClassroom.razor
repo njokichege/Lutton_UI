@@ -26,7 +26,6 @@
     <MudTabPanel Text="Classes">
         <MudGrid Class="pa-5">
             <MudItem xs="5" Class="d-flex justify-space-between gap-1">
-
                 @if (Classes is null)
                 {
                     <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true"/>
@@ -141,8 +140,8 @@
                     </MudCardHeader>
                     <MudCardContent>
                         <MudDivider DividerType="DividerType.FullWidth" Class="my-4" />
-                        <MudDatePicker Label="Start Date" @bind-Date="startDate" />
-                        <MudDatePicker Label="End Date" @bind-Date="endDate" />
+                        <MudDatePicker OpenTo="OpenTo.Year" PickerVariant="PickerVariant.Dialog" Label="Start Date" @bind-Date="startDate" />
+                        <MudDatePicker OpenTo="OpenTo.Year" PickerVariant="PickerVariant.Dialog" Label="End Date" @bind-Date="endDate" />
                     </MudCardContent>
                     <MudCardActions>
                         <MudButton Variant="Variant.Filled" OnClick="@CreateNewSchoolYear" FullWidth="true" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
