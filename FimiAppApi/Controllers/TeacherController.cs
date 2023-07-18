@@ -29,11 +29,11 @@ namespace FimiAppApi.Controllers
 
         }
         [HttpGet("MapStaffOnTeacher")]
-        public async Task<IActionResult> GetMultipleMapping()
+        public async Task<IActionResult> MapStaffOnTeacher()
         {
             try
             {
-                var classes = await _teacherRepository.GetMapStaffOnTeacher();
+                var classes = await _teacherRepository.MapStaffOnTeacher();
                 return Ok(classes);
             }
             catch (Exception ex)

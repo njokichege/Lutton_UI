@@ -2,7 +2,7 @@
 {
     public interface ITeacherRepository
     {
-        Task<IEnumerable<TeacherModel>> GetMapStaffOnTeacher();
+        Task<IEnumerable<TeacherModel>> MapStaffOnTeacher();
         Task<IEnumerable<TeacherModel>> GetTeachers();
     }
 }

@@ -5,10 +5,9 @@
         public int TeacherId { get; set; }
         public string TeacherType { get; set; }
         public string TSCNumber { get; set; }
+        public int NationalId { get; set; }
         public StaffModel Staff { get; set; }
-        public int SubjectSpecializationOne { get; set; }
-        public int SubjectSpecializationTwo { get; set; }
-        public string ClassTeacherName()
+        public string FullName()
         {
             return $"{Staff.FirstName} {Staff.MiddleName} {Staff.Surname}";
         }

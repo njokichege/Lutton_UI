@@ -24,7 +24,7 @@
 }
 <MudTabs ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
     <MudTabPanel Text="Classes">
-        <MudGrid Class="pa-5">
+        <MudGrid Class="px-5">
             <MudItem xs="5" Class="d-flex justify-space-between gap-1">
                 @if (Classes is null)
                 {
@@ -40,14 +40,12 @@
                             <TemplateColumn CellClass="d-flex justify-end" Title="Option">
                                 <CellTemplate>
                                     <MudStack Row>
-                                    <MudMenu EndIcon="@Icons.Material.Filled.KeyboardArrowDown" Label="Action" Color="Color.Tertiary" Variant="Variant.Filled">
-                                        <MudMenuItem Href="@($"/classdetails/{context.Item.ClassId}")">View Class</MudMenuItem>
-                                    </MudMenu>
-                                </MudStack>
-                            </CellTemplate>
-                        </TemplateColumn>
-                    </Columns>
-                </MudDataGrid>
+                                        <MudButton Variant="Variant.Filled" Color="Color.Tertiary" Href="@($"/classdetails/{context.Item.ClassId}")">View Class</MudButton>
+                                    </MudStack>
+                                </CellTemplate>
+                            </TemplateColumn>
+                        </Columns>
+                    </MudDataGrid>
                 }
             </MudItem>
             <MudItem xs="3">
@@ -66,7 +64,7 @@
                         <MudAutocomplete T="SessionYearModel" Label="Session Year" @bind-Value="SelectedSessionYearOnTeacherCard" ShowProgressIndicator="true"
                                          SearchFunc="@SessionYearSearchOnTeacherCard" ToStringFunc="@(e=> e==null?null : $"{e.SessionString()}")" />
                         <MudAutocomplete T="TeacherModel" Label="Teacher" @bind-Value="SelectedTeacherOnTeacherCard" ShowProgressIndicator="true"
-                                         SearchFunc="@TeacherSearchOnTeacherCard" ToStringFunc="@(e=> e==null?null : $"{e.ClassTeacherName()}")" />
+                                         SearchFunc="@TeacherSearchOnTeacherCard" ToStringFunc="@(e=> e==null?null : $"{e.FullName()}")" />
                     </MudCardContent>
                     <MudCardActions>
                         <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@AssignClassTeacher" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
@@ -121,9 +119,7 @@
                             <TemplateColumn CellClass="d-flex justify-end" Title="Option">
                                 <CellTemplate>
                                     <MudStack Row>
-                                    <MudMenu EndIcon="@Icons.Material.Filled.KeyboardArrowDown" Label="Action" Color="Color.Tertiary" Variant="Variant.Filled">
-                                        <MudMenuItem Href="@($"/classdetails/{context.Item.SessionYearId}")">Edit School Year</MudMenuItem>
-                                    </MudMenu>
+                                    <MudButton Variant="Variant.Filled" Color="Color.Tertiary" Href="@($"/classdetails/{context.Item.SessionYearId}")">Edit School Year</MudButton>
                                 </MudStack>
                             </CellTemplate>
                         </TemplateColumn>

@@ -15,9 +15,9 @@ namespace FimiAppUI.Services
         {
             return await _httpClient.GetFromJsonAsync<TeacherModel[]>("api/teacher");
         }
-        public async Task<IEnumerable<TeacherModel>> GetMultipleMapping()
+        public async Task<IEnumerable<TeacherModel>> MapStaffOnTeacher()
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<TeacherModel>>("api/teacher/MultipleMapping");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<TeacherModel>>("api/teacher/MapStaffOnTeacher");
         }
     }
 }

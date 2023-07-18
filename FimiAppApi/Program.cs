@@ -17,6 +17,8 @@ builder.Services.AddSingleton<ITeacherRepository,  TeacherRepository>();
 builder.Services.AddSingleton<IStudentRepository,  StudentRepository>();
 builder.Services.AddSingleton<IParentRepository, ParentRepository>();
 builder.Services.AddSingleton<IParentStudentRepository,ParentStudentRepository>();
+builder.Services.AddSingleton<ISubjectRepository, SubjectRepository>();
+builder.Services.AddSingleton<ITeacherSubjectRepository, TeacherSubjectRepository>();
 
 var app = builder.Build();
 

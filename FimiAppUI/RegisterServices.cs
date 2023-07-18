@@ -48,6 +48,14 @@ namespace FimiAppUI
             {
                 client.BaseAddress = new Uri(uriLink);
             });
+            builder.Services.AddHttpClient<ISubjectService, SubjectService>(client =>
+            {
+                client.BaseAddress = new Uri(uriLink);
+            });
+            builder.Services.AddHttpClient<ITeacherSubjectService, TeacherSubjectService>(client =>
+            {
+                client.BaseAddress = new Uri(uriLink);
+            });
         }
     }
 }

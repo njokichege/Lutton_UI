@@ -45,18 +45,18 @@
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
 
-<MudGrid Class="px-4" @bind-IsVisible="visible">
-    <MudItem xs="8">
+<MudGrid Class="d-flex justify-center px-4" @bind-IsVisible="visible">
+    <MudItem xs="12">
         @if (AllStudents is null)
         {
             <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
         }
         else if(AllStudents is not null && Students is null)
         {
-            <MudTable  Items="@AllStudents" Hover="true" Striped="true" @bind-SelectedItem="selectedStudent">
+            <MudTable Items="@AllStudents" FixedHeader="@fixed_header" Hover="true" SortLabel="Sort By" Striped="true" @bind-SelectedItem="selectedStudent">
                 <HeaderContent>
-                    <MudTh>Student Number</MudTh>
-                    <MudTh>Name</MudTh>
+                    <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentNumber)">Student Number</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentName())">Name</MudTableSortLabel></MudTh>
                     <MudTh>Age</MudTh>
                     <MudTh>Gender</MudTh>
                     <MudTh>Date of Birth</MudTh>

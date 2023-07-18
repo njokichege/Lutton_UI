@@ -13,7 +13,7 @@
             string sql = "SELECT* FROM dbo.Teacher";
             return await _dapperContext.LoadData<TeacherModel, dynamic>(sql, new { });
         }
-        public async Task<IEnumerable<TeacherModel>> GetMapStaffOnTeacher()
+        public async Task<IEnumerable<TeacherModel>> MapStaffOnTeacher()
         {
             string sql = "SELECT " +
                                 "Teacher.TeacherId, " +

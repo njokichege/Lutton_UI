@@ -58,7 +58,7 @@ namespace FimiAppUI.Pages
         }
         public async Task<IEnumerable<TeacherModel>> TeacherSearchOnTeacherCard(string value)
         {
-            return (await TeacherService.GetMultipleMapping()).ToList();
+            return (await TeacherService.MapStaffOnTeacher()).ToList();
         }
         public async Task<IEnumerable<StreamModel>> StreamSearchOnClassCard(string value)
         {

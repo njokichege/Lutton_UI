@@ -34,15 +34,13 @@ else
                     <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
                     <MudText Typo="Typo.body2">Designation : @ClassSelected.Teacher.Staff.Designation</MudText>
                     <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
-                    <MudText Typo="Typo.body2">Subjects @ClassSelected.Teacher.SubjectSpecializationOne | @ClassSelected.Teacher.SubjectSpecializationTwo</MudText>
-                    <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
                 </MudCardContent>
                 <MudCardActions>
                     <MudButton Style="background-color:#e38d43" Class="mt-n12" Variant="Variant.Filled" FullWidth="true">Remove as class teacher</MudButton>
                 </MudCardActions>
             </MudCard>
         </MudItem>
-        <MudItem xs="8" Class="d-flex justify-space-between gap-1">
+        <MudItem xs="9" Class="d-flex justify-space-between gap-1">
             <MudTabs ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
                 <MudTabPanel Text="Students">
                     @if (Students is null)
@@ -56,12 +54,14 @@ else
                                 <PropertyColumn Property="x => x.StudentNumber" Title="Student Number" />
                                 <PropertyColumn Property="x => x.StudentName()" Title="Name" />
                                 <PropertyColumn Property="x => x.Age()" Title="Age" />
+                                <PropertyColumn Property="x => x.Gender" Title="Gender" />
+                                <PropertyColumn Property="x => x.DateOfBirth" Title="Date of Birth" />
                                 <PropertyColumn Property="x => x.AdmissionDate.ToShortDateString()" Title="Admission Date" />
                             </Columns>
                         </MudDataGrid>
                     }
                 </MudTabPanel>
-                <MudTabPanel Text="Students">
+                <MudTabPanel Text="Subjects">
                     @if (Students is null)
                     {
                         <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
