@@ -6,5 +6,6 @@
         public string SubjectName { get; set; }
         public int SubjectCategoryId { get; set; }
         public SubjectCategoryModel SubjectCategory { get; set; }
+        public int StudentCount { get; set; } 
     }
 }

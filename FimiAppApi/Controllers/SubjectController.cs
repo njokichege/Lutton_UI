@@ -26,5 +26,41 @@ namespace FimiAppApi.Controllers
             }
 
         }
+        [HttpPost]
+        public async Task<IActionResult> CreateSubject(SubjectModel subjectModel)
+        {
+            try
+            {
+                var dbSubjectExists = await _subjectRepository.GetSubject(subjectModel.Code);
+                if (dbSubjectExists is null)
+                {
+                    var createdSubject = await _subjectRepository.CreateSubject(subjectModel.Code, subjectModel.SubjectName, subjectModel.SubjectCategory.SubjectCategoryId);
+                    return Ok(createdSubject);
+                }
+                else
+                {
+                    return Conflict();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+        [HttpGet("mapsubjectoncategory")]
+        public async Task<IActionResult> MapSubjectOnCategory()
+        {
+            try
+            {
+                var subjects = await _subjectRepository.MapSubjectOnCategory();
+                return Ok(subjects);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
     }
 }

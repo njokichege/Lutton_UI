@@ -17,7 +17,7 @@ namespace FimiAppUI.Services
         }
         public async Task<IEnumerable<TeacherModel>> MapStaffOnTeacher()
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<TeacherModel>>("api/teacher/MapStaffOnTeacher");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<TeacherModel>>("api/teacher/mapstaffonteacher");
         }
     }
 }

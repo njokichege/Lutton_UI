@@ -1,4 +1,7 @@
-﻿namespace FimiAppApi.Repository
+﻿using System.Drawing;
+using static Slapper.AutoMapper;
+
+namespace FimiAppApi.Repository
 {
     public class TeacherRepository : ITeacherRepository
     {

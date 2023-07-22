@@ -34,7 +34,7 @@ namespace FimiAppApi.Controllers
             }
 
         }
-        [HttpGet("MultipleMapping")]
+        [HttpGet("multiplemapping")]
         public async Task<IActionResult> GetMultipleMapping()
         {
             try
@@ -47,7 +47,7 @@ namespace FimiAppApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-        [HttpGet("{teacherId}")]
+        [HttpGet("mapstudentonteacher/{teacherId}")]
         public async Task<IActionResult> GetMultipleMappingByTeacher(int teacherId)
         {
             try

@@ -28,13 +28,13 @@ namespace FimiAppApi.Controllers
             }
 
         }
-        [HttpGet("MapStaffOnTeacher")]
+        [HttpGet("mapstaffonteacher")]
         public async Task<IActionResult> MapStaffOnTeacher()
         {
             try
             {
-                var classes = await _teacherRepository.MapStaffOnTeacher();
-                return Ok(classes);
+                var teachers = await _teacherRepository.MapStaffOnTeacher();
+                return Ok(teachers);
             }
             catch (Exception ex)
             {

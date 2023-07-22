@@ -10,11 +10,11 @@
         }
         public async Task<IEnumerable<TeacherSubjectModel>> GetMultipleMapping()
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<TeacherSubjectModel>>("api/teachersubject/MultipleMapping");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<TeacherSubjectModel>>("api/teachersubject/multiplemapping");
         }
         public async Task<IEnumerable<TeacherSubjectModel>> GetMultipleMappingByTeacher(int teacherId)
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<TeacherSubjectModel>>($"api/teachersubject/{teacherId}");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<TeacherSubjectModel>>($"api/teachersubject/mapstudentonteacher/{teacherId}");
         }
         public async Task<HttpResponseMessage> CreateTeacherSubject(TeacherSubjectModel teacherSubjectModel)
         {

@@ -104,6 +104,47 @@
         </MudGrid>
     </MudTabPanel>
     <MudTabPanel Text="Add Subjects">
+        <MudGrid>
+            <MudItem xs="3">
+                <MudCard>
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <MudText Typo="Typo.h5" Align="Align.Center" Class="mb-n12">Add Subject</MudText>
+                        </CardHeaderContent>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudDivider DividerType="DividerType.FullWidth" Class="my-4" />
+                        <MudTextField @bind-Value="@NewSubject.SubjectName" Label="Subject " Variant="Variant.Outlined" />
+                        <MudTextField @bind-Value="@NewSubject.Code" Label="Subject Code" Variant="Variant.Outlined"/>
+                        <MudAutocomplete T="SubjectCategoryModel" Label="Subject Category" @bind-Value="NewSubject.SubjectCategory" ShowProgressIndicator="true"
+                                         SearchFunc="@SubjectCategorySearch" ToStringFunc="@(e=> e==null?null : $"{e.SubjectCategoryName}")" />
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@AddSubject" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+            <MudItem xs="9">
+                @if (showSubjectsWithCategories)
+                {
+                    <MudTable Items="@SubjectsWithCategories" Hover="true" SortLabel="Sort By" Striped="true">
+                        <HeaderContent>
+                            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SubjectModel, object>(x=>x.Code)">Code</MudTableSortLabel></MudTh>
+                            <MudTh>Category</MudTh>
+                            <MudTh>Subject</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Code">@context.Code</MudTd>
+                            <MudTd DataLabel="SubjectCategory">@context.SubjectCategory.SubjectCategoryName</MudTd>
+                            <MudTd DataLabel="SubjectName">@context.SubjectName</MudTd>
+                        </RowTemplate>
+                        <PagerContent>
+                            <MudTablePager />
+                        </PagerContent>
+                    </MudTable>
+                }
+            </MudItem>
+        </MudGrid>
     </MudTabPanel>
 </MudTabs>
 
