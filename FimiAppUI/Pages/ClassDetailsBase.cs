@@ -12,19 +12,21 @@ namespace FimiAppUI.Pages
         [Parameter] public string Id { get; set; }
         public IEnumerable<StudentModel> Students { get; set; } = new List<StudentModel>();
         public IEnumerable<TeacherSubjectModel> TeacherSubjects { get; set; } = new List<TeacherSubjectModel>();
-        public IEnumerable<StudentSubjectModel> StudentSubjects { get; set; } = new List<StudentSubjectModel>();
+        public IEnumerable<ClassSubjectList> ClassSubjectList { get; set; } = new List<ClassSubjectList>();
         public ClassModel ClassSelected { get; set; } = new ClassModel();
         public List<SubjectModel> Subjects { get; set; } = new List<SubjectModel>();
-        public List<SubjectModel> ClassSubjects { get; set; } = new List<SubjectModel>();
         public TeacherModel Teacher { get; set; }
         public bool showTscNumber = false;
         public bool dataIsLoaded = false;
+        public string TeacherName;
         protected async override Task OnInitializedAsync()
         {
             ClassSelected = await ClassService.GetClassById(int.Parse(Id));
             TeacherSubjects = await TeacherSubjectService.GetMultipleMappingByTeacher(ClassSelected.TeacherId);
+            
             Teacher = TeacherSubjects.First().Teacher;
-            if(Teacher.TSCNumber != null)
+            TeacherName = $"{Teacher.Staff.FirstName} {Teacher.Staff.MiddleName} {Teacher.Staff.Surname}";
+            if (Teacher.TSCNumber != null)
             {
                 showTscNumber = true;
             }
@@ -34,21 +36,8 @@ namespace FimiAppUI.Pages
             }
             Students = await StudentService.MapClassOnStudent(int.Parse(Id));
             dataIsLoaded = true;
-            StudentSubjects = await StudentSubjectService.MapStudentOnSubject(ClassSelected.ClassId);
 
-            int countCode = StudentSubjects.First().Subject.Code;
-            foreach(var studentSubject in StudentSubjects)
-            {
-                if(countCode == studentSubject.Subject.Code)
-                {
-                    studentSubject.Subject.StudentCount++;
-                }
-                else
-                {
-                    countCode = studentSubject.Subject.Code;
-                    studentSubject.Subject.StudentCount++;
-                }
-            }
+            ClassSubjectList = await StudentSubjectService.MapStudentOnSubject(ClassSelected.ClassId);
         }
     }
 }

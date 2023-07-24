@@ -8,5 +8,9 @@
         {
             _httpClient = httpClient;
         }
+        public async Task<HttpResponseMessage> AddStaff(StaffModel staff)
+        {
+            return await _httpClient.PostAsJsonAsync<StaffModel>("api/staff", staff);
+        }
     }
 }

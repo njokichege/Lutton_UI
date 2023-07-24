@@ -47,7 +47,7 @@
                             <MudTd DataLabel="Code">@context.Code</MudTd>
                             <MudTd DataLabel="SubjectCategory">@context.Subject.SubjectCategory.SubjectCategoryName</MudTd>
                             <MudTd DataLabel="SubjectName">@context.Subject.SubjectName</MudTd>
-                            <MudTd DataLabel="Surname">@context.Teacher.Staff.FullName</MudTd>
+                            <MudTd DataLabel="Surname">@context.Teacher.Staff.FirstName @context.Teacher.Staff.MiddleName @context.Teacher.Staff.Surname</MudTd>
                         </RowTemplate>
                         <PagerContent>
                             <MudTablePager />
@@ -70,7 +70,7 @@
                         <MudDivider DividerType="DividerType.FullWidth" Class="my-4" />
                         <MudAutocomplete T="TeacherModel" Label="Teacher" @bind-Value="SelectedTeacherOnAssignTeacherTab" ShowProgressIndicator="true"
                                          SearchFunc="@TeacherSearchOnAssignTeacherTab"
-                                         ToStringFunc="@(e=> e==null?null : $"{e.FullName()}")"/>
+                                         ToStringFunc="@(e=> e==null?null : $"{e.Staff.FirstName} {e.Staff.MiddleName} {e.Staff.Surname}")"/>
                         <MudAutocomplete T="SubjectModel" Label="Subject" @bind-Value="SelectedSubjectOnAssignTeacherTab" ShowProgressIndicator="true"
                                          SearchFunc="@SubjectSearchOnAssignTeacherTab" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" />
                     </MudCardContent>
@@ -93,7 +93,7 @@
                             <MudTd DataLabel="Code">@context.Code</MudTd>
                             <MudTd DataLabel="SubjectCategory">@context.Subject.SubjectCategory.SubjectCategoryName</MudTd>
                             <MudTd DataLabel="SubjectName">@context.Subject.SubjectName</MudTd>
-                            <MudTd DataLabel="Surname">@context.Teacher.Staff.FullName</MudTd>
+                            <MudTd DataLabel="Surname">@context.Teacher.Staff.FirstName @context.Teacher.Staff.MiddleName @context.Teacher.Staff.Surname</MudTd>
                         </RowTemplate>
                         <PagerContent>
                             <MudTablePager />

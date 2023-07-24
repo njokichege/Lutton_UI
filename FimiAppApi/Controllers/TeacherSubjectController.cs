@@ -15,6 +15,18 @@ namespace FimiAppApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateTeacherSubject(TeacherSubjectModel teacherSubjectModel)
         {
+            if (teacherSubjectModel.TeacherId == 0)
+            {
+                try
+                {
+                    var createdTeacherSubject = await _teacherSubjectRepository.AddTeacherSubjectWithoutTeacherId(teacherSubjectModel.Code);
+                    return Ok(createdTeacherSubject);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, ex.Message);
+                }
+            }
             try
             {
                 var dbClassExists = await _teacherSubjectRepository.GetTeacherSubject(teacherSubjectModel.TeacherId, teacherSubjectModel.Code);

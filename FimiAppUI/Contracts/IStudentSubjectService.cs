@@ -2,6 +2,6 @@
 {
     public interface IStudentSubjectService
     {
-        Task<IEnumerable<StudentSubjectModel>> MapStudentOnSubject(int classId);
+        Task<IEnumerable<ClassSubjectList>> MapStudentOnSubject(int classId);
     }
 }

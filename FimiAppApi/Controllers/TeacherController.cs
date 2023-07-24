@@ -43,5 +43,27 @@ namespace FimiAppApi.Controllers
             }
 
         }
+        [HttpPost]
+        public async Task<IActionResult> AddTeacher(TeacherModel teacher)
+        {
+            try
+            {
+                var dbTeacherExists = await _teacherRepository.GetTeacher(teacher.Staff.NationalId);
+                if (dbTeacherExists is null)
+                {
+                    var createdTeacher = await _teacherRepository.AddTeacher(teacher);
+                    return Ok(createdTeacher);
+                }
+                else
+                {
+                    return Conflict();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
     }
 }

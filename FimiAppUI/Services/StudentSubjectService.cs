@@ -8,9 +8,9 @@
         {
             _httpClient = httpClient;
         }
-        public async Task<IEnumerable<StudentSubjectModel>> MapStudentOnSubject(int classId)
+        public async Task<IEnumerable<ClassSubjectList>> MapStudentOnSubject(int classId)
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<StudentSubjectModel>>($"api/class/mapstudentonsubject/{classId}");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<ClassSubjectList>>($"api/studentsubject/mapstudentonsubject/{classId}");
         }
     }
 }

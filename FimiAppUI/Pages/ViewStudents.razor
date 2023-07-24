@@ -53,7 +53,7 @@
         }
         else if(AllStudents is not null && Students is null)
         {
-            <MudTable Items="@AllStudents" FixedHeader="@fixed_header" Hover="true" SortLabel="Sort By" Striped="true" @bind-SelectedItem="selectedStudent">
+            <MudTable Items="@AllStudents" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" @bind-SelectedItem="selectedStudent">
                 <HeaderContent>
                     <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentNumber)">Student Number</MudTableSortLabel></MudTh>
                     <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentName())">Name</MudTableSortLabel></MudTh>

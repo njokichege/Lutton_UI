@@ -18,7 +18,6 @@
         public MudTable<StudentModel> mudTable;
         public bool visible = false;
         public bool visibleAllStudents = true;
-        public bool fixed_header = true;
         protected override async Task OnInitializedAsync()
         {
             AllStudents = (await StudentService.GetStudents()).ToList();

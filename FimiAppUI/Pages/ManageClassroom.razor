@@ -64,7 +64,7 @@
                         <MudAutocomplete T="SessionYearModel" Label="Session Year" @bind-Value="SelectedSessionYearOnTeacherCard" ShowProgressIndicator="true"
                                          SearchFunc="@SessionYearSearchOnTeacherCard" ToStringFunc="@(e=> e==null?null : $"{e.SessionString()}")" />
                         <MudAutocomplete T="TeacherModel" Label="Teacher" @bind-Value="SelectedTeacherOnTeacherCard" ShowProgressIndicator="true"
-                                         SearchFunc="@TeacherSearchOnTeacherCard" ToStringFunc="@(e=> e==null?null : $"{e.FullName()}")" />
+                                         SearchFunc="@TeacherSearchOnTeacherCard" ToStringFunc="@(e=> e==null?null : $"{e.Staff.FirstName} {e.Staff.MiddleName} {e.Staff.Surname}")" />
                     </MudCardContent>
                     <MudCardActions>
                         <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@AssignClassTeacher" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>

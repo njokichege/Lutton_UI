@@ -33,6 +33,20 @@
             var id = await _dapperContext.CreateData<TeacherSubjectModel, dynamic>(sql, parameters);
             return id;
         }
+        public async Task<int> AddTeacherSubjectWithoutTeacherId(int subjectCode)
+        {
+            string sql = "DECLARE @stnum INT; " +
+                         "SELECT @stnum = MAX(TeacherId) FROM Teacher " +
+                         "INSERT INTO TeacherSubject " +
+                            "(TeacherId,Code) " +
+                         "VALUES    " +
+                            "(@stnum,@Code)";
+            var parameters = new DynamicParameters();
+            parameters.Add("Code", subjectCode, DbType.Int32);
+
+            var id = await _dapperContext.CreateData<TeacherSubjectModel, dynamic>(sql, parameters);
+            return id;
+        }
         public async Task<IEnumerable<TeacherSubjectModel>> GetSubjectsMultipleMapping()
         {
             string query = "SELECT " +

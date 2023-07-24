@@ -23,7 +23,7 @@ namespace FimiAppUI.Pages
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         public string ContentText { get; set; }
         public string ButtonText { get; set; }
-        public DialogOptions dialogOptions = new() { FullWidth = true };
+        public DialogOptions dialogOptions = new() { FullWidth = true };    
         public DateTime newStudentDateOfBirth;
         public MudForm registerStudentForm;
         public MudForm registerParentForm;

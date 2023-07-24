@@ -31,6 +31,9 @@
             RuleFor(x => x.Gender)
                 .NotEmpty().WithMessage("'{PropertyName}' is required")
                 .NotNull().WithMessage("'{PropertyName}' is required");
+            RuleFor(x => x.DateOfBirth)
+                .NotEmpty().WithMessage("'{PropertyName}' is required")
+                .LessThan(p => DateTime.Now).WithMessage("'{PropertyName}' should be less cannot be today");
         }
         public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
         {

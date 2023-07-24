@@ -8,41 +8,13 @@
         {
             _dapperContext = dapperContext;
         }
-        public async Task<IEnumerable<StudentSubjectModel>> MapStudentfOnSubject(int classId)
+        public async Task<IEnumerable<ClassSubjectList>> MapStudentOnSubject(int classId)
         {
-            string sql = "SELECT  " +
-                            "StudentSubject.Code, " +
-                            "StudentSubject.StudentNumber, " +
-                            "Subjects.Code, " +
-                            "Subjects.SubjectName, " +
-                            "Student.StudentNumber " +
-                         "FROM StudentSubject   " +
-                         "INNER JOIN Subjects ON Subjects.Code = StudentSubject.Code    " +
-                         "INNER JOIN Student ON Student.StudentNumber = StudentSubject.StudentNumber    " +
-                         "INNER JOIN StudentClass ON StudentClass.StudentNumber = Student.StudentNumber " +
-                         "WHERE StudentClass.ClassId = @ClassId";
+            string sql = "SELECT \r\n    SubjectList.SubjectCode,\r\n    SubjectList.SubjectName,\r\n    SubjectList.StudentCount\r\nFROM SubjectList \r\nWHERE ClassId = @ClassId";
             var parameters = new DynamicParameters();
             parameters.Add("ClassId", classId, DbType.Int32);
-            Type[] types =
-            {
-                 typeof(StudentSubjectModel),
-                 typeof(SubjectModel),
-                 typeof(StudentModel)
-            };
-            Func<object[], StudentSubjectModel> map = delegate (object[] obj)
-            {
-                StudentSubjectModel studentSubject = obj[0] as StudentSubjectModel;
-                SubjectModel subject = obj[1] as SubjectModel;
-                StudentModel student = obj[2] as StudentModel;
 
-                studentSubject.Subject = subject;
-                studentSubject.Student = student;
-
-                return studentSubject;
-            };
-            string splitOn = "Code,StudentNumber,StudentNumber";
-
-            return await _dapperContext.MapMultipleObjects<StudentSubjectModel, dynamic>(sql, types, map, splitOn, parameters);
+            return await _dapperContext.LoadData<ClassSubjectList, dynamic>(sql, parameters);
         }
     }
 }

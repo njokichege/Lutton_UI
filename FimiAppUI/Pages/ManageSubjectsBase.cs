@@ -55,16 +55,16 @@ namespace FimiAppUI.Pages
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                ShowSuccessAlert($"{SelectedTeacherOnAssignTeacherTab.Staff.FullName} has been set to teach {SelectedSubjectOnAssignTeacherTab.SubjectName}");
+                ShowSuccessAlert($"{SelectedTeacherOnAssignTeacherTab.Staff.FirstName} {SelectedTeacherOnAssignTeacherTab.Staff.MiddleName} {SelectedTeacherOnAssignTeacherTab.Staff.Surname} has been set to teach {SelectedSubjectOnAssignTeacherTab.SubjectName}");
             }
             else if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
             {
 
-                ShowWarningAlert($"{SelectedTeacherOnAssignTeacherTab.Staff.FullName} is already set to teach {SelectedSubjectOnAssignTeacherTab.SubjectName}");
+                ShowWarningAlert($"{SelectedTeacherOnAssignTeacherTab.Staff.FirstName} {SelectedTeacherOnAssignTeacherTab.Staff.MiddleName} {SelectedTeacherOnAssignTeacherTab.Staff.Surname} is already set to teach {SelectedSubjectOnAssignTeacherTab.SubjectName}");
             }
             else
             {
-                ShowFailAlert($"System failed to set {SelectedTeacherOnAssignTeacherTab.Staff.FullName} to teach {SelectedSubjectOnAssignTeacherTab.SubjectName}");
+                ShowFailAlert($"System failed to set {SelectedTeacherOnAssignTeacherTab.Staff.FirstName} {SelectedTeacherOnAssignTeacherTab.Staff.MiddleName} {SelectedTeacherOnAssignTeacherTab.Staff.Surname} to teach {SelectedSubjectOnAssignTeacherTab.SubjectName}");
             }
         }
         public async Task AddSubject()

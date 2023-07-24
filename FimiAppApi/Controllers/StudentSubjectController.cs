@@ -18,7 +18,7 @@ namespace FimiAppApi.Controllers
         {
             try
             {
-                var subjects = await _studentSubjectRepository.MapStudentfOnSubject(classId);
+                var subjects = await _studentSubjectRepository.MapStudentOnSubject(classId);
                 return Ok(subjects);
             }
             catch (Exception ex)

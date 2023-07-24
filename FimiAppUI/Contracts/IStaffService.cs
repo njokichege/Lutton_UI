@@ -1,6 +1,7 @@
 ﻿namespace FimiAppUI.Contracts
 {
-    public class IStaffService
+    public interface IStaffService
     {
+        Task<HttpResponseMessage> AddStaff(StaffModel staff);
     }
 }

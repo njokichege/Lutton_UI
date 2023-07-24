@@ -1,0 +1,92 @@
+﻿@page "/Pages/AddTeacher"
+
+@inherits RegisterTeacherBase
+
+<MudGrid Class="mt-n12 px-5">
+    <MudItem xs="9">
+        <MudText Typo="Typo.h5" Class="d-flex justify-start">REGISTER TEACHER</MudText>
+    </MudItem>
+    <MudItem xs="3" Class="d-flex justify-end">
+        <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
+        <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
+    </MudItem>
+</MudGrid>
+<MudDivider DividerType="DividerType.FullWidth" />
+
+@if (showSuccessAlert)
+{
+    <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelSuccess</MudAlert>
+}
+@if (showWarningAlert)
+{
+    <MudAlert Severity="Severity.Warning" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelWarning</MudAlert>
+}
+@if (showFailAlert)
+{
+    <MudAlert Severity="Severity.Error" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelFail</MudAlert>
+}
+
+<MudDialog @ref="registerDialog" @bind-IsVisible="visible" Options="dialogOptions">
+    <TitleContent>
+        <MudText Typo="Typo.h6">Confirm Registration</MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudText>@Staff.FirstName @Staff.MiddleName @Staff.Surname</MudText>
+        <MudText>NationalId : @Staff.NationalId</MudText>
+        <MudText>Teacher Type : @Teacher.TeacherType</MudText>
+        <MudText>TSC Number : @Teacher.TSCNumber</MudText>
+        <MudText><b>Will be registered as a teacher</b></MudText>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="DialogSubmit">Continue</MudButton>
+    </DialogActions>
+</MudDialog>
+
+<MudGrid Class="pa-10">
+    <MudItem xs="6">
+        <MudPaper Class="pa-4">
+            <MudForm Model="@Staff" @ref="@registerStaffForm" Validation="@(StaffValidator.ValidateValue)" ValidationDelay="0">
+                <MudText Align="Align.Center" Typo="Typo.h6"><b>Staff Details</b></MudText>
+                <MudTextField Immediate="true" @bind-Value="Staff.NationalId" For="@(() => Staff.NationalId)" Label="National Id" Variant="Variant.Outlined" />
+                <MudTextField Immediate="true" @bind-Value="Staff.FirstName" For="@(() => Staff.FirstName)" Label="First name" Variant="Variant.Outlined" />
+                <MudTextField Immediate="true" @bind-Value="Staff.MiddleName" For="@(() => Staff.MiddleName)" Label="Middle name" Variant="Variant.Outlined" />
+                <MudTextField Immediate="true" @bind-Value="Staff.Surname" For="@(() => Staff.Surname)" Label="Surname" Variant="Variant.Outlined" />
+                <MudDatePicker PickerVariant="PickerVariant.Dialog" @bind-Date="Staff.DateOfBirth" For="@(() => Staff.DateOfBirth)" Label="Date of birth" OpenTo="OpenTo.Year" Variant="Variant.Outlined" />
+                <MudTextField Immediate="true" @bind-Value="Staff.PhoneNumber" For="@(() => Staff.PhoneNumber)" Label="Phone number" Variant="Variant.Outlined" />
+                <div class="d-flex">
+                    <MudRadioGroup @bind-SelectedOption="Staff.Gender" T="string" For="@(() => Staff.Gender)">
+                        <MudRadio Option="@("F")">Female</MudRadio>
+                        <MudRadio Option="@("M")">Male</MudRadio>
+                    </MudRadioGroup>
+                </div>
+            </MudForm>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="6">
+        <MudPaper Class="pa-4">
+            <MudForm Model="@Teacher" @ref="@registerTeacherForm" Validation="@(TeacherValidator.ValidateValue)" ValidationDelay="0">
+                <MudText Align="Align.Center" Typo="Typo.h6"><b>Teacher Details</b></MudText>
+                <MudSelect For="@(() => Teacher.TeacherType)" @bind-Value="Teacher.TeacherType" T="string" Label="Teacher Type" AnchorOrigin="Origin.BottomCenter">
+                    <MudSelectItem Value="@("Board Of Governors")" />
+                    <MudSelectItem Value="@("Teachers Service Commission")" />
+                </MudSelect>
+                <MudTextField Immediate="true" @bind-Value="Teacher.TSCNumber" For="@(() => Teacher.TSCNumber)" Label="TSC Number" Variant="Variant.Outlined" />
+            </MudForm>
+        </MudPaper>
+        <MudPaper Class="pa-4 mt-4">
+            <MudForm Model="@Subject" @ref="@registerTeacherSubjectsForm">
+                <MudText Align="Align.Center" Typo="Typo.h6"><b>Subject Details</b></MudText>
+                <MudAutocomplete T="SubjectModel" Label="First Subject Specialization" @bind-Value="FirstSubjectSpecialization" ShowProgressIndicator="true"
+                                 SearchFunc="@SubjectSearch" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" />
+                <MudAutocomplete T="SubjectModel" Label="Second Subject Specialization" @bind-Value="SecondSubjectSpecialization" ShowProgressIndicator="true"
+                                 SearchFunc="@SubjectSearch" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" />
+            </MudForm>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+<MudGrid Class="mt-n12 px-5">
+    <MudItem xs="12">
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Style="background-color:#e38d43" OnClick="@(async () => await Submit())" FullWidth="true" StartIcon="@Icons.Material.Filled.Save">Register</MudButton>
+    </MudItem>
+</MudGrid>
