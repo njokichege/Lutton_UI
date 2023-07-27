@@ -57,14 +57,14 @@ namespace FimiAppApi.Controllers
 
         }
         [HttpPost]
-        public async Task<IActionResult> CreateClass(int formId, int streamId, int sessionYearId)
+        public async Task<IActionResult> CreateClass(ClassModel classModel)
         {
             try
             {
-                var dbClassExists = await _classRepository.GetClassByForeignKeys(formId,streamId,sessionYearId);
+                var dbClassExists = await _classRepository.GetClassByForeignKeys(classModel.FormId,classModel.StreamId,classModel.SessionYearId);
                 if (dbClassExists is null)
                 {
-                    var createdClass = await _classRepository.CreateClass(formId, streamId, sessionYearId);
+                    var createdClass = await _classRepository.CreateClass(classModel);
                     return Ok(createdClass);
                 }
                 else

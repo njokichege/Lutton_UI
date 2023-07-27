@@ -22,37 +22,46 @@
 {
     <MudAlert Severity="Severity.Error" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelFail</MudAlert>
 }
-<MudTabs ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
+<MudTabs Elevation="2" ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
     <MudTabPanel Text="Classes">
-        <MudGrid Class="px-5">
-            <MudItem xs="5" Class="d-flex justify-space-between gap-1">
+        <MudGrid Class="pa-4">
+            <MudItem xs="12" Class="d-flex justify-space-between">
                 @if (Classes is null)
                 {
                     <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true"/>
                 }
                 else
                 {
-                    <MudDataGrid Items="@Classes" Filterable="false" SortMode="@SortMode.None" Groupable="false">
-                        <Columns>
-                            <PropertyColumn Property="x => x.ClassId" Title="#" />
-                            <PropertyColumn Property="x => x.FullClass()" Title="Class" />
-                            <PropertyColumn Property="x => x.ClassTeacherName()" Title="Class Teacher" />
-                            <TemplateColumn CellClass="d-flex justify-end" Title="Option">
-                                <CellTemplate>
-                                    <MudStack Row>
-                                        <MudButton Variant="Variant.Filled" Color="Color.Tertiary" Href="@($"/classdetails/{context.Item.ClassId}")">View Class</MudButton>
-                                    </MudStack>
-                                </CellTemplate>
-                            </TemplateColumn>
-                        </Columns>
-                    </MudDataGrid>
+                    <MudTable Items="@Classes" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="ClassModel">
+                        <HeaderContent>
+                            <MudTh>Form</MudTh>
+                            <MudTh>Stream</MudTh>
+                            <MudTh>Session Start</MudTh>
+                            <MudTh>Session End</MudTh>
+                            <MudTh>Class Teacher</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="SubjectCategory">@context.Form.Form</MudTd>
+                            <MudTd DataLabel="SubjectName">@context.Stream.Stream</MudTd>
+                            <MudTd DataLabel="Surname">@context.SessionYear.StartDate.ToShortDateString()</MudTd>
+                            <MudTd DataLabel="Surname">@context.SessionYear.EndDate.ToShortDateString()</MudTd>
+                            <MudTd DataLabel="Surname">@context.ClassTeacherName()</MudTd>
+                        </RowTemplate>
+                        <PagerContent>
+                            <MudTablePager />
+                        </PagerContent>
+                    </MudTable>
                 }
             </MudItem>
+        </MudGrid>
+    </MudTabPanel>
+    <MudTabPanel Text="Add/Update Classes">
+        <MudGrid Class="pa-4">
             <MudItem xs="3">
                 <MudCard>
                     <MudCardHeader>
                         <CardHeaderContent>
-                            <MudText Typo="Typo.h5" Align="Align.Center" Class="mb-n12">Assign Class Teacher</MudText>
+                            <MudText Typo="Typo.h5" Align="Align.Center" Class="mb-n12">Change Class Teacher</MudText>
                         </CardHeaderContent>
                     </MudCardHeader>
                     <MudCardContent>
@@ -86,6 +95,8 @@
                                          SearchFunc="@StreamSearchOnClassCard" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
                         <MudAutocomplete T="SessionYearModel" Label="Session Year" @bind-Value="SelectedSessionYearOnClassCard" ShowProgressIndicator="true"
                                          SearchFunc="@SessionYearSearchOnClassCard" ToStringFunc="@(e=> e==null?null : $"{e.SessionString()}")" />
+                        <MudAutocomplete T="TeacherModel" Label="Teacher" @bind-Value="SelectedTeacherOnClassCard" ShowProgressIndicator="true"
+                                         SearchFunc="@TeacherSearchOnTeacherCard" ToStringFunc="@(e=> e==null?null : $"{e.Staff.FirstName} {e.Staff.MiddleName} {e.Staff.Surname}")" />
                     </MudCardContent>
                     <MudCardActions>
                         <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@CreateClass" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
@@ -95,8 +106,8 @@
         </MudGrid>
     </MudTabPanel>
     <MudTabPanel Text="School Year">
-        <MudGrid Class="pa-5">
-            <MudItem xs="11">
+        <MudGrid Class="pa-4">
+            <MudItem xs="12">
                 <MudCard Class="align-self-center">
                     <MudCardContent>
                         <MudText Typo="Typo.h5" Align="Align.Center">Current School Year : @SessionYearModelTitle</MudText>
@@ -119,7 +130,7 @@
                             <TemplateColumn CellClass="d-flex justify-end" Title="Option">
                                 <CellTemplate>
                                     <MudStack Row>
-                                    <MudButton Variant="Variant.Filled" Color="Color.Tertiary" Href="@($"/classdetails/{context.Item.SessionYearId}")">Edit School Year</MudButton>
+                                    <MudButton Variant="Variant.Filled" Color="Color.Tertiary">Edit School Year</MudButton>
                                 </MudStack>
                             </CellTemplate>
                         </TemplateColumn>
@@ -127,7 +138,7 @@
                 </MudDataGrid>
                 }
             </MudItem>
-            <MudItem xs="3">
+            <MudItem xs="4">
                 <MudCard>
                     <MudCardHeader>
                         <CardHeaderContent>

@@ -13,7 +13,7 @@
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" />
 
-<MudGrid Class="d-flex justify-center">
+<MudGrid Class="d-flex justify-center pa-4">
     <MudItem xs="12">
         @if (Teachers is null)
         {
@@ -21,7 +21,7 @@
         }
         else 
         {
-            <MudTable Items="@Teachers" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" @bind-SelectedItem="SelectedTeacher">
+            <MudTable Items="@Teachers" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="TeacherRowClickEvent" T="TeacherModel">
                 <HeaderContent>
                     <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StaffModel, object>(x=>x.NationalId)">NationalId</MudTableSortLabel></MudTh>
                     <MudTh>Name</MudTh>

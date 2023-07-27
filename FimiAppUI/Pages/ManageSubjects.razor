@@ -26,9 +26,9 @@
     <MudAlert Severity="Severity.Warning" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelWarning</MudAlert>
 }
 
-<MudTabs ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
+<MudTabs Elevation="2" ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
     <MudTabPanel Text="All Subjects">
-        <MudGrid Class="d-flex">
+        <MudGrid Class="d-flex pa-4">
             <MudItem xs="12">
                 @if (TeacherSubjectModel is null)
                 {
@@ -58,7 +58,7 @@
         </MudGrid>
     </MudTabPanel>
     <MudTabPanel Text="Assign Teacher">
-        <MudGrid>
+        <MudGrid Class="pa-4">
             <MudItem xs="3">
                 <MudCard>
                     <MudCardHeader>
@@ -80,7 +80,7 @@
                 </MudCard>
             </MudItem>
             <MudItem xs="9">
-                @if (showTeachersSubjects)
+                @if (showTeacherSubject)
                 {
                     <MudTable Items="@TeacherSubjects" Hover="true" SortLabel="Sort By" Striped="true">
                         <HeaderContent>
@@ -104,7 +104,7 @@
         </MudGrid>
     </MudTabPanel>
     <MudTabPanel Text="Add Subjects">
-        <MudGrid>
+        <MudGrid Class="pa-4">
             <MudItem xs="3">
                 <MudCard>
                     <MudCardHeader>
@@ -125,24 +125,21 @@
                 </MudCard>
             </MudItem>
             <MudItem xs="9">
-                @if (showSubjectsWithCategories)
-                {
-                    <MudTable Items="@SubjectsWithCategories" Hover="true" SortLabel="Sort By" Striped="true">
-                        <HeaderContent>
-                            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SubjectModel, object>(x=>x.Code)">Code</MudTableSortLabel></MudTh>
-                            <MudTh>Category</MudTh>
-                            <MudTh>Subject</MudTh>
-                        </HeaderContent>
-                        <RowTemplate>
-                            <MudTd DataLabel="Code">@context.Code</MudTd>
-                            <MudTd DataLabel="SubjectCategory">@context.SubjectCategory.SubjectCategoryName</MudTd>
-                            <MudTd DataLabel="SubjectName">@context.SubjectName</MudTd>
-                        </RowTemplate>
-                        <PagerContent>
-                            <MudTablePager />
-                        </PagerContent>
-                    </MudTable>
-                }
+                <MudTable Items="@SubjectsWithCategories" Hover="true" SortLabel="Sort By" Striped="true">
+                    <HeaderContent>
+                        <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SubjectModel, object>(x=>x.Code)">Code</MudTableSortLabel></MudTh>
+                        <MudTh>Category</MudTh>
+                        <MudTh>Subject</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Code">@context.Code</MudTd>
+                        <MudTd DataLabel="SubjectCategory">@context.SubjectCategory.SubjectCategoryName</MudTd>
+                        <MudTd DataLabel="SubjectName">@context.SubjectName</MudTd>
+                    </RowTemplate>
+                    <PagerContent>
+                        <MudTablePager />
+                    </PagerContent>
+                </MudTable>
             </MudItem>
         </MudGrid>
     </MudTabPanel>

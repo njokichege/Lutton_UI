@@ -43,6 +43,21 @@ namespace FimiAppApi.Controllers
             }
 
         }
+        [HttpGet("mapstaffonteacherbyid/{teacherId}")]
+        public async Task<IActionResult> MapStaffOnTeacherById(int teacherId)
+        {
+            try
+            {
+                var teacher = await _teacherRepository.MapStaffOnTeacherById(teacherId);
+                return Ok(teacher);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+
+        }
         [HttpPost]
         public async Task<IActionResult> AddTeacher(TeacherModel teacher)
         {

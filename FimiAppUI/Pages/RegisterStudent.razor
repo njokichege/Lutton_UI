@@ -34,12 +34,12 @@
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton Color="Color.Primary" OnClick="DialogSubmit">Register</MudButton>
+        <MudButton Color="Color.Primary" OnClick="DialogSubmit">Continue</MudButton>
     </DialogActions>
 </MudDialog>
 
 
-<MudGrid Class="pa-10">
+<MudGrid Class="pa-4">
     <MudItem xs="6">
         <MudPaper Class="pa-4">
             <MudForm Model="@Student"@ref="@registerStudentForm" Validation="@(StudentValidator.ValidateValue)" ValidationDelay="0">
@@ -80,7 +80,7 @@
         </MudPaper>
     </MudItem>
 </MudGrid>
-<MudGrid Class="mt-n12 px-5">
+<MudGrid Class="mt-n12 pa-4">
     <MudItem xs="12">
         <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Style="background-color:#e38d43" OnClick="@(async () => await Submit())" FullWidth="true" StartIcon="@Icons.Material.Filled.Save">Register</MudButton>
     </MudItem>

@@ -6,5 +6,6 @@
         Task<IEnumerable<TeacherModel>> GetTeachers();
         Task<TeacherModel> GetTeacher(int nationalId);
         Task<int> AddTeacher(TeacherModel teacher);
+        Task<IEnumerable<TeacherModel>> MapStaffOnTeacherById(int teacherId);
     }
 }

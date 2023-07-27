@@ -6,7 +6,7 @@ namespace FimiAppApi.Contracts
     public interface IClassRepository
     {
         Task<IEnumerable<ClassModel>> GetClasses();
-        Task<int> CreateClass(int formId, int streamId, int sessionYearId);
+        Task<int> CreateClass(ClassModel classModel);
         Task DeleteClass(int id);
         Task<ClassModel> GetClassByForeignKeys(int formId, int streamId, int sessionYearId);
         Task UpdateClassTeacher(int classId, int teacherId);

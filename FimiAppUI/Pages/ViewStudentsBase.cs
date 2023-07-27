@@ -42,9 +42,9 @@
             Students = (await StudentService.MapClassOnStudent(SelectedClass.ClassId));
             this.StateHasChanged();
         }
-        public void RowClickEvent(TableRowClickEventArgs<StudentModel> tableRowClickEventArgs)
+        public void StudentRowClickEvent(TableRowClickEventArgs<StudentModel> tableRowClickEventArgs)
         {
-            Navigation.NavigateTo($"/classdetails/{tableRowClickEventArgs.Item.StudentNumber}");
+            Navigation.NavigateTo("/studentdetails/" + tableRowClickEventArgs.Item.StudentNumber);
         }
     }
 }

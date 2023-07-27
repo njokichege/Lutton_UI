@@ -23,12 +23,12 @@ namespace FimiAppUI.Pages
         public bool showSuccessAlert = false;
         public bool showFailAlert = false;
         public bool showWarningAlert = false;
-        public bool showTeachersSubjects = false;
-        public bool showSubjectsWithCategories = false;
+        public bool showTeacherSubject = false;
         private TeacherModel _selectedTeacherOnAssignTeacherTab;
         protected override async Task OnInitializedAsync()
         {
             TeacherSubjectModel = (await TeacherSubjectService.GetMultipleMapping()).ToList();
+            SubjectsWithCategories = await SubjectService.MapSubjectOnCategory();
         }
         public async Task<IEnumerable<TeacherModel>> TeacherSearchOnAssignTeacherTab(string value)
         {
@@ -51,8 +51,7 @@ namespace FimiAppUI.Pages
             };
             var response = await TeacherSubjectService.CreateTeacherSubject(teacherSubjectModel);
             TeacherSubjects = (await TeacherSubjectService.GetMultipleMappingByTeacher(SelectedTeacherOnAssignTeacherTab.TeacherId)).ToList();
-            showTeachersSubjects = true;
-
+            showTeacherSubject = true;
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 ShowSuccessAlert($"{SelectedTeacherOnAssignTeacherTab.Staff.FirstName} {SelectedTeacherOnAssignTeacherTab.Staff.MiddleName} {SelectedTeacherOnAssignTeacherTab.Staff.Surname} has been set to teach {SelectedSubjectOnAssignTeacherTab.SubjectName}");
@@ -66,12 +65,11 @@ namespace FimiAppUI.Pages
             {
                 ShowFailAlert($"System failed to set {SelectedTeacherOnAssignTeacherTab.Staff.FirstName} {SelectedTeacherOnAssignTeacherTab.Staff.MiddleName} {SelectedTeacherOnAssignTeacherTab.Staff.Surname} to teach {SelectedSubjectOnAssignTeacherTab.SubjectName}");
             }
+            TeacherSubjectModel = (await TeacherSubjectService.GetMultipleMapping()).ToList();
         }
         public async Task AddSubject()
         {
             var response = await SubjectService.CreateSubject(NewSubject);
-            SubjectsWithCategories = await SubjectService.MapSubjectOnCategory();
-            showSubjectsWithCategories = true;
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -85,6 +83,7 @@ namespace FimiAppUI.Pages
             {
                 ShowFailAlert($"Failed to add {NewSubject.SubjectName} under {NewSubject.SubjectCategory.SubjectCategoryName} subjects");
             }
+            SubjectsWithCategories = await SubjectService.MapSubjectOnCategory();
         }
         public void ShowSuccessAlert(string modelType)
         {

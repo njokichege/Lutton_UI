@@ -1,28 +1,32 @@
 ﻿
 using FimiAppUI.Contracts;
 using Microsoft.JSInterop;
+using static MudBlazor.CategoryTypes;
 using static MudBlazor.Colors;
 
 namespace FimiAppUI.Pages
 {
-    public class ManageClassroomBase : ComponentBase
+    public class ManageClassroomBase : Microsoft.AspNetCore.Components.ComponentBase
     {
         [Inject] public IClassService ClassService { get; set; }
         [Inject] public IFormService FormService { get; set; }
         [Inject] public IStreamService StreamService { get; set; }
         [Inject] public ITeacherService TeacherService { get; set; }
         [Inject] public ISessionYearService SessionYearService { get; set; }
+        [Inject] public NavigationManager Navigation { get; set; } 
         public IEnumerable<ClassModel> Classes { get; set; }
         public ClassModel SelectedDataRow { get; set; }
         public FormModel SelectedFormOnClassCard { get; set; }
         public FormModel SelectedFormOnTeacherCard { get; set; }
         public TeacherModel SelectedTeacherOnTeacherCard { get; set; }
+        public TeacherModel SelectedTeacherOnClassCard { get; set; }
         public StreamModel SelectedStreamOnClassCard { get; set; }
         public StreamModel SelectedStreamOnTeacherCard { get; set; }
         public SessionYearModel SelectedSessionYearOnClassCard { get; set; }
         public SessionYearModel SelectedSessionYearOnSessionYearCard { get; set; }
         public SessionYearModel SelectedSessionYearOnTeacherCard { get; set; }
         public IEnumerable<SessionYearModel> SessionYears { get; set; }
+        public ClassModel SelectedClass { get; set; }
         public string ModelFail { get; set; }
         public string ModelSuccess { get; set; }
         public string SessionYearModelTitle { get; set; }
@@ -80,13 +84,18 @@ namespace FimiAppUI.Pages
         {
             return (await SessionYearService.GetSessionYears()).ToList();
         }
+        public void ClassRowClickEvent(TableRowClickEventArgs<ClassModel> tableRowClickEventArgs)
+        {
+            Navigation.NavigateTo("/classdetails/" + tableRowClickEventArgs.Item.ClassId);
+        }
         public async Task<HttpResponseMessage> CreateClass()
         {
             var classModel = new ClassModel
             {
                 FormId = SelectedFormOnClassCard.FormId,
                 StreamId = SelectedStreamOnClassCard.StreamId,
-                SessionYearId = SelectedSessionYearOnClassCard.SessionYearId
+                SessionYearId = SelectedSessionYearOnClassCard.SessionYearId,
+                TeacherId = SelectedTeacherOnClassCard.TeacherId
             };
 
             var response = await ClassService.CreateClass(classModel).ConfigureAwait(false);
@@ -99,6 +108,7 @@ namespace FimiAppUI.Pages
                 
                 ShowFailAlert($"Class {SelectedFormOnClassCard.Form}{SelectedStreamOnClassCard.Stream} year {SelectedSessionYearOnClassCard.StartDate.Year} already exists");
             }
+            Classes = (await ClassService.GetMultipleMapping()).ToList();
             return response;
         }
         public async Task<HttpResponseMessage> AssignClassTeacher()
@@ -120,6 +130,7 @@ namespace FimiAppUI.Pages
 
                 ShowFailAlert($"Class {SelectedFormOnTeacherCard.Form}{SelectedStreamOnTeacherCard.Stream} year {SelectedSessionYearOnTeacherCard.StartDate.Year} doesn't exists");
             }
+            Classes = (await ClassService.GetMultipleMapping()).ToList();
             return response;
         }
         public async Task CreateNewSchoolYear()
@@ -139,6 +150,7 @@ namespace FimiAppUI.Pages
 
                 ShowFailAlert($"School year : {startDate} - {endDate} already exists");
             }
+            SessionYears = (await SessionYearService.GetSessionYears()).ToList();
         }
         public void ShowSuccessAlert(string modelType)
         {

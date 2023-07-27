@@ -6,6 +6,6 @@
         public string TeacherType { get; set; }
         public string TSCNumber { get; set; }
         public int NationalId { get; set; }
-        public StaffModel Staff { get; set; }
+        public StaffModel Staff { get; set; } 
     }
 }

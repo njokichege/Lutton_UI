@@ -28,13 +28,14 @@
 
 <MudDialog @ref="registerDialog" @bind-IsVisible="visible" Options="dialogOptions">
     <TitleContent>
-        <MudText Typo="Typo.h6">Confirm Registration</MudText>
+        <MudText Typo="Typo.h6"><b>Confirm Registration</b></MudText>
     </TitleContent>
     <DialogContent>
         <MudText>@Staff.FirstName @Staff.MiddleName @Staff.Surname</MudText>
         <MudText>NationalId : @Staff.NationalId</MudText>
         <MudText>Teacher Type : @Teacher.TeacherType</MudText>
         <MudText>TSC Number : @Teacher.TSCNumber</MudText>
+        <MudText> </MudText>
         <MudText><b>Will be registered as a teacher</b></MudText>
     </DialogContent>
     <DialogActions>
@@ -43,7 +44,7 @@
     </DialogActions>
 </MudDialog>
 
-<MudGrid Class="pa-10">
+<MudGrid Class="pa-4">
     <MudItem xs="6">
         <MudPaper Class="pa-4">
             <MudForm Model="@Staff" @ref="@registerStaffForm" Validation="@(StaffValidator.ValidateValue)" ValidationDelay="0">
@@ -85,7 +86,7 @@
         </MudPaper>
     </MudItem>
 </MudGrid>
-<MudGrid Class="mt-n12 px-5">
+<MudGrid Class="mt-n12 pa-4">
     <MudItem xs="12">
         <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Style="background-color:#e38d43" OnClick="@(async () => await Submit())" FullWidth="true" StartIcon="@Icons.Material.Filled.Save">Register</MudButton>
     </MudItem>

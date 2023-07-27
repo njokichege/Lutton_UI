@@ -19,6 +19,10 @@ namespace FimiAppUI.Services
         {
             return await _httpClient.GetFromJsonAsync<IEnumerable<TeacherModel>>("api/teacher/mapstaffonteacher");
         }
+        public async Task<IEnumerable<TeacherModel>> MapStaffOnTeacherById(int teacherId)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<TeacherModel>>($"api/teacher/mapstaffonteacherbyid/{teacherId}");
+        }
         public async Task<HttpResponseMessage> AddTeacher(TeacherModel teacher)
         {
             return await _httpClient.PostAsJsonAsync<TeacherModel>("api/teacher", teacher);

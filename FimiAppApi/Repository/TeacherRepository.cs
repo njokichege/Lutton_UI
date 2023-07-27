@@ -72,5 +72,43 @@ namespace FimiAppApi.Repository
 
             return await _dapperContext.MapMultipleObjects<TeacherModel,dynamic>(sql, types, map, splitOn, new {});
         }
+        public async Task<IEnumerable<TeacherModel>> MapStaffOnTeacherById(int teacherId)
+        {
+            string sql = "SELECT " +
+                                "Teacher.TeacherId, " +
+                                "Teacher.NationalId, " +
+                                "Teacher.TeacherType, " +
+                                "Teacher.TSCNumber, " +
+                                "Staff.NationalId, " +
+                                "Staff.FirstName, " +
+                                "Staff.MiddleName, " +
+                                "Staff.Surname, " +
+                                "Staff.Designation, " +
+                                "Staff.EmploymentDate, " +
+                                "Staff.Gender, " +
+                                "Staff.PhoneNumber " +
+                         "FROM Teacher " +
+                         "INNER JOIN Staff ON Teacher.NationalId = Staff.NationalId " +
+                         "WHERE Teacher.TeacherId = @TeacherId";
+            var parameters = new DynamicParameters();
+            parameters.Add("TeacherId", teacherId, DbType.Int32);
+            Type[] types =
+            {
+                 typeof(TeacherModel),
+                 typeof(StaffModel)
+            };
+            Func<object[], TeacherModel> map = delegate (object[] obj)
+            {
+                TeacherModel teacherModel = obj[0] as TeacherModel;
+                StaffModel staffModel = obj[1] as StaffModel;
+
+                teacherModel.Staff = staffModel;
+
+                return teacherModel;
+            };
+            string splitOn = "NationalId";
+
+            return await _dapperContext.MapMultipleObjects<TeacherModel, dynamic>(sql, types, map, splitOn, parameters);
+        }
     }
 }

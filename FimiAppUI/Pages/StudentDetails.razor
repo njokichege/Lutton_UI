@@ -1,0 +1,60 @@
+﻿@page "/studentdetails/{id}"
+@inherits StudentDetailsBase
+
+<MudGrid Class="mt-n12 px-5">
+    <MudItem xs="9">
+        <MudText Typo="Typo.h5" Class="d-flex justify-start">STUDENT DETAILS</MudText>
+    </MudItem>
+    <MudItem xs="3" Class="d-flex justify-end">
+        <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
+        <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
+    </MudItem>
+</MudGrid>
+<MudDivider DividerType="DividerType.FullWidth" />
+
+@if (dataIsLoaded == false)
+{
+    <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+}
+else
+{
+    <MudGrid Class="pa-5">
+        <MudItem xs="3">
+            <MudCard>
+                <MudCardHeader Class="d-flex flex-column object-center">
+                    <MudAvatar Style="height:100px; width:100px;" Color="Color.Warning" Variant="Variant.Outlined">
+                        <MudImage ObjectPosition="ObjectPosition.Center" Src="images/mercyNjoki.jpg"></MudImage>
+                    </MudAvatar>
+                    <MudText Typo="Typo.h6" Class="mt-4 mb-n12">@Student.FirstName @Student.MiddleName @Student.Surname</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudDivider DividerType="DividerType.FullWidth" Class="my-4" />
+                    <MudText Typo="Typo.body2">Student Number : @Student.StudentNumber</MudText>
+                    <MudDivider DividerType="DividerType.FullWidth" Class="my-4" />
+                    <MudText Typo="Typo.body2">Gender : @Student.Gender</MudText>
+                    <MudDivider DividerType="DividerType.FullWidth" Class="my-4" />
+                    <MudText Typo="Typo.body2">Age : @Student.Age()</MudText>
+                    <MudDivider DividerType="DividerType.FullWidth" Class="my-4" />
+                    <MudText Typo="Typo.body2">Admission Date : @Student.AdmissionDate.ToShortDateString()</MudText>
+                    <MudDivider DividerType="DividerType.FullWidth" Class="my-4" />
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="9" Class="d-flex justify-space-between gap-1">
+            <MudTabs ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
+                <MudTabPanel Text="Form 1">
+                    
+                </MudTabPanel>
+                <MudTabPanel Text="Form 2">
+                    
+                </MudTabPanel>
+                <MudTabPanel Text="Form 3">
+
+                </MudTabPanel>
+                <MudTabPanel Text="Form 4">
+
+                </MudTabPanel>
+            </MudTabs>
+        </MudItem>
+    </MudGrid>
+}

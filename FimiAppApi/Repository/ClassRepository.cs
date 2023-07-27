@@ -13,17 +13,17 @@ namespace FimiAppApi.Repository
         {
             _context = context;
         }
-        public async Task<int> CreateClass(int formId, int streamId, int sessionYearId)
+        public async Task<int> CreateClass(ClassModel classModel)
         {
             string sql = "INSERT INTO Class" +
-                "(FormId,StreamId,SessionYearId)" +
+                "(FormId,StreamId,SessionYearId,TeacherId)" +
                 "VALUES" +
-                "(@FormId,@StreamId,@SessionYearId)" +
-                "SELECT CAST(SCOPE_IDENTITY() AS INT)"; 
+                "(@FormId,@StreamId,@SessionYearId,@TeacherId)"; 
             var parameters = new DynamicParameters();
-            parameters.Add("FormId", formId, DbType.Int32);
-            parameters.Add("StreamId", streamId, DbType.Int32);
-            parameters.Add("SessionYearId", sessionYearId, DbType.Int32);
+            parameters.Add("FormId", classModel.FormId, DbType.Int32);
+            parameters.Add("StreamId", classModel.StreamId, DbType.Int32);
+            parameters.Add("SessionYearId", classModel.SessionYearId, DbType.Int32);
+            parameters.Add("TeacherId", classModel.TeacherId, DbType.Int32);
 
             var id = await _context.CreateData<ClassModel,dynamic>(sql, parameters);
             return id;
@@ -52,27 +52,38 @@ namespace FimiAppApi.Repository
         public async Task<ClassModel> GetClassMultipleMappingById(int id)
         {
             string sql = "SELECT " +
-                                "Class.ClassId, " +
-                                "Class.FormId," +
-                                "Class.StreamId," +
-                                "Class.TeacherId," +
-                                "Form.FormId," +
-                                "Form.Form," +
-                                "Stream.StreamId," +
-                                "Stream.Stream," +
-                                "Teacher.TeacherId," +
-                                "Teacher.TSCNumber, "+
-                                "Staff.NationalId," +
-                                "Staff.FirstName," +
-                                "Staff.MiddleName," +
-                                "Staff.Surname, " +
-                                "Staff.Designation "+
-                         "FROM Class " +
-                         "INNER JOIN Form ON Class.FormId = Form.FormId " +
-                         "INNER JOIN Stream ON Class.StreamId = Stream.StreamId " +
-                         "INNER JOIN Teacher ON Class.TeacherId = Teacher.TeacherId  " +
-                         "INNER JOIN Staff ON Teacher.NationalId = Staff.NationalId " +
-                         "WHERE Class.ClassId = @ClassId";
+                            "Class.ClassId," +
+                            "Class.FormId," +
+                            "Class.StreamId," +
+                            "Class.TeacherId," +
+                            "Class.SessionYearId," +
+                            "Form.FormId," +
+                            "Form.Form," +
+                            "Stream.StreamId," +
+                            "Stream.Stream," +
+                            "SessionYear.SessionYearId," +
+                            "SessionYear.StartDate," +
+                            "SessionYear.EndDate," +
+                            "Teacher.TeacherId," +
+                            "Teacher.NationalId," +
+                            "Teacher.TeacherType," +
+                            "Teacher.TSCNumber," +
+                            "Staff.FirstName," +
+                            "Staff.MiddleName," +
+                            "Staff.Surname," +
+                            "Staff.DateOfBirth," +
+                            "Staff.Designation," +
+                            "Staff.EmploymentDate," +
+                            "Staff.Gender," +
+                            "Staff.NationalId," +
+                            "Staff.PhoneNumber " +
+                        "FROM Class " +
+                        "INNER JOIN Form ON Class.FormId = Form.FormId " +
+                        "INNER JOIN Stream ON Class.StreamId = Stream.StreamId " +
+                        "INNER JOIN SessionYear ON SessionYear.SessionYearId = Class.SessionYearId " +
+                        "LEFT JOIN Teacher ON Class.TeacherId = Teacher.TeacherId " +
+                        "LEFT JOIN Staff ON Teacher.NationalId = Staff.NationalId " +
+                        "WHERE Class.ClassId = @ClassId";
             var parameters = new DynamicParameters();
             parameters.Add("@ClassId", id, DbType.Int32);
 
@@ -81,6 +92,7 @@ namespace FimiAppApi.Repository
                  typeof(ClassModel),
                  typeof(FormModel),
                  typeof(StreamModel),
+                 typeof(SessionYearModel),
                  typeof(TeacherModel),
                  typeof(StaffModel)
             };
@@ -89,17 +101,19 @@ namespace FimiAppApi.Repository
                 ClassModel classDetails = obj[0] as ClassModel;
                 FormModel formModel = obj[1] as FormModel;
                 StreamModel streamModel = obj[2] as StreamModel;
-                TeacherModel teacherModel = obj[3] as TeacherModel;
-                StaffModel staffModel = obj[4] as StaffModel;
+                SessionYearModel sessionYear = obj[3] as SessionYearModel;
+                TeacherModel teacherModel = obj[4] as TeacherModel;
+                StaffModel staffModel = obj[5] as StaffModel;
 
                 classDetails.Form = formModel;
                 classDetails.Stream = streamModel;
+                classDetails.SessionYear = sessionYear;
                 classDetails.Teacher = teacherModel;
                 teacherModel.Staff = staffModel;
 
                 return classDetails;
             };
-            string splitOn = "FormId,StreamId,TeacherId,NationalId";
+            string splitOn = "FormId,StreamId,SessionYearId,TeacherId,NationalId";
             var data = await _context.MapMultipleObjects<ClassModel,dynamic>(sql, types, map, splitOn, parameters);
             return data.FirstOrDefault();
         }
@@ -128,30 +142,38 @@ namespace FimiAppApi.Repository
         }
         public async Task<IEnumerable<ClassModel>> GetClassMultipleMapping()
         {
-            string query = "SELECT  " +
+            string query = "SELECT " +
                                 "Class.ClassId," +
                                 "Class.FormId," +
                                 "Class.StreamId," +
                                 "Class.TeacherId," +
+                                "Class.SessionYearId," +
                                 "Form.FormId," +
                                 "Form.Form," +
                                 "Stream.StreamId," +
                                 "Stream.Stream," +
+                                "SessionYear.SessionYearId," +
+                                "SessionYear.StartDate," +
+                                "SessionYear.EndDate," +
                                 "Teacher.TeacherId," +
                                 "Staff.NationalId," +
+                                "Form.Form," +
+                                "Stream.Stream," +
                                 "Staff.FirstName," +
                                 "Staff.MiddleName," +
                                 "Staff.Surname " +
-                          "FROM Class " +
-                          "INNER JOIN Form ON Class.FormId = Form.FormId " +
-                          "INNER JOIN Stream ON Class.StreamId = Stream.StreamId " +
-                          "INNER JOIN Teacher ON Class.TeacherId = Teacher.TeacherId " +
-                          "INNER JOIN Staff ON Teacher.NationalId = Staff.NationalId";
+                           "FROM Class " +
+                           "INNER JOIN Form ON Class.FormId = Form.FormId " +
+                           "INNER JOIN Stream ON Class.StreamId = Stream.StreamId " +
+                           "INNER JOIN SessionYear ON SessionYear.SessionYearId = Class.SessionYearId " +
+                           "LEFT JOIN Teacher ON Class.TeacherId = Teacher.TeacherId " +
+                           "LEFT JOIN Staff ON Teacher.NationalId = Staff.NationalId";
             Type[] types =
             {
                  typeof(ClassModel),
                  typeof(FormModel),
                  typeof(StreamModel),
+                 typeof(SessionYearModel),
                  typeof(TeacherModel),
                  typeof(StaffModel)
             };
@@ -160,17 +182,20 @@ namespace FimiAppApi.Repository
                 ClassModel classDetails = obj[0] as ClassModel;
                 FormModel formModel = obj[1] as FormModel;
                 StreamModel streamModel = obj[2] as StreamModel;
-                TeacherModel teacherModel = obj[3] as TeacherModel;
-                StaffModel staffModel = obj[4] as StaffModel;
+                SessionYearModel sessionYear = obj[3] as SessionYearModel;
+                TeacherModel teacherModel = obj[4] as TeacherModel;
+                StaffModel staffModel = obj[5] as StaffModel;
+                
 
                 classDetails.Form = formModel;
                 classDetails.Stream = streamModel;
+                classDetails.SessionYear = sessionYear;
                 classDetails.Teacher = teacherModel;
                 teacherModel.Staff = staffModel;
 
                 return classDetails;
             };
-            string splitOn = "FormId,StreamId,TeacherId,NationalId";
+            string splitOn = "FormId,StreamId,SessionYearId,TeacherId,NationalId";
             return await _context.MapMultipleObjects<ClassModel,dynamic>(query, types, map, splitOn, new {});   
         }
     }

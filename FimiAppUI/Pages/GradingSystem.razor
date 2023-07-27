@@ -1,0 +1,77 @@
+﻿@page "/Pages/GradingSystem"
+
+@inherits GradingSystemBase
+
+<MudGrid Class="mt-n12 px-5">
+    <MudItem xs="9">
+        <MudText Typo="Typo.h5" Class="d-flex justify-start">GRADING SYSTEM</MudText>
+    </MudItem>
+    <MudItem xs="3" Class="d-flex justify-end">
+        <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
+        <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
+    </MudItem>
+</MudGrid>
+<MudDivider DividerType="DividerType.FullWidth" />
+
+@if (showSuccessAlert)
+{
+    <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelSuccess</MudAlert>
+}
+@if (showFailAlert)
+{
+    <MudAlert Severity="Severity.Error" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelFail</MudAlert>
+}
+
+<MudDialog @ref="registerDialog" @bind-IsVisible="visible" Options="dialogOptions">
+    <TitleContent>
+        <MudText Typo="Typo.h6">Confirm Registration</MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudText><b>Grade: </b></MudText>
+        <MudText></MudText>
+        <MudText>@NewGrade.Grade (@NewGrade.StartGrade - @NewGrade.EndGrade) will be added </MudText>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="DialogSubmit">Continue</MudButton>
+    </DialogActions>
+</MudDialog>
+
+<MudGrid Class="d-flex justify-center pa-4">
+    <MudItem xs="3">
+        <MudPaper Class="pa-4">
+            <MudForm Model="@NewGrade" @ref="@addGradeForm" Validation="@(GradeValidator.ValidateValue)" ValidationDelay="0">
+                <MudText Typo="Typo.h5" Align="Align.Center">Add Grade</MudText>
+                <MudTextField Immediate="true" @bind-Value="NewGrade.Grade" For="@(() => NewGrade.Grade)" Label="Grade Letter" Variant="Variant.Outlined" />
+                <MudTextField Immediate="true" @bind-Value="NewGrade.StartGrade" For="@(() => NewGrade.StartGrade)" Label="Percentage From" Variant="Variant.Outlined" />
+                <MudTextField Immediate="true" @bind-Value="NewGrade.EndGrade" For="@(() => NewGrade.EndGrade)" Label="Percentage End" Variant="Variant.Outlined" />
+                <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@AddGrade" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
+            </MudForm>
+        </MudPaper>        
+    </MudItem>
+    <MudItem xs="9">
+        @if (GradesList is null)
+        {
+            <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+        }
+        else
+        {
+            <MudTable Items="@GradesList" FixedHeader="true" Hover="true" Striped="true">
+                <HeaderContent>
+                    <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<GradeModel, object>(x=>x.Grade)">Name</MudTableSortLabel></MudTh>
+                    <MudTh>Percentage From</MudTh>
+                    <MudTh>Percentage To</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Grade">@context.Grade</MudTd>
+                    <MudTd DataLabel="PercentageFrom">@context.StartGrade.ToString("F")</MudTd>
+                    <MudTd DataLabel="PercentageTo">@context.EndGrade.ToString("F")</MudTd>
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager />
+                </PagerContent>
+            </MudTable>
+        }
+    </MudItem>
+</MudGrid>
+

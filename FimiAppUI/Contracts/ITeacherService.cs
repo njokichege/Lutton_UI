@@ -5,5 +5,6 @@
         Task<IEnumerable<TeacherModel>> MapStaffOnTeacher();
         Task<IEnumerable<TeacherModel>> GetTeachers();
         Task<HttpResponseMessage> AddTeacher(TeacherModel teacher);
+        Task<IEnumerable<TeacherModel>> MapStaffOnTeacherById(int teacherId);
     }
 }

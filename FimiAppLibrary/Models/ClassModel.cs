@@ -12,7 +12,7 @@ namespace FimiAppLibrary.Models
         public FormModel Form { get; set; }
         public StreamModel Stream { get; set; }
         public SessionYearModel SessionYear { get; set; }
-        public TeacherModel Teacher { get; set; }
+        public TeacherModel Teacher { get; set; } 
         public GradeModel Grade { get; set; }
         public string FullClass()
         {
