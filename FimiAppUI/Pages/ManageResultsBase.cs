@@ -6,12 +6,14 @@
         [Inject] public IExamTypeService ExamTypeService { get; set; }
         [Inject] public IFormService FormService { get; set; }
         [Inject] public IStreamService StreamService { get; set; }
-        public IEnumerable<TermModel> Terms { get; set; }
-        public IEnumerable<ExamTypeModel> ExamTypes { get; set; }
+        [Inject] public IStudentService StudentService { get; set; }
+        [Inject] public IClassService ClassService { get; set; }
+        public IEnumerable<StudentModel> Students { get; set; }
         public TermModel SelectedTerm { get; set; }
         public ExamTypeModel SelectedExamType { get; set; }
         public FormModel SelectedForm { get; set; }
         public StreamModel SelectedStream { get; set; }
+        public bool visible = false;
         protected override Task OnInitializedAsync()
         {
             return base.OnInitializedAsync();
@@ -32,7 +34,14 @@
         {
             return (await StreamService.GetStreams()).ToList();
         }
-        public async void FindClass()
+        public async Task FindClass()
+        {
+            visible = true;
+            ClassModel classModel = new ClassModel();
+            classModel = await ClassService.GetClassByForeignKeys(SelectedForm.FormId, SelectedStream.StreamId, 1);
+            Students = await StudentService.MapClassOnStudent(classModel.ClassId);
+        }
+        public void StudentRowClickEvent(TableRowClickEventArgs<StudentModel> tableRowClickEventArgs)
         {
             
         }

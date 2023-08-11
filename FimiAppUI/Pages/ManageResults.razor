@@ -53,4 +53,32 @@
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
 
+<MudGrid Class="d-flex justify-start px-4">
+    <MudItem xs="4">
+        @if (Students is null && visible is true)
+        {
+            <MudProgressCircular Size="Size.Medium" Color="Color.Success" Indeterminate="true" />
+        }
+        else 
+        {
+            <MudTable Items="@Students" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="StudentRowClickEvent" T="StudentModel">
+                <HeaderContent>
+                    <MudTh Style="font-size:12px;"><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentNumber)">Student Number</MudTableSortLabel></MudTh>
+                    <MudTh Style="font-size:12px;"><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentName())">Name</MudTableSortLabel></MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd Style="font-size:12px;" DataLabel="Student Number">@context.StudentNumber</MudTd>
+                    <MudTd Style="font-size:12px;" DataLabel="Name">@context.StudentName()</MudTd>
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager HideRowsPerPage="true"HidePageNumber="true" />
+                </PagerContent>
+            </MudTable>
+        }
+    </MudItem>
+    <MudDivider DividerType="DividerType.FullWidth" Vertical="true" FlexItem="true" />
+</MudGrid>
 
+
+    
+        
