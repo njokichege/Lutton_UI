@@ -26,6 +26,10 @@ namespace FimiAppApi
             builder.Services.AddSingleton<IStudentSubjectRepository, StudentSubjectRepository>();
             builder.Services.AddSingleton<IStaffRepository, StaffRepository>();
             builder.Services.AddSingleton<IGradeRepository, GradeRepository>();
+            builder.Services.AddSingleton<ISchoolPerformanceRepository, SchoolPerformanceRepository>();
+            builder.Services.AddSingleton<IClassPerformanceRepository, ClassPerformanceRepository>();
+            builder.Services.AddSingleton<ITermRepository,  TermRepository>();
+            builder.Services.AddSingleton<IExamTypeRepository, ExamTypeRepository>();
         }
     }
 }

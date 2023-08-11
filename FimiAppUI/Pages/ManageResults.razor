@@ -1,5 +1,7 @@
 ﻿@page "/Pages/ManageResults"
 
+@inherits ManageResultsBase
+
 <MudGrid Class="mt-n12 px-5">
     <MudItem xs="9">
         <MudText Typo="Typo.h5" Class="d-flex justify-start">MANAGE RESULTS</MudText>
@@ -10,3 +12,45 @@
     </MudItem>
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" />
+
+
+<MudGrid Class="d-flex px-4 mt-4 align-center">
+    <MudItem xs="2">
+        <MudCard>
+            <MudCardContent>
+                <MudAutocomplete T="TermModel" Label="Term" @bind-Value="SelectedTerm" ShowProgressIndicator="true"
+                                 SearchFunc="@SelectedTermSearch" ToStringFunc="@(e=> e==null?null : $"{e.TermName}")" />
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="2">
+        <MudCard>
+            <MudCardContent>
+                <MudAutocomplete T="ExamTypeModel" Label="Exam Type" @bind-Value="SelectedExamType" ShowProgressIndicator="true"
+                                 SearchFunc="@SelectedExamTypeSearch" ToStringFunc="@(e=> e==null?null : $"{e.ExamName}")" />
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="2">
+        <MudCard>
+            <MudCardContent>
+                <MudAutocomplete T="FormModel" Label="Form" @bind-Value="SelectedForm" ShowProgressIndicator="true"
+                                 SearchFunc="@SelectedFormSearch" ToStringFunc="@(e=> e==null?null : $"{e.Form}")" />
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="2">
+        <MudCard>
+            <MudCardContent>
+                <MudAutocomplete T="StreamModel" Label="Stream" @bind-Value="SelectedStream" ShowProgressIndicator="true"
+                                 SearchFunc="@SelectedStreamSearch" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="2">
+        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@FindClass" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
+    </MudItem>
+</MudGrid>
+<MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+
+

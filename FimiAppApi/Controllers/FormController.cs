@@ -25,6 +25,20 @@ namespace FimiAppApi.Controllers
                 await Console.Out.WriteLineAsync(ex.Message);
                 return StatusCode(500, ex.Message);
             }
+        }
+        [HttpGet("{FormId}")]
+        public async Task<IActionResult> GetFormById(int formId)
+        {
+            try
+            {
+                var form = await _formRepository.GetFormById(formId);
+                return Ok(form);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
 
         }
     }

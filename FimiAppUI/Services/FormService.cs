@@ -14,5 +14,9 @@ namespace FimiAppUI.Services
         {
             return await httpClient.GetFromJsonAsync<FormModel[]>("api/form");
         }
+        public async Task<FormModel> GetFormById(int formId)
+        {
+            return await httpClient.GetFromJsonAsync<FormModel>($"api/form/{formId}");
+        }
     }
 }

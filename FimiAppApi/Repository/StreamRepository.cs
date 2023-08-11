@@ -13,5 +13,12 @@
             string sql = "SELECT* FROM dbo.Stream";
             return await _dapperContext.LoadData<StreamModel, dynamic>(sql, new { });
         }
+        public async Task<StreamModel> GetStreamById(int streamId)
+        {
+            string sql = "SELECT * FROM Stream WHERE StreamId = @StreamId";
+            var parameteres = new DynamicParameters();
+            parameteres.Add("StreamId", streamId, DbType.Int32);
+            return await _dapperContext.LoadSingleData<StreamModel, dynamic>(sql, parameteres);
+        }
     }
 }

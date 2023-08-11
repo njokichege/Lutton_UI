@@ -26,5 +26,20 @@ namespace FimiAppApi.Controllers
             }
 
         }
+        [HttpGet("{StreamId}")]
+        public async Task<IActionResult> GetStreamById(int streamId)
+        {
+            try
+            {
+                var stream = await _streamRepository.GetStreamById(streamId);
+                return Ok(stream);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+
+        }
     }
 }
