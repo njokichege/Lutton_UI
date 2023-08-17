@@ -26,5 +26,19 @@ namespace FimiAppApi.Controllers
             }
 
         }
+        [HttpGet("{classId}/{sessionYearId}/{termId}/{examTypeId}/{subjectName}")]
+        public async Task<IActionResult> GetStudentResultsByClassAndSubject(int classId, int sessionYearId, int termId, int examTypeId, string subjectName)
+        {
+            try
+            {
+                var examResult = await _subjectPerformanceRepository.GetStudentResultsByClassAndSubject(classId, sessionYearId, termId, examTypeId,subjectName);
+                return Ok(examResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
     }
 }

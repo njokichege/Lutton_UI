@@ -1,6 +1,9 @@
-﻿namespace FimiAppUI.Pages
+﻿using static MudBlazor.CategoryTypes;
+using static MudBlazor.Defaults;
+
+namespace FimiAppUI.Pages
 {
-    public class ManageResultsBase : ComponentBase
+    public class ManageResultsBase : Microsoft.AspNetCore.Components.ComponentBase
     {
         [Inject] public ITermService TermService { get; set; }
         [Inject] public IExamTypeService ExamTypeService { get; set; }
@@ -8,7 +11,11 @@
         [Inject] public IStreamService StreamService { get; set; }
         [Inject] public IStudentService StudentService { get; set; }
         [Inject] public IClassService ClassService { get; set; }
-        public IEnumerable<StudentModel> Students { get; set; }
+        [Inject] public ISnackbar Snackbar { get; set; }
+        [Inject] public IClassPerformanceService ClassPerformanceService { get; set; }
+        public IEnumerable<ClassPerformanceModel> StudentsSubjectPerformance { get; set; }
+        public ClassPerformanceModel SelectedItem { get; set; }
+        public ClassPerformanceModel itemBeforeEdit { get; set; }
         public TermModel SelectedTerm { get; set; }
         public ExamTypeModel SelectedExamType { get; set; }
         public FormModel SelectedForm { get; set; }
@@ -39,11 +46,53 @@
             visible = true;
             ClassModel classModel = new ClassModel();
             classModel = await ClassService.GetClassByForeignKeys(SelectedForm.FormId, SelectedStream.StreamId, 1);
-            Students = await StudentService.MapClassOnStudent(classModel.ClassId);
+            StudentsSubjectPerformance = await ClassPerformanceService.GetStudentResultsByClass(classModel.ClassId, 1, SelectedTerm.TermId, SelectedExamType.ExamTypeId);
         }
-        public void StudentRowClickEvent(TableRowClickEventArgs<StudentModel> tableRowClickEventArgs)
+        public void ItemHasBeenCommitted(object model)
         {
             
         }
+        public void BackupItem(object model)
+        {
+            itemBeforeEdit = new()
+            {
+                StudentNumber = ((ClassPerformanceModel)model).StudentNumber,
+                FirstName = ((ClassPerformanceModel)model).FirstName,
+                MiddleName = ((ClassPerformanceModel)model).MiddleName,
+                Surname = ((ClassPerformanceModel)model).Surname,
+                English = ((ClassPerformanceModel)model).English,
+                Kiswahili = ((ClassPerformanceModel)model).Kiswahili,
+                Agriculture = ((ClassPerformanceModel)model).Agriculture,
+                Geography = ((ClassPerformanceModel)model).Geography,
+                HistoryAndGoverment = ((ClassPerformanceModel)model).HistoryAndGoverment,
+                Biology = ((ClassPerformanceModel)model).Biology,
+                Mathematics = ((ClassPerformanceModel)model).Mathematics,
+                Physics = ((ClassPerformanceModel)model).Physics,
+                Chemistry = ((ClassPerformanceModel)model).Chemistry,
+                ChristianReligion = ((ClassPerformanceModel)model).ChristianReligion,
+                HomeScience = ((ClassPerformanceModel)model).HomeScience,
+                BusinessStudies = ((ClassPerformanceModel)model).BusinessStudies
+            };
+        }
+        public void ResetItemToOriginalValues(object model)
+        {
+            ((ClassPerformanceModel)model).StudentNumber = itemBeforeEdit.StudentNumber;
+            ((ClassPerformanceModel)model).FirstName = itemBeforeEdit.FirstName;
+            ((ClassPerformanceModel)model).MiddleName = itemBeforeEdit.MiddleName;
+            ((ClassPerformanceModel)model).Surname = itemBeforeEdit.Surname;
+            ((ClassPerformanceModel)model).English = itemBeforeEdit.English;
+            ((ClassPerformanceModel)model).Kiswahili = itemBeforeEdit.Kiswahili;
+            ((ClassPerformanceModel)model).Agriculture = itemBeforeEdit.Agriculture;
+            ((ClassPerformanceModel)model).Geography = itemBeforeEdit.Geography;
+            ((ClassPerformanceModel)model).HistoryAndGoverment = itemBeforeEdit.HistoryAndGoverment;
+            ((ClassPerformanceModel)model).Biology = itemBeforeEdit.Biology;
+            ((ClassPerformanceModel)model).Mathematics = itemBeforeEdit.Mathematics;
+            ((ClassPerformanceModel)model).Physics = itemBeforeEdit.Physics;
+            ((ClassPerformanceModel)model).Chemistry = itemBeforeEdit.Chemistry;
+            ((ClassPerformanceModel)model).ChristianReligion = itemBeforeEdit.ChristianReligion;
+            ((ClassPerformanceModel)model).HomeScience = itemBeforeEdit.HomeScience;
+            ((ClassPerformanceModel)model).BusinessStudies = itemBeforeEdit.BusinessStudies;
+        }
+
     }
 }

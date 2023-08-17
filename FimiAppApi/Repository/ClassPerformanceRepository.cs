@@ -37,8 +37,18 @@
 
                 studentPerformance.Average = studentPerformance.Total / subjectCount;
             }
-
             return studentPerformances;
+        }
+        public async Task<IEnumerable<ClassPerformanceModel>> GetStudentResultsByClassAndSubject(int classId, int sessionYearId, int termId, int examTypeId, string subjectName)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("SelectedSubject", subjectName);
+            parameters.Add("SessionYearId", sessionYearId);
+            parameters.Add("TermId", termId);
+            parameters.Add("ExamTypeId", examTypeId);
+            parameters.Add("ClassId", classId);
+            
+            return await _dapperContext.LoadDataStoredProcedure<ClassPerformanceModel, dynamic>("SingleSubjectResult", parameters);
         }
     }
 }

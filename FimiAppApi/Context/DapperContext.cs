@@ -22,6 +22,15 @@ namespace FimiAppApi.Context
                 return data.ToList();
             }
         }
+        public async Task<IEnumerable<T>> LoadDataStoredProcedure<T, U>(string procedure, U parameters)
+        {
+            string connectionString = _config.GetConnectionString(ConnecctionStringName);
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                var data = await connection.QueryAsync<T>(procedure, parameters,commandType:CommandType.StoredProcedure);
+                return data.ToList();
+            }
+        }
         public async Task<IEnumerable<T>> MapMultipleObjects<T,U>(string sql, Type[] types, Func<object[], T> map, string splitOn, U parameters)
         {
             string connectionString = _config.GetConnectionString(ConnecctionStringName);
