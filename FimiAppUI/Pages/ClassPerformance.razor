@@ -20,7 +20,8 @@ else
 {
     <MudGrid Class="d-flex pa-4">
         <MudItem xs="12" Class="d-flex justify-space-between">
-            <MudTable RowStyle="" Items="@StudentsSubjectPerformance" Dense="true" Hover="true" Striped="true" T="ClassPerformanceModel" HorizontalScrollbar="true" Breakpoint="Breakpoint.Sm" FixedHeader="true" FixedFooter="true" Style="max-width: 2000px; overflow: scroll;font-size:12px;">
+            <MudTable RowStyle="" Items="@StudentsSubjectPerformance" Dense="true" Hover="true" Striped="true" T="ClassPerformanceModel" HorizontalScrollbar="true"
+                      Breakpoint="Breakpoint.Sm" FixedHeader="true" FixedFooter="true" Style="max-width: 2000px; overflow: scroll;font-size:12px;" OnRowClick="StudentRowClickEvent">
                 <HeaderContent>
                     <MudTh Style="font-size:12px;">#</MudTh>
                     <MudTh Style="font-size:12px;">Name</MudTh>

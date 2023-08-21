@@ -8,6 +8,18 @@
         {
             _dapperContext = dapperContext;
         }
+        public async Task<ClassPerformanceModel> GetStudentResults(int studentNumber,int sessionYearId, int termId, int examTypeId)
+        {
+            string sql = "SELECT * from StudentResults WHERE SessionYearId = @SessionYearId AND TermId = @TermId AND ExamTypeId = @ExamTypeId AND StudentNumber = @StudentNumber";
+            
+            var parameteres = new DynamicParameters();
+            parameteres.Add("SessionYearId", sessionYearId);
+            parameteres.Add("TermId", termId);
+            parameteres.Add("ExamTypeId", examTypeId);
+            parameteres.Add("StudentNumber", studentNumber);
+
+            return await _dapperContext.LoadSingleData<ClassPerformanceModel, dynamic>(sql, parameteres);
+        }
         public async Task<IEnumerable<ClassPerformanceModel>> GetStudentResultsByClass(int classId, int sessionYearId, int termId, int examTypeId)
         {
             string sql = "SELECT * FROM StudentResults WHERE SessionYearId = @SessionYearId AND TermId = @TermId AND ExamTypeId = @ExamTypeId AND ClassId = @ClassId";

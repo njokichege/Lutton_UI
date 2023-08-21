@@ -1,0 +1,39 @@
+﻿@page "/reportform/{studentNumber}/{sessionYearId}/{termId}/{examTypeId}"
+@inherits ReportFormBase
+
+<MudGrid Class="mt-n12 px-5">
+    <MudItem xs="9">
+        <MudText Typo="Typo.h5" Class="d-flex justify-start">REPORT FORM</MudText>
+    </MudItem>
+    <MudItem xs="3" Class="d-flex justify-end">
+        <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
+        <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
+    </MudItem>
+</MudGrid>
+<MudDivider DividerType="DividerType.FullWidth" />
+
+@if (dataIsLoaded == false)
+{
+    <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+}
+else
+{
+    <MudPaper Class="pa-2 ma-2" Outlined="true">
+        <MudGrid Class="d-flex pa-4">
+            <MudItem xs="2" Class="d-flex justify-start align-content-center">
+                <MudAvatar Style="height:70px; width:70px;" Color="Color.Primary">
+                    SCH
+                </MudAvatar>
+            </MudItem>
+            <MudItem xs="5" Class="d-flex justify-center align-center">
+                <MudText Typo="Typo.h5"><b>KASARINI SECONDARY SCHOOL</b></MudText>
+            </MudItem>
+            <MudItem xs="5" Class="d-flex flex-column justify-end">
+                <MudText Typo="Typo.body2" Align="Align.Right"><b>P.O.BOX 1774-00900</b></MudText>
+                <MudText Typo="Typo.body2" Align="Align.Right"><b>TEL: 0732360307</b></MudText>
+                <MudText Typo="Typo.body2" Align="Align.Right"><b>email: kasarinisecondary@gmail.com</b></MudText>
+            </MudItem>
+        </MudGrid>
+        <MudDivider DividerType="DividerType.FullWidth" />
+    </MudPaper>
+}

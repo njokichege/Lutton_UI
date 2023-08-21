@@ -7,6 +7,7 @@ namespace FimiAppUI.Pages
     {
         [Inject] public IClassPerformanceService SubjectPerformanceService { get; set; }
         [Inject] public IGradeService GradeService { get; set;}
+        [Inject] public NavigationManager Navigation { get; set; }
         [Parameter] public string ClassId { get; set; }
         [Parameter] public string SessionYearId { get; set; }
         [Parameter] public string TermId { get; set; }
@@ -30,6 +31,10 @@ namespace FimiAppUI.Pages
                 }
             }
             dataIsLoaded = true;
+        }
+        public void StudentRowClickEvent(TableRowClickEventArgs<ClassPerformanceModel> tableRowClickEventArgs)
+        {
+            Navigation.NavigateTo($"/reportform/{tableRowClickEventArgs.Item.StudentNumber}/{int.Parse(SessionYearId)}/{int.Parse(TermId)}/{int.Parse(ExamTypeId)}");
         }
     }
 }
