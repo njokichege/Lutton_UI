@@ -13,7 +13,7 @@
             string sql = "SELECT * FROM StudentResults WHERE SessionYearId = @SessionYearId AND TermId = @TermId AND ExamTypeId = @ExamTypeId AND ClassId = @ClassId";
 
             var parameters = new DynamicParameters();
-            parameters.Add("ClassId", classId);
+            parameters.Add("ClassId",classId);
             parameters.Add("SessionYearId", sessionYearId);
             parameters.Add("TermId", termId);
             parameters.Add("ExamTypeId", examTypeId);
@@ -39,16 +39,48 @@
             }
             return studentPerformances;
         }
-        public async Task<IEnumerable<ClassPerformanceModel>> GetStudentResultsByClassAndSubject(int classId, int sessionYearId, int termId, int examTypeId, string subjectName)
+        public async Task UpdateStudentResults(ClassPerformanceModel classPerformanceModel)
         {
+            string sql = "UPDATE StudentResults " +
+                         "SET " +
+                            "English = @English," +
+                            "Kiswahili = @Kiswahili," +
+                            "Mathematics = @Mathematics," +
+                            "Physics = @Physics," +
+                            "Chemistry = @Chemistry," +
+                            "Biology = @Biology," +
+                            "HistoryandGovernment = @HistoryandGovernment," +
+                            "Geography = @Geography," +
+                            "ChristianReligion = @ChristianReligion," +
+                            "HomeScience = @HomeScience," +
+                            "Agriculture = @Agriculture," +
+                            "BusinessStudies = @BusinessStudies " +
+                         "WHERE " +
+                            "SessionYearId = @SessionYearId AND " +
+                            "ClassId = @ClassId AND " +
+                            "TermId = @TermId AND " +
+                            "ExamTypeId = @ExamTypeId AND " +
+                            "StudentNumber = @StudentNumber";
             var parameters = new DynamicParameters();
-            parameters.Add("SelectedSubject", subjectName);
-            parameters.Add("SessionYearId", sessionYearId);
-            parameters.Add("TermId", termId);
-            parameters.Add("ExamTypeId", examTypeId);
-            parameters.Add("ClassId", classId);
-            
-            return await _dapperContext.LoadDataStoredProcedure<ClassPerformanceModel, dynamic>("SingleSubjectResult", parameters);
+            parameters.Add("English", classPerformanceModel.English);
+            parameters.Add("Kiswahili", classPerformanceModel.Kiswahili);
+            parameters.Add("Mathematics", classPerformanceModel.Mathematics);
+            parameters.Add("Physics", classPerformanceModel.Physics);
+            parameters.Add("Chemistry", classPerformanceModel.Chemistry);
+            parameters.Add("Biology", classPerformanceModel.Biology);
+            parameters.Add("HistoryandGovernment", classPerformanceModel.HistoryAndGoverment);
+            parameters.Add("Geography", classPerformanceModel.Geography);
+            parameters.Add("ChristianReligion", classPerformanceModel.ChristianReligion);
+            parameters.Add("HomeScience", classPerformanceModel.HomeScience);
+            parameters.Add("Agriculture", classPerformanceModel.Agriculture);
+            parameters.Add("BusinessStudies", classPerformanceModel.BusinessStudies);
+            parameters.Add("SessionYearId", classPerformanceModel.SessionYearId);
+            parameters.Add("ClassId", classPerformanceModel.ClassId);
+            parameters.Add("TermId", classPerformanceModel.TermId);
+            parameters.Add("ExamTypeId", classPerformanceModel.ExamTypeId);
+            parameters.Add("StudentNumber", classPerformanceModel.StudentNumber);
+
+            await _dapperContext.UpdateData<ClassPerformanceModel, dynamic>(sql, parameters);
         }
     }
 }

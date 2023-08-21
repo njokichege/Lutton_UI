@@ -2,6 +2,10 @@
 {
     public class ClassPerformanceModel
     {
+        public int SessionYearId { get; set; }
+        public int ClassId { get; set; }
+        public int TermId { get; set; }
+        public int ExamTypeId { get; set; }
         public int StudentNumber { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }

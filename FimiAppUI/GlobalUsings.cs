@@ -15,3 +15,6 @@ global using System.Text.RegularExpressions;
 global using System.ComponentModel.DataAnnotations;
 global using FluentValidation;
 global using FimiAppUI.Validators;
+using System.Net;
+using static MudBlazor.CategoryTypes;
+using static MudBlazor.Defaults;

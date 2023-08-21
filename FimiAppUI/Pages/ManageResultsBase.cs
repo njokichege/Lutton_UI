@@ -1,5 +1,6 @@
-﻿using static MudBlazor.CategoryTypes;
-using static MudBlazor.Defaults;
+﻿
+using System.Net;
+using static MudBlazor.CategoryTypes;
 
 namespace FimiAppUI.Pages
 {
@@ -13,13 +14,16 @@ namespace FimiAppUI.Pages
         [Inject] public IClassService ClassService { get; set; }
         [Inject] public ISnackbar Snackbar { get; set; }
         [Inject] public IClassPerformanceService ClassPerformanceService { get; set; }
+        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         public IEnumerable<ClassPerformanceModel> StudentsSubjectPerformance { get; set; }
         public ClassPerformanceModel SelectedItem { get; set; }
         public ClassPerformanceModel itemBeforeEdit { get; set; }
+        public ClassPerformanceModel UpdateResults { get; set; }
         public TermModel SelectedTerm { get; set; }
         public ExamTypeModel SelectedExamType { get; set; }
         public FormModel SelectedForm { get; set; }
         public StreamModel SelectedStream { get; set; }
+        public int ClassId { get; set; }
         public bool visible = false;
         protected override Task OnInitializedAsync()
         {
@@ -46,11 +50,20 @@ namespace FimiAppUI.Pages
             visible = true;
             ClassModel classModel = new ClassModel();
             classModel = await ClassService.GetClassByForeignKeys(SelectedForm.FormId, SelectedStream.StreamId, 1);
-            StudentsSubjectPerformance = await ClassPerformanceService.GetStudentResultsByClass(classModel.ClassId, 1, SelectedTerm.TermId, SelectedExamType.ExamTypeId);
+            ClassId = classModel.ClassId;
+            StudentsSubjectPerformance = await ClassPerformanceService.GetStudentResultsByClass(ClassId, 1, SelectedTerm.TermId, SelectedExamType.ExamTypeId);
         }
-        public void ItemHasBeenCommitted(object model)
+        public async void ItemHasBeenCommitted()
         {
-            
+            var response = await ClassPerformanceService.UpdateStudentResults(SelectedItem);
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Snackbar.Add("Results Submitted", MudBlazor.Severity.Success);
+            }
+            else if(response.StatusCode == HttpStatusCode.InternalServerError)
+            {
+                Snackbar.Add("Failed submission", MudBlazor.Severity.Warning);
+            }
         }
         public void BackupItem(object model)
         {
@@ -93,6 +106,5 @@ namespace FimiAppUI.Pages
             ((ClassPerformanceModel)model).HomeScience = itemBeforeEdit.HomeScience;
             ((ClassPerformanceModel)model).BusinessStudies = itemBeforeEdit.BusinessStudies;
         }
-
     }
 }

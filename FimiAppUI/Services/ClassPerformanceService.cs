@@ -12,5 +12,9 @@
         {
             return await _httpClient.GetFromJsonAsync<IEnumerable<ClassPerformanceModel>>($"api/classsubjectperformance/{classId}/{sessionYearId}/{termId}/{examTypeId}");
         }
+        public async Task<HttpResponseMessage> UpdateStudentResults(ClassPerformanceModel classPerformanceModel)
+        {
+            return await _httpClient.PutAsJsonAsync<ClassPerformanceModel>("api/classsubjectperformance/StudentResults", classPerformanceModel);
+        }
     }
 }

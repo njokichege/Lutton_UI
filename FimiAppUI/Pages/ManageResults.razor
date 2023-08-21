@@ -61,9 +61,10 @@
         }
         else 
         {
-            <MudTable Items="@StudentsSubjectPerformance"Dense="true" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" CanCancelEdit="true" @bind-SelectedItem="SelectedItem"
-                      CommitEditTooltip="Submit" OnCommitEditClick="@(() => Snackbar.Add("Marks submitted"))" RowEditPreview="BackupItem" RowEditCancel="ResetItemToOriginalValues" RowEditCommit="ItemHasBeenCommitted"
-                      IsEditRowSwitchingBlocked="true" ApplyButtonPosition="TableApplyButtonPosition.StartAndEnd" EditButtonPosition="TableEditButtonPosition.StartAndEnd" EditTrigger="TableEditTrigger.EditButton">
+            <MudTable Items="@StudentsSubjectPerformance"Dense="true" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" CanCancelEdit="true"
+                      @bind-SelectedItem="SelectedItem" CommitEditTooltip="Submit" OnCommitEditClick="ItemHasBeenCommitted" RowEditPreview="BackupItem" 
+                      RowEditCancel="ResetItemToOriginalValues" IsEditRowSwitchingBlocked="true"ApplyButtonPosition="TableApplyButtonPosition.StartAndEnd" 
+                      EditButtonPosition="TableEditButtonPosition.StartAndEnd" EditTrigger="TableEditTrigger.EditButton">
                 <HeaderContent>
                     <MudTh Style="font-size:12px;"><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ClassPerformanceModel, object>(x=>x.StudentNumber)">Student Number</MudTableSortLabel></MudTh>
                     <MudTh Style="font-size:12px;"><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ClassPerformanceModel, object>(x=>x.FirstName)">Name</MudTableSortLabel></MudTh>
@@ -100,40 +101,40 @@
                     <MudTd DataLabel="Student Number"><b>@context.StudentNumber</b></MudTd>
                     <MudTd DataLabel="Name"><b>@context.FirstName @context.MiddleName @context.Surname</b></MudTd>
                     <MudTd DataLabel="English">
-                        <MudNumericField T="double" @bind-Value="@context.English" Required HideSpinButtons="true" Style="font-weight:700;"/>
+                        <MudNumericField T="double" @bind-Value="@context.English" Required HideSpinButtons="true" Style="font-weight:700;" />
                     </MudTd>
                     <MudTd DataLabel="Kiswahili">
                         <MudNumericField T="double" @bind-Value="@context.Kiswahili" Required HideSpinButtons="true" Style="font-weight:700;" />
                     </MudTd>
                     <MudTd DataLabel="Mathematics">
-                        <MudNumericField T="double" @bind-Value="@context.Mathematics" Required HideSpinButtons="true" Style="font-weight:700;" />
+                        <MudNumericField T="double" @bind-Value="@context.Mathematics" Required HideSpinButtons="true" Style="font-weight:700;"/>
                     </MudTd>
                     <MudTd DataLabel="Physics">
-                        <MudNumericField T="double" @bind-Value="@context.Physics" Required HideSpinButtons="true"Style="font-weight:700;" />
+                         <MudNumericField T="double" @bind-Value="@context.Physics" Required HideSpinButtons="true" Style="font-weight:700;"/>
                     </MudTd>
                     <MudTd DataLabel="Chemistry">
-                        <MudNumericField T="double" @bind-Value="@context.Chemistry" Required HideSpinButtons="true"Style="font-weight:700;"/>
+                         <MudNumericField T="double" @bind-Value="@context.Chemistry" Required HideSpinButtons="true" Style="font-weight:700;"/>
                     </MudTd>
                     <MudTd DataLabel="Biology">
-                        <MudNumericField T="double" @bind-Value="@context.Biology" Required HideSpinButtons="true"Style="font-weight:700;"/>
+                         <MudNumericField T="double" @bind-Value="@context.Biology" Required HideSpinButtons="true" Style="font-weight:700;"/>
                     </MudTd>
                     <MudTd DataLabel="HistoryAndGoverment">
-                        <MudNumericField T="double" @bind-Value="@context.HistoryAndGoverment" Required HideSpinButtons="true" Style="font-weight:700;" />
+                         <MudNumericField T="double" @bind-Value="@context.HistoryAndGoverment" Required HideSpinButtons="true" Style="font-weight:700;"/>
                     </MudTd>
                     <MudTd DataLabel="Geography">
-                        <MudNumericField T="double" @bind-Value="@context.Geography" Required HideSpinButtons="true"Style="font-weight:700;"/>
+                         <MudNumericField T="double" @bind-Value="@context.Geography" Required HideSpinButtons="true" Style="font-weight:700;"/>
                     </MudTd>
                     <MudTd DataLabel="ChristianReligion">
-                        <MudNumericField T="double" @bind-Value="@context.ChristianReligion" Required HideSpinButtons="true"Style="font-weight:700;"/>
+                         <MudNumericField T="double" @bind-Value="@context.ChristianReligion" Required HideSpinButtons="true" Style="font-weight:700;" />
                     </MudTd>
                     <MudTd DataLabel="HomeScience">
-                        <MudNumericField T="double" @bind-Value="@context.HomeScience" Required HideSpinButtons="true"Style="font-weight:700;"/>
+                         <MudNumericField T="double" @bind-Value="@context.HomeScience" Required HideSpinButtons="true" Style="font-weight:700;" />
                     </MudTd>
                     <MudTd DataLabel="Agriculture">
-                        <MudNumericField T="double" @bind-Value="@context.Agriculture" Required HideSpinButtons="true"Style="font-weight:700;"/>
+                         <MudNumericField T="double" @bind-Value="@context.Agriculture" Required HideSpinButtons="true" Style="font-weight:700;" />
                     </MudTd>
                     <MudTd DataLabel="BusinessStudies">
-                        <MudNumericField T="double" @bind-Value="@context.BusinessStudies" Required HideSpinButtons="true" Style="font-weight:700;"/>
+                         <MudNumericField T="double" @bind-Value="@context.BusinessStudies" Required HideSpinButtons="true" Style="font-weight:700;"/>
                     </MudTd>
                 </RowEditingTemplate>
                 <PagerContent>
