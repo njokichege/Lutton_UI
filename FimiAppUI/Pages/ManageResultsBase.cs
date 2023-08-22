@@ -15,6 +15,7 @@ namespace FimiAppUI.Pages
         [Inject] public ISnackbar Snackbar { get; set; }
         [Inject] public IClassPerformanceService ClassPerformanceService { get; set; }
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+        [CascadingParameter] public SessionYearModel SchoolYear { get; set; }
         public IEnumerable<ClassPerformanceModel> StudentsSubjectPerformance { get; set; }
         public ClassPerformanceModel SelectedItem { get; set; }
         public ClassPerformanceModel itemBeforeEdit { get; set; }
@@ -49,9 +50,9 @@ namespace FimiAppUI.Pages
         {
             visible = true;
             ClassModel classModel = new ClassModel();
-            classModel = await ClassService.GetClassByForeignKeys(SelectedForm.FormId, SelectedStream.StreamId, 1);
+            classModel = await ClassService.GetClassByForeignKeys(SelectedForm.FormId, SelectedStream.StreamId, SchoolYear.SessionYearId);
             ClassId = classModel.ClassId;
-            StudentsSubjectPerformance = await ClassPerformanceService.GetStudentResultsByClass(ClassId, 1, SelectedTerm.TermId, SelectedExamType.ExamTypeId);
+            StudentsSubjectPerformance = await ClassPerformanceService.GetStudentResultsByClass(ClassId, SchoolYear.SessionYearId, SelectedTerm.TermId, SelectedExamType.ExamTypeId);
         }
         public async void ItemHasBeenCommitted()
         {

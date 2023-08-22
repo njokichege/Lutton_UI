@@ -1,4 +1,6 @@
-﻿namespace FimiAppUI.Services
+﻿using System.Collections.Generic;
+
+namespace FimiAppUI.Services
 {
     public class ClassPerformanceService : IClassPerformanceService
     {
@@ -8,9 +10,9 @@
         {
             _httpClient = httpClient;
         }
-        public async Task<ClassPerformanceModel> GetStudentResults(int studentNumber, int sessionYearId, int termId, int examTypeId)
+        public async Task<IEnumerable<ClassPerformanceModel>> GetStudentResults(int studentNumber)
         {
-            return await _httpClient.GetFromJsonAsync<ClassPerformanceModel>($"api/classsubjectperformance/studentresult/{studentNumber}/{sessionYearId}/{termId}/{examTypeId}");
+            return await _httpClient.GetFromJsonAsync <IEnumerable<ClassPerformanceModel>> ($"api/classsubjectperformance/studentresult/{studentNumber}");
         }
         public async Task<IEnumerable<ClassPerformanceModel>> GetStudentResultsByClass(int classId, int sessionYearId, int termId, int examTypeId)
         {

@@ -6,6 +6,7 @@
         [Inject] public IClassService ClassService { get; set; }
         [Inject] public IGradeService GradeService { get; set; }
         [Inject] public NavigationManager Navigation { get; set; }
+        [CascadingParameter] public SessionYearModel SchoolYear { get; set; }
         public IEnumerable<SchoolPerformanceModel> TermOneMidTerm { get; set; }
         public IEnumerable<SchoolPerformanceModel> TermOneEndTerm { get; set; }
         public IEnumerable<SchoolPerformanceModel> TermTwoMidTerm { get; set; }
@@ -21,17 +22,17 @@
         public bool showTermThreeEndTerm = false;
         protected override async Task OnInitializedAsync()
         {
-            TermOneMidTerm = await GetTermResultsAsync(1,1,1);
+            TermOneMidTerm = await GetTermResultsAsync(SchoolYear.SessionYearId,1,1);
             showTermOneMidTerm = true;
-            TermOneEndTerm = await GetTermResultsAsync(1, 1, 2);
+            TermOneEndTerm = await GetTermResultsAsync(SchoolYear.SessionYearId, 1, 2);
             showTermOneEndTerm = true;
-            TermTwoMidTerm = await GetTermResultsAsync(1, 2, 1);
+            TermTwoMidTerm = await GetTermResultsAsync(SchoolYear.SessionYearId, 2, 1);
             showTermTwoMidTerm = true;
-            TermTwoEndTerm = await GetTermResultsAsync(1, 2, 2);
+            TermTwoEndTerm = await GetTermResultsAsync(SchoolYear.SessionYearId, 2, 2);
             showTermTwoEndTerm = true;
-            TermThreeMidTerm = await GetTermResultsAsync(1, 3, 1);
+            TermThreeMidTerm = await GetTermResultsAsync(SchoolYear.SessionYearId, 3, 1);
             showTermThreeMidTerm = true;
-            TermThreeEndTerm = await GetTermResultsAsync(1, 3, 2);
+            TermThreeEndTerm = await GetTermResultsAsync(SchoolYear.SessionYearId, 3, 2);
             showTermThreeEndTerm = true;
         }
         public async Task<IEnumerable<SchoolPerformanceModel>> GetTermResultsAsync(int sessionYearId, int termId, int examTypeId)
@@ -54,7 +55,7 @@
         }
         public void ClassRowClickEvent(TableRowClickEventArgs<SchoolPerformanceModel> tableRowClickEventArgs)
         {
-            Navigation.NavigateTo($"/classperformance/{tableRowClickEventArgs.Item.ClassId}/{tableRowClickEventArgs.Item.Class.SessionYear.SessionYearId}/{tableRowClickEventArgs.Item.TermId}/{tableRowClickEventArgs.Item.ExamTypeId}");
+            Navigation.NavigateTo($"/classperformance/{tableRowClickEventArgs.Item.ClassId}/{SchoolYear.SessionYearId}/{tableRowClickEventArgs.Item.TermId}/{tableRowClickEventArgs.Item.ExamTypeId}");
         }
     }
 }

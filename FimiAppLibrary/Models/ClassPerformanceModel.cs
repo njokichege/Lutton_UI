@@ -24,6 +24,18 @@
         public double BusinessStudies { get; set; }
         public double Total { get; set; }
         public double Average { get; set; }
-        public GradeModel Grade { get; set; }
+        public GradeModel TotalGrade { get; set; }
+        public GradeModel EnglishGrade { get; set; }
+        public GradeModel KiswahiliGrade { get; set; }
+        public GradeModel MathematicsGrade { get; set; }
+        public GradeModel PhysicsGrade { get; set; }
+        public GradeModel ChemistryGrade { get; set; }
+        public GradeModel BiologyGrade { get; set; }
+        public GradeModel HistoryAndGovermentGrade { get; set; }
+        public GradeModel GeographyGrade { get; set; }
+        public GradeModel ChristianReligionGrade { get; set; }
+        public GradeModel HomeScienceGrade { get; set; }
+        public GradeModel AgricultureGrade { get; set; }
+        public GradeModel BusinessStudiesGrade { get; set; }
     }
 }

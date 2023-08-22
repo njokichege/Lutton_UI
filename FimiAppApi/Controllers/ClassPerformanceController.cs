@@ -12,12 +12,12 @@ namespace FimiAppApi.Controllers
         {
             _subjectPerformanceRepository = subjectPerformanceRepository;
         }
-        [HttpGet("studentresult/{studentNumber}/{sessionYearId}/{termId}/{examTypeId}")]
-        public async Task<IActionResult> GetStudentResults(int studentNumber, int sessionYearId, int termId, int examTypeId)
+        [HttpGet("studentresult/{studentNumber}")]
+        public async Task<IActionResult> GetStudentResults(int studentNumber)
         {
             try
             {
-                var studentResult = await _subjectPerformanceRepository.GetStudentResults(studentNumber, sessionYearId, termId, examTypeId);
+                var studentResult = await _subjectPerformanceRepository.GetStudentResults(studentNumber);
                 return Ok(studentResult);
             }
             catch (Exception ex)

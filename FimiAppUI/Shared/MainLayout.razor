@@ -13,12 +13,30 @@
         <NavMenu/>
     </MudDrawer>
     <MudMainContent>
-        @Body
+        <CascadingValue Value="@SchoolYear">
+            @Body
+        </CascadingValue>
     </MudMainContent>
 </MudLayout>
 
 @code 
 {
+    [Inject] public ISessionYearService SessionYearService { get; set; }
+    public IEnumerable<SessionYearModel> SessionYears { get; set; }
+    public SessionYearModel SchoolYear { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        SessionYears = await SessionYearService.GetSessionYears();
+        foreach (var sessionYear in SessionYears)
+        {
+            if (sessionYear.StartDate.Year == DateTime.Now.Year)
+            {
+                SchoolYear = sessionYear;
+                break;
+            }
+        }
+    }
+
     MudTheme MyCustomTheme = new MudTheme()
         {
             Palette = new Palette()

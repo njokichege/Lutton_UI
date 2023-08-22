@@ -1,16 +1,7 @@
 ﻿@page "/reportform/{studentNumber}/{sessionYearId}/{termId}/{examTypeId}"
 @inherits ReportFormBase
 
-<MudGrid Class="mt-n12 px-5">
-    <MudItem xs="9">
-        <MudText Typo="Typo.h5" Class="d-flex justify-start">REPORT FORM</MudText>
-    </MudItem>
-    <MudItem xs="3" Class="d-flex justify-end">
-        <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
-        <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
-    </MudItem>
-</MudGrid>
-<MudDivider DividerType="DividerType.FullWidth" />
+<link href="css/App.css" rel="stylesheet" />
 
 @if (dataIsLoaded == false)
 {
@@ -25,13 +16,189 @@ else
                     SCH
                 </MudAvatar>
             </MudItem>
-            <MudItem xs="5" Class="d-flex justify-center align-center">
+            <MudItem xs="5" Class="d-flex flex-column justify-center align-center">
                 <MudText Typo="Typo.h5"><b>KASARINI SECONDARY SCHOOL</b></MudText>
+                <MudText><b>School Year:</b> @CurrentSchoolYear.StartDate.Year</MudText>
+                <MudText><b>Term:</b> @CurrentTerm.TermName</MudText>
             </MudItem>
             <MudItem xs="5" Class="d-flex flex-column justify-end">
                 <MudText Typo="Typo.body2" Align="Align.Right"><b>P.O.BOX 1774-00900</b></MudText>
                 <MudText Typo="Typo.body2" Align="Align.Right"><b>TEL: 0732360307</b></MudText>
                 <MudText Typo="Typo.body2" Align="Align.Right"><b>email: kasarinisecondary@gmail.com</b></MudText>
+            </MudItem>
+        </MudGrid>
+        <MudDivider DividerType="DividerType.FullWidth" />
+        <MudGrid Class="d-flex flex-row gap-0 pa-4">
+            <MudItem xs="12" Class="d-flex ">
+                <MudPaper Outlined="true" Square="true" Elevation="0" Class="pa-4"><b>Name:</b> @MidTermPerformance.FirstName @MidTermPerformance.MiddleName @MidTermPerformance.Surname</MudPaper>
+                <MudPaper Outlined="true" Square="true" Elevation="0" Class="pa-4"><b>ADM.NO:</b> @MidTermPerformance.StudentNumber</MudPaper>
+                <MudPaper Outlined="true" Square="true" Elevation="0" Class="pa-4"><b>Form:</b> @StudentClass.Form.Form @StudentClass.Stream.Stream</MudPaper>
+            </MudItem>
+        </MudGrid>
+        <MudDivider DividerType="DividerType.FullWidth" />
+        <MudGrid Class="d-flex pa-4">
+            <MudItem xs="12">
+                <table class="minimalistBlack">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>MidTerm</th>
+                            <th>EndTerm</th>
+                            <th>Total</th>
+                            <th>Grade</th>
+                            <th>Points</th>
+                            <th>Position</th>
+                            <th>Remarks</th>
+                            <th>Initials</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td>Total</td>
+                            <td>@Math.Round(MidTermPerformance.Average)</td>
+                            <td>@Math.Round(EndTermPerformance.Average)</td>
+                        </tr>
+                        <tr>
+                            <td>Grade</td>
+                            <td>@MidTermPerformance.TotalGrade.Grade</td>
+                            <td>@EndTermPerformance.TotalGrade.Grade</td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr>
+                            <td>English</td>
+                            <td>@Math.Round(MidTermPerformance.English)</td>
+                            <td>@Math.Round(EndTermPerformance.English)</td>
+                            <td>@Math.Round(TotalPerformance.English)</td>
+                            <td>@TotalPerformance.EnglishGrade.Grade</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Kiswahili</td>
+                            <td>@Math.Round(MidTermPerformance.Kiswahili)</td>
+                            <td>@Math.Round(EndTermPerformance.Kiswahili)</td>
+                            <td>@Math.Round(TotalPerformance.Kiswahili)</td>
+                            <td>@TotalPerformance.KiswahiliGrade.Grade</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Mathematics</td>
+                            <td>@Math.Round(MidTermPerformance.Mathematics)</td>
+                            <td>@Math.Round(EndTermPerformance.Mathematics)</td>
+                            <td>@Math.Round(TotalPerformance.Mathematics)</td>
+                            <td>@TotalPerformance.MathematicsGrade.Grade</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Physics</td>
+                            <td>@Math.Round(MidTermPerformance.Physics)</td>
+                            <td>@Math.Round(EndTermPerformance.Physics)</td>
+                            <td>@Math.Round(TotalPerformance.Physics)</td>
+                            <td>@TotalPerformance.PhysicsGrade.Grade</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Chemistry</td>
+                            <td>@Math.Round(MidTermPerformance.Chemistry)</td>
+                            <td>@Math.Round(EndTermPerformance.Chemistry)</td>
+                            <td>@Math.Round(TotalPerformance.Chemistry)</td>
+                            <td>@TotalPerformance.ChemistryGrade.Grade</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Biology</td>
+                            <td>@Math.Round(MidTermPerformance.Biology)</td>
+                            <td>@Math.Round(EndTermPerformance.Biology)</td>
+                            <td>@Math.Round(TotalPerformance.Biology)</td>
+                            <td>@TotalPerformance.BiologyGrade.Grade</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>History & Government</td>
+                            <td>@Math.Round(MidTermPerformance.HistoryAndGoverment)</td>
+                            <td>@Math.Round(EndTermPerformance.HistoryAndGoverment)</td>
+                            <td>@Math.Round(TotalPerformance.HistoryAndGoverment)</td>
+                            <td>@TotalPerformance.HistoryAndGovermentGrade.Grade</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Geography</td>
+                            <td>@Math.Round(MidTermPerformance.Geography)</td>
+                            <td>@Math.Round(EndTermPerformance.Geography)</td>
+                            <td>@Math.Round(TotalPerformance.Geography)</td>
+                            <td>@TotalPerformance.GeographyGrade.Grade</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Christian Religion</td>
+                            <td>@Math.Round(MidTermPerformance.ChristianReligion)</td>
+                            <td>@Math.Round(EndTermPerformance.ChristianReligion)</td>
+                            <td>@Math.Round(TotalPerformance.ChristianReligion)</td>
+                            <td>@TotalPerformance.ChristianReligionGrade.Grade</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Home Science</td>
+                            <td>@Math.Round(MidTermPerformance.HomeScience)</td>
+                            <td>@Math.Round(EndTermPerformance.HomeScience)</td>
+                            <td>@Math.Round(TotalPerformance.HomeScience)</td>
+                            <td>@TotalPerformance.HomeScienceGrade.Grade</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Agriculture</td>
+                            <td>@Math.Round(MidTermPerformance.Agriculture)</td>
+                            <td>@Math.Round(EndTermPerformance.Agriculture)</td>
+                            <td>@Math.Round(TotalPerformance.Agriculture)</td>
+                            <td>@TotalPerformance.AgricultureGrade.Grade</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Business Studies</td>
+                            <td>@Math.Round(MidTermPerformance.BusinessStudies)</td>
+                            <td>@Math.Round(EndTermPerformance.BusinessStudies)</td>
+                            <td>@Math.Round(TotalPerformance.BusinessStudies)</td>
+                            <td>@TotalPerformance.BusinessStudiesGrade.Grade</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
             </MudItem>
         </MudGrid>
         <MudDivider DividerType="DividerType.FullWidth" />

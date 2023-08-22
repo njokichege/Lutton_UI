@@ -8,17 +8,35 @@
         {
             _dapperContext = dapperContext;
         }
-        public async Task<ClassPerformanceModel> GetStudentResults(int studentNumber,int sessionYearId, int termId, int examTypeId)
+        public async Task<IEnumerable<ClassPerformanceModel>> GetStudentResults(int studentNumber)
         {
-            string sql = "SELECT * from StudentResults WHERE SessionYearId = @SessionYearId AND TermId = @TermId AND ExamTypeId = @ExamTypeId AND StudentNumber = @StudentNumber";
+            string sql = "SELECT * from StudentResults WHERE StudentNumber = @StudentNumber";
             
             var parameteres = new DynamicParameters();
-            parameteres.Add("SessionYearId", sessionYearId);
-            parameteres.Add("TermId", termId);
-            parameteres.Add("ExamTypeId", examTypeId);
             parameteres.Add("StudentNumber", studentNumber);
 
-            return await _dapperContext.LoadSingleData<ClassPerformanceModel, dynamic>(sql, parameteres);
+            var studentPerformances = await _dapperContext.LoadData<ClassPerformanceModel, dynamic>(sql, parameteres);
+            foreach (var studentPerformance in studentPerformances)
+            {
+                int subjectCount = 0;
+                double studentTotal = 0;
+                if (studentPerformance.English != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.English; }
+                if (studentPerformance.Kiswahili != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Kiswahili; }
+                if (studentPerformance.Mathematics != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Mathematics; }
+                if (studentPerformance.Agriculture != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Agriculture; }
+                if (studentPerformance.Biology != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Biology; }
+                if (studentPerformance.BusinessStudies != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.BusinessStudies; }
+                if (studentPerformance.Chemistry != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Chemistry; }
+                if (studentPerformance.HomeScience != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.HomeScience; }
+                if (studentPerformance.ChristianReligion != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.ChristianReligion; }
+                if (studentPerformance.Geography != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Geography; }
+                if (studentPerformance.HistoryAndGoverment != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.HistoryAndGoverment; }
+                if (studentPerformance.Physics != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Physics; }
+
+                studentPerformance.Average = studentTotal / subjectCount;
+            }
+
+            return studentPerformances;
         }
         public async Task<IEnumerable<ClassPerformanceModel>> GetStudentResultsByClass(int classId, int sessionYearId, int termId, int examTypeId)
         {
@@ -34,20 +52,21 @@
             foreach (var studentPerformance in studentPerformances)
             {
                 int subjectCount = 0;
-                if (studentPerformance.English != 0) { subjectCount++; }
-                if(studentPerformance.Kiswahili != 0) { subjectCount++; }
-                if(studentPerformance.Mathematics != 0) { subjectCount++; }
-                if(studentPerformance.Agriculture != 0) { subjectCount++; }
-                if(studentPerformance.Biology != 0) { subjectCount++; }
-                if(studentPerformance.BusinessStudies != 0) { subjectCount++; }
-                if(studentPerformance.Chemistry != 0) { subjectCount++; }
-                if(studentPerformance.HomeScience != 0) { subjectCount++; }
-                if(studentPerformance.ChristianReligion != 0) { subjectCount++; }
-                if(studentPerformance.Geography != 0) { subjectCount++; }
-                if(studentPerformance.HistoryAndGoverment != 0) { subjectCount++; }
-                if(studentPerformance.Physics != 0) { subjectCount++; }
+                double studentTotal = 0;
+                if (studentPerformance.English != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.English; }
+                if(studentPerformance.Kiswahili != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Kiswahili; }
+                if(studentPerformance.Mathematics != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Mathematics; }
+                if(studentPerformance.Agriculture != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Agriculture; }
+                if(studentPerformance.Biology != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Biology; }
+                if(studentPerformance.BusinessStudies != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.BusinessStudies; }
+                if(studentPerformance.Chemistry != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Chemistry; }
+                if(studentPerformance.HomeScience != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.HomeScience; }
+                if(studentPerformance.ChristianReligion != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.ChristianReligion; }
+                if(studentPerformance.Geography != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Geography; }
+                if(studentPerformance.HistoryAndGoverment != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.HistoryAndGoverment; }
+                if(studentPerformance.Physics != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Physics; }
 
-                studentPerformance.Average = studentPerformance.Total / subjectCount;
+                studentPerformance.Average = studentTotal / subjectCount;
             }
             return studentPerformances;
         }

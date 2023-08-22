@@ -23,9 +23,9 @@ namespace FimiAppUI.Pages
             {
                 foreach (GradeModel grade in Grades)
                 {
-                    if (studentPerformance.Total >= grade.EndGrade)
+                    if (studentPerformance.Average >= grade.EndGrade)
                     {
-                        studentPerformance.Grade = grade;
+                        studentPerformance.TotalGrade = grade;
                         break;
                     }
                 }
