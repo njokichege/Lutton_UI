@@ -1,4 +1,6 @@
-﻿namespace FimiAppApi.Repository
+﻿using System.Reflection.Metadata;
+
+namespace FimiAppApi.Repository
 {
     public class ClassPerformanceRepository : IClassPerformanceRepository
     {
@@ -7,6 +9,38 @@
         public ClassPerformanceRepository(DapperContext dapperContext)
         {
             _dapperContext = dapperContext;
+        }
+        public async Task<IEnumerable<ClassPerformanceModel>> GetClassPerformancePerTerm(int sessionId,int termId,int classId,int studentNumber)
+        {
+            string sql = "SELECT * from StudentResults WHERE SessionYearId = @SessionYearId AND TermId = @TermId AND ClassId = @ClassId AND StudentNumber = @StudentNumber";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("SessionYearId", sessionId);
+            parameters.Add("TermId", termId);
+            parameters.Add("ClassId", classId);
+            parameters.Add("StudentNumber", studentNumber);
+
+            var studentPerformances = await _dapperContext.LoadData<ClassPerformanceModel, dynamic>(sql, parameters);
+            foreach (var studentPerformance in studentPerformances)
+            {
+                int subjectCount = 0;
+                double studentTotal = 0;
+                if (studentPerformance.English != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.English; }
+                if (studentPerformance.Kiswahili != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Kiswahili; }
+                if (studentPerformance.Mathematics != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Mathematics; }
+                if (studentPerformance.Agriculture != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Agriculture; }
+                if (studentPerformance.Biology != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Biology; }
+                if (studentPerformance.BusinessStudies != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.BusinessStudies; }
+                if (studentPerformance.Chemistry != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Chemistry; }
+                if (studentPerformance.HomeScience != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.HomeScience; }
+                if (studentPerformance.ChristianReligion != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.ChristianReligion; }
+                if (studentPerformance.Geography != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Geography; }
+                if (studentPerformance.HistoryAndGoverment != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.HistoryAndGoverment; }
+                if (studentPerformance.Physics != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.Physics; }
+
+                studentPerformance.Average = studentTotal / subjectCount;
+            }
+            return studentPerformances;
         }
         public async Task<IEnumerable<ClassPerformanceModel>> GetStudentResults(int studentNumber)
         {

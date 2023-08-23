@@ -12,6 +12,19 @@ namespace FimiAppApi.Controllers
         {
             _subjectPerformanceRepository = subjectPerformanceRepository;
         }
+        [HttpGet("classresult/{sessionId}/{termId}/{classId}/{studentNumber}")]
+        public async Task<IActionResult> GetClassPerformancePerTerm(int sessionId, int termId, int classId, int studentNumber)
+        {
+            try
+            {
+                var classResult = await _subjectPerformanceRepository.GetClassPerformancePerTerm(sessionId, termId, classId,studentNumber);
+                return Ok(classResult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
         [HttpGet("studentresult/{studentNumber}")]
         public async Task<IActionResult> GetStudentResults(int studentNumber)
         {
@@ -24,7 +37,6 @@ namespace FimiAppApi.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
-
         }
         [HttpGet("{classId}/{sessionYearId}/{termId}/{examTypeId}")]
         public async Task<IActionResult> GetStudentResultsByClass(int classId, int sessionYearId, int termId, int examTypeId)

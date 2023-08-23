@@ -10,6 +10,10 @@ namespace FimiAppUI.Services
         {
             _httpClient = httpClient;
         }
+        public async Task<IEnumerable<ClassPerformanceModel>> GetClassPerformancePerTerm(int sessionId, int termId, int classId, int studentNumber)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<ClassPerformanceModel>>($"api/classsubjectperformance/classresult/{sessionId}/{termId}/{classId}/{studentNumber}");
+        }
         public async Task<IEnumerable<ClassPerformanceModel>> GetStudentResults(int studentNumber)
         {
             return await _httpClient.GetFromJsonAsync <IEnumerable<ClassPerformanceModel>> ($"api/classsubjectperformance/studentresult/{studentNumber}");

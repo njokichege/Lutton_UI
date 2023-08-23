@@ -37,5 +37,19 @@
         public GradeModel HomeScienceGrade { get; set; }
         public GradeModel AgricultureGrade { get; set; }
         public GradeModel BusinessStudiesGrade { get; set; }
+        public int englishPosition { get; set; }
+        public int kiswhiliPosition { get; set; }
+        public int mathematicsPosition { get; set; }
+        public int physicsPosition { get; set; }
+        public int chemistryPosition { get; set; }
+        public int biologyPosition { get; set; }
+        public int historyPosition { get; set; }
+        public int geographyPosition { get; set; }
+        public int crePosition { get; set; }
+        public int homesciencePosition { get; set; }
+        public int agriculturePosition { get; set; }
+        public int businessPosition { get; set; }
+        public int classPosition { get; set; }
+        public int TotalPoints { get; set; }
     }
 }

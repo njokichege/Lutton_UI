@@ -43,6 +43,7 @@
             <MudForm Model="@NewGrade" @ref="@addGradeForm" Validation="@(GradeValidator.ValidateValue)" ValidationDelay="0">
                 <MudText Typo="Typo.h5" Align="Align.Center">Add Grade</MudText>
                 <MudTextField Immediate="true" @bind-Value="NewGrade.Grade" For="@(() => NewGrade.Grade)" Label="Grade Letter" Variant="Variant.Outlined" />
+                <MudTextField Immediate="true" @bind-Value="NewGrade.Points" For="@(() => NewGrade.Points)" Label="Points" Variant="Variant.Outlined" />
                 <MudTextField Immediate="true" @bind-Value="NewGrade.StartGrade" For="@(() => NewGrade.StartGrade)" Label="Percentage From" Variant="Variant.Outlined" />
                 <MudTextField Immediate="true" @bind-Value="NewGrade.EndGrade" For="@(() => NewGrade.EndGrade)" Label="Percentage End" Variant="Variant.Outlined" />
                 <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@AddGrade" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
@@ -58,12 +59,14 @@
         {
             <MudTable Items="@GradesList" FixedHeader="true" Hover="true" Striped="true">
                 <HeaderContent>
-                    <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<GradeModel, object>(x=>x.Grade)">Name</MudTableSortLabel></MudTh>
-                    <MudTh>Percentage From</MudTh>
+                    <MudTh>Name</MudTh>
+                    <MudTh>Points</MudTh>
+                    <MudTh><MudTableSortLabel InitialDirection="SortDirection.Descending" SortBy="new Func<GradeModel, object>(x=>x.StartGrade)">Percentage From</MudTableSortLabel></MudTh>
                     <MudTh>Percentage To</MudTh>
                 </HeaderContent>
                 <RowTemplate>
                     <MudTd DataLabel="Grade">@context.Grade</MudTd>
+                    <MudTd DataLabel="Grade">@context.Points</MudTd>
                     <MudTd DataLabel="PercentageFrom">@context.StartGrade.ToString("F")</MudTd>
                     <MudTd DataLabel="PercentageTo">@context.EndGrade.ToString("F")</MudTd>
                 </RowTemplate>

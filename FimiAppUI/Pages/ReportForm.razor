@@ -5,7 +5,7 @@
 
 @if (dataIsLoaded == false)
 {
-    <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+    <MudProgressCircular Size="Size.Medium" Color="Color.Success" Indeterminate="true" />
 }
 else
 {
@@ -33,6 +33,9 @@ else
                 <MudPaper Outlined="true" Square="true" Elevation="0" Class="pa-4"><b>Name:</b> @MidTermPerformance.FirstName @MidTermPerformance.MiddleName @MidTermPerformance.Surname</MudPaper>
                 <MudPaper Outlined="true" Square="true" Elevation="0" Class="pa-4"><b>ADM.NO:</b> @MidTermPerformance.StudentNumber</MudPaper>
                 <MudPaper Outlined="true" Square="true" Elevation="0" Class="pa-4"><b>Form:</b> @StudentClass.Form.Form @StudentClass.Stream.Stream</MudPaper>
+                <MudPaper Outlined="true" Square="true" Elevation="0" Class="pa-4"><b>Mean:</b> @Math.Round(Mean)</MudPaper>
+                <MudPaper Outlined="true" Square="true" Elevation="0" Class="pa-4"><b>Mean Grade:</b> @MeanGrade.Grade</MudPaper>
+                <MudPaper Outlined="true" Square="true" Elevation="0" Class="pa-4"><b>Class Position:</b> @CurrentStudentTotalPerformance.classPosition</MudPaper>
             </MudItem>
         </MudGrid>
         <MudDivider DividerType="DividerType.FullWidth" />
@@ -57,146 +60,181 @@ else
                             <td>Total</td>
                             <td>@Math.Round(MidTermPerformance.Average)</td>
                             <td>@Math.Round(EndTermPerformance.Average)</td>
-                        </tr>
-                        <tr>
-                            <td>Grade</td>
-                            <td>@MidTermPerformance.TotalGrade.Grade</td>
-                            <td>@EndTermPerformance.TotalGrade.Grade</td>
+                            <td>@Math.Round(Mean)</td>
+                            <td>@MeanGrade.Grade</td>
+                            <td>@TotalPoints</td>
+                            <td>@CurrentStudentTotalPerformance.classPosition</td>
                         </tr>
                     </tfoot>
                     <tbody>
-                        <tr>
-                            <td>English</td>
-                            <td>@Math.Round(MidTermPerformance.English)</td>
-                            <td>@Math.Round(EndTermPerformance.English)</td>
-                            <td>@Math.Round(TotalPerformance.English)</td>
-                            <td>@TotalPerformance.EnglishGrade.Grade</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Kiswahili</td>
-                            <td>@Math.Round(MidTermPerformance.Kiswahili)</td>
-                            <td>@Math.Round(EndTermPerformance.Kiswahili)</td>
-                            <td>@Math.Round(TotalPerformance.Kiswahili)</td>
-                            <td>@TotalPerformance.KiswahiliGrade.Grade</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Mathematics</td>
-                            <td>@Math.Round(MidTermPerformance.Mathematics)</td>
-                            <td>@Math.Round(EndTermPerformance.Mathematics)</td>
-                            <td>@Math.Round(TotalPerformance.Mathematics)</td>
-                            <td>@TotalPerformance.MathematicsGrade.Grade</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Physics</td>
-                            <td>@Math.Round(MidTermPerformance.Physics)</td>
-                            <td>@Math.Round(EndTermPerformance.Physics)</td>
-                            <td>@Math.Round(TotalPerformance.Physics)</td>
-                            <td>@TotalPerformance.PhysicsGrade.Grade</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Chemistry</td>
-                            <td>@Math.Round(MidTermPerformance.Chemistry)</td>
-                            <td>@Math.Round(EndTermPerformance.Chemistry)</td>
-                            <td>@Math.Round(TotalPerformance.Chemistry)</td>
-                            <td>@TotalPerformance.ChemistryGrade.Grade</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Biology</td>
-                            <td>@Math.Round(MidTermPerformance.Biology)</td>
-                            <td>@Math.Round(EndTermPerformance.Biology)</td>
-                            <td>@Math.Round(TotalPerformance.Biology)</td>
-                            <td>@TotalPerformance.BiologyGrade.Grade</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>History & Government</td>
-                            <td>@Math.Round(MidTermPerformance.HistoryAndGoverment)</td>
-                            <td>@Math.Round(EndTermPerformance.HistoryAndGoverment)</td>
-                            <td>@Math.Round(TotalPerformance.HistoryAndGoverment)</td>
-                            <td>@TotalPerformance.HistoryAndGovermentGrade.Grade</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Geography</td>
-                            <td>@Math.Round(MidTermPerformance.Geography)</td>
-                            <td>@Math.Round(EndTermPerformance.Geography)</td>
-                            <td>@Math.Round(TotalPerformance.Geography)</td>
-                            <td>@TotalPerformance.GeographyGrade.Grade</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Christian Religion</td>
-                            <td>@Math.Round(MidTermPerformance.ChristianReligion)</td>
-                            <td>@Math.Round(EndTermPerformance.ChristianReligion)</td>
-                            <td>@Math.Round(TotalPerformance.ChristianReligion)</td>
-                            <td>@TotalPerformance.ChristianReligionGrade.Grade</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Home Science</td>
-                            <td>@Math.Round(MidTermPerformance.HomeScience)</td>
-                            <td>@Math.Round(EndTermPerformance.HomeScience)</td>
-                            <td>@Math.Round(TotalPerformance.HomeScience)</td>
-                            <td>@TotalPerformance.HomeScienceGrade.Grade</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Agriculture</td>
-                            <td>@Math.Round(MidTermPerformance.Agriculture)</td>
-                            <td>@Math.Round(EndTermPerformance.Agriculture)</td>
-                            <td>@Math.Round(TotalPerformance.Agriculture)</td>
-                            <td>@TotalPerformance.AgricultureGrade.Grade</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Business Studies</td>
-                            <td>@Math.Round(MidTermPerformance.BusinessStudies)</td>
-                            <td>@Math.Round(EndTermPerformance.BusinessStudies)</td>
-                            <td>@Math.Round(TotalPerformance.BusinessStudies)</td>
-                            <td>@TotalPerformance.BusinessStudiesGrade.Grade</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                        @if (MidTermPerformance.English != 0)
+                        {
+                            <tr>
+                                <td>English</td>
+                                <td>@Math.Round(MidTermPerformance.English)</td>
+                                <td>@Math.Round(EndTermPerformance.English)</td>
+                                <td>@Math.Round(CurrentStudentTotalPerformance.English)</td>
+                                <td>@CurrentStudentTotalPerformance.EnglishGrade.Grade</td>
+                                <td>@CurrentStudentTotalPerformance.EnglishGrade.Points</td>
+                                <td>@CurrentStudentTotalPerformance.englishPosition </td>
+                                <td>@CurrentStudentTotalPerformance.EnglishGrade.Remarks</td>
+                                <td></td>
+                            </tr>
+                        }
+                        @if (MidTermPerformance.Kiswahili != 0)
+                        {
+                            <tr>
+                                <td>Kiswahili</td>
+                                <td>@Math.Round(MidTermPerformance.Kiswahili)</td>
+                                <td>@Math.Round(EndTermPerformance.Kiswahili)</td>
+                                <td>@Math.Round(CurrentStudentTotalPerformance.Kiswahili)</td>
+                                <td>@CurrentStudentTotalPerformance.KiswahiliGrade.Grade</td>
+                                <td>@CurrentStudentTotalPerformance.KiswahiliGrade.Points</td>
+                                <td>@CurrentStudentTotalPerformance.kiswhiliPosition </td>
+                                <td>@CurrentStudentTotalPerformance.KiswahiliGrade.Remarks</td>
+                                <td></td>
+                            </tr>
+                        }
+                        @if (MidTermPerformance.Mathematics != 0)
+                        {
+                            <tr>
+                                <td>Mathematics</td>
+                                <td>@Math.Round(MidTermPerformance.Mathematics)</td>
+                                <td>@Math.Round(EndTermPerformance.Mathematics)</td>
+                                <td>@Math.Round(CurrentStudentTotalPerformance.Mathematics)</td>
+                                <td>@CurrentStudentTotalPerformance.MathematicsGrade.Grade</td>
+                                <td>@CurrentStudentTotalPerformance.MathematicsGrade.Points</td>
+                                <td>@CurrentStudentTotalPerformance.mathematicsPosition </td>
+                                <td>@CurrentStudentTotalPerformance.MathematicsGrade.Remarks</td>
+                                <td></td>
+                            </tr>
+                        }
+                        @if (MidTermPerformance.Physics != 0)
+                        {
+                            <tr>
+                                <td>Physics</td>
+                                <td>@Math.Round(MidTermPerformance.Physics)</td>
+                                <td>@Math.Round(EndTermPerformance.Physics)</td>
+                                <td>@Math.Round(CurrentStudentTotalPerformance.Physics)</td>
+                                <td>@CurrentStudentTotalPerformance.PhysicsGrade.Grade</td>
+                                <td>@CurrentStudentTotalPerformance.PhysicsGrade.Points</td>
+                                <td>@CurrentStudentTotalPerformance.physicsPosition </td>
+                                <td>@CurrentStudentTotalPerformance.PhysicsGrade.Remarks</td>
+                                <td></td>
+                            </tr>
+                        }
+                        @if (MidTermPerformance.Chemistry != 0)
+                        {
+                            <tr>
+                                <td>Chemistry</td>
+                                <td>@Math.Round(MidTermPerformance.Chemistry)</td>
+                                <td>@Math.Round(EndTermPerformance.Chemistry)</td>
+                                <td>@Math.Round(CurrentStudentTotalPerformance.Chemistry)</td>
+                                <td>@CurrentStudentTotalPerformance.ChemistryGrade.Grade</td>
+                                <td>@CurrentStudentTotalPerformance.ChemistryGrade.Points</td>
+                                <td>@CurrentStudentTotalPerformance.chemistryPosition </td>
+                                <td>@CurrentStudentTotalPerformance.ChemistryGrade.Remarks</td>
+                                <td></td>
+                            </tr>
+                        }
+                        @if (MidTermPerformance.Biology != 0)
+                        {
+                            <tr>
+                                <td>Biology</td>
+                                <td>@Math.Round(MidTermPerformance.Biology)</td>
+                                <td>@Math.Round(EndTermPerformance.Biology)</td>
+                                <td>@Math.Round(CurrentStudentTotalPerformance.Biology)</td>
+                                <td>@CurrentStudentTotalPerformance.BiologyGrade.Grade</td>
+                                <td>@CurrentStudentTotalPerformance.BiologyGrade.Points</td>
+                                <td>@CurrentStudentTotalPerformance.biologyPosition </td>
+                                <td>@CurrentStudentTotalPerformance.BiologyGrade.Remarks</td>
+                                <td></td>
+                            </tr>
+                        }
+                        @if (MidTermPerformance.HistoryAndGoverment != 0)
+                        {
+                            <tr>
+                                <td>History & Government</td>
+                                <td>@Math.Round(MidTermPerformance.HistoryAndGoverment)</td>
+                                <td>@Math.Round(EndTermPerformance.HistoryAndGoverment)</td>
+                                <td>@Math.Round(CurrentStudentTotalPerformance.HistoryAndGoverment)</td>
+                                <td>@CurrentStudentTotalPerformance.HistoryAndGovermentGrade.Grade</td>
+                                <td>@CurrentStudentTotalPerformance.HistoryAndGovermentGrade.Points</td>
+                                <td>@CurrentStudentTotalPerformance.historyPosition </td>
+                                <td>@CurrentStudentTotalPerformance.HistoryAndGovermentGrade.Remarks</td>
+                                <td></td>
+                            </tr>
+                        }
+                        @if (MidTermPerformance.Geography != 0)
+                        {
+                            <tr>
+                                <td>Geography</td>
+                                <td>@Math.Round(MidTermPerformance.Geography)</td>
+                                <td>@Math.Round(EndTermPerformance.Geography)</td>
+                                <td>@Math.Round(CurrentStudentTotalPerformance.Geography)</td>
+                                <td>@CurrentStudentTotalPerformance.GeographyGrade.Grade</td>
+                                <td>@CurrentStudentTotalPerformance.GeographyGrade.Points</td>
+                                <td>@CurrentStudentTotalPerformance.geographyPosition </td>
+                                <td>@CurrentStudentTotalPerformance.GeographyGrade.Remarks</td>
+                                <td></td>
+                            </tr>
+                        }
+                        @if (MidTermPerformance.ChristianReligion != 0)
+                        {
+                            <tr>
+                                <td>Christian Religion</td>
+                                <td>@Math.Round(MidTermPerformance.ChristianReligion)</td>
+                                <td>@Math.Round(EndTermPerformance.ChristianReligion)</td>
+                                <td>@Math.Round(CurrentStudentTotalPerformance.ChristianReligion)</td>
+                                <td>@CurrentStudentTotalPerformance.ChristianReligionGrade.Grade</td>
+                                <td>@CurrentStudentTotalPerformance.ChristianReligionGrade.Points</td>
+                                <td>@CurrentStudentTotalPerformance.crePosition </td>
+                                <td>@CurrentStudentTotalPerformance.ChristianReligionGrade.Remarks</td>
+                                <td></td>
+                            </tr>
+                        }
+                        @if (MidTermPerformance.HomeScience != 0)
+                        {
+                            <tr>
+                                <td>Home Science</td>
+                                <td>@Math.Round(MidTermPerformance.HomeScience)</td>
+                                <td>@Math.Round(EndTermPerformance.HomeScience)</td>
+                                <td>@Math.Round(CurrentStudentTotalPerformance.HomeScience)</td>
+                                <td>@CurrentStudentTotalPerformance.HomeScienceGrade.Grade</td>
+                                <td>@CurrentStudentTotalPerformance.HomeScienceGrade.Points</td>
+                                <td>@CurrentStudentTotalPerformance.homesciencePosition </td>
+                                <td>@CurrentStudentTotalPerformance.HomeScienceGrade.Remarks</td>
+                                <td></td>
+                            </tr>
+                        }
+                        @if (MidTermPerformance.Agriculture != 0)
+                        {
+                            <tr>
+                                <td>Agriculture</td>
+                                <td>@Math.Round(MidTermPerformance.Agriculture)</td>
+                                <td>@Math.Round(EndTermPerformance.Agriculture)</td>
+                                <td>@Math.Round(CurrentStudentTotalPerformance.Agriculture)</td>
+                                <td>@CurrentStudentTotalPerformance.AgricultureGrade.Grade</td>
+                                <td>@CurrentStudentTotalPerformance.AgricultureGrade.Points</td>
+                                <td>@CurrentStudentTotalPerformance.agriculturePosition </td>
+                                <td>@CurrentStudentTotalPerformance.AgricultureGrade.Remarks</td>
+                                <td></td>
+                            </tr>
+                        }
+                        @if (MidTermPerformance.BusinessStudies != 0)
+                        {
+                            <tr>
+                                <td>Business Studies</td>
+                                <td>@Math.Round(MidTermPerformance.BusinessStudies)</td>
+                                <td>@Math.Round(EndTermPerformance.BusinessStudies)</td>
+                                <td>@Math.Round(CurrentStudentTotalPerformance.BusinessStudies)</td>
+                                <td>@CurrentStudentTotalPerformance.BusinessStudiesGrade.Grade</td>
+                                <td>@CurrentStudentTotalPerformance.BusinessStudiesGrade.Points</td>
+                                <td>@CurrentStudentTotalPerformance.businessPosition </td>
+                                <td>@CurrentStudentTotalPerformance.BusinessStudiesGrade.Remarks</td>
+                                <td></td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </MudItem>
