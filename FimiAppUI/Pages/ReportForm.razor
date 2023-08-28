@@ -16,15 +16,20 @@ else
                     SCH
                 </MudAvatar>
             </MudItem>
-            <MudItem xs="5" Class="d-flex flex-column justify-center align-center">
-                <MudText Typo="Typo.h5"><b>KASARINI SECONDARY SCHOOL</b></MudText>
-                <MudText><b>School Year:</b> @CurrentSchoolYear.StartDate.Year</MudText>
-                <MudText><b>Term:</b> @CurrentTerm.TermName</MudText>
+            <MudItem xs="8" Class="d-flex flex-column justify-center align-center">
+                <MudText Typo="Typo.h5"><b><u>KASARINI SECONDARY SCHOOL</u></b></MudText>
+                <MudText Typo="Typo.body2" Align="Align.Right">
+                    <b>P.O.BOX 1774-00900</b> | 
+                    <b>TEL: 0732360307</b> |
+                    <b>email: kasarinisecondary@gmail.com</b>
+                </MudText>
+                <MudText>
+                    <b>School Year:</b> @CurrentSchoolYear.StartDate.Year |
+                    <b>Term:</b> @CurrentTerm.TermName
+                </MudText>
             </MudItem>
-            <MudItem xs="5" Class="d-flex flex-column justify-end">
-                <MudText Typo="Typo.body2" Align="Align.Right"><b>P.O.BOX 1774-00900</b></MudText>
-                <MudText Typo="Typo.body2" Align="Align.Right"><b>TEL: 0732360307</b></MudText>
-                <MudText Typo="Typo.body2" Align="Align.Right"><b>email: kasarinisecondary@gmail.com</b></MudText>
+            <MudItem xs="2" Class="d-flex flex-column justify-end">
+                <MudImage Width="120"Height="100" Src="images/mercyNjoki.jpg" Elevation="0" Class="squared-lg" />
             </MudItem>
         </MudGrid>
         <MudDivider DividerType="DividerType.FullWidth" />
@@ -237,6 +242,24 @@ else
                         }
                     </tbody>
                 </table>
+            </MudItem>
+        </MudGrid>
+        <MudDivider DividerType="DividerType.FullWidth" />
+        <MudGrid Class="d-flex pa-4">
+            <MudItem xs="8">
+                <MudPaper Class="pa-2 ma-2"Outlined="true">
+                    <MudChart ChartType="ChartType.Bar" ChartSeries="@Series" @bind-SelectedIndex="Index" XAxisLabels="@XAxisLabels" Width="100%" Height="100%"></MudChart>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="4">
+                <MudPaper Height="100" Class="px-2 pt-2 pb-16 ma-2" Outlined="true">
+                    <MudText><b><u>Principal's Remarks</u></b></MudText>
+                    <MudText>Good work but aim higher</MudText>
+                </MudPaper>
+                <MudPaper Height="100" Class="px-2 pt-2 pb-16 ma-2" Outlined="true">
+                    <MudText><b><u>Class Teacher's' Remarks</u></b></MudText>
+                    <MudText>Good work but aim higher</MudText>
+                </MudPaper>
             </MudItem>
         </MudGrid>
         <MudDivider DividerType="DividerType.FullWidth" />

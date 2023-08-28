@@ -24,16 +24,186 @@ namespace FimiAppUI.Pages
         public TermModel CurrentTerm { get; set; }
         public ClassModel StudentClass { get; set; }
         public SessionYearModel CurrentSchoolYear { get; set; }
+        public List<ClassPerformanceModel> Form1Performance { get; set; }
+        public List<ClassPerformanceModel> Form2Performance { get; set; }
+        public List<ClassPerformanceModel> Form3Performance { get; set; }
+        public List<ClassPerformanceModel> Form4Performance { get; set; }
+        public List<ChartSeries> Series { get; set; } = new List<ChartSeries>();
         public ClassPerformanceModel MidTermPerformance { get; set; } = new ClassPerformanceModel();
         public ClassPerformanceModel EndTermPerformance { get; set; } = new ClassPerformanceModel();
         public ClassPerformanceModel CurrentStudentTotalPerformance { get; set; } = new ClassPerformanceModel();
+        public string[] XAxisLabels = { "F1T1", "F1T2", "F1T3", "F2T1", "F2T2", "F2T3", "F3T1", "F3T2", "F3T3", "F4T1", "F4T2", "F4T3" };
         public GradeModel MeanGrade { get; set; }
+        public double Form4Average = 0;
         public bool dataIsLoaded = false;
         public double Mean;
         public int TotalPoints;
+        public int Index = -1;
+        public double F1T1M = 0;
+        public double F1T1E = 0;
+        public double F1T2M = 0;
+        public double F1T2E = 0;
+        public double F1T3M = 0;
+        public double F1T3E = 0;
+        public double F2T1M = 0;
+        public double F2T1E = 0;
+        public double F2T2M = 0;
+        public double F2T2E = 0;
+        public double F2T3M = 0;
+        public double F2T3E = 0;
+        public double F3T1M = 0;
+        public double F3T1E = 0;
+        public double F3T2M = 0;
+        public double F3T2E = 0;
+        public double F3T3M = 0;
+        public double F3T3E = 0;
+        public double F4T1M = 0;
+        public double F4T1E = 0;
+        public double F4T2M = 0;
+        public double F4T2E = 0;
+        public double F4T3M = 0;
+        public double F4T3E = 0;
         protected override async Task OnInitializedAsync()
         {
             StudentPerformance = await ClassPerformanceService.GetStudentResults(int.Parse(StudentNumber));
+
+            Dictionary<int,List<ClassPerformanceModel>> resultsByClass = StudentPerformance.GroupBy(c => c.ClassId).ToDictionary(g => g.Key, g=>g.ToList());
+            var keys = resultsByClass.Keys;
+            foreach ( var key in keys)
+            {
+                var classPer = await ClassService.GetClassById(key);
+                if(classPer.Form.Form.Equals("1"))
+                {
+                    Form1Performance = resultsByClass[key];
+                    foreach (var result in Form1Performance)
+                    {
+                        if(result.TermId == 1 && result.ExamTypeId == 1)
+                        {
+                            F1T1M = result.Average;
+                        }
+                        else if(result.TermId == 1 && result.ExamTypeId == 2)
+                        {
+                            F1T1E = result.Average;
+                        }
+                        else if (result.TermId == 2 && result.ExamTypeId == 1)
+                        {
+                            F1T1M = result.Average;
+                        }
+                        else if (result.TermId == 2 && result.ExamTypeId == 2)
+                        {
+                            F1T2E = result.Average;
+                        }
+                        else if (result.TermId == 3 && result.ExamTypeId == 1)
+                        {
+                            F1T3M = result.Average;
+                        }
+                        else if (result.TermId == 3 && result.ExamTypeId == 2)
+                        {
+                            F1T3E = result.Average;
+                        }
+                    }
+                }
+                else if (classPer.Form.Form.Equals("2"))
+                {
+                    Form2Performance = resultsByClass[key];
+                    foreach (var result in Form2Performance)
+                    {
+                        if (result.TermId == 1 && result.ExamTypeId == 1)
+                        {
+                            F2T1M = result.Average;
+                        }
+                        else if (result.TermId == 1 && result.ExamTypeId == 2)
+                        {
+                            F2T1E = result.Average;
+                        }
+                        else if (result.TermId == 2 && result.ExamTypeId == 1)
+                        {
+                            F2T2M = result.Average;
+                        }
+                        else if (result.TermId == 2 && result.ExamTypeId == 2)
+                        {
+                            F2T2E = result.Average;
+                        }
+                        else if (result.TermId == 3 && result.ExamTypeId == 1)
+                        {
+                            F2T3M = result.Average;
+                        }
+                        else if (result.TermId == 3 && result.ExamTypeId == 2)
+                        {
+                            F2T3E = result.Average;
+                        }
+                    }
+                }
+                else if (classPer.Form.Form.Equals("3"))
+                {
+                    Form3Performance = resultsByClass[key];
+                    foreach (var result in Form3Performance)
+                    {
+                        if (result.TermId == 1 && result.ExamTypeId == 1)
+                        {
+                            F3T1M = result.Average;
+                        }
+                        else if (result.TermId == 1 && result.ExamTypeId == 2)
+                        {
+                            F3T1E = result.Average;
+                        }
+                        else if (result.TermId == 2 && result.ExamTypeId == 1)
+                        {
+                            F3T2M = result.Average;
+                        }
+                        else if (result.TermId == 2 && result.ExamTypeId == 2)
+                        {
+                            F3T2E = result.Average;
+                        }
+                        else if (result.TermId == 3 && result.ExamTypeId == 1)
+                        {
+                            F3T3M = result.Average;
+                        }
+                        else if (result.TermId == 3 && result.ExamTypeId == 2)
+                        {
+                            F3T3E = result.Average;
+                        }
+                    }
+                }
+                else if (classPer.Form.Form.Equals("4"))
+                {
+                    Form4Performance = resultsByClass[key];
+                    foreach (var result in Form4Performance)
+                    {
+                        if (result.TermId == 1 && result.ExamTypeId == 1)
+                        {
+                            F4T1M = result.Average;
+                        }
+                        else if (result.TermId == 1 && result.ExamTypeId == 2)
+                        {
+                            F4T1E = result.Average;
+                        }
+                        else if (result.TermId == 2 && result.ExamTypeId == 1)
+                        {
+                            F4T2M = result.Average;
+                        }
+                        else if (result.TermId == 2 && result.ExamTypeId == 2)
+                        {
+                            F4T2E = result.Average;
+                        }
+                        else if (result.TermId == 3 && result.ExamTypeId == 1)
+                        {
+                            F4T3M = result.Average;
+                        }
+                        else if (result.TermId == 3 && result.ExamTypeId == 2)
+                        {
+                            F4T3E = result.Average;
+                        }
+                    }
+                }
+            }
+
+            Series = new List<ChartSeries>() 
+            { 
+                new ChartSeries() { Name = "MidTerm", Data = new double[] { F1T1M,F1T2M,F1T3M,F2T1M,F2T2M,F2T3M,F3T1M,F3T2M,F3T3M,F4T1M,F4T2M,F4T3M} },
+                new ChartSeries() { Name = "EndTerm", Data = new double[] { F1T1E,F1T2E,F1T3E,F2T1E,F2T2E,F2T3E,F3T1E,F3T2E,F3T3E,F4T1E,F4T2E,F4T3E} }
+            };
+
             Terms = await TermService.GetAllTerms();
             foreach (var term in Terms)
             {
