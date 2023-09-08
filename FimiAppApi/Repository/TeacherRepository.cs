@@ -13,7 +13,7 @@ namespace FimiAppApi.Repository
         }
         public async Task<IEnumerable<TeacherModel>> GetTeachers()
         {
-            string sql = "SELECT* FROM dbo.Teacher";
+            string sql = "SELECT* FROM Teacher";
             return await _dapperContext.LoadData<TeacherModel, dynamic>(sql, new { });
         }
         public async Task<TeacherModel> GetTeacher(int nationalId)

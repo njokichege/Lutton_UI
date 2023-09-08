@@ -2,7 +2,7 @@
 
 namespace FimiAppUI.Pages
 {
-    public class IndexBase : ComponentBase
+    public class IndexBase : Microsoft.AspNetCore.Components.ComponentBase
     {
         [Inject] public ISessionYearService SessionYearService { get; set; }
         [Inject] public IStudentService StudentService { get; set; }

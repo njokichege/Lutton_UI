@@ -1,9 +1,12 @@
-﻿using static MudBlazor.Colors;
+﻿using Microsoft.JSInterop;
+using MudBlazor;
+using static MudBlazor.Colors;
 using static MudBlazor.Defaults;
+using Microsoft.AspNetCore.Components.RenderTree;
 
 namespace FimiAppUI.Pages
 {
-    public class ReportFormBase : ComponentBase
+    public class ReportFormBase : Microsoft.AspNetCore.Components.ComponentBase
     {
         [Inject] IClassPerformanceService ClassPerformanceService { get; set; }
         [Inject] ISessionYearService SessionYearService { get; set; }
@@ -15,25 +18,25 @@ namespace FimiAppUI.Pages
         [Parameter] public string SessionYearId { get; set; }
         [Parameter] public string ExamTypeId { get; set; }
         [Parameter] public string TermId { get; set; }
-        public IEnumerable<ClassPerformanceModel> StudentPerformance { get; set; }
-        public IEnumerable<ClassPerformanceModel> OtherStudentPerformance{ get; set; }
-        public IEnumerable<SessionYearModel> SessionYears { get; set; }
-        public IEnumerable<StudentModel> Students { get; set; }
-        public IEnumerable<GradeModel> Grades { get; set; }
-        public IEnumerable<TermModel> Terms { get; set; }
-        public TermModel CurrentTerm { get; set; }
-        public ClassModel StudentClass { get; set; }
-        public SessionYearModel CurrentSchoolYear { get; set; }
-        public List<ClassPerformanceModel> Form1Performance { get; set; }
-        public List<ClassPerformanceModel> Form2Performance { get; set; }
-        public List<ClassPerformanceModel> Form3Performance { get; set; }
-        public List<ClassPerformanceModel> Form4Performance { get; set; }
+        public IEnumerable<ClassPerformanceModel> StudentPerformance { get; set; } = new List<ClassPerformanceModel>();
+        public IEnumerable<ClassPerformanceModel> OtherStudentPerformance{ get; set; } = new List<ClassPerformanceModel>();
+        public IEnumerable<SessionYearModel> SessionYears { get; set; } = new List<SessionYearModel>();
+        public IEnumerable<StudentModel> Students { get; set; } = new List<StudentModel>();
+        public IEnumerable<GradeModel> Grades { get; set; } =  new List<GradeModel>();
+        public IEnumerable<TermModel> Terms { get; set; } = new List<TermModel>();
+        public TermModel CurrentTerm { get; set; } = new TermModel();
+        public ClassModel StudentClass { get; set; } = new ClassModel();
+        public SessionYearModel CurrentSchoolYear { get; set; } = new SessionYearModel();
+        public List<ClassPerformanceModel> Form1Performance { get; set; } = new List<ClassPerformanceModel>();
+        public List<ClassPerformanceModel> Form2Performance { get; set; } = new List<ClassPerformanceModel>();
+        public List<ClassPerformanceModel> Form3Performance { get; set; } = new List<ClassPerformanceModel>();
+        public List<ClassPerformanceModel> Form4Performance { get; set; } = new List<ClassPerformanceModel>();
         public List<ChartSeries> Series { get; set; } = new List<ChartSeries>();
         public ClassPerformanceModel MidTermPerformance { get; set; } = new ClassPerformanceModel();
         public ClassPerformanceModel EndTermPerformance { get; set; } = new ClassPerformanceModel();
         public ClassPerformanceModel CurrentStudentTotalPerformance { get; set; } = new ClassPerformanceModel();
         public string[] XAxisLabels = { "F1T1", "F1T2", "F1T3", "F2T1", "F2T2", "F2T3", "F3T1", "F3T2", "F3T3", "F4T1", "F4T2", "F4T3" };
-        public GradeModel MeanGrade { get; set; }
+        public GradeModel MeanGrade { get; set; } = new GradeModel();
         public double Form4Average = 0;
         public bool dataIsLoaded = false;
         public double Mean;
@@ -402,9 +405,9 @@ namespace FimiAppUI.Pages
             }
 
             //----------------------------------------Load report---------------------------------------------------------
-
+            
             dataIsLoaded = true;
-
+            StateHasChanged();
             //------------------------------------------------------------------------------------------------------------
         }
         private ClassPerformanceModel GetTotalPerformance(ClassPerformanceModel EndTermPerformance, ClassPerformanceModel MidTermPerformance)

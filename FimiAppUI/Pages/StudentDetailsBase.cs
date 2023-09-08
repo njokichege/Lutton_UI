@@ -1,6 +1,6 @@
 ﻿namespace FimiAppUI.Pages
 {
-    public class StudentDetailsBase : ComponentBase
+    public class StudentDetailsBase : Microsoft.AspNetCore.Components.ComponentBase
     {
         [Inject] public IStudentService StudentService { get; set; }
         [Parameter] public string Id { get; set; }

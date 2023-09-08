@@ -1,6 +1,6 @@
 ﻿namespace FimiAppUI.Pages
 {
-    public class ViewStudentsBase : ComponentBase
+    public class ViewStudentsBase : Microsoft.AspNetCore.Components.ComponentBase
     {
         [Inject] public ISessionYearService SessionYearService { get; set; }
         [Inject] public IFormService FormService { get; set; }

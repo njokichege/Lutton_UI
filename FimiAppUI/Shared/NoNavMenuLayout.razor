@@ -5,19 +5,9 @@
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudDrawer Open="true" Elevation="0" Variant="@DrawerVariant.Persistent" >
-        <MudDrawerHeader>
-            <MudText Typo="Typo.h6" Align="Align.Center" Style="@($"text:#ffffff;margin-top:20px;")">GLOBAL MENU</MudText>
-        </MudDrawerHeader>
-        <MudDivider DividerType="DividerType.Middle" Class="my-6" />
-        <NavMenu/>
-    </MudDrawer>
     <MudMainContent>
         <CascadingValue Value="@SchoolYear">
-            @if(isLoaded is true)
-            {
-                @Body
-            }
+            @Body
         </CascadingValue>
     </MudMainContent>
 </MudLayout>
@@ -25,9 +15,8 @@
 @code 
 {
     [Inject] public ISessionYearService SessionYearService { get; set; }
-    public IEnumerable<SessionYearModel> SessionYears { get; set; } = new List<SessionYearModel>();
-    public SessionYearModel SchoolYear { get; set; } = new SessionYearModel();
-    public bool isLoaded = false;
+    public IEnumerable<SessionYearModel> SessionYears { get; set; }
+    public SessionYearModel SchoolYear { get; set; }
     protected override async Task OnInitializedAsync()
     {
         SessionYears = await SessionYearService.GetSessionYears();
@@ -39,7 +28,6 @@
                 break;
             }
         }
-        isLoaded = true;
     }
 
     MudTheme MyCustomTheme = new MudTheme()

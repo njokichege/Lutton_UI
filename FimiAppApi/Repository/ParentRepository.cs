@@ -10,7 +10,7 @@
         }
         public async Task<IEnumerable<ParentModel>> GetParents()
         {
-            string sql = "SELECT* FROM dbo.Parent";
+            string sql = "SELECT* FROM Parent";
             return await _dapperContext.LoadData<ParentModel, dynamic>(sql, new { });
         }
         public async Task<ParentModel> GetParentById(int nationalId)

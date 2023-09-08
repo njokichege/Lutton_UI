@@ -7,3 +7,4 @@ global using Dapper;
 global using System.Data;
 global using Slapper;
 global using System.ComponentModel.DataAnnotations;
+global using AspNetCore.Reporting;

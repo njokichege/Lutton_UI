@@ -12,7 +12,7 @@ namespace FimiAppApi.Repository
         }
         public async Task<IEnumerable<SubjectModel>> GetSubjects()
         {
-            string sql = "SELECT* FROM dbo.Subjects";
+            string sql = "SELECT* FROM Subjects";
             return await _dapperContext.LoadData<SubjectModel, dynamic>(sql, new { });
         }
         public async Task<SubjectModel> GetSubject(int code)

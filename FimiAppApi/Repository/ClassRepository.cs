@@ -30,7 +30,7 @@ namespace FimiAppApi.Repository
         }
         public async Task DeleteClass(int id)
         {
-            string sql = "DELETE FROM dbo.Class WHERE ClassId=@Id";
+            string sql = "DELETE FROM Class WHERE ClassId=@Id";
             
             await _context.UpdateData<ClassModel, dynamic>(sql, new {id});
         }
@@ -119,12 +119,12 @@ namespace FimiAppApi.Repository
         }
         public async Task<IEnumerable<ClassModel>> GetClasses()
         {
-            string sql = "SELECT* FROM dbo.Class";
+            string sql = "SELECT* FROM Class";
             return await _context.LoadData<ClassModel, dynamic>(sql, new { });
         }
         public async Task UpdateClassGrade(int classId, int gradeId)
         {
-            string sql = "UPDATE dbo.Class SET GradeId=@GradeId WHERE ClassId=@ClassId";
+            string sql = "UPDATE Class SET GradeId=@GradeId WHERE ClassId=@ClassId";
             var parameters = new DynamicParameters();
             parameters.Add("ClassId", classId, DbType.Int32);
             parameters.Add("GradeId", gradeId, DbType.Int32);
@@ -133,7 +133,7 @@ namespace FimiAppApi.Repository
         }
         public async Task UpdateClassTeacher(int classId, int teacherId)
         {
-            string sql = "UPDATE dbo.Class SET TeacherId=@TeacherId WHERE ClassId=@ClassId";
+            string sql = "UPDATE Class SET TeacherId=@TeacherId WHERE ClassId=@ClassId";
             var parameters = new DynamicParameters();
             parameters.Add("TeacherId", teacherId, DbType.Int32);
             parameters.Add("ClassId", classId, DbType.Int32);

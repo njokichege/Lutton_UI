@@ -18,14 +18,33 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
     <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="MySql.Data" Version="8.1.0" />
     <PackageReference Include="Slapper.AutoMapper" Version="2.0.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="System.CodeDom" Version="7.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FimiAppLibrary\FimiAppLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ReportDataSet\StudentReportForm.Designer.cs">
+      <DependentUpon>StudentReportForm.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ReportDataSet\StudentReportForm.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>StudentReportForm.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
   </ItemGroup>
 
 </Project>

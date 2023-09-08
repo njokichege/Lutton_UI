@@ -3,7 +3,7 @@ using FimiAppUI.Contracts;
 
 namespace FimiAppUI.Pages
 {
-    public class ClassDetailsBase: ComponentBase
+    public class ClassDetailsBase: Microsoft.AspNetCore.Components.ComponentBase
     {
         [Inject] public IClassService ClassService { get; set; }
         [Inject] public IStudentService StudentService { get; set; }

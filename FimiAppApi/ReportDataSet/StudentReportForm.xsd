@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="StudentReportForm" targetNamespace="http://tempuri.org/StudentReportForm.xsd" xmlns:mstns="http://tempuri.org/StudentReportForm.xsd" xmlns="http://tempuri.org/StudentReportForm.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="StudentReportForm" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="StudentReportForm" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="StudentReportForm">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="StudentReportForm" msprop:Generator_RowEvHandlerName="StudentReportFormRowChangeEventHandler" msprop:Generator_RowDeletedName="StudentReportFormRowDeleted" msprop:Generator_RowDeletingName="StudentReportFormRowDeleting" msprop:Generator_RowEvArgName="StudentReportFormRowChangeEvent" msprop:Generator_TablePropName="_StudentReportForm" msprop:Generator_RowChangedName="StudentReportFormRowChanged" msprop:Generator_UserTableName="StudentReportForm" msprop:Generator_RowChangingName="StudentReportFormRowChanging" msprop:Generator_RowClassName="StudentReportFormRow" msprop:Generator_TableClassName="StudentReportFormDataTable" msprop:Generator_TableVarName="tableStudentReportForm">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="FristName" msprop:Generator_ColumnPropNameInTable="FristNameColumn" msprop:Generator_ColumnPropNameInRow="FristName" msprop:Generator_UserColumnName="FristName" msprop:Generator_ColumnVarNameInTable="columnFristName" type="xs:string" minOccurs="0" />
+              <xs:element name="MiddleName" msprop:Generator_ColumnPropNameInTable="MiddleNameColumn" msprop:Generator_ColumnPropNameInRow="MiddleName" msprop:Generator_UserColumnName="MiddleName" msprop:Generator_ColumnVarNameInTable="columnMiddleName" type="xs:string" minOccurs="0" />
+              <xs:element name="Surname" msprop:Generator_ColumnPropNameInTable="SurnameColumn" msprop:Generator_ColumnPropNameInRow="Surname" msprop:Generator_UserColumnName="Surname" msprop:Generator_ColumnVarNameInTable="columnSurname" type="xs:string" minOccurs="0" />
+              <xs:element name="DataColumn1" msprop:Generator_UserColumnName="DataColumn1" msprop:Generator_ColumnPropNameInTable="DataColumn1Column" msprop:Generator_ColumnPropNameInRow="DataColumn1" msprop:Generator_ColumnVarNameInTable="columnDataColumn1" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

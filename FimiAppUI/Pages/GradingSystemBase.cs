@@ -2,7 +2,7 @@
 
 namespace FimiAppUI.Pages
 {
-    public class GradingSystemBase : ComponentBase
+    public class GradingSystemBase : Microsoft.AspNetCore.Components.ComponentBase
     {
         [Inject] public IGradeService GradeService { get; set; }
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }

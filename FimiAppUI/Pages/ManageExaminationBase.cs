@@ -1,6 +1,8 @@
-﻿namespace FimiAppUI.Pages
+﻿using MudBlazor;
+
+namespace FimiAppUI.Pages
 {
-    public class ManageExaminationBase : ComponentBase
+    public class ManageExaminationBase : Microsoft.AspNetCore.Components.ComponentBase
     {
         [Inject] public ISchoolPerformanceService SchoolPerformanceService { get; set; }
         [Inject] public IClassService ClassService { get; set; }
@@ -14,6 +16,8 @@
         public IEnumerable<SchoolPerformanceModel> TermThreeMidTerm { get; set; }
         public IEnumerable<SchoolPerformanceModel> TermThreeEndTerm { get; set; }
         public IEnumerable<GradeModel> Grades { get; set; }
+        public MudTable<SchoolPerformanceModel> mudTable;
+        private int selectedRowNumber = -1;
         public bool showTermOneMidTerm = false;
         public bool showTermOneEndTerm = false;
         public bool showTermTwoMidTerm = false;
@@ -56,6 +60,23 @@
         public void ClassRowClickEvent(TableRowClickEventArgs<SchoolPerformanceModel> tableRowClickEventArgs)
         {
             Navigation.NavigateTo($"/classperformance/{tableRowClickEventArgs.Item.ClassId}/{SchoolYear.SessionYearId}/{tableRowClickEventArgs.Item.TermId}/{tableRowClickEventArgs.Item.ExamTypeId}");
+        }
+        public string SelectedRowClassFunc(SchoolPerformanceModel element, int rowNumber)
+        {
+            if (selectedRowNumber == rowNumber)
+            {
+                selectedRowNumber = -1;
+                return string.Empty;
+            }
+            else if (mudTable.SelectedItem != null && mudTable.SelectedItem.Equals(element))
+            {
+                selectedRowNumber = rowNumber;
+                return "selected";
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
     }
 }

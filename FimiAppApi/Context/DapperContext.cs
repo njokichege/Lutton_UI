@@ -1,6 +1,4 @@
-﻿using System.Data.SqlClient;
-using System.Data;
-using Dapper;
+﻿using MySql.Data.MySqlClient;
 
 namespace FimiAppApi.Context
 {
@@ -16,7 +14,7 @@ namespace FimiAppApi.Context
         public async Task<IEnumerable<T>> LoadData<T, U>(string sql, U parameters)
         {
             string connectionString = _config.GetConnectionString(ConnecctionStringName);
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            using (IDbConnection connection = new MySqlConnection(connectionString))
             {
                 var data = await connection.QueryAsync<T>(sql, parameters);
                 return data.ToList();
@@ -25,7 +23,7 @@ namespace FimiAppApi.Context
         public async Task<IEnumerable<T>> MapMultipleObjects<T,U>(string sql, Type[] types, Func<object[], T> map, string splitOn, U parameters)
         {
             string connectionString = _config.GetConnectionString(ConnecctionStringName);
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            using (IDbConnection connection = new MySqlConnection(connectionString))
             {
                 var data = await connection.QueryAsync<T>(sql,types,map:map, parameters, splitOn:splitOn);
                 return data;
@@ -34,7 +32,7 @@ namespace FimiAppApi.Context
         public async Task<T> LoadSingleData<T,U>(string sql, U parameters)
         {
             string connectionString = _config.GetConnectionString(ConnecctionStringName);
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            using (IDbConnection connection = new MySqlConnection(connectionString))
             {
                 var data = await connection.QueryFirstOrDefaultAsync<T>(sql, parameters);
                 return data;
@@ -43,7 +41,7 @@ namespace FimiAppApi.Context
         public async Task<int> CreateData<T,U>(string sql, DynamicParameters parameters)
         {
             string connectionString = _config.GetConnectionString(ConnecctionStringName);
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            using (IDbConnection connection = new MySqlConnection(connectionString))
             {
                 var data = await connection.ExecuteAsync(sql, parameters);
                 return data;
@@ -52,7 +50,7 @@ namespace FimiAppApi.Context
         public async Task UpdateData<T, U>(string sql, U parameters)
         {
             string connectionString = _config.GetConnectionString(ConnecctionStringName);
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            using (IDbConnection connection = new MySqlConnection(connectionString))
             {
                 var data = await connection.ExecuteAsync(sql, parameters);
             }

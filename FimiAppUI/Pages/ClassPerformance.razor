@@ -1,6 +1,20 @@
 ﻿@page "/classperformance/{classId}/{sessionYearId}/{termId}/{examTypeId}"
 @inherits ClassPerformanceBase
 
+<style>
+    .selected {
+        background-color: #e38d43 !important;
+    }
+
+        .selected > td {
+            color: white !important;
+        }
+
+            .selected > td .mud-input {
+                color: white !important;
+            }
+</style>
+
 <MudGrid Class="mt-n12 px-5">
     <MudItem xs="9">
         <MudText Typo="Typo.h5" Class="d-flex justify-start">CLASS PERFORMANCE</MudText>
@@ -20,8 +34,8 @@ else
 {
     <MudGrid Class="d-flex pa-4">
         <MudItem xs="12" Class="d-flex justify-space-between">
-            <MudTable RowStyle="" Items="@StudentsSubjectPerformance" Dense="true" Hover="true" Striped="true" T="ClassPerformanceModel" HorizontalScrollbar="true"
-                      Breakpoint="Breakpoint.Sm" FixedHeader="true" FixedFooter="true" Style="max-width: 2000px; overflow: scroll;font-size:12px;" OnRowClick="StudentRowClickEvent">
+            <MudTable RowClassFunc="@SelectedRowClassFunc" RowStyle="" Items="@StudentsSubjectPerformance" Dense="true" Hover="true" Striped="true" T="ClassPerformanceModel" @ref="mudTable" HorizontalScrollbar="true"
+                      Breakpoint="Breakpoint.Sm" FixedHeader="true" FixedFooter="true" Style="max-width: 2000px; overflow: scroll;font-size:12px;" OnRowClick="StudentRowClickEventAsync">
                 <HeaderContent>
                     <MudTh Style="font-size:12px;">#</MudTh>
                     <MudTh Style="font-size:12px;">Name</MudTh>

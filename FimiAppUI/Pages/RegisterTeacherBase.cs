@@ -3,7 +3,7 @@ using System.Net;
 
 namespace FimiAppUI.Pages
 {
-    public class RegisterTeacherBase : ComponentBase
+    public class RegisterTeacherBase : Microsoft.AspNetCore.Components.ComponentBase
     {
         [Inject] public ISubjectService SubjectService { get; set; }
         [Inject] public IDialogService DialogService { get; set; }

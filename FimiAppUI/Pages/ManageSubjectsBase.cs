@@ -2,7 +2,7 @@
 
 namespace FimiAppUI.Pages
 {
-    public class ManageSubjectsBase : ComponentBase
+    public class ManageSubjectsBase : Microsoft.AspNetCore.Components.ComponentBase
     {
         [Inject] public ISubjectService SubjectService { get; set; }
         [Inject] public ISubjectCategoryService SubjectCategoryService { get; set; }

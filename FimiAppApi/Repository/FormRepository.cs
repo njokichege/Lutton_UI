@@ -12,7 +12,7 @@ namespace FimiAppApi.Repository
         }
         public async Task<IEnumerable<FormModel>> GetForms()
         {
-            string sql = "SELECT* FROM dbo.Form";
+            string sql = "SELECT* FROM Form";
             return await _dapperContext.LoadData<FormModel, dynamic>(sql, new { });
         }
         public async Task<FormModel> GetFormById(int formId)

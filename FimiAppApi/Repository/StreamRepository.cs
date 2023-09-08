@@ -10,7 +10,7 @@
         }
         public async Task<IEnumerable<StreamModel>> GetStreams()
         {
-            string sql = "SELECT* FROM dbo.Stream";
+            string sql = "SELECT* FROM Stream";
             return await _dapperContext.LoadData<StreamModel, dynamic>(sql, new { });
         }
         public async Task<StreamModel> GetStreamById(int streamId)

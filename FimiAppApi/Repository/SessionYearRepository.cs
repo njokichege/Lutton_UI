@@ -24,7 +24,7 @@ namespace FimiAppApi.Repository
         }
         public async Task<IEnumerable<SessionYearModel>> GetSessionYears()
         {
-            string sql = "SELECT* FROM dbo.SessionYear";
+            string sql = "SELECT* FROM SessionYear";
             return await _dapperContext.LoadData<SessionYearModel, dynamic>(sql, new { });
         }
         public async Task<int> CreateSessionYear(SessionYearModel sessionYear)

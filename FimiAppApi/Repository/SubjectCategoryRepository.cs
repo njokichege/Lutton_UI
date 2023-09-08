@@ -10,7 +10,7 @@
         }
         public async Task<IEnumerable<SubjectCategoryModel>> GetCategories()
         {
-            string sql = "SELECT* FROM dbo.SubjectCategory";
+            string sql = "SELECT* FROM SubjectCategory";
             return await _dapperContext.LoadData<SubjectCategoryModel, dynamic>(sql, new { });
         }
     }

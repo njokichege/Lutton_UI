@@ -1,15 +1,12 @@
 ﻿@page "/reportform/{studentNumber}/{sessionYearId}/{termId}/{examTypeId}"
+@layout NoNavMenuLayout
 @inherits ReportFormBase
 
-<link href="css/App.css" rel="stylesheet" />
 
-@if (dataIsLoaded == false)
+<link href="css/App.css" rel="stylesheet" />
+@if(dataIsLoaded is true)
 {
-    <MudProgressCircular Size="Size.Medium" Color="Color.Success" Indeterminate="true" />
-}
-else
-{
-    <MudPaper Class="pa-2 ma-2" Outlined="true">
+    <MudPaper Outlined="true">
         <MudGrid Class="d-flex pa-4">
             <MudItem xs="2" Class="d-flex justify-start align-content-center">
                 <MudAvatar Style="height:70px; width:70px;" Color="Color.Primary">
@@ -19,7 +16,7 @@ else
             <MudItem xs="8" Class="d-flex flex-column justify-center align-center">
                 <MudText Typo="Typo.h5"><b><u>KASARINI SECONDARY SCHOOL</u></b></MudText>
                 <MudText Typo="Typo.body2" Align="Align.Right">
-                    <b>P.O.BOX 1774-00900</b> | 
+                    <b>P.O.BOX 1774-00900</b> |
                     <b>TEL: 0732360307</b> |
                     <b>email: kasarinisecondary@gmail.com</b>
                 </MudText>
@@ -29,7 +26,7 @@ else
                 </MudText>
             </MudItem>
             <MudItem xs="2" Class="d-flex flex-column justify-end">
-                <MudImage Width="120"Height="100" Src="images/mercyNjoki.jpg" Elevation="0" Class="squared-lg" />
+                <MudImage Width="120" Height="100" Src="images/mercyNjoki.jpg" Elevation="0" Class="squared-lg" />
             </MudItem>
         </MudGrid>
         <MudDivider DividerType="DividerType.FullWidth" />
@@ -247,7 +244,7 @@ else
         <MudDivider DividerType="DividerType.FullWidth" />
         <MudGrid Class="d-flex pa-4">
             <MudItem xs="8">
-                <MudPaper Class="pa-2 ma-2"Outlined="true">
+                <MudPaper Class="pa-2 ma-2" Outlined="true">
                     <MudChart ChartType="ChartType.Bar" ChartSeries="@Series" @bind-SelectedIndex="Index" XAxisLabels="@XAxisLabels" Width="100%" Height="100%"></MudChart>
                 </MudPaper>
             </MudItem>
@@ -264,4 +261,5 @@ else
         </MudGrid>
         <MudDivider DividerType="DividerType.FullWidth" />
     </MudPaper>
+
 }

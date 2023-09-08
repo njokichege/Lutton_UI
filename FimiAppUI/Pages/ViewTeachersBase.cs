@@ -1,6 +1,6 @@
 ﻿namespace FimiAppUI.Pages
 {
-    public class ViewTeachersBase : ComponentBase
+    public class ViewTeachersBase : Microsoft.AspNetCore.Components.ComponentBase
     {
         [Inject] public ITeacherService TeacherService { get; set; }
         [Inject] public NavigationManager Navigation { get; set; }
