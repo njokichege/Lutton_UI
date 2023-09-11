@@ -5,7 +5,6 @@ using Microsoft.JSInterop;
 using MudBlazor;
 using static MudBlazor.CategoryTypes;
 using Newtonsoft.Json;
-using AspNetCore.Reporting;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Reflection;
@@ -47,7 +46,7 @@ namespace FimiAppUI.Pages
         }
         public async Task StudentRowClickEventAsync(TableRowClickEventArgs<ClassPerformanceModel> tableRowClickEventArgs)
         {
-            Navigation.NavigateTo($"https://localhost:7263/api/classsubjectperformance/printstudentreportform/{tableRowClickEventArgs.Item.StudentNumber}/{SessionYearId}/{TermId}/{ExamTypeId}");
+            Navigation.NavigateTo($"https://localhost:7263/api/report/studentreportform/{tableRowClickEventArgs.Item.StudentNumber}/{SessionYearId}/{TermId}/{ExamTypeId}");
         }
         public string SelectedRowClassFunc(ClassPerformanceModel element, int rowNumber)
         {

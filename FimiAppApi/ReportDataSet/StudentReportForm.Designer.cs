@@ -279,13 +279,23 @@ namespace FimiAppApi.ReportDataSet {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class StudentReportFormDataTable : global::System.Data.TypedTableBase<StudentReportFormRow> {
             
-            private global::System.Data.DataColumn columnFristName;
+            private global::System.Data.DataColumn columnSubject;
             
-            private global::System.Data.DataColumn columnMiddleName;
+            private global::System.Data.DataColumn columnMidTerm;
             
-            private global::System.Data.DataColumn columnSurname;
+            private global::System.Data.DataColumn columnEndTerm;
             
-            private global::System.Data.DataColumn columnDataColumn1;
+            private global::System.Data.DataColumn columnTotal;
+            
+            private global::System.Data.DataColumn columnGrade;
+            
+            private global::System.Data.DataColumn columnPoints;
+            
+            private global::System.Data.DataColumn columnPosition;
+            
+            private global::System.Data.DataColumn columnRemarks;
+            
+            private global::System.Data.DataColumn columnInitials;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -322,33 +332,73 @@ namespace FimiAppApi.ReportDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn FristNameColumn {
+            public global::System.Data.DataColumn SubjectColumn {
                 get {
-                    return this.columnFristName;
+                    return this.columnSubject;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn MiddleNameColumn {
+            public global::System.Data.DataColumn MidTermColumn {
                 get {
-                    return this.columnMiddleName;
+                    return this.columnMidTerm;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn SurnameColumn {
+            public global::System.Data.DataColumn EndTermColumn {
                 get {
-                    return this.columnSurname;
+                    return this.columnEndTerm;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn DataColumn1Column {
+            public global::System.Data.DataColumn TotalColumn {
                 get {
-                    return this.columnDataColumn1;
+                    return this.columnTotal;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn GradeColumn {
+                get {
+                    return this.columnGrade;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn PointsColumn {
+                get {
+                    return this.columnPoints;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn PositionColumn {
+                get {
+                    return this.columnPosition;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn RemarksColumn {
+                get {
+                    return this.columnRemarks;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn InitialsColumn {
+                get {
+                    return this.columnInitials;
                 }
             }
             
@@ -389,13 +439,18 @@ namespace FimiAppApi.ReportDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public StudentReportFormRow AddStudentReportFormRow(string FristName, string MiddleName, string Surname, string DataColumn1) {
+            public StudentReportFormRow AddStudentReportFormRow(string Subject, string MidTerm, string EndTerm, string Total, string Grade, string Points, string Position, string Remarks, string Initials) {
                 StudentReportFormRow rowStudentReportFormRow = ((StudentReportFormRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        FristName,
-                        MiddleName,
-                        Surname,
-                        DataColumn1};
+                        Subject,
+                        MidTerm,
+                        EndTerm,
+                        Total,
+                        Grade,
+                        Points,
+                        Position,
+                        Remarks,
+                        Initials};
                 rowStudentReportFormRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowStudentReportFormRow);
                 return rowStudentReportFormRow;
@@ -418,23 +473,38 @@ namespace FimiAppApi.ReportDataSet {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             internal void InitVars() {
-                this.columnFristName = base.Columns["FristName"];
-                this.columnMiddleName = base.Columns["MiddleName"];
-                this.columnSurname = base.Columns["Surname"];
-                this.columnDataColumn1 = base.Columns["DataColumn1"];
+                this.columnSubject = base.Columns["Subject"];
+                this.columnMidTerm = base.Columns["MidTerm"];
+                this.columnEndTerm = base.Columns["EndTerm"];
+                this.columnTotal = base.Columns["Total"];
+                this.columnGrade = base.Columns["Grade"];
+                this.columnPoints = base.Columns["Points"];
+                this.columnPosition = base.Columns["Position"];
+                this.columnRemarks = base.Columns["Remarks"];
+                this.columnInitials = base.Columns["Initials"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             private void InitClass() {
-                this.columnFristName = new global::System.Data.DataColumn("FristName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnFristName);
-                this.columnMiddleName = new global::System.Data.DataColumn("MiddleName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnMiddleName);
-                this.columnSurname = new global::System.Data.DataColumn("Surname", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSurname);
-                this.columnDataColumn1 = new global::System.Data.DataColumn("DataColumn1", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDataColumn1);
+                this.columnSubject = new global::System.Data.DataColumn("Subject", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSubject);
+                this.columnMidTerm = new global::System.Data.DataColumn("MidTerm", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMidTerm);
+                this.columnEndTerm = new global::System.Data.DataColumn("EndTerm", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEndTerm);
+                this.columnTotal = new global::System.Data.DataColumn("Total", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotal);
+                this.columnGrade = new global::System.Data.DataColumn("Grade", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnGrade);
+                this.columnPoints = new global::System.Data.DataColumn("Points", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPoints);
+                this.columnPosition = new global::System.Data.DataColumn("Position", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPosition);
+                this.columnRemarks = new global::System.Data.DataColumn("Remarks", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRemarks);
+                this.columnInitials = new global::System.Data.DataColumn("Initials", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnInitials);
                 this.ExtendedProperties.Add("Generator_TablePropName", "_StudentReportForm");
                 this.ExtendedProperties.Add("Generator_UserTableName", "StudentReportForm");
             }
@@ -579,114 +649,254 @@ namespace FimiAppApi.ReportDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string FristName {
+            public string Subject {
                 get {
                     try {
-                        return ((string)(this[this.tableStudentReportForm.FristNameColumn]));
+                        return ((string)(this[this.tableStudentReportForm.SubjectColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'FristName\' in table \'StudentReportForm\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Subject\' in table \'StudentReportForm\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableStudentReportForm.FristNameColumn] = value;
+                    this[this.tableStudentReportForm.SubjectColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string MiddleName {
+            public string MidTerm {
                 get {
                     try {
-                        return ((string)(this[this.tableStudentReportForm.MiddleNameColumn]));
+                        return ((string)(this[this.tableStudentReportForm.MidTermColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'MiddleName\' in table \'StudentReportForm\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'MidTerm\' in table \'StudentReportForm\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableStudentReportForm.MiddleNameColumn] = value;
+                    this[this.tableStudentReportForm.MidTermColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string Surname {
+            public string EndTerm {
                 get {
                     try {
-                        return ((string)(this[this.tableStudentReportForm.SurnameColumn]));
+                        return ((string)(this[this.tableStudentReportForm.EndTermColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Surname\' in table \'StudentReportForm\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'EndTerm\' in table \'StudentReportForm\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableStudentReportForm.SurnameColumn] = value;
+                    this[this.tableStudentReportForm.EndTermColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string DataColumn1 {
+            public string Total {
                 get {
                     try {
-                        return ((string)(this[this.tableStudentReportForm.DataColumn1Column]));
+                        return ((string)(this[this.tableStudentReportForm.TotalColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DataColumn1\' in table \'StudentReportForm\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Total\' in table \'StudentReportForm\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableStudentReportForm.DataColumn1Column] = value;
+                    this[this.tableStudentReportForm.TotalColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsFristNameNull() {
-                return this.IsNull(this.tableStudentReportForm.FristNameColumn);
+            public string Grade {
+                get {
+                    try {
+                        return ((string)(this[this.tableStudentReportForm.GradeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Grade\' in table \'StudentReportForm\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableStudentReportForm.GradeColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetFristNameNull() {
-                this[this.tableStudentReportForm.FristNameColumn] = global::System.Convert.DBNull;
+            public string Points {
+                get {
+                    try {
+                        return ((string)(this[this.tableStudentReportForm.PointsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Points\' in table \'StudentReportForm\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableStudentReportForm.PointsColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsMiddleNameNull() {
-                return this.IsNull(this.tableStudentReportForm.MiddleNameColumn);
+            public string Position {
+                get {
+                    try {
+                        return ((string)(this[this.tableStudentReportForm.PositionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Position\' in table \'StudentReportForm\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableStudentReportForm.PositionColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetMiddleNameNull() {
-                this[this.tableStudentReportForm.MiddleNameColumn] = global::System.Convert.DBNull;
+            public string Remarks {
+                get {
+                    try {
+                        return ((string)(this[this.tableStudentReportForm.RemarksColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Remarks\' in table \'StudentReportForm\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableStudentReportForm.RemarksColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsSurnameNull() {
-                return this.IsNull(this.tableStudentReportForm.SurnameColumn);
+            public string Initials {
+                get {
+                    try {
+                        return ((string)(this[this.tableStudentReportForm.InitialsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Initials\' in table \'StudentReportForm\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableStudentReportForm.InitialsColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetSurnameNull() {
-                this[this.tableStudentReportForm.SurnameColumn] = global::System.Convert.DBNull;
+            public bool IsSubjectNull() {
+                return this.IsNull(this.tableStudentReportForm.SubjectColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsDataColumn1Null() {
-                return this.IsNull(this.tableStudentReportForm.DataColumn1Column);
+            public void SetSubjectNull() {
+                this[this.tableStudentReportForm.SubjectColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetDataColumn1Null() {
-                this[this.tableStudentReportForm.DataColumn1Column] = global::System.Convert.DBNull;
+            public bool IsMidTermNull() {
+                return this.IsNull(this.tableStudentReportForm.MidTermColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetMidTermNull() {
+                this[this.tableStudentReportForm.MidTermColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsEndTermNull() {
+                return this.IsNull(this.tableStudentReportForm.EndTermColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetEndTermNull() {
+                this[this.tableStudentReportForm.EndTermColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsTotalNull() {
+                return this.IsNull(this.tableStudentReportForm.TotalColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetTotalNull() {
+                this[this.tableStudentReportForm.TotalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsGradeNull() {
+                return this.IsNull(this.tableStudentReportForm.GradeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetGradeNull() {
+                this[this.tableStudentReportForm.GradeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsPointsNull() {
+                return this.IsNull(this.tableStudentReportForm.PointsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetPointsNull() {
+                this[this.tableStudentReportForm.PointsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsPositionNull() {
+                return this.IsNull(this.tableStudentReportForm.PositionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetPositionNull() {
+                this[this.tableStudentReportForm.PositionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsRemarksNull() {
+                return this.IsNull(this.tableStudentReportForm.RemarksColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetRemarksNull() {
+                this[this.tableStudentReportForm.RemarksColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsInitialsNull() {
+                return this.IsNull(this.tableStudentReportForm.InitialsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetInitialsNull() {
+                this[this.tableStudentReportForm.InitialsColumn] = global::System.Convert.DBNull;
             }
         }
         

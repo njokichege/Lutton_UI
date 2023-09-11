@@ -51,5 +51,17 @@
         public int businessPosition { get; set; }
         public int classPosition { get; set; }
         public int TotalPoints { get; set; }
+        public string EnglishName { get { return "English"; } }
+        public string KiswahiliName { get { return "Kiswahili"; } }
+        public string MathematicsName { get { return "Mathematics"; } }
+        public string PhysicsName { get { return "Physics"; } }
+        public string ChemistryName { get { return "Chemistry"; } }
+        public string BiologyName { get { return "Biology"; } }
+        public string HistoryAndGovermentName { get { return "History and Goverment"; } }
+        public string GeographyName { get { return "Geography"; } }
+        public string ChristianReligionName { get { return "Christian  Religion"; } }
+        public string HomeScienceName { get { return "HomeScience"; } }
+        public string AgricultureName { get { return "Agriculture"; } }
+        public string BusinessStudiesName { get { return "Business Studies"; } }
     }
 }
