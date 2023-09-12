@@ -9,6 +9,5 @@ global using Slapper;
 global using System.ComponentModel.DataAnnotations;
 global using Microsoft.Reporting.NETCore;
 global using FimiAppApi.ReportDataSet;
-global using Microsoft.AspNetCore.Mvc;
 global using System.Reflection;
 global using System.Text;

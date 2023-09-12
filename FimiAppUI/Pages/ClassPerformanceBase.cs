@@ -17,7 +17,6 @@ namespace FimiAppUI.Pages
         [Inject] public IGradeService GradeService { get; set;}
         [Inject] public NavigationManager Navigation { get; set; }
         [Inject] public IWebHostEnvironment WebHostEnvironment { get; set; }
-        [Inject] IJSRuntime JS { get; set; }
         [Parameter] public string ClassId { get; set; }
         [Parameter] public string SessionYearId { get; set; }
         [Parameter] public string TermId { get; set; }

@@ -29,16 +29,13 @@ namespace FimiAppApi.Controllers
         [HttpGet("studentreportform/{studentNumber}/{sessionYearId}/{termId}/{examTypeId}")]
         public async Task<IActionResult> StudentReportCard(int studentNumber, string sessionYearId, string termId, string examTypeId)
         {
-            string mimeType = "";
-            int extension = 1;
             var path = $"{this._webHostEnvironment.ContentRootPath}\\Reports\\StudentReportForm.rdlc";
 
-            IEnumerable<GradeModel> Grades = new List<GradeModel>();
-            Grades = await _gradeRepository.GetAllGrades();
+            IEnumerable<GradeModel> Grades = await _gradeRepository.GetAllGrades();
 
             //-------------------------------------Get the current term-------------------------------------------------------//
             IEnumerable<TermModel> Terms = await _termRepository.GetAllTerms();
-            TermModel CurrentTerm = new TermModel();
+            TermModel CurrentTerm = new();
             foreach (var term in Terms)
             {
                 if (term.TermId == int.Parse(termId))
@@ -57,9 +54,9 @@ namespace FimiAppApi.Controllers
 
             //-------------------------------------Get a student's performance-------------------------------------------------------//
             IEnumerable<ClassPerformanceModel> performanceModels = await _subjectPerformanceRepository.GetStudentResults(studentNumber);
-            ClassPerformanceModel MidTermPerformance = new ClassPerformanceModel();
-            ClassPerformanceModel EndTermPerformance = new ClassPerformanceModel();
-            ClassModel StudentClass = new ClassModel();
+            ClassPerformanceModel MidTermPerformance = new();
+            ClassPerformanceModel EndTermPerformance = new();
+            ClassModel StudentClass = new();
             foreach (var item in performanceModels)
             {
                 var values = new object[props.Length];
@@ -85,7 +82,7 @@ namespace FimiAppApi.Controllers
 
             //-------------------------------------Get the current school year-------------------------------------------------------//
             IEnumerable<SessionYearModel> SessionYears = await _sessionYearRepository.GetSessionYears();
-            SessionYearModel CurrentSchoolYear = new SessionYearModel();
+            SessionYearModel CurrentSchoolYear = new();
             foreach (var sessionYear in SessionYears)
             {
                 if (sessionYear.SessionYearId == int.Parse(sessionYearId))
@@ -98,7 +95,7 @@ namespace FimiAppApi.Controllers
 
             //-------------------------------------Get the current student's Mean and Mean Grade-------------------------------------//
             double Mean = (MidTermPerformance.Average + EndTermPerformance.Average) / 2;
-            GradeModel MeanGrade = new GradeModel();
+            GradeModel MeanGrade = new();
             foreach (GradeModel grade in Grades)
             {
                 if (Mean >= grade.EndGrade)
@@ -110,16 +107,14 @@ namespace FimiAppApi.Controllers
             //------------------------------------------------------------------------------------------------------------------------//
 
             //-------------------------------------Get the current student's position relative to the class---------------------------//
-            ClassPerformanceModel CurrentStudentTotalPerformance = new ClassPerformanceModel();
-            IEnumerable<ClassPerformanceModel> OtherStudentPerformance = new List<ClassPerformanceModel>();
-            IEnumerable<StudentModel> Students = new List<StudentModel>();
-            Students = await _studentRepository.MapClassOnStudent(StudentClass.ClassId);
+            ClassPerformanceModel CurrentStudentTotalPerformance = new();
+            IEnumerable<StudentModel> Students = await _studentRepository.MapClassOnStudent(StudentClass.ClassId);
             foreach (var student in Students)
             {
                 if (student.StudentNumber == studentNumber) { continue; }
-                OtherStudentPerformance = await _subjectPerformanceRepository.GetClassPerformancePerTerm(int.Parse(sessionYearId), CurrentTerm.TermId, StudentClass.ClassId, student.StudentNumber);
-                ClassPerformanceModel midTermPerformance = new ClassPerformanceModel();
-                ClassPerformanceModel endTermPerformance = new ClassPerformanceModel();
+                IEnumerable<ClassPerformanceModel> OtherStudentPerformance = await _subjectPerformanceRepository.GetClassPerformancePerTerm(int.Parse(sessionYearId), CurrentTerm.TermId, StudentClass.ClassId, student.StudentNumber);
+                ClassPerformanceModel midTermPerformance = new();
+                ClassPerformanceModel endTermPerformance = new();
                 foreach (var studentPerformance in OtherStudentPerformance)
                 {
                     if (studentPerformance.TermId == CurrentTerm.TermId && studentPerformance.ExamTypeId == 1 && studentPerformance.SessionYearId == int.Parse(sessionYearId))
@@ -134,71 +129,71 @@ namespace FimiAppApi.Controllers
                 CurrentStudentTotalPerformance = await _subjectPerformanceRepository.GetTotalPerformanceAsync(EndTermPerformance, MidTermPerformance);
                 ClassPerformanceModel totalper = await _subjectPerformanceRepository.GetTotalPerformanceAsync(endTermPerformance, midTermPerformance);
 
-                CurrentStudentTotalPerformance.englishPosition = 1;
-                CurrentStudentTotalPerformance.kiswhiliPosition = 1;
-                CurrentStudentTotalPerformance.mathematicsPosition = 1;
-                CurrentStudentTotalPerformance.physicsPosition = 1;
-                CurrentStudentTotalPerformance.chemistryPosition = 1;
-                CurrentStudentTotalPerformance.biologyPosition = 1;
-                CurrentStudentTotalPerformance.historyPosition = 1;
-                CurrentStudentTotalPerformance.geographyPosition = 1;
-                CurrentStudentTotalPerformance.crePosition = 1;
-                CurrentStudentTotalPerformance.homesciencePosition = 1;
-                CurrentStudentTotalPerformance.agriculturePosition = 1;
-                CurrentStudentTotalPerformance.businessPosition = 1;
-                CurrentStudentTotalPerformance.classPosition = 1;
+                CurrentStudentTotalPerformance.EnglishPosition = 1;
+                CurrentStudentTotalPerformance.KiswhiliPosition = 1;
+                CurrentStudentTotalPerformance.MathematicsPosition = 1;
+                CurrentStudentTotalPerformance.PhysicsPosition = 1;
+                CurrentStudentTotalPerformance.ChemistryPosition = 1;
+                CurrentStudentTotalPerformance.BiologyPosition = 1;
+                CurrentStudentTotalPerformance.HistoryPosition = 1;
+                CurrentStudentTotalPerformance.GeographyPosition = 1;
+                CurrentStudentTotalPerformance.ChristianReligionPosition = 1;
+                CurrentStudentTotalPerformance.HomesciencePosition = 1;
+                CurrentStudentTotalPerformance.AgriculturePosition = 1;
+                CurrentStudentTotalPerformance.BusinessPosition = 1;
+                CurrentStudentTotalPerformance.ClassPosition = 1;
 
                 if (totalper.English > CurrentStudentTotalPerformance.English)
                 {
-                    CurrentStudentTotalPerformance.englishPosition++;
+                    CurrentStudentTotalPerformance.EnglishPosition++;
                 }
                 if (totalper.Kiswahili > CurrentStudentTotalPerformance.Kiswahili)
                 {
-                    CurrentStudentTotalPerformance.kiswhiliPosition++;
+                    CurrentStudentTotalPerformance.KiswhiliPosition++;
                 }
                 if (totalper.Mathematics > CurrentStudentTotalPerformance.Mathematics)
                 {
-                    CurrentStudentTotalPerformance.mathematicsPosition++;
+                    CurrentStudentTotalPerformance.MathematicsPosition++;
                 }
                 if (totalper.Physics > CurrentStudentTotalPerformance.Physics)
                 {
-                    CurrentStudentTotalPerformance.physicsPosition++;
+                    CurrentStudentTotalPerformance.PhysicsPosition++;
                 }
                 if (totalper.Chemistry > CurrentStudentTotalPerformance.Chemistry)
                 {
-                    CurrentStudentTotalPerformance.chemistryPosition++;
+                    CurrentStudentTotalPerformance.ChemistryPosition++;
                 }
                 if (totalper.Biology > CurrentStudentTotalPerformance.Biology)
                 {
-                    CurrentStudentTotalPerformance.biologyPosition++;
+                    CurrentStudentTotalPerformance.BiologyPosition++;
                 }
                 if (totalper.HistoryAndGoverment > CurrentStudentTotalPerformance.HistoryAndGoverment)
                 {
-                    CurrentStudentTotalPerformance.historyPosition++;
+                    CurrentStudentTotalPerformance.HistoryPosition++;
                 }
                 if (totalper.Geography > CurrentStudentTotalPerformance.Geography)
                 {
-                    CurrentStudentTotalPerformance.geographyPosition++;
+                    CurrentStudentTotalPerformance.GeographyPosition++;
                 }
                 if (totalper.ChristianReligion > CurrentStudentTotalPerformance.ChristianReligion)
                 {
-                    CurrentStudentTotalPerformance.crePosition++;
+                    CurrentStudentTotalPerformance.ChristianReligionPosition++;
                 }
                 if (totalper.HomeScience > CurrentStudentTotalPerformance.HomeScience)
                 {
-                    CurrentStudentTotalPerformance.homesciencePosition++;
+                    CurrentStudentTotalPerformance.HomesciencePosition++;
                 }
                 if (totalper.Agriculture > CurrentStudentTotalPerformance.Agriculture)
                 {
-                    CurrentStudentTotalPerformance.agriculturePosition++;
+                    CurrentStudentTotalPerformance.AgriculturePosition++;
                 }
                 if (totalper.BusinessStudies > CurrentStudentTotalPerformance.BusinessStudies)
                 {
-                    CurrentStudentTotalPerformance.businessPosition++;
+                    CurrentStudentTotalPerformance.BusinessPosition++;
                 }
                 if (totalper.Average > CurrentStudentTotalPerformance.Average)
                 {
-                    CurrentStudentTotalPerformance.classPosition++;
+                    CurrentStudentTotalPerformance.ClassPosition++;
                 }
             }
             //--------------------------------------------------------------------------------------------------------------------------------//
@@ -265,19 +260,47 @@ namespace FimiAppApi.Controllers
             performanceTable.Columns.Add("Position", typeof(int));
             performanceTable.Columns.Add("Remarks", typeof(string));
             performanceTable.Columns.Add("Initials", typeof(string));
-            performanceTable.Rows.Add(CurrentStudentTotalPerformance.AgricultureName, Math.Round(MidTermPerformance.Agriculture), Math.Round(EndTermPerformance.Agriculture), 
+            performanceTable.Rows.Add(ClassPerformanceModel.AgricultureName, Math.Round(MidTermPerformance.Agriculture), Math.Round(EndTermPerformance.Agriculture),
                 Math.Round(CurrentStudentTotalPerformance.Agriculture), CurrentStudentTotalPerformance.AgricultureGrade.Grade, CurrentStudentTotalPerformance.AgricultureGrade.Points, 
-                CurrentStudentTotalPerformance.agriculturePosition, CurrentStudentTotalPerformance.AgricultureGrade.Remarks);
-            performanceTable.Rows.Add(CurrentStudentTotalPerformance.EnglishName, Math.Round(MidTermPerformance.English), Math.Round(EndTermPerformance.English),
+                CurrentStudentTotalPerformance.AgriculturePosition, CurrentStudentTotalPerformance.AgricultureGrade.Remarks);
+            performanceTable.Rows.Add(ClassPerformanceModel.BiologyName, Math.Round(MidTermPerformance.Biology), Math.Round(EndTermPerformance.Biology),
+                Math.Round(CurrentStudentTotalPerformance.Biology), CurrentStudentTotalPerformance.BiologyGrade.Grade, CurrentStudentTotalPerformance.BiologyGrade.Points,
+                CurrentStudentTotalPerformance.BiologyPosition, CurrentStudentTotalPerformance.BiologyGrade.Remarks);
+            performanceTable.Rows.Add(ClassPerformanceModel.BusinessStudiesName, Math.Round(MidTermPerformance.BusinessStudies), Math.Round(EndTermPerformance.BusinessStudies),
+                Math.Round(CurrentStudentTotalPerformance.BusinessStudies), CurrentStudentTotalPerformance.BusinessStudiesGrade.Grade, CurrentStudentTotalPerformance.BusinessStudiesGrade.Points,
+                CurrentStudentTotalPerformance.BusinessPosition, CurrentStudentTotalPerformance.BusinessStudiesGrade.Remarks);
+            performanceTable.Rows.Add(ClassPerformanceModel.ChemistryName, Math.Round(MidTermPerformance.Chemistry), Math.Round(EndTermPerformance.Chemistry),
+                Math.Round(CurrentStudentTotalPerformance.Chemistry), CurrentStudentTotalPerformance.ChemistryGrade.Grade, CurrentStudentTotalPerformance.ChemistryGrade.Points,
+                CurrentStudentTotalPerformance.ChemistryPosition, CurrentStudentTotalPerformance.ChemistryGrade.Remarks);
+            performanceTable.Rows.Add(ClassPerformanceModel.ChristianReligionName, Math.Round(MidTermPerformance.ChristianReligion), Math.Round(EndTermPerformance.ChristianReligion),
+                Math.Round(CurrentStudentTotalPerformance.ChristianReligion), CurrentStudentTotalPerformance.ChristianReligionGrade.Grade, CurrentStudentTotalPerformance.ChristianReligionGrade.Points,
+                CurrentStudentTotalPerformance.ChristianReligionPosition, CurrentStudentTotalPerformance.ChristianReligionGrade.Remarks);
+            performanceTable.Rows.Add(ClassPerformanceModel.EnglishName, Math.Round(MidTermPerformance.English), Math.Round(EndTermPerformance.English),
                 Math.Round(CurrentStudentTotalPerformance.English), CurrentStudentTotalPerformance.EnglishGrade.Grade, CurrentStudentTotalPerformance.EnglishGrade.Points,
-                CurrentStudentTotalPerformance.englishPosition, CurrentStudentTotalPerformance.EnglishGrade.Remarks);
+                CurrentStudentTotalPerformance.EnglishPosition, CurrentStudentTotalPerformance.EnglishGrade.Remarks);
+            performanceTable.Rows.Add(ClassPerformanceModel.GeographyName, Math.Round(MidTermPerformance.Geography), Math.Round(EndTermPerformance.Geography),
+                Math.Round(CurrentStudentTotalPerformance.Geography), CurrentStudentTotalPerformance.GeographyGrade.Grade, CurrentStudentTotalPerformance.GeographyGrade.Points,
+                CurrentStudentTotalPerformance.GeographyPosition, CurrentStudentTotalPerformance.GeographyGrade.Remarks);
+            performanceTable.Rows.Add(ClassPerformanceModel.HistoryAndGovermentName, Math.Round(MidTermPerformance.HistoryAndGoverment), Math.Round(EndTermPerformance.HistoryAndGoverment),
+                Math.Round(CurrentStudentTotalPerformance.HistoryAndGoverment), CurrentStudentTotalPerformance.HistoryAndGovermentGrade.Grade, CurrentStudentTotalPerformance.HistoryAndGovermentGrade.Points,
+                CurrentStudentTotalPerformance.HistoryPosition, CurrentStudentTotalPerformance.HistoryAndGovermentGrade.Remarks);
+            performanceTable.Rows.Add(ClassPerformanceModel.HomeScienceName, Math.Round(MidTermPerformance.HomeScience), Math.Round(EndTermPerformance.HomeScience),
+                Math.Round(CurrentStudentTotalPerformance.HomeScience), CurrentStudentTotalPerformance.HomeScienceGrade.Grade, CurrentStudentTotalPerformance.HomeScienceGrade.Points,
+                CurrentStudentTotalPerformance.HomesciencePosition, CurrentStudentTotalPerformance.HomeScienceGrade.Remarks);
+            performanceTable.Rows.Add(ClassPerformanceModel.KiswahiliName, Math.Round(MidTermPerformance.Kiswahili), Math.Round(EndTermPerformance.Kiswahili),
+                Math.Round(CurrentStudentTotalPerformance.Kiswahili), CurrentStudentTotalPerformance.KiswahiliGrade.Grade, CurrentStudentTotalPerformance.KiswahiliGrade.Points,
+                CurrentStudentTotalPerformance.KiswhiliPosition, CurrentStudentTotalPerformance.KiswahiliGrade.Remarks);
+            performanceTable.Rows.Add(ClassPerformanceModel.MathematicsName, Math.Round(MidTermPerformance.Mathematics), Math.Round(EndTermPerformance.Mathematics),
+                Math.Round(CurrentStudentTotalPerformance.Mathematics), CurrentStudentTotalPerformance.MathematicsGrade.Grade, CurrentStudentTotalPerformance.MathematicsGrade.Points,
+                CurrentStudentTotalPerformance.MathematicsPosition, CurrentStudentTotalPerformance.MathematicsGrade.Remarks);
+            performanceTable.Rows.Add(ClassPerformanceModel.PhysicsName, Math.Round(MidTermPerformance.Physics), Math.Round(EndTermPerformance.Physics),
+                Math.Round(CurrentStudentTotalPerformance.Physics), CurrentStudentTotalPerformance.PhysicsGrade.Grade, CurrentStudentTotalPerformance.PhysicsGrade.Points,
+                CurrentStudentTotalPerformance.PhysicsPosition, CurrentStudentTotalPerformance.PhysicsGrade.Remarks);
 
-            string classPosition = $"{CurrentStudentTotalPerformance.classPosition}";
-            string studentName = $"{performanceModels.First().FirstName} {performanceModels.First().MiddleName} {performanceModels.First().Surname}";
-            string admNumber = $"{performanceModels.First().StudentNumber}";
-            string className = $"{StudentClass.Form.Form}{StudentClass.Stream.Stream}";
-
-            LocalReport localReport = new LocalReport();
+            LocalReport localReport = new() 
+            {
+                ReportPath = path
+            };
             localReport.ReportPath = path;
             localReport.DataSources.Add(new ReportDataSource("StudentReportForm", performanceTable));
             localReport.SetParameters(new[]
@@ -285,9 +308,10 @@ namespace FimiAppApi.Controllers
                 new ReportParameter("prm", "RDLC Report"),
                 new ReportParameter("currentSessionYear",CurrentSchoolYear.StartDate.Year.ToString()),
                 new ReportParameter("currentTerm", CurrentTerm.TermName),
-                new ReportParameter("studentName", studentName),
-                new ReportParameter("admNumber", admNumber),
-                new ReportParameter("className", className),
+                new ReportParameter("classPosition", $"{CurrentStudentTotalPerformance.ClassPosition}"),
+                new ReportParameter("studentName", $"{performanceModels.First().FirstName} {performanceModels.First().MiddleName} {performanceModels.First().Surname}"),
+                new ReportParameter("admNumber", $"{performanceModels.First().StudentNumber}"),
+                new ReportParameter("className", $"{StudentClass.Form.Form}{StudentClass.Stream.Stream}"),
                 new ReportParameter("mean",Mean.ToString()),
                 new ReportParameter("meanGrade", MeanGrade.Grade),
                 new ReportParameter("midtermEnglish", MidTermPerformance.English.ToString()),

@@ -275,71 +275,71 @@ namespace FimiAppUI.Pages
                 }
                 ClassPerformanceModel totalper = GetTotalPerformance(endTermPerformance, midTermPerformance);
 
-                CurrentStudentTotalPerformance.englishPosition = 1;
-                CurrentStudentTotalPerformance.kiswhiliPosition = 1;
-                CurrentStudentTotalPerformance.mathematicsPosition = 1;
-                CurrentStudentTotalPerformance.physicsPosition = 1;
-                CurrentStudentTotalPerformance.chemistryPosition = 1;
-                CurrentStudentTotalPerformance.biologyPosition = 1;
-                CurrentStudentTotalPerformance.historyPosition = 1;
-                CurrentStudentTotalPerformance.geographyPosition = 1;
-                CurrentStudentTotalPerformance.crePosition = 1;
-                CurrentStudentTotalPerformance.homesciencePosition = 1;
-                CurrentStudentTotalPerformance.agriculturePosition = 1;
-                CurrentStudentTotalPerformance.businessPosition = 1;
-                CurrentStudentTotalPerformance.classPosition = 1;
+                CurrentStudentTotalPerformance.EnglishPosition = 1;
+                CurrentStudentTotalPerformance.KiswhiliPosition = 1;
+                CurrentStudentTotalPerformance.MathematicsPosition = 1;
+                CurrentStudentTotalPerformance.PhysicsPosition = 1;
+                CurrentStudentTotalPerformance.ChemistryPosition = 1;
+                CurrentStudentTotalPerformance.BiologyPosition = 1;
+                CurrentStudentTotalPerformance.HistoryPosition = 1;
+                CurrentStudentTotalPerformance.GeographyPosition = 1;
+                CurrentStudentTotalPerformance.ChristianReligionPosition = 1;
+                CurrentStudentTotalPerformance.HomesciencePosition = 1;
+                CurrentStudentTotalPerformance.AgriculturePosition = 1;
+                CurrentStudentTotalPerformance.BusinessPosition = 1;
+                CurrentStudentTotalPerformance.ClassPosition = 1;
 
                 if (totalper.English > CurrentStudentTotalPerformance.English)
                 {
-                    CurrentStudentTotalPerformance.englishPosition++;
+                    CurrentStudentTotalPerformance.EnglishPosition++;
                 }
                 if (totalper.Kiswahili > CurrentStudentTotalPerformance.Kiswahili)
                 {
-                    CurrentStudentTotalPerformance.kiswhiliPosition++;
+                    CurrentStudentTotalPerformance.KiswhiliPosition++;
                 }
                 if (totalper.Mathematics > CurrentStudentTotalPerformance.Mathematics)
                 {
-                    CurrentStudentTotalPerformance.mathematicsPosition++;
+                    CurrentStudentTotalPerformance.MathematicsPosition++;
                 }
                 if (totalper.Physics > CurrentStudentTotalPerformance.Physics)
                 {
-                    CurrentStudentTotalPerformance.physicsPosition++;
+                    CurrentStudentTotalPerformance.PhysicsPosition++;
                 }
                 if (totalper.Chemistry > CurrentStudentTotalPerformance.Chemistry)
                 {
-                    CurrentStudentTotalPerformance.chemistryPosition++;
+                    CurrentStudentTotalPerformance.ChemistryPosition++;
                 }
                 if (totalper.Biology > CurrentStudentTotalPerformance.Biology)
                 {
-                    CurrentStudentTotalPerformance.biologyPosition++;
+                    CurrentStudentTotalPerformance.BiologyPosition++;
                 }
                 if (totalper.HistoryAndGoverment > CurrentStudentTotalPerformance.HistoryAndGoverment)
                 {
-                    CurrentStudentTotalPerformance.historyPosition++;
+                    CurrentStudentTotalPerformance.HistoryPosition++;
                 }
                 if (totalper.Geography > CurrentStudentTotalPerformance.Geography)
                 {
-                    CurrentStudentTotalPerformance.geographyPosition++;
+                    CurrentStudentTotalPerformance.GeographyPosition++;
                 }
                 if (totalper.ChristianReligion > CurrentStudentTotalPerformance.ChristianReligion)
                 {
-                    CurrentStudentTotalPerformance.crePosition++;
+                    CurrentStudentTotalPerformance.ChristianReligionPosition++;
                 }
                 if (totalper.HomeScience > CurrentStudentTotalPerformance.HomeScience)
                 {
-                    CurrentStudentTotalPerformance.homesciencePosition++;
+                    CurrentStudentTotalPerformance.HomesciencePosition++;
                 }
                 if (totalper.Agriculture > CurrentStudentTotalPerformance.Agriculture)
                 {
-                    CurrentStudentTotalPerformance.agriculturePosition++;
+                    CurrentStudentTotalPerformance.AgriculturePosition++;
                 }
                 if (totalper.BusinessStudies > CurrentStudentTotalPerformance.BusinessStudies)
                 {
-                    CurrentStudentTotalPerformance.businessPosition++;
+                    CurrentStudentTotalPerformance.BusinessPosition++;
                 }
                 if(totalper.Average > CurrentStudentTotalPerformance.Average)
                 {
-                    CurrentStudentTotalPerformance.classPosition++;
+                    CurrentStudentTotalPerformance.ClassPosition++;
                 }
             }
             //------------------------------------------------------------------------------------------------------------

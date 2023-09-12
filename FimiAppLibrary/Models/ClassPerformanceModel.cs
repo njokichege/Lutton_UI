@@ -37,31 +37,31 @@
         public GradeModel HomeScienceGrade { get; set; }
         public GradeModel AgricultureGrade { get; set; }
         public GradeModel BusinessStudiesGrade { get; set; }
-        public int englishPosition { get; set; }
-        public int kiswhiliPosition { get; set; }
-        public int mathematicsPosition { get; set; }
-        public int physicsPosition { get; set; }
-        public int chemistryPosition { get; set; }
-        public int biologyPosition { get; set; }
-        public int historyPosition { get; set; }
-        public int geographyPosition { get; set; }
-        public int crePosition { get; set; }
-        public int homesciencePosition { get; set; }
-        public int agriculturePosition { get; set; }
-        public int businessPosition { get; set; }
-        public int classPosition { get; set; }
+        public int EnglishPosition { get; set; }
+        public int KiswhiliPosition { get; set; }
+        public int MathematicsPosition { get; set; }
+        public int PhysicsPosition { get; set; }
+        public int ChemistryPosition { get; set; }
+        public int BiologyPosition { get; set; }
+        public int HistoryPosition { get; set; }
+        public int GeographyPosition { get; set; }
+        public int ChristianReligionPosition { get; set; }
+        public int HomesciencePosition { get; set; }
+        public int AgriculturePosition { get; set; }
+        public int BusinessPosition { get; set; }
+        public int ClassPosition { get; set; }
         public int TotalPoints { get; set; }
-        public string EnglishName { get { return "English"; } }
-        public string KiswahiliName { get { return "Kiswahili"; } }
-        public string MathematicsName { get { return "Mathematics"; } }
-        public string PhysicsName { get { return "Physics"; } }
-        public string ChemistryName { get { return "Chemistry"; } }
-        public string BiologyName { get { return "Biology"; } }
-        public string HistoryAndGovermentName { get { return "History and Goverment"; } }
-        public string GeographyName { get { return "Geography"; } }
-        public string ChristianReligionName { get { return "Christian  Religion"; } }
-        public string HomeScienceName { get { return "HomeScience"; } }
-        public string AgricultureName { get { return "Agriculture"; } }
-        public string BusinessStudiesName { get { return "Business Studies"; } }
+        public static string EnglishName { get { return "English"; } }
+        public static string KiswahiliName { get { return "Kiswahili"; } }
+        public static string MathematicsName { get { return "Mathematics"; } }
+        public static string PhysicsName { get { return "Physics"; } }
+        public static string ChemistryName { get { return "Chemistry"; } }
+        public static string BiologyName { get { return "Biology"; } }
+        public static string HistoryAndGovermentName { get { return "History and Goverment"; } }
+        public static string GeographyName { get { return "Geography"; } }
+        public static string ChristianReligionName { get { return "Christian  Religion"; } }
+        public static string HomeScienceName { get { return "HomeScience"; } }
+        public static string AgricultureName { get { return "Agriculture"; } }
+        public static string BusinessStudiesName { get { return "Business Studies"; } }
     }
 }

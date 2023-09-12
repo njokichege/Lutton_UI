@@ -37,7 +37,7 @@
                 <MudPaper Outlined="true" Square="true" Elevation="0" Class="pa-4"><b>Form:</b> @StudentClass.Form.Form @StudentClass.Stream.Stream</MudPaper>
                 <MudPaper Outlined="true" Square="true" Elevation="0" Class="pa-4"><b>Mean:</b> @Math.Round(Mean)</MudPaper>
                 <MudPaper Outlined="true" Square="true" Elevation="0" Class="pa-4"><b>Mean Grade:</b> @MeanGrade.Grade</MudPaper>
-                <MudPaper Outlined="true" Square="true" Elevation="0" Class="pa-4"><b>Class Position:</b> @CurrentStudentTotalPerformance.classPosition</MudPaper>
+                <MudPaper Outlined="true" Square="true" Elevation="0" Class="pa-4"><b>Class Position:</b> @CurrentStudentTotalPerformance.ClassPosition</MudPaper>
             </MudItem>
         </MudGrid>
         <MudDivider DividerType="DividerType.FullWidth" />
@@ -65,7 +65,7 @@
                             <td>@Math.Round(Mean)</td>
                             <td>@MeanGrade.Grade</td>
                             <td>@TotalPoints</td>
-                            <td>@CurrentStudentTotalPerformance.classPosition</td>
+                            <td>@CurrentStudentTotalPerformance.ClassPosition</td>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -78,7 +78,7 @@
                                 <td>@Math.Round(CurrentStudentTotalPerformance.English)</td>
                                 <td>@CurrentStudentTotalPerformance.EnglishGrade.Grade</td>
                                 <td>@CurrentStudentTotalPerformance.EnglishGrade.Points</td>
-                                <td>@CurrentStudentTotalPerformance.englishPosition </td>
+                                <td>@CurrentStudentTotalPerformance.EnglishPosition </td>
                                 <td>@CurrentStudentTotalPerformance.EnglishGrade.Remarks</td>
                                 <td></td>
                             </tr>
@@ -92,7 +92,7 @@
                                 <td>@Math.Round(CurrentStudentTotalPerformance.Kiswahili)</td>
                                 <td>@CurrentStudentTotalPerformance.KiswahiliGrade.Grade</td>
                                 <td>@CurrentStudentTotalPerformance.KiswahiliGrade.Points</td>
-                                <td>@CurrentStudentTotalPerformance.kiswhiliPosition </td>
+                                <td>@CurrentStudentTotalPerformance.KiswhiliPosition </td>
                                 <td>@CurrentStudentTotalPerformance.KiswahiliGrade.Remarks</td>
                                 <td></td>
                             </tr>
@@ -106,7 +106,7 @@
                                 <td>@Math.Round(CurrentStudentTotalPerformance.Mathematics)</td>
                                 <td>@CurrentStudentTotalPerformance.MathematicsGrade.Grade</td>
                                 <td>@CurrentStudentTotalPerformance.MathematicsGrade.Points</td>
-                                <td>@CurrentStudentTotalPerformance.mathematicsPosition </td>
+                                <td>@CurrentStudentTotalPerformance.MathematicsPosition </td>
                                 <td>@CurrentStudentTotalPerformance.MathematicsGrade.Remarks</td>
                                 <td></td>
                             </tr>
@@ -120,7 +120,7 @@
                                 <td>@Math.Round(CurrentStudentTotalPerformance.Physics)</td>
                                 <td>@CurrentStudentTotalPerformance.PhysicsGrade.Grade</td>
                                 <td>@CurrentStudentTotalPerformance.PhysicsGrade.Points</td>
-                                <td>@CurrentStudentTotalPerformance.physicsPosition </td>
+                                <td>@CurrentStudentTotalPerformance.PhysicsPosition </td>
                                 <td>@CurrentStudentTotalPerformance.PhysicsGrade.Remarks</td>
                                 <td></td>
                             </tr>
@@ -134,7 +134,7 @@
                                 <td>@Math.Round(CurrentStudentTotalPerformance.Chemistry)</td>
                                 <td>@CurrentStudentTotalPerformance.ChemistryGrade.Grade</td>
                                 <td>@CurrentStudentTotalPerformance.ChemistryGrade.Points</td>
-                                <td>@CurrentStudentTotalPerformance.chemistryPosition </td>
+                                <td>@CurrentStudentTotalPerformance.ChemistryPosition </td>
                                 <td>@CurrentStudentTotalPerformance.ChemistryGrade.Remarks</td>
                                 <td></td>
                             </tr>
@@ -148,7 +148,7 @@
                                 <td>@Math.Round(CurrentStudentTotalPerformance.Biology)</td>
                                 <td>@CurrentStudentTotalPerformance.BiologyGrade.Grade</td>
                                 <td>@CurrentStudentTotalPerformance.BiologyGrade.Points</td>
-                                <td>@CurrentStudentTotalPerformance.biologyPosition </td>
+                                <td>@CurrentStudentTotalPerformance.BiologyPosition </td>
                                 <td>@CurrentStudentTotalPerformance.BiologyGrade.Remarks</td>
                                 <td></td>
                             </tr>
@@ -162,7 +162,7 @@
                                 <td>@Math.Round(CurrentStudentTotalPerformance.HistoryAndGoverment)</td>
                                 <td>@CurrentStudentTotalPerformance.HistoryAndGovermentGrade.Grade</td>
                                 <td>@CurrentStudentTotalPerformance.HistoryAndGovermentGrade.Points</td>
-                                <td>@CurrentStudentTotalPerformance.historyPosition </td>
+                                <td>@CurrentStudentTotalPerformance.HistoryPosition </td>
                                 <td>@CurrentStudentTotalPerformance.HistoryAndGovermentGrade.Remarks</td>
                                 <td></td>
                             </tr>
@@ -176,7 +176,7 @@
                                 <td>@Math.Round(CurrentStudentTotalPerformance.Geography)</td>
                                 <td>@CurrentStudentTotalPerformance.GeographyGrade.Grade</td>
                                 <td>@CurrentStudentTotalPerformance.GeographyGrade.Points</td>
-                                <td>@CurrentStudentTotalPerformance.geographyPosition </td>
+                                <td>@CurrentStudentTotalPerformance.GeographyPosition </td>
                                 <td>@CurrentStudentTotalPerformance.GeographyGrade.Remarks</td>
                                 <td></td>
                             </tr>
@@ -190,7 +190,7 @@
                                 <td>@Math.Round(CurrentStudentTotalPerformance.ChristianReligion)</td>
                                 <td>@CurrentStudentTotalPerformance.ChristianReligionGrade.Grade</td>
                                 <td>@CurrentStudentTotalPerformance.ChristianReligionGrade.Points</td>
-                                <td>@CurrentStudentTotalPerformance.crePosition </td>
+                                <td>@CurrentStudentTotalPerformance.ChristianReligionPosition </td>
                                 <td>@CurrentStudentTotalPerformance.ChristianReligionGrade.Remarks</td>
                                 <td></td>
                             </tr>
@@ -204,7 +204,7 @@
                                 <td>@Math.Round(CurrentStudentTotalPerformance.HomeScience)</td>
                                 <td>@CurrentStudentTotalPerformance.HomeScienceGrade.Grade</td>
                                 <td>@CurrentStudentTotalPerformance.HomeScienceGrade.Points</td>
-                                <td>@CurrentStudentTotalPerformance.homesciencePosition </td>
+                                <td>@CurrentStudentTotalPerformance.HomesciencePosition </td>
                                 <td>@CurrentStudentTotalPerformance.HomeScienceGrade.Remarks</td>
                                 <td></td>
                             </tr>
@@ -218,7 +218,7 @@
                                 <td>@Math.Round(CurrentStudentTotalPerformance.Agriculture)</td>
                                 <td>@CurrentStudentTotalPerformance.AgricultureGrade.Grade</td>
                                 <td>@CurrentStudentTotalPerformance.AgricultureGrade.Points</td>
-                                <td>@CurrentStudentTotalPerformance.agriculturePosition </td>
+                                <td>@CurrentStudentTotalPerformance.AgriculturePosition </td>
                                 <td>@CurrentStudentTotalPerformance.AgricultureGrade.Remarks</td>
                                 <td></td>
                             </tr>
@@ -232,7 +232,7 @@
                                 <td>@Math.Round(CurrentStudentTotalPerformance.BusinessStudies)</td>
                                 <td>@CurrentStudentTotalPerformance.BusinessStudiesGrade.Grade</td>
                                 <td>@CurrentStudentTotalPerformance.BusinessStudiesGrade.Points</td>
-                                <td>@CurrentStudentTotalPerformance.businessPosition </td>
+                                <td>@CurrentStudentTotalPerformance.BusinessPosition </td>
                                 <td>@CurrentStudentTotalPerformance.BusinessStudiesGrade.Remarks</td>
                                 <td></td>
                             </tr>

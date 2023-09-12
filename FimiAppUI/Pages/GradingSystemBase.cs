@@ -21,7 +21,7 @@ namespace FimiAppUI.Pages
         {
             GradesList = await GradeService.GetAllGrades();
         }
-        public async void AddGrade()
+        public void AddGrade()
         {
             if (NewGrade.StartGrade <= NewGrade.EndGrade)
             {
@@ -48,7 +48,7 @@ namespace FimiAppUI.Pages
             {
                 ShowFailAlert($"Failed to add Grade {NewGrade.Grade} ({NewGrade.StartGrade} - {NewGrade.EndGrade})");
             }
-            addGradeForm.Reset();
+            await addGradeForm.ResetAsync();
             GradesList = await GradeService.GetAllGrades();
         }
         public void Cancel() => MudDialog.Cancel();

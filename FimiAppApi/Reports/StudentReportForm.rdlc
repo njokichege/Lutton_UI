@@ -72,31 +72,31 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.7834in</Width>
+                  <Width>0.8211in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.7834in</Width>
+                  <Width>0.8211in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.7834in</Width>
+                  <Width>0.8211in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.7834in</Width>
+                  <Width>0.8211in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.78042in</Width>
+                  <Width>0.81812in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.78042in</Width>
+                  <Width>0.81812in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.78042in</Width>
+                  <Width>0.81812in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.78042in</Width>
+                  <Width>0.81812in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.78042in</Width>
+                  <Width>0.81812in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -604,7 +604,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Subject.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -655,7 +657,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!MidTerm.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -706,7 +710,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!EndTerm.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -757,7 +763,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Total.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -808,7 +816,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Grade.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -859,7 +869,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Points.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -910,7 +922,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Position.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -961,7 +975,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Remarks.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1012,7 +1028,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Initials.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1084,14 +1102,17 @@
                       </Visibility>
                     </TablixMember>
                   </TablixMembers>
+                  <Visibility>
+                    <Hidden>=IIf(Fields!Total.Value=0,True,False)</Hidden>
+                  </Visibility>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>StudentReportForm</DataSetName>
-            <Top>0.97047in</Top>
-            <Left>0.18476in</Left>
+            <Top>0.85913in</Top>
+            <Left>0.14706in</Left>
             <Height>0.5in</Height>
-            <Width>7.0357in</Width>
+            <Width>7.375in</Width>
             <Style>
               <Border>
                 <Color>Gray</Color>
@@ -1121,7 +1142,7 @@
             </Style>
           </Tablix>
           <Line Name="Line2">
-            <Top>0.82143in</Top>
+            <Top>0.67064in</Top>
             <Left>0.1431in</Left>
             <Height>0in</Height>
             <Width>7.41666in</Width>
@@ -1188,9 +1209,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox18</rd:DefaultName>
             <Top>0.09524in</Top>
-            <Left>0.1431in</Left>
-            <Height>0.60119in</Height>
-            <Width>2.12633in</Width>
+            <Left>0.31571in</Left>
+            <Height>0.39881in</Height>
+            <Width>2.29465in</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -1259,9 +1280,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox18</rd:DefaultName>
             <Top>0.09524in</Top>
-            <Left>2.26942in</Left>
-            <Height>0.60119in</Height>
-            <Width>0.94776in</Width>
+            <Left>2.61036in</Left>
+            <Height>0.39881in</Height>
+            <Width>1.07438in</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -1330,9 +1351,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox18</rd:DefaultName>
             <Top>0.09524in</Top>
-            <Left>3.21718in</Left>
-            <Height>0.60119in</Height>
-            <Width>0.88162in</Width>
+            <Left>3.68474in</Left>
+            <Height>0.39881in</Height>
+            <Width>0.85186in</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -1401,9 +1422,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox18</rd:DefaultName>
             <Top>0.09524in</Top>
-            <Left>4.0988in</Left>
-            <Height>0.60119in</Height>
-            <Width>0.79431in</Width>
+            <Left>4.5366in</Left>
+            <Height>0.39881in</Height>
+            <Width>0.81812in</Width>
             <ZIndex>5</ZIndex>
             <Style>
               <Border>
@@ -1472,9 +1493,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox18</rd:DefaultName>
             <Top>0.09524in</Top>
-            <Left>4.89311in</Left>
-            <Height>0.60119in</Height>
-            <Width>1.0549in</Width>
+            <Left>5.35472in</Left>
+            <Height>0.39881in</Height>
+            <Width>1.01919in</Width>
             <ZIndex>6</ZIndex>
             <Style>
               <Border>
@@ -1543,9 +1564,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox18</rd:DefaultName>
             <Top>0.09524in</Top>
-            <Left>5.94801in</Left>
-            <Height>0.60119in</Height>
-            <Width>1.00133in</Width>
+            <Left>6.37391in</Left>
+            <Height>0.39881in</Height>
+            <Width>0.98942in</Width>
             <ZIndex>7</ZIndex>
             <Style>
               <Border>
