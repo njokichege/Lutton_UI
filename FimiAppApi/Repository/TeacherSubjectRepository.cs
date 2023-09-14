@@ -159,5 +159,63 @@
             string splitOn = "Code,SubjectCategoryId,TeacherId,NationalId";
             return await _dapperContext.MapMultipleObjects<TeacherSubjectModel, dynamic>(query, types, map, splitOn, parameters);
         }
+        public async Task<IEnumerable<TeacherSubjectModel>> GetSubjectsMultipleMappingBySubject(int subjectCode)
+        {
+            string query = "SELECT " +
+                                "TeacherSubject.Code, " +
+                                "TeacherSubject.TeacherSubjectId, " +
+                                "TeacherSubject.TeacherId, " +
+                                "Subjects.Code, " +
+                                "Subjects.SubjectName, " +
+                                "Subjects.SubjectCategoryId, " +
+                                "SubjectCategory.SubjectCategoryId, " +
+                                "SubjectCategory.SubjectCategoryName, " +
+                                "Teacher.TeacherId, " +
+                                "Teacher.NationalId, " +
+                                "Teacher.TeacherType, " +
+                                "Teacher.TSCNumber, " +
+                                "Staff.NationalId, " +
+                                "Staff.FirstName, " +
+                                "Staff.MiddleName, " +
+                                "Staff.Surname, " +
+                                "Staff.PhoneNumber, " +
+                                "Staff.Gender, " +
+                                "Staff.EmploymentDate, " +
+                                "Staff.Designation " +
+                          "FROM TeacherSubject " +
+                          "INNER JOIN Subjects ON Subjects.Code = TeacherSubject.Code " +
+                          "INNER JOIN SubjectCategory ON Subjects.SubjectCategoryId = SubjectCategory.SubjectCategoryId " +
+                          "LEFT JOIN Teacher ON TeacherSubject.TeacherId = Teacher.TeacherId " +
+                          "INNER JOIN Staff ON Teacher.NationalId = Staff.NationalId " +
+                          "WHERE Subjects.Code = @Code";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("Code", subjectCode);
+            Type[] types =
+            {
+                 typeof(TeacherSubjectModel),
+                 typeof(SubjectModel),
+                 typeof(SubjectCategoryModel),
+                 typeof(TeacherModel),
+                 typeof(StaffModel)
+            };
+            Func<object[], TeacherSubjectModel> map = delegate (object[] obj)
+            {
+                TeacherSubjectModel teacherSubjectModel = obj[0] as TeacherSubjectModel;
+                SubjectModel subject = obj[1] as SubjectModel;
+                SubjectCategoryModel subjectCategory = obj[2] as SubjectCategoryModel;
+                TeacherModel teacher = obj[3] as TeacherModel;
+                StaffModel staff = obj[4] as StaffModel;
+
+                teacherSubjectModel.Subject = subject;
+                teacherSubjectModel.Teacher = teacher;
+                subject.SubjectCategory = subjectCategory;
+                teacher.Staff = staff;
+
+                return teacherSubjectModel;
+            };
+            string splitOn = "Code,SubjectCategoryId,TeacherId,NationalId";
+            return await _dapperContext.MapMultipleObjects<TeacherSubjectModel, dynamic>(query, types, map, splitOn, parameters);
+        }
     }
 }

@@ -15,6 +15,22 @@
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" />
 
+<MudDialog @ref="timetableDialog" @bind-IsVisible="visible" Options="dialogOptions">
+    <TitleContent>
+        <MudText Typo="Typo.h6" Align="Align.Center"><b>Confirm Submission</b></MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudText>Class : @SelectedClass.FullClass()</MudText>
+        <MudText>Subject : @TeacherAndSubject.Subject.SubjectName</MudText>
+        <MudText>Teacher : @TeacherAndSubject.Teacher.Staff.FirstName @TeacherAndSubject.Teacher.Staff.MiddleName @TeacherAndSubject.Teacher.Staff.Surname</MudText>
+        <MudText>Timeslot : @SelectedTimeSlot.TimeSlotString()</MudText>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="DialogSubmit">Continue</MudButton>
+    </DialogActions>
+</MudDialog>
+
 <MudTabs Elevation="2" ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
     <MudTabPanel Text="Overall Timetable">
         <table class="minimalistBlack">
@@ -699,22 +715,13 @@
             </tbody>
         </table>
     </MudTabPanel>
-    <MudTabPanel Text="Exceptions">
-        <MudText Typo="Typo.h5">Double Lessons</MudText>
+    <MudTabPanel Text="Double Lessons">
         <MudGrid Class="d-flex px-4 mt-4 align-center">
             <MudItem xs="3">
                 <MudCard>
                     <MudCardContent>
-                        <MudAutocomplete T="FormModel" Label="Form" @bind-Value="SelectedForm" ShowProgressIndicator="true"
-                                         SearchFunc="@SelectedFormSearch" ToStringFunc="@(e=> e==null?null : $"{e.Form}")" />
-                    </MudCardContent>
-                </MudCard>
-            </MudItem>
-            <MudItem xs="3">
-                <MudCard>
-                    <MudCardContent>
-                        <MudAutocomplete T="StreamModel" Label="Stream" @bind-Value="SelectedStream" ShowProgressIndicator="true"
-                                         SearchFunc="@SelectedStreamSearch" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
+                        <MudAutocomplete T="ClassModel" Label="Form" @bind-Value="SelectedClass" ShowProgressIndicator="true"
+                                         SearchFunc="@SelectedClassSearch" ToStringFunc="@(e=> e==null?null : $"{e.Form.Form}{e.Stream.Stream}")" />
                     </MudCardContent>
                 </MudCard>
             </MudItem>
@@ -739,6 +746,34 @@
             </MudItem>
         </MudGrid>
         <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+        <MudGrid Class="d-flex pa-4">
+            <MudItem xs="12">
+                @if (TeacherSubjects is null && isLoading is true)
+                {
+                    <MudProgressCircular Size="Size.Medium" Color="Color.Success" Indeterminate="true" />
+                }
+                else if (TeacherSubjects is not null)
+                {
+                    <MudTable Items="@TeacherSubjects" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="TeacherSubjectModel">
+                        <HeaderContent>
+                            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<TeacherSubjectModel, object>(x=>x.Code)">Code</MudTableSortLabel></MudTh>
+                            <MudTh>Category</MudTh>
+                            <MudTh>Subject</MudTh>
+                            <MudTh>Teacher</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Code">@context.Code</MudTd>
+                            <MudTd DataLabel="SubjectCategory">@context.Subject.SubjectCategory.SubjectCategoryName</MudTd>
+                            <MudTd DataLabel="SubjectName">@context.Subject.SubjectName</MudTd>
+                            <MudTd DataLabel="Surname">@context.Teacher.Staff.FirstName @context.Teacher.Staff.MiddleName @context.Teacher.Staff.Surname</MudTd>
+                        </RowTemplate>
+                        <PagerContent>
+                            <MudTablePager />
+                        </PagerContent>
+                    </MudTable>
+                }
+            </MudItem>
+        </MudGrid>
     </MudTabPanel>
 </MudTabs>
     

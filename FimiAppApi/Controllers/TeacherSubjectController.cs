@@ -59,12 +59,25 @@ namespace FimiAppApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-        [HttpGet("mapstudentonteacher/{teacherId}")]
+        [HttpGet("subjectteacherbyteacherId/{teacherId}")]
         public async Task<IActionResult> GetMultipleMappingByTeacher(int teacherId)
         {
             try
             {
                 var subjects = await _teacherSubjectRepository.GetSubjectsMultipleMappingByTeacher(teacherId);
+                return Ok(subjects);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpGet("subjectteacherbysubjectCode/{subjectCode}")]
+        public async Task<IActionResult> GetMultipleMappingBySubject(int subjectCode)
+        {
+            try
+            {
+                var subjects = await _teacherSubjectRepository.GetSubjectsMultipleMappingBySubject(subjectCode);
                 return Ok(subjects);
             }
             catch (Exception ex)
