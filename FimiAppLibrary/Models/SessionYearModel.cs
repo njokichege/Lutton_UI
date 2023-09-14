@@ -7,7 +7,7 @@
         public DateTime EndDate { get; set; }
         public string SessionString()
         {
-            return $"{StartDate.Month}/{StartDate.Year} - {EndDate.Month}/{EndDate.Year}";
+            return $"{StartDate.ToString("MMMM yyyy")} - {EndDate.ToString("MMMM yyyy")}";
         }
 
     }

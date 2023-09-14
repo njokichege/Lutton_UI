@@ -30,6 +30,7 @@ namespace FimiAppApi
             builder.Services.AddSingleton<IClassPerformanceRepository, ClassPerformanceRepository>();
             builder.Services.AddSingleton<ITermRepository,  TermRepository>();
             builder.Services.AddSingleton<IExamTypeRepository, ExamTypeRepository>();
+            builder.Services.AddSingleton<ITimeSlotRepository, TimeSlotRepository>();
         }
     }
 }

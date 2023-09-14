@@ -1,5 +1,7 @@
 ﻿@page "/Pages/Timetable"
 
+@inherits TimetableBase
+
 <link href="css/App.css" rel="stylesheet" />
 
 <MudGrid Class="mt-n12 px-5">
@@ -13,684 +15,730 @@
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" />
 
-<table class="minimalistBlack">
-    <thead>
-        <tr>
-            <th></th>
-            <th></th>
-            <th>8:00 - 8:40</th>
-            <th>8:40 - 9:20</th>
-            <th>9:20 - 9:30</th>
-            <th>9:30 - 10:10</th>
-            <th>10:10 - 10:50</th>
-            <th>10:50 - 11:20</th>
-            <th>11:20 - 12:00</th>
-            <th>12:00 - 12:40</th>
-            <th>12:40 - 1:20</th>
-            <th>1:20 - 2:00</th>
-            <th>2:00 - 2:40</th>
-            <th>2:40 - 3:20</th>
-            <th>3:20 - 4:00</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th rowspan="9">MONDAY</th>
-        </tr>
-        <tr>
-            <th>1K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>1W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>2K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
+<MudTabs Elevation="2" ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
+    <MudTabPanel Text="Overall Timetable">
+        <table class="minimalistBlack">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>8:00 - 8:40</th>
+                    <th>8:40 - 9:20</th>
+                    <th>9:20 - 9:30</th>
+                    <th>9:30 - 10:10</th>
+                    <th>10:10 - 10:50</th>
+                    <th>10:50 - 11:20</th>
+                    <th>11:20 - 12:00</th>
+                    <th>12:00 - 12:40</th>
+                    <th>12:40 - 1:20</th>
+                    <th>1:20 - 2:00</th>
+                    <th>2:00 - 2:40</th>
+                    <th>2:40 - 3:20</th>
+                    <th>3:20 - 4:00</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th rowspan="9">MONDAY</th>
+                </tr>
+                <tr>
+                    <th>1K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>1W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>2K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
 
-        </tr>
-        <tr>
-            <th>2W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
+                </tr>
+                <tr>
+                    <th>2W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
 
-        </tr>
-        <tr>
-            <th>3K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>3W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
+                </tr>
+                <tr>
+                    <th>3K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>3W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
 
-        </tr>
-        <tr>
-            <th>4K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>4W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th rowspan="9">TUESDAY</th>
-        </tr>
-        <tr>
-            <th>1K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>1W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>2K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>2W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>3K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>3W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>4K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>4W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th rowspan="9">WEDNESDAY</th>
-        </tr>
-        <tr>
-            <th>1K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>1W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>2K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>2W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>3K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>3W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>4K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>4W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th rowspan="9">THURSDAY</th>
-        </tr>
-        <tr>
-            <th>1K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>1W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>2K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>2W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>3K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>3W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>4K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>4W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th rowspan="9">FRIDAY</th>
-        </tr>
-        <tr>
-            <th>1K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>1W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>2K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>2W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>3K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>3W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>4K</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>4W</th>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="break"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
+                </tr>
+                <tr>
+                    <th>4K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>4W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th rowspan="9">TUESDAY</th>
+                </tr>
+                <tr>
+                    <th>1K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>1W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>2K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>2W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>3K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>3W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>4K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>4W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th rowspan="9">WEDNESDAY</th>
+                </tr>
+                <tr>
+                    <th>1K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>1W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>2K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>2W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>3K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>3W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>4K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>4W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th rowspan="9">THURSDAY</th>
+                </tr>
+                <tr>
+                    <th>1K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>1W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>2K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>2W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>3K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>3W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>4K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>4W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th rowspan="9">FRIDAY</th>
+                </tr>
+                <tr>
+                    <th>1K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>1W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>2K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>2W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>3K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>3W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>4K</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>4W</th>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="break"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </MudTabPanel>
+    <MudTabPanel Text="Exceptions">
+        <MudText Typo="Typo.h5">Double Lessons</MudText>
+        <MudGrid Class="d-flex px-4 mt-4 align-center">
+            <MudItem xs="3">
+                <MudCard>
+                    <MudCardContent>
+                        <MudAutocomplete T="FormModel" Label="Form" @bind-Value="SelectedForm" ShowProgressIndicator="true"
+                                         SearchFunc="@SelectedFormSearch" ToStringFunc="@(e=> e==null?null : $"{e.Form}")" />
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+            <MudItem xs="3">
+                <MudCard>
+                    <MudCardContent>
+                        <MudAutocomplete T="StreamModel" Label="Stream" @bind-Value="SelectedStream" ShowProgressIndicator="true"
+                                         SearchFunc="@SelectedStreamSearch" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+            <MudItem xs="3">
+                <MudCard>
+                    <MudCardContent>
+                        <MudAutocomplete T="SubjectModel" Label="Subject" @bind-Value="SelectedSubject" ShowProgressIndicator="true"
+                                         SearchFunc="@SelectedSubjectSearch" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" />
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+            <MudItem xs="3">
+                <MudCard>
+                    <MudCardContent>
+                        <MudAutocomplete T="TimeSlotModel" Label="Timeslot" @bind-Value="SelectedTimeSlot" ShowProgressIndicator="true"
+                                         SearchFunc="@SelectedTimeSlotSearch" ToStringFunc="@(e=> e==null?null : $"{e.TimeSlotString()}")" />
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+            <MudItem xs="2">
+                <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@FindClass" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
+            </MudItem>
+        </MudGrid>
+        <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+    </MudTabPanel>
+</MudTabs>
+    

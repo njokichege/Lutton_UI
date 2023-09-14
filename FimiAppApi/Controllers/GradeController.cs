@@ -1,7 +1,4 @@
 ﻿
-using Microsoft.SqlServer.Server;
-using System.IO;
-
 namespace FimiAppApi.Controllers
 {
     [Route("api/grade")]
