@@ -12,24 +12,37 @@ namespace FimiAppApi.Controllers
         {
             _parentStudentRepository = parentStudentRepository;
         }
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetParentStudentById(int id)
+        {
+            try
+            {
+                var parentStudent = await _parentStudentRepository.GetParentStudentById(id);
+                return Ok(parentStudent);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+
+        }
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult> AddParentStudent(ParentModel parent)
         {
             try
             {
                 if (parent is not null)
                 {
-                    var rowChanged = await _parentStudentRepository.AddParentStudent(parent.NationalId);
-                    if (rowChanged == 1)
-                    {
-                        return StatusCode(201);
-                    }
-                    else
-                    {
-                        return BadRequest();
-                    }
+                    var parentStudent = await _parentStudentRepository.AddParentStudent(parent.NationalId);
+                    return CreatedAtAction(nameof(GetParentStudentById), new { id = parentStudent.ParentStudentId}, parentStudent);
                 }
-                return BadRequest();
+                else
+                {
+                    return BadRequest();
+                }
             }
             catch (Exception ex)
             {

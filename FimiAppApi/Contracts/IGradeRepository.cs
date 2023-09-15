@@ -2,7 +2,8 @@
 {
     public interface IGradeRepository
     {
-        Task<int> AddGrades(GradeModel grade);
+        Task<GradeModel> AddGrades(GradeModel grade);
         Task<IEnumerable<GradeModel>> GetAllGrades();
+        Task<GradeModel> GetGradeById(int gradeId);
     }
 }

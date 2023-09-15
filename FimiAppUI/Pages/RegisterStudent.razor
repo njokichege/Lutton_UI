@@ -24,13 +24,13 @@
 
 <MudDialog @ref="registerDialog" @bind-IsVisible="visible" Options="dialogOptions">
     <TitleContent>
-        <MudText Typo="Typo.h6">Confirm Registration</MudText>
+        <MudText Typo="Typo.h6" Align="Align.Center"><b>Confirm Submission</b></MudText>
     </TitleContent>
     <DialogContent>
         <MudText><b>Student:</b></MudText>
-        <MudText>@Student.FirstName @Student.MiddleName @Student.Surname will be added </MudText>
+        <MudText>@Student.FirstName @Student.MiddleName @Student.Surname</MudText>
         <MudText><b>Parent:</b></MudText>
-        <MudText>@Parent.FirstName @Parent.MiddleName @Parent.Surname will be linked as the parent</MudText>
+        <MudText>@Parent.FirstName @Parent.MiddleName @Parent.Surname</MudText>
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>

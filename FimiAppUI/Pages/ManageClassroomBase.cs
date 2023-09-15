@@ -99,7 +99,7 @@ namespace FimiAppUI.Pages
             };
 
             var response = await ClassService.CreateClass(classModel).ConfigureAwait(false);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 ShowSuccessAlert($"Class {SelectedFormOnClassCard.Form}{SelectedStreamOnClassCard.Stream} year {SelectedSessionYearOnClassCard.StartDate.Year} was created");
             }
@@ -107,6 +107,10 @@ namespace FimiAppUI.Pages
             {
                 
                 ShowFailAlert($"Class {SelectedFormOnClassCard.Form}{SelectedStreamOnClassCard.Stream} year {SelectedSessionYearOnClassCard.StartDate.Year} already exists");
+            }
+            else
+            {
+                ShowFailAlert($" Failed adding Class : {SelectedFormOnClassCard.Form}{SelectedStreamOnClassCard.Stream} Year : {SelectedSessionYearOnClassCard.StartDate.Year}");
             }
             Classes = (await ClassService.GetMultipleMapping()).ToList();
             return response;

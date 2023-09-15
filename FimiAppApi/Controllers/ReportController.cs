@@ -126,7 +126,7 @@ namespace FimiAppApi.Controllers
             GradeModel MeanGrade = new();
             foreach (GradeModel grade in Grades)
             {
-                if (Mean >= grade.EndGrade)
+                if (Mean >= grade.LowerLimit)
                 {
                     MeanGrade = grade;
                     break;

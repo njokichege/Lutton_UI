@@ -1,4 +1,5 @@
-﻿using static Slapper.AutoMapper;
+﻿using System.Xml;
+using static Slapper.AutoMapper;
 
 namespace FimiAppApi.Repository
 {
@@ -15,22 +16,30 @@ namespace FimiAppApi.Repository
             string sql = "SELECT * FROM Student";
             return await _dapperContext.LoadData<StudentModel, dynamic>(sql, new {});
         }
-        public async Task<int> CreateStudent(StudentModel student)
+        public async Task<StudentModel> CreateStudent(StudentModel student)
         {
-            string sql = "DECLARE @stnum INT; " +
-                         "SELECT @stnum = MAX(StudentNumber) FROM Student " +
-                         "INSERT INTO Student " +
-                            "(StudentNumber,FirstName,MiddleName,Surname,Gender,DateOfBirth,AdmissionDate) " +
+            string sql = "INSERT INTO Student " +
+                            "(FirstName,MiddleName,Surname,Gender,DateOfBirth,AdmissionDate) " +
                          "VALUES " +
-                            "((@stnum + 1),@FirstName,@MiddleName,@Surname,@Gender,@DateOfBirth,GETDATE())";
+                            "(@FirstName,@MiddleName,@Surname,@Gender,@DateOfBirth,sysdate()); SELECT LAST_INSERT_ID();";
             var parameters = new DynamicParameters();
             parameters.Add("FirstName", student.FirstName, DbType.String);
             parameters.Add("MiddleName", student.MiddleName, DbType.String);
             parameters.Add("Surname", student.Surname, DbType.String);
             parameters.Add("Gender", student.Gender, DbType.String);
             parameters.Add("DateOfBirth", student.DateOfBirth, DbType.Date);
-            
-            return await _dapperContext.CreateData<StudentModel, dynamic>(sql, parameters);
+
+            int id = await _dapperContext.LoadSingleData<int, dynamic>(sql, parameters);
+            var createdModel = new StudentModel
+            {
+                StudentNumber = id,
+                FirstName = student.FirstName,
+                MiddleName = student.MiddleName,
+                Surname = student.Surname,
+                Gender = student.Gender,
+                DateOfBirth = student.DateOfBirth
+            };
+            return createdModel;
         }
         public async Task<StudentModel> GetStudent(int studentNumber)
         {

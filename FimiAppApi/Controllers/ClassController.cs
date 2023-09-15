@@ -24,12 +24,12 @@ namespace FimiAppApi.Controllers
             }
             
         }
-        [HttpGet("{classId}")]
-        public async Task<IActionResult> GetClassById(int classId)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetClassById(int id)
         {
             try
             {
-                var classModel = await _classRepository.GetClassMultipleMappingById(classId);
+                var classModel = await _classRepository.GetClassMultipleMappingById(id);
                 return Ok(classModel);
             }
             catch (Exception ex)
@@ -57,6 +57,7 @@ namespace FimiAppApi.Controllers
 
         }
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateClass(ClassModel classModel)
         {
             try
@@ -65,7 +66,7 @@ namespace FimiAppApi.Controllers
                 if (dbClassExists is null)
                 {
                     var createdClass = await _classRepository.CreateClass(classModel);
-                    return Ok(createdClass);
+                    return CreatedAtAction(nameof(GetClassById), new { id = createdClass.ClassId }, createdClass);
                 }
                 else
                 {
@@ -76,7 +77,6 @@ namespace FimiAppApi.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
-
         }
         [HttpPut("ClassTeacher")]
         public async Task<IActionResult> UpdateClassTeacher(ClassModel classModel)

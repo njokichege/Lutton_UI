@@ -48,7 +48,7 @@ namespace FimiAppUI.Pages
                 Grades = await GradeService.GetAllGrades();
                 foreach (GradeModel grade in Grades)
                 {
-                    if (schoolPerformance.ClassAverage >= grade.EndGrade)
+                    if (schoolPerformance.ClassAverage >= grade.LowerLimit)
                     {
                         schoolPerformance.Grade = grade;
                         break;

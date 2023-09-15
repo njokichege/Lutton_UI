@@ -27,12 +27,12 @@ namespace FimiAppApi.Controllers
             }
 
         }
-        [HttpGet("{nationalId}")]
-        public async Task<IActionResult> GetParentById(int nationalId)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetParentById(int id)
         {
             try
             {
-                var parent = await _parentRepository.GetParentById(nationalId);
+                var parent = await _parentRepository.GetParentById(id);
                 return Ok(parent);
             }
             catch (Exception ex)
@@ -42,6 +42,7 @@ namespace FimiAppApi.Controllers
 
         }
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult> CreateParent([FromBody] ParentModel parent)
         {
             try
@@ -51,22 +52,19 @@ namespace FimiAppApi.Controllers
                     var doesParentExist = await _parentRepository.GetParentById(parent.NationalId);
                     if(doesParentExist is null)
                     {
-                        var rowChanged = await _parentRepository.CreateParent(parent);
-                        if (rowChanged == 1)
-                        {
-                            return StatusCode(201, parent);
-                        }
-                        else
-                        {
-                            return BadRequest();
-                        }
+                        var parentEntry = await _parentRepository.CreateParent(parent);
+                        return CreatedAtAction(nameof(GetParentById),new {id = parentEntry.NationalId},parentEntry);
+                        
                     }
                     else
                     {
                         return Conflict();
                     }
                 }
-                return BadRequest();
+                else
+                {
+                    return BadRequest();
+                }
             }
             catch (Exception ex)
             {

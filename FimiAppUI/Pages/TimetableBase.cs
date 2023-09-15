@@ -18,7 +18,14 @@ namespace FimiAppUI.Pages
         public IEnumerable<TeacherSubjectModel> TeacherSubjects { get; set; }
         public TeacherSubjectModel SelectedTeacherSubjectModel { get; set; }
         public MudDialog timetableDialog;
+        public MudAutocomplete<ClassModel> classSelect;
+        public MudAutocomplete<SubjectModel> subjectSelect;
+        public MudAutocomplete<TimeSlotModel> timeslotSelect;
         public DialogOptions dialogOptions = new() { FullWidth = true };
+        public string ModelFail { get; set; }
+        public string ModelSuccess { get; set; }
+        public bool showSuccessAlert = false;
+        public bool showFailAlert = false;
         public bool isLoading = false;
         public bool visible;
         protected override async Task OnInitializedAsync()
@@ -66,7 +73,44 @@ namespace FimiAppUI.Pages
                 TimeSlot = SelectedTimeSlot,
                 Teacher = TeacherAndSubject.Teacher
             };
-            await TimetableService.AddTimetableEntry(timetableModel);
+            var response = await TimetableService.AddTimetableEntry(timetableModel);
+            
+            if (response.StatusCode == HttpStatusCode.Created)
+            {
+                ShowSuccessAlert($"Timetable submission success!");
+            }
+            else
+            {
+                ShowFailAlert($"Timetable submission failed!");
+            }
+            await classSelect.ResetAsync();
+            await subjectSelect.ResetAsync();
+            await timeslotSelect.ResetAsync();
+            TeacherSubjects = null;
+            isLoading = false;
+        }
+        public void ShowSuccessAlert(string modelType)
+        {
+            ModelSuccess = modelType;
+            showSuccessAlert = true;
+        }
+        public void ShowFailAlert(string modelType)
+        {
+            ModelFail = modelType;
+            showFailAlert = true;
+        }
+        public void CloseMe(bool value)
+        {
+            if (value)
+            {
+                showSuccessAlert = false;
+                showFailAlert = false;
+            }
+            else
+            {
+                showSuccessAlert = false;
+                showFailAlert = false;
+            }
         }
     }
 }

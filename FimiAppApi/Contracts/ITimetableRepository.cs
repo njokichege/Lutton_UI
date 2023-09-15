@@ -2,6 +2,7 @@
 {
     public interface ITimetableRepository
     {
-        Task<int> AddTimetableEntry(TimetableModel timetable);
+        Task<TimetableModel> AddTimetableEntry(TimetableModel timetable);
+        Task<TimetableModel> GetTimetableEntryById(int timetableId);
     }
 }

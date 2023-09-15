@@ -62,7 +62,7 @@ namespace FimiAppUI.Pages
                     var parentStudentResponse = await ParentStudentService.AddParentStudent(Parent);
                     if(parentStudentResponse.StatusCode == HttpStatusCode.Created)
                     {
-                        ShowSuccessAlert($"{Student.StudentName()} has been added and {Parent.FirstName} {Parent.Surname} linked as the parent");
+                        ShowSuccessAlert($"\"{Student.StudentName()}\" has been added and \"{Parent.FirstName} {Parent.Surname}\" linked as the parent");
                     }
                 }
                 else if(parentResponse.StatusCode == HttpStatusCode.Conflict)
@@ -70,7 +70,7 @@ namespace FimiAppUI.Pages
                     var parentStudentResponse = await ParentStudentService.AddParentStudent(Parent);
                     if (parentStudentResponse.StatusCode == HttpStatusCode.Created)
                     {
-                        ShowSuccessAlert($"{Student.StudentName()} has been added and {Parent.FirstName} {Parent.Surname} linked as the parent");
+                        ShowSuccessAlert($"\"{Student.StudentName()}\" has been added and \"{Parent.FirstName} {Parent.Surname}\" linked as the parent");
                     }
                 }
                 else
@@ -78,8 +78,10 @@ namespace FimiAppUI.Pages
                     ShowFailAlert($"Failed to add student!");
                 }
             }
+            await registerStudentForm.ResetAsync();
+            await registerParentForm.ResetAsync();
         }
-        public void Cancel() => MudDialog.Cancel();
+        public void Cancel() => visible = false;
         public void ShowSuccessAlert(string modelType)
         {
             ModelSuccess = modelType;

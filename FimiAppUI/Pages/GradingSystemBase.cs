@@ -1,10 +1,12 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 
 namespace FimiAppUI.Pages
 {
     public class GradingSystemBase : Microsoft.AspNetCore.Components.ComponentBase
     {
         [Inject] public IGradeService GradeService { get; set; }
+        [Inject] public IDialogService DialogService { get; set; }
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         public GradeModelFluentValidator GradeValidator { get; set; } = new GradeModelFluentValidator();
         public IEnumerable<GradeModel> GradesList { get; set; } = new List<GradeModel>();
@@ -23,9 +25,9 @@ namespace FimiAppUI.Pages
         }
         public void AddGrade()
         {
-            if (NewGrade.StartGrade <= NewGrade.EndGrade)
+            if (NewGrade.UpperLimit <= NewGrade.LowerLimit)
             {
-                ShowFailAlert($"Percentage from({NewGrade.StartGrade}) cannot be greater than or equal to percentage to({NewGrade.EndGrade})");
+                ShowFailAlert($"Percentage from({NewGrade.UpperLimit}) cannot be greater than or equal to percentage to({NewGrade.LowerLimit})");
             }
             else
             {
@@ -36,22 +38,20 @@ namespace FimiAppUI.Pages
         {
             visible = false;
             var response = await GradeService.AddGrades(NewGrade);
-            if(NewGrade.StartGrade >= NewGrade.EndGrade)
+            
+            if (response.StatusCode == HttpStatusCode.Created)
             {
-                ShowFailAlert($"Percentage from({NewGrade.StartGrade}) cannot be greater than or equal to percentage to({NewGrade.EndGrade})");
-            }
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                ShowSuccessAlert($"Grade {NewGrade.Grade} ({NewGrade.StartGrade} - {NewGrade.EndGrade}) has been added");
+                ShowSuccessAlert($"Grade {NewGrade.Grade} ({NewGrade.UpperLimit} - {NewGrade.LowerLimit}) has been added");
             }
             else
             {
-                ShowFailAlert($"Failed to add Grade {NewGrade.Grade} ({NewGrade.StartGrade} - {NewGrade.EndGrade})");
+                ShowFailAlert($"Failed to add Grade {NewGrade.Grade} ({NewGrade.UpperLimit} - {NewGrade.LowerLimit})");
             }
             await addGradeForm.ResetAsync();
             GradesList = await GradeService.GetAllGrades();
         }
-        public void Cancel() => MudDialog.Cancel();
+        public void Submit() => visible = false;
+        public void Cancel() => visible = false;
         public void ShowSuccessAlert(string modelType)
         {
             ModelSuccess = modelType;

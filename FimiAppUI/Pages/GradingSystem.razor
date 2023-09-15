@@ -24,12 +24,14 @@
 
 <MudDialog @ref="registerDialog" @bind-IsVisible="visible" Options="dialogOptions">
     <TitleContent>
-        <MudText Typo="Typo.h6">Confirm Registration</MudText>
+        <MudText Typo="Typo.h6" Align="Align.Center"><b>Confirm Submission</b></MudText>
     </TitleContent>
     <DialogContent>
-        <MudText><b>Grade: </b></MudText>
-        <MudText></MudText>
-        <MudText>@NewGrade.Grade (@NewGrade.StartGrade - @NewGrade.EndGrade) will be added </MudText>
+        <MudText>Grade : @NewGrade.Grade</MudText>
+        <MudText>UpperLimit : @NewGrade.UpperLimit</MudText>
+        <MudText>LowerLimit : @NewGrade.LowerLimit</MudText>
+        <MudText>Points : @NewGrade.Points</MudText>
+        <MudText>Remarks : @NewGrade.Remarks</MudText>
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
@@ -44,8 +46,9 @@
                 <MudText Typo="Typo.h5" Align="Align.Center">Add Grade</MudText>
                 <MudTextField Immediate="true" @bind-Value="NewGrade.Grade" For="@(() => NewGrade.Grade)" Label="Grade Letter" Variant="Variant.Outlined" />
                 <MudTextField Immediate="true" @bind-Value="NewGrade.Points" For="@(() => NewGrade.Points)" Label="Points" Variant="Variant.Outlined" />
-                <MudTextField Immediate="true" @bind-Value="NewGrade.StartGrade" For="@(() => NewGrade.StartGrade)" Label="Percentage From" Variant="Variant.Outlined" />
-                <MudTextField Immediate="true" @bind-Value="NewGrade.EndGrade" For="@(() => NewGrade.EndGrade)" Label="Percentage End" Variant="Variant.Outlined" />
+                <MudTextField Immediate="true" @bind-Value="NewGrade.UpperLimit" For="@(() => NewGrade.UpperLimit)" Label="Upper Limit" Variant="Variant.Outlined" />
+                <MudTextField Immediate="true" @bind-Value="NewGrade.LowerLimit" For="@(() => NewGrade.LowerLimit)" Label="Lower Limit" Variant="Variant.Outlined" />
+                <MudTextField Immediate="true" @bind-Value="NewGrade.Remarks" For="@(() => NewGrade.Remarks)" Label="Remarks" Variant="Variant.Outlined" />
                 <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@AddGrade" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
             </MudForm>
         </MudPaper>        
@@ -61,14 +64,14 @@
                 <HeaderContent>
                     <MudTh>Name</MudTh>
                     <MudTh>Points</MudTh>
-                    <MudTh><MudTableSortLabel InitialDirection="SortDirection.Descending" SortBy="new Func<GradeModel, object>(x=>x.StartGrade)">Percentage From</MudTableSortLabel></MudTh>
-                    <MudTh>Percentage To</MudTh>
+                    <MudTh><MudTableSortLabel InitialDirection="SortDirection.Descending" SortBy="new Func<GradeModel, object>(x=>x.UpperLimit)">Upper Limit</MudTableSortLabel></MudTh>
+                    <MudTh>Lower Limit</MudTh>
                 </HeaderContent>
                 <RowTemplate>
                     <MudTd DataLabel="Grade">@context.Grade</MudTd>
                     <MudTd DataLabel="Grade">@context.Points</MudTd>
-                    <MudTd DataLabel="PercentageFrom">@context.StartGrade.ToString("F")</MudTd>
-                    <MudTd DataLabel="PercentageTo">@context.EndGrade.ToString("F")</MudTd>
+                    <MudTd DataLabel="PercentageFrom">@context.UpperLimit.ToString("F")</MudTd>
+                    <MudTd DataLabel="PercentageTo">@context.LowerLimit.ToString("F")</MudTd>
                 </RowTemplate>
                 <PagerContent>
                     <MudTablePager />

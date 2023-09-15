@@ -15,6 +15,15 @@
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" />
 
+@if (showSuccessAlert)
+{
+    <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelSuccess</MudAlert>
+}
+@if (showFailAlert)
+{
+    <MudAlert Severity="Severity.Error" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelFail</MudAlert>
+}
+
 <MudDialog @ref="timetableDialog" @bind-IsVisible="visible" Options="dialogOptions">
     <TitleContent>
         <MudText Typo="Typo.h6" Align="Align.Center"><b>Confirm Submission</b></MudText>
@@ -720,7 +729,7 @@
             <MudItem xs="3">
                 <MudCard>
                     <MudCardContent>
-                        <MudAutocomplete T="ClassModel" Label="Form" @bind-Value="SelectedClass" ShowProgressIndicator="true"
+                        <MudAutocomplete @ref="classSelect" T="ClassModel" Label="Form" @bind-Value="SelectedClass" ShowProgressIndicator="true"
                                          SearchFunc="@SelectedClassSearch" ToStringFunc="@(e=> e==null?null : $"{e.Form.Form}{e.Stream.Stream}")" />
                     </MudCardContent>
                 </MudCard>
@@ -728,7 +737,7 @@
             <MudItem xs="3">
                 <MudCard>
                     <MudCardContent>
-                        <MudAutocomplete T="SubjectModel" Label="Subject" @bind-Value="SelectedSubject" ShowProgressIndicator="true"
+                        <MudAutocomplete @ref="subjectSelect" T="SubjectModel" Label="Subject" @bind-Value="SelectedSubject" ShowProgressIndicator="true"
                                          SearchFunc="@SelectedSubjectSearch" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" />
                     </MudCardContent>
                 </MudCard>
@@ -736,7 +745,7 @@
             <MudItem xs="3">
                 <MudCard>
                     <MudCardContent>
-                        <MudAutocomplete T="TimeSlotModel" Label="Timeslot" @bind-Value="SelectedTimeSlot" ShowProgressIndicator="true"
+                        <MudAutocomplete @ref="timeslotSelect" T="TimeSlotModel" Label="Timeslot" @bind-Value="SelectedTimeSlot" ShowProgressIndicator="true"
                                          SearchFunc="@SelectedTimeSlotSearch" ToStringFunc="@(e=> e==null?null : $"{e.TimeSlotString()}")" />
                     </MudCardContent>
                 </MudCard>

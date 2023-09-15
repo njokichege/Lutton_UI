@@ -41,7 +41,7 @@ namespace FimiAppApi.Controllers
             }
 
         }
-        [HttpGet("studentnumber/{studentnumber}")]
+        [HttpGet("{studentnumber}")]
         public async Task<IActionResult> GetStudentByStudentNumber(int studentNumber)
         {
             try
@@ -55,23 +55,20 @@ namespace FimiAppApi.Controllers
             }
         }
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult> CreateStudent([FromBody]StudentModel student)
         {
             try
             {
                 if(student is not null)
                 {
-                    var rowChanged = await _studentRepository.CreateStudent(student);
-                    if (rowChanged == 1)
-                    {
-                        return StatusCode(201,student);
-                    }
-                    else
-                    {
-                        return BadRequest();
-                    }
+                    var studentModel = await _studentRepository.CreateStudent(student);
+                    return CreatedAtAction(nameof(GetStudentByStudentNumber), new { studentNumber = studentModel.StudentNumber }, studentModel);
                 }
-                return BadRequest();
+                else
+                {
+                    return BadRequest();
+                }
             }
             catch (Exception ex)
             {

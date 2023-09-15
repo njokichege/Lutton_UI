@@ -1,4 +1,6 @@
-﻿namespace FimiAppApi.Repository
+﻿using System.Xml;
+
+namespace FimiAppApi.Repository
 {
     public class GradeRepository : IGradeRepository
     {
@@ -8,25 +10,41 @@
         {
             _dapperContext = dapperContext;
         }
+        public async Task<GradeModel> GetGradeById(int gradeId)
+        {
+            string sql = "SELECT * FROM Grade WHERE GradeId = @GradeId;";
+            var parameteres = new DynamicParameters();
+            parameteres.Add("GradeId", gradeId, DbType.Int32);
+            return await _dapperContext.LoadSingleData<GradeModel, dynamic>(sql, parameteres);
+        }
         public async Task<IEnumerable<GradeModel>> GetAllGrades()
         {
             string sql = "SELECT * FROM Grade";
             return await _dapperContext.LoadData<GradeModel, dynamic>(sql, new { });
         }
-        public async Task<int> AddGrades(GradeModel grade)
+        public async Task<GradeModel> AddGrades(GradeModel grade)
         {
             string sql = "INSERT INTO " +
                             "Grade " +
-                                "(Grade,StartGrade,EndGrade) " +
+                                "(Grade,UpperLimit,LowerLimit,Points,Remarks) " +
                             "VALUES " +
-                                "(@Grade,@StartGrade,@EndGrade)";
+                                "(@Grade,@UpperLimit,@LowerLimit,@Points,@Remarks); SELECT LAST_INSERT_ID();";
             var parameters = new DynamicParameters();
             parameters.Add("Grade", grade.Grade, DbType.String);
-            parameters.Add("StartGrade", grade.StartGrade, DbType.Double);
-            parameters.Add("EndGrade", grade.EndGrade, DbType.Double);
+            parameters.Add("UpperLimit", grade.UpperLimit, DbType.Double);
+            parameters.Add("Points", grade.Points);
+            parameters.Add("Remarks", grade.Remarks);
+            parameters.Add("LowerLimit", grade.LowerLimit, DbType.Double);
 
-            var id = await _dapperContext.CreateData<GradeModel, dynamic>(sql, parameters);
-            return id;
+            int id = await _dapperContext.LoadSingleData<int, dynamic>(sql, parameters);
+            var createdModel = new GradeModel
+            {
+                GradeId = id,
+                Grade = grade.Grade,
+                UpperLimit = grade.UpperLimit,
+                LowerLimit = grade.LowerLimit
+            };
+            return createdModel;
         }
     }
 }

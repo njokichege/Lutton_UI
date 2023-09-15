@@ -1,8 +1,9 @@
 ﻿
 namespace FimiAppLibrary.Models
 {
-    public class ParentStudent
+    public class ParentStudentModel
     {
+        public int ParentStudentId { get; set; }
         public int StudentNumber { get; set; }
         public int ParentNationalId { get; set; }
     }

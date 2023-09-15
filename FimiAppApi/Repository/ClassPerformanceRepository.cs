@@ -158,7 +158,7 @@ namespace FimiAppApi.Repository
             TotalPerformance.English = (MidTermPerformance.English + EndTermPerformance.English) / 2;
             foreach (GradeModel grade in Grades)
             {
-                if (TotalPerformance.English >= grade.EndGrade)
+                if (TotalPerformance.English >= grade.LowerLimit)
                 {
                     TotalPerformance.EnglishGrade = grade;
                     break;
@@ -167,7 +167,7 @@ namespace FimiAppApi.Repository
             TotalPerformance.Kiswahili = (MidTermPerformance.Kiswahili + EndTermPerformance.Kiswahili) / 2;
             foreach (GradeModel grade in Grades)
             {
-                if (TotalPerformance.Kiswahili >= grade.EndGrade)
+                if (TotalPerformance.Kiswahili >= grade.LowerLimit)
                 {
                     TotalPerformance.KiswahiliGrade = grade;
                     break;
@@ -176,7 +176,7 @@ namespace FimiAppApi.Repository
             TotalPerformance.Mathematics = (MidTermPerformance.Mathematics + EndTermPerformance.Mathematics) / 2;
             foreach (GradeModel grade in Grades)
             {
-                if (TotalPerformance.Mathematics >= grade.EndGrade)
+                if (TotalPerformance.Mathematics >= grade.LowerLimit)
                 {
                     TotalPerformance.MathematicsGrade = grade;
                     break;
@@ -185,7 +185,7 @@ namespace FimiAppApi.Repository
             TotalPerformance.Physics = (MidTermPerformance.Physics + EndTermPerformance.Physics) / 2;
             foreach (GradeModel grade in Grades)
             {
-                if (TotalPerformance.Physics >= grade.EndGrade)
+                if (TotalPerformance.Physics >= grade.LowerLimit)
                 {
                     TotalPerformance.PhysicsGrade = grade;
                     break;
@@ -194,7 +194,7 @@ namespace FimiAppApi.Repository
             TotalPerformance.Chemistry = (MidTermPerformance.Chemistry + EndTermPerformance.Chemistry) / 2;
             foreach (GradeModel grade in Grades)
             {
-                if (TotalPerformance.Chemistry >= grade.EndGrade)
+                if (TotalPerformance.Chemistry >= grade.LowerLimit)
                 {
                     TotalPerformance.ChemistryGrade = grade;
                     break;
@@ -203,7 +203,7 @@ namespace FimiAppApi.Repository
             TotalPerformance.Biology = (MidTermPerformance.Biology + EndTermPerformance.Biology) / 2;
             foreach (GradeModel grade in Grades)
             {
-                if (TotalPerformance.Biology >= grade.EndGrade)
+                if (TotalPerformance.Biology >= grade.LowerLimit)
                 {
                     TotalPerformance.BiologyGrade = grade;
                     break;
@@ -212,7 +212,7 @@ namespace FimiAppApi.Repository
             TotalPerformance.HistoryAndGoverment = (MidTermPerformance.HistoryAndGoverment + EndTermPerformance.HistoryAndGoverment) / 2;
             foreach (GradeModel grade in Grades)
             {
-                if (TotalPerformance.HistoryAndGoverment >= grade.EndGrade)
+                if (TotalPerformance.HistoryAndGoverment >= grade.LowerLimit)
                 {
                     TotalPerformance.HistoryAndGovermentGrade = grade;
                     break;
@@ -221,7 +221,7 @@ namespace FimiAppApi.Repository
             TotalPerformance.Geography = (MidTermPerformance.Geography + EndTermPerformance.Geography) / 2;
             foreach (GradeModel grade in Grades)
             {
-                if (TotalPerformance.Geography >= grade.EndGrade)
+                if (TotalPerformance.Geography >= grade.LowerLimit)
                 {
                     TotalPerformance.GeographyGrade = grade;
                     break;
@@ -230,7 +230,7 @@ namespace FimiAppApi.Repository
             TotalPerformance.ChristianReligion = (MidTermPerformance.ChristianReligion + EndTermPerformance.ChristianReligion) / 2;
             foreach (GradeModel grade in Grades)
             {
-                if (TotalPerformance.ChristianReligion >= grade.EndGrade)
+                if (TotalPerformance.ChristianReligion >= grade.LowerLimit)
                 {
                     TotalPerformance.ChristianReligionGrade = grade;
                     break;
@@ -239,7 +239,7 @@ namespace FimiAppApi.Repository
             TotalPerformance.HomeScience = (MidTermPerformance.HomeScience + EndTermPerformance.HomeScience) / 2;
             foreach (GradeModel grade in Grades)
             {
-                if (TotalPerformance.HomeScience >= grade.EndGrade)
+                if (TotalPerformance.HomeScience >= grade.LowerLimit)
                 {
                     TotalPerformance.HomeScienceGrade = grade;
                     break;
@@ -248,7 +248,7 @@ namespace FimiAppApi.Repository
             TotalPerformance.Agriculture = (MidTermPerformance.Agriculture + EndTermPerformance.Agriculture) / 2;
             foreach (GradeModel grade in Grades)
             {
-                if (TotalPerformance.Agriculture >= grade.EndGrade)
+                if (TotalPerformance.Agriculture >= grade.LowerLimit)
                 {
                     TotalPerformance.AgricultureGrade = grade;
                     break;
@@ -257,7 +257,7 @@ namespace FimiAppApi.Repository
             TotalPerformance.BusinessStudies = (MidTermPerformance.BusinessStudies + EndTermPerformance.BusinessStudies) / 2;
             foreach (GradeModel grade in Grades)
             {
-                if (TotalPerformance.BusinessStudies >= grade.EndGrade)
+                if (TotalPerformance.BusinessStudies >= grade.LowerLimit)
                 {
                     TotalPerformance.BusinessStudiesGrade = grade;
                     break;

@@ -2,7 +2,8 @@
 {
     public interface IParentStudentRepository
     {
-        Task<int> AddParentStudent(int parentNationalId);
-        Task<StudentModel> GetHighestStudentNumber();
+        Task<ParentStudentModel> AddParentStudent(int parentNationalId);
+        Task<int> GetHighestStudentNumber();
+        Task<ParentStudentModel> GetParentStudentById(int id);
     }
 }

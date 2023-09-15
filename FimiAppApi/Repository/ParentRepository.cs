@@ -1,4 +1,6 @@
-﻿namespace FimiAppApi.Repository
+﻿using System.Xml;
+
+namespace FimiAppApi.Repository
 {
     public class ParentRepository : IParentRepository
     {
@@ -22,12 +24,12 @@
             parameters.Add("NationalId", nationalId);
             return await _dapperContext.LoadSingleData<ParentModel,dynamic>(sql, parameters);
         }
-        public async Task<int> CreateParent(ParentModel parent)
+        public async Task<ParentModel> CreateParent(ParentModel parent)
         {
             string sql = "INSERT INTO Parent " +
                                 "(NationalId,FirstName,MiddleName,Surname,PhoneNumber,Gender) " +
                          "VALUES " +
-                         "(@NationalId,@FirstName,@MiddleName,@Surname,@PhoneNumber,@Gender)";
+                         "(@NationalId,@FirstName,@MiddleName,@Surname,@PhoneNumber,@Gender); SELECT LAST_INSERT_ID();";
             var parameters = new DynamicParameters();
             parameters.Add("NationalId", parent.NationalId, DbType.Int32);
             parameters.Add("FirstName", parent.FirstName, DbType.String);
@@ -36,7 +38,17 @@
             parameters.Add("PhoneNumber", parent.PhoneNumber, DbType.String);
             parameters.Add("Gender", parent.Gender, DbType.String);
 
-            return await _dapperContext.CreateData<ParentModel,dynamic>(sql, parameters);
+            int id = await _dapperContext.LoadSingleData<int, dynamic>(sql, parameters);
+            var createdModel = new ParentModel
+            {
+                NationalId = id,
+                FirstName = parent.FirstName,
+                MiddleName = parent.MiddleName,
+                Surname = parent.Surname,
+                PhoneNumber = parent.PhoneNumber,
+                Gender = parent.Gender
+            };
+            return createdModel;
         }
     }
 }

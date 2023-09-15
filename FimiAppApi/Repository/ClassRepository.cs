@@ -3,6 +3,7 @@ using FimiAppApi.Context;
 using Microsoft.SqlServer.Server;
 using System.Data.SqlClient;
 using System.Security.Claims;
+using System.Xml;
 
 namespace FimiAppApi.Repository
 {
@@ -13,20 +14,28 @@ namespace FimiAppApi.Repository
         {
             _context = context;
         }
-        public async Task<int> CreateClass(ClassModel classModel)
+        public async Task<ClassModel> CreateClass(ClassModel classModel)
         {
             string sql = "INSERT INTO Class" +
                 "(FormId,StreamId,SessionYearId,TeacherId)" +
                 "VALUES" +
-                "(@FormId,@StreamId,@SessionYearId,@TeacherId)"; 
+                "(@FormId,@StreamId,@SessionYearId,@TeacherId); SELECT LAST_INSERT_ID();"; 
             var parameters = new DynamicParameters();
             parameters.Add("FormId", classModel.FormId, DbType.Int32);
             parameters.Add("StreamId", classModel.StreamId, DbType.Int32);
             parameters.Add("SessionYearId", classModel.SessionYearId, DbType.Int32);
             parameters.Add("TeacherId", classModel.TeacherId, DbType.Int32);
 
-            var id = await _context.CreateData<ClassModel,dynamic>(sql, parameters);
-            return id;
+            int id = await _context.LoadSingleData<int, dynamic>(sql, parameters);
+            var createdModel = new ClassModel
+            {
+                ClassId = id,
+                Form = classModel.Form,
+                Stream = classModel.Stream,
+                SessionYear = classModel.SessionYear,
+                Teacher = classModel.Teacher
+            };
+            return createdModel;
         }
         public async Task DeleteClass(int id)
         {

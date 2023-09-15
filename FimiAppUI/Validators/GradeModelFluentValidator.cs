@@ -11,12 +11,12 @@
                 .Matches("[A-Z]").WithMessage("'{PropertyName}' should be a capital letter")
                 .MaximumLength(1).WithMessage("'{PropertyName}' has exceeded the maximum length")
                 .Matches(@"^[A-Za-z\s]*$").WithMessage("'{PropertyName}' should only contain letters");
-            RuleFor(x => x.StartGrade)
+            RuleFor(x => x.UpperLimit)
                 .NotEmpty().WithMessage("'{PropertyName}' is required")
                 .LessThanOrEqualTo(100.00).WithMessage("'{PropertyName}' must be less than or equal to 100")
                 .GreaterThanOrEqualTo(0.00).WithMessage("'{PropertyName}' must be greater than or equal to 0")
                 .NotNull().WithMessage("'{PropertyName}' is required");
-            RuleFor(x => x.EndGrade)
+            RuleFor(x => x.LowerLimit)
                 .NotEmpty().WithMessage("'{PropertyName}' is required")
                 .LessThanOrEqualTo(100.00).WithMessage("'{PropertyName}' must be less than or equal to 100")
                 .GreaterThanOrEqualTo(0.00).WithMessage("'{PropertyName}' must be greater than or equal to 0")
