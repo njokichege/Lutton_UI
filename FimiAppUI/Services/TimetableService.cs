@@ -12,5 +12,9 @@
         {
             return await _httpClient.PostAsJsonAsync<TimetableModel>("api/timetable", timetableModel);
         }
+        public async Task<IEnumerable<TimetableModel>> GetTimetableModels()
+        {
+            return await _httpClient.GetFromJsonAsync<TimetableModel[]>("api/timetable");
+        }
     }
 }

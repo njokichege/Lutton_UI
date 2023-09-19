@@ -11,11 +11,22 @@ namespace FimiAppUI.Pages
         [Inject] public IDialogService DialogService { get; set; }
         [Inject] public ITimetableService TimetableService { get; set; }
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+        public IEnumerable<TeacherSubjectModel> TeacherSubjects { get; set; }
+        public IEnumerable<TimetableModel> TimetableModels { get; set; }
         public ClassModel SelectedClass { get; set; }
         public SubjectModel SelectedSubject { get; set; }
         public TimeSlotModel SelectedTimeSlot { get; set; }
         public TeacherSubjectModel TeacherAndSubject { get; set; }
-        public IEnumerable<TeacherSubjectModel> TeacherSubjects { get; set; }
+        public TimetableModel TM1K800_840 { get; set; }  
+        public TimetableModel TM1K840_920 { get; set; }
+        public TimetableModel TM1K930_1010 { get; set; }
+        public TimetableModel TM1K1010_1050 { get; set; }
+        public TimetableModel TM1K1120_1200 { get; set; }
+        public TimetableModel TM1K1200_1240 { get; set; }
+        public TimetableModel TM1K1240_120 { get; set; }
+        public TimetableModel TM1K200_240 { get; set; }
+        public TimetableModel TM1K240_320 { get; set; }
+        public TimetableModel TM1K320_400 { get; set; }
         public TeacherSubjectModel SelectedTeacherSubjectModel { get; set; }
         public MudDialog timetableDialog;
         public MudAutocomplete<ClassModel> classSelect;
@@ -30,7 +41,17 @@ namespace FimiAppUI.Pages
         public bool visible;
         protected override async Task OnInitializedAsync()
         {
-            base.OnInitializedAsync();
+            TimetableModels = await TimetableService.GetTimetableModels();
+            foreach(var model in TimetableModels)
+            {
+                if (model.ClassModel.Form.Form.Equals("3") && model.ClassModel.Stream.Stream.Equals("K"))
+                {
+                    if (model.TimeSlot.StartTime.Equals("8:00"))
+                    {
+                        TM1K800_840 = model;
+                    }
+                }
+            }
         }
         public async Task<IEnumerable<ClassModel>> SelectedClassSearch(string value)
         {
@@ -62,7 +83,7 @@ namespace FimiAppUI.Pages
             visible = true;
             TeacherAndSubject = tableRowClickEventArgs.Item;
         }
-        public void Cancel() => MudDialog.Cancel();
+        public void Cancel() => visible = false;
         public async Task DialogSubmit()
         {
             visible = false;
@@ -88,6 +109,9 @@ namespace FimiAppUI.Pages
             await timeslotSelect.ResetAsync();
             TeacherSubjects = null;
             isLoading = false;
+            SelectedClass = null;
+            SelectedSubject = null;
+            SelectedTimeSlot = null;
         }
         public void ShowSuccessAlert(string modelType)
         {

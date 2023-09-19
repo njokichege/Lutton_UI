@@ -52,7 +52,7 @@ namespace FimiAppUI.Pages
             var response = await TeacherSubjectService.CreateTeacherSubject(teacherSubjectModel);
             TeacherSubjects = (await TeacherSubjectService.GetMultipleMappingByTeacher(SelectedTeacherOnAssignTeacherTab.TeacherId)).ToList();
             showTeacherSubject = true;
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 ShowSuccessAlert($"{SelectedTeacherOnAssignTeacherTab.Staff.FirstName} {SelectedTeacherOnAssignTeacherTab.Staff.MiddleName} {SelectedTeacherOnAssignTeacherTab.Staff.Surname} has been set to teach {SelectedSubjectOnAssignTeacherTab.SubjectName}");
             }
@@ -71,7 +71,7 @@ namespace FimiAppUI.Pages
         {
             var response = await SubjectService.CreateSubject(NewSubject);
 
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 ShowSuccessAlert($"{NewSubject.SubjectName} added under {NewSubject.SubjectCategory.SubjectCategoryName} subjects");
             }
@@ -79,7 +79,7 @@ namespace FimiAppUI.Pages
             {
                 ShowWarningAlert($"{NewSubject.SubjectName} already exists under {NewSubject.SubjectCategory.SubjectCategoryName} subjects");
             }
-            else if(response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+            else
             {
                 ShowFailAlert($"Failed to add {NewSubject.SubjectName} under {NewSubject.SubjectCategory.SubjectCategoryName} subjects");
             }

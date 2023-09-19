@@ -1,5 +1,6 @@
 ﻿using FimiAppApi.Context;
 using System.Net.Http;
+using System.Xml;
 
 namespace FimiAppApi.Repository
 {
@@ -27,18 +28,31 @@ namespace FimiAppApi.Repository
             string sql = "SELECT* FROM SessionYear";
             return await _dapperContext.LoadData<SessionYearModel, dynamic>(sql, new { });
         }
-        public async Task<int> CreateSessionYear(SessionYearModel sessionYear)
+        public async Task<SessionYearModel> GetSessionYearById(int sessionId)
+        {
+            string sql = "SELECT * FROM SessionYear where SessionYearId = @SessionYearId;";
+            var parameteres = new DynamicParameters();
+            parameteres.Add("SessionYearId", sessionId, DbType.Int32);
+            return await _dapperContext.LoadSingleData<SessionYearModel, dynamic>(sql, parameteres);
+        }
+        public async Task<SessionYearModel> CreateSessionYear(SessionYearModel sessionYear)
         {
             string sql = "INSERT INTO SessionYear" +
                                 "(StartDate, EndDate) " +
                          "VALUES" +
-                                "(@StartDate,@EndDate)";
+                                "(@StartDate,@EndDate); SELECT LAST_INSERT_ID();";
             var parameters = new DynamicParameters();
             parameters.Add("StartDate", sessionYear.StartDate, DbType.DateTime);
             parameters.Add("EndDate", sessionYear.EndDate, DbType.DateTime);
 
-            var id = await _dapperContext.CreateData<SessionYearModel, dynamic>(sql, parameters);
-            return id;
+            int id = await _dapperContext.LoadSingleData<int, dynamic>(sql, parameters);
+            var createdModel = new SessionYearModel
+            {
+                SessionYearId = id,
+                StartDate = sessionYear.StartDate,
+                EndDate = sessionYear.EndDate
+            };
+            return createdModel;
         }
     }
 }

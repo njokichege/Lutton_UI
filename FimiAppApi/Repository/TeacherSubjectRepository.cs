@@ -1,4 +1,6 @@
-﻿namespace FimiAppApi.Repository
+﻿using System.Xml;
+
+namespace FimiAppApi.Repository
 {
     public class TeacherSubjectRepository : ITeacherSubjectRepository
     {
@@ -7,6 +9,18 @@
         public TeacherSubjectRepository(DapperContext dapperContext)
         {
             _dapperContext = dapperContext;
+        }
+        public async Task<TeacherSubjectModel> GetTeacherSubjectById(int id)
+        {
+            string sql = "SELECT * FROM TeacherSubject where TeacherSubjectId = @TeacherSubjectId;";
+            var parameteres = new DynamicParameters();
+            parameteres.Add("TeacherSubjectId", id, DbType.Int32);
+            return await _dapperContext.LoadSingleData<TeacherSubjectModel, dynamic>(sql, parameteres);
+        }
+        public async Task<int> GetLastTeacher()
+        {
+            string sql = "SELECT  MAX(TeacherId) from Teacher;";
+            return await _dapperContext.LoadSingleData<int, dynamic>(sql, new {});
         }
         public async Task<TeacherSubjectModel> GetTeacherSubject(int teacherId, int subjectCode)
         {
@@ -21,31 +35,43 @@
             parameteres.Add("Code", subjectCode);
             return await _dapperContext.LoadSingleData<TeacherSubjectModel, dynamic>(sql, parameteres);
         }
-        public async Task<int> CreateTeacherSubject(int teacherId, int subjectCode)
+        public async Task<TeacherSubjectModel> CreateTeacherSubject(int teacherId, int subjectCode)
         {
             string sql = "INSERT INTO TeacherSubject " +
                                 "(TeacherId,Code) " +
-                         "VALUES(@TeacherId,@Code)";
+                         "VALUES(@TeacherId,@Code); SELECT LAST_INSERT_ID();";
             var parameters = new DynamicParameters();
             parameters.Add("TeacherId", teacherId, DbType.Int32);
             parameters.Add("Code", subjectCode, DbType.Int32);
 
-            var id = await _dapperContext.CreateData<TeacherSubjectModel, dynamic>(sql, parameters);
-            return id;
+            int id = await _dapperContext.LoadSingleData<int, dynamic>(sql, parameters);
+            var createdModel = new TeacherSubjectModel
+            {
+                TeacherSubjectId = id,
+                TeacherId = teacherId,
+                Code = subjectCode
+            };
+            return createdModel;
         }
-        public async Task<int> AddTeacherSubjectWithoutTeacherId(int subjectCode)
+        public async Task<TeacherSubjectModel> AddTeacherSubjectWithoutTeacherId(int subjectCode)
         {
-            string sql = "DECLARE @stnum INT; " +
-                         "SELECT @stnum = MAX(TeacherId) FROM Teacher " +
-                         "INSERT INTO TeacherSubject " +
+            int lastTeacherId = await GetLastTeacher();
+            string sql = "INSERT INTO TeacherSubject " +
                             "(TeacherId,Code) " +
                          "VALUES    " +
-                            "(@stnum,@Code)";
+                            "(@TeacherId,@Code)";
             var parameters = new DynamicParameters();
             parameters.Add("Code", subjectCode, DbType.Int32);
+            parameters.Add("TeacherId", lastTeacherId, DbType.Int32);
 
-            var id = await _dapperContext.CreateData<TeacherSubjectModel, dynamic>(sql, parameters);
-            return id;
+            int id = await _dapperContext.LoadSingleData<int, dynamic>(sql, parameters);
+            var createdModel = new TeacherSubjectModel
+            {
+                TeacherSubjectId = id,
+                TeacherId = lastTeacherId,
+                Code = subjectCode
+            };
+            return createdModel;
         }
         public async Task<IEnumerable<TeacherSubjectModel>> GetSubjectsMultipleMapping()
         {

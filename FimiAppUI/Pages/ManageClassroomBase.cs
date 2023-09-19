@@ -145,14 +145,18 @@ namespace FimiAppUI.Pages
                 EndDate = (DateTime)endDate
             };
             var response = await SessionYearService.CreateSessionYear(sessionYear).ConfigureAwait(false);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
-                ShowSuccessAlert($"School year : {startDate} - {endDate} has been created");
+                ShowSuccessAlert($"School year : {startDate.Value.ToShortDateString()} - {endDate.Value.ToShortDateString()} has been created");
             }
             else if(response.StatusCode == System.Net.HttpStatusCode.Conflict)
             {
 
-                ShowFailAlert($"School year : {startDate} - {endDate} already exists");
+                ShowFailAlert($"School year : {startDate.Value.ToShortDateString()} - {endDate.Value.ToShortDateString()} already exists");
+            }
+            else
+            {
+                ShowFailAlert("Failed to add new session!");
             }
             SessionYears = (await SessionYearService.GetSessionYears()).ToList();
         }

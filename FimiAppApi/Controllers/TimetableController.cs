@@ -26,7 +26,20 @@ namespace FimiAppApi.Controllers
                 await Console.Out.WriteLineAsync(ex.Message);
                 return StatusCode(500, ex.Message);
             }
-
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetTimetableModels()
+        {
+            try
+            {
+                var times = await _timetableRepository.GetTimetableModels();
+                return Ok(times);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]

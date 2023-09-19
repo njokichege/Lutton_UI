@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FimiAppLibrary.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FimiAppApi.Controllers
 {
@@ -12,16 +13,33 @@ namespace FimiAppApi.Controllers
         {
             _staffRepository = staffRepository;
         }
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetStaffById(int id)
+        {
+            try
+            {
+                var staff = await _staffRepository.GetStaffById(id);
+                return Ok(staff);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+
+        }
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> AddStaff(StaffModel staff)
         {
             try
             {
-                var dbStaffExists = await _staffRepository.GetStaff(staff.NationalId);
+                var dbStaffExists = await _staffRepository.GetStaffById(staff.NationalId);
                 if (dbStaffExists is null)
                 {
                     var createdStaff = await _staffRepository.AddStaff(staff);
-                    return Ok(createdStaff);
+                    return CreatedAtAction(nameof(GetStaffById), new { id = createdStaff.NationalId }, createdStaff);
                 }
                 else
                 {
@@ -32,7 +50,6 @@ namespace FimiAppApi.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
-
         }
     }
 }

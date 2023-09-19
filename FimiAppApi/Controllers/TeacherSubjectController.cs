@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FimiAppLibrary.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FimiAppApi.Controllers
 {
@@ -12,7 +13,23 @@ namespace FimiAppApi.Controllers
         {
             _teacherSubjectRepository = teacherSubjectRepository;
         }
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetTeacherSubjectById(int id)
+        {
+            try
+            {
+                var teacherSubject = await _teacherSubjectRepository.GetTeacherSubjectById(id);
+                return Ok(teacherSubject);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+        }
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateTeacherSubject(TeacherSubjectModel teacherSubjectModel)
         {
             if (teacherSubjectModel.TeacherId == 0)
@@ -20,7 +37,7 @@ namespace FimiAppApi.Controllers
                 try
                 {
                     var createdTeacherSubject = await _teacherSubjectRepository.AddTeacherSubjectWithoutTeacherId(teacherSubjectModel.Code);
-                    return Ok(createdTeacherSubject);
+                    return CreatedAtAction(nameof(GetTeacherSubjectById), new { id = teacherSubjectModel.TeacherSubjectId}, teacherSubjectModel);
                 }
                 catch (Exception ex)
                 {
@@ -33,7 +50,7 @@ namespace FimiAppApi.Controllers
                 if (dbClassExists is null)
                 {
                     var createdTeacherSubject = await _teacherSubjectRepository.CreateTeacherSubject(teacherSubjectModel.TeacherId, teacherSubjectModel.Code);
-                    return Ok(createdTeacherSubject);
+                    return CreatedAtAction(nameof(GetTeacherSubjectById), new { id = createdTeacherSubject.TeacherSubjectId}, createdTeacherSubject);
                 }
                 else
                 {
@@ -44,7 +61,6 @@ namespace FimiAppApi.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
-
         }
         [HttpGet("multiplemapping")]
         public async Task<IActionResult> GetMultipleMapping()

@@ -38,15 +38,6 @@ namespace FimiAppApi.Context
                 return data;
             }
         }
-        public async Task<int> CreateData<T,U>(string sql, DynamicParameters parameters)
-        {
-            string connectionString = _config.GetConnectionString(ConnecctionStringName);
-            using (IDbConnection connection = new MySqlConnection(connectionString))
-            {
-                var data = await connection.ExecuteAsync(sql, parameters);
-                return data;
-            }
-        }
         public async Task UpdateData<T, U>(string sql, U parameters)
         {
             string connectionString = _config.GetConnectionString(ConnecctionStringName);

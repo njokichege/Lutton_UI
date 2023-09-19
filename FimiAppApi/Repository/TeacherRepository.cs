@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Xml;
 using static Slapper.AutoMapper;
 
 namespace FimiAppApi.Repository
@@ -16,26 +17,34 @@ namespace FimiAppApi.Repository
             string sql = "SELECT* FROM Teacher";
             return await _dapperContext.LoadData<TeacherModel, dynamic>(sql, new { });
         }
-        public async Task<TeacherModel> GetTeacher(int nationalId)
+        public async Task<TeacherModel> GetTeacherById(int nationalId)
         {
             string sql = "SELECT\r\n    *\r\nFROM Teacher\r\nWHERE\r\n    Teacher.NationalId = @NationalId";
             var parameteres = new DynamicParameters();
             parameteres.Add("NationalId", nationalId, DbType.Int32);
             return await _dapperContext.LoadSingleData<TeacherModel, dynamic>(sql, parameteres);
         }
-        public async Task<int> AddTeacher(TeacherModel teacher)
+        public async Task<TeacherModel> AddTeacher(TeacherModel teacher)
         {
             string sql = "INSERT INTO " +
                             "Teacher " +
                                 "(TeacherType,TSCNumber,NationalId) " +
                             "VALUES " +
-                                "(@TeacherType,@TSCNumber,@NationalId)";
+                                "(@TeacherType,@TSCNumber,@NationalId); SELECT LAST_INSERT_ID();";
             var parameters = new DynamicParameters();
             parameters.Add("TeacherType", teacher.TeacherType, DbType.String);
             parameters.Add("TSCNumber", teacher.TSCNumber, DbType.String);
             parameters.Add("NationalId", teacher.Staff.NationalId, DbType.Int32);
 
-            return await _dapperContext.CreateData<TeacherModel, dynamic>(sql, parameters);
+            int id = await _dapperContext.LoadSingleData<int, dynamic>(sql, parameters);
+            var createdModel = new TeacherModel
+            {
+                TeacherId = id,
+                TeacherType = teacher.TeacherType,
+                TSCNumber = teacher.TSCNumber,
+                NationalId = teacher.NationalId,
+            };
+            return createdModel;
         }
         public async Task<IEnumerable<TeacherModel>> MapStaffOnTeacher()
         {

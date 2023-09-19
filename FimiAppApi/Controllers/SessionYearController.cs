@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FimiAppLibrary.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FimiAppApi.Controllers
@@ -8,13 +9,27 @@ namespace FimiAppApi.Controllers
     public class SessionYearController : ControllerBase
     {
         private readonly ISessionYearRepository _sessionYearRepository;
-
         public SessionYearController(ISessionYearRepository sessionYearRepository)
         {
             _sessionYearRepository = sessionYearRepository;
         }
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetSessionYearById(int id)
+        {
+            try
+            {
+                var session = await _sessionYearRepository.GetSessionYearById(id);
+                return Ok(session);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
 
-        [HttpGet("{id}", Name = "SessionYearByDates")]
+        }
+        [HttpGet("SessionYearByDates")]
         public async Task<IActionResult> GetSessionYearByDates(SessionYearModel sessionYear)
         {
             try
@@ -48,6 +63,7 @@ namespace FimiAppApi.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateSessionYear(int id, [FromBody] SessionYearModel sessionYear)
         {
             try
@@ -59,8 +75,8 @@ namespace FimiAppApi.Controllers
                     {
                         return BadRequest();
                     }
-                    var createdSession = await _sessionYearRepository.CreateSessionYear(sessionYear);
-                    return Ok(createdSession);
+                    var timetableEntry = await _sessionYearRepository.CreateSessionYear(sessionYear);
+                    return CreatedAtAction(nameof(GetSessionYearById), new { id = sessionYear.SessionYearId }, sessionYear);
                 }
                 else
                 {

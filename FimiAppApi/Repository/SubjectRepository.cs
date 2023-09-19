@@ -1,4 +1,5 @@
 ﻿using FimiAppLibrary.Models;
+using System.Xml;
 
 namespace FimiAppApi.Repository
 {
@@ -15,7 +16,7 @@ namespace FimiAppApi.Repository
             string sql = "SELECT* FROM Subjects";
             return await _dapperContext.LoadData<SubjectModel, dynamic>(sql, new { });
         }
-        public async Task<SubjectModel> GetSubject(int code)
+        public async Task<SubjectModel> GetSubjectId(int code)
         {
             string sql = "SELECT * " +
                             "FROM Subjects " +
@@ -24,19 +25,25 @@ namespace FimiAppApi.Repository
             parameteres.Add("Code", code, DbType.Int32);
             return await _dapperContext.LoadSingleData<SubjectModel, dynamic>(sql, parameteres);
         }
-        public async Task<int> CreateSubject(int code, string name, int category)
+        public async Task<SubjectModel> CreateSubject(int code, string name, int category)
         {
             string sql = "INSERT INTO Subjects " +
                                 "(Code,SubjectName,SubjectCategoryId) " +
                          "VALUES " +
-                                "(@Code,@SubjectName,@SubjectCategoryId)";
+                                "(@Code,@SubjectName,@SubjectCategoryId); SELECT LAST_INSERT_ID();";
             var parameters = new DynamicParameters();
             parameters.Add("Code", code, DbType.Int32);
             parameters.Add("SubjectName", name, DbType.String);
             parameters.Add("SubjectCategoryId", category, DbType.Int32);
 
-            var id = await _dapperContext.CreateData<ClassModel, dynamic>(sql, parameters);
-            return id;
+            int id = await _dapperContext.LoadSingleData<int, dynamic>(sql, parameters);
+            var createdModel = new SubjectModel
+            {
+                Code = id,
+                SubjectName = name,
+                SubjectCategoryId = category,
+            };
+            return createdModel;
         }
         public async Task<IEnumerable<SubjectModel>> MapSubjectOnCategory()
         {

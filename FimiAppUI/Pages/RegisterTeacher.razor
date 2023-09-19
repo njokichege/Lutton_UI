@@ -31,7 +31,7 @@
         <MudText Typo="Typo.h6"><b>Confirm Registration</b></MudText>
     </TitleContent>
     <DialogContent>
-        <MudText>@Staff.FirstName @Staff.MiddleName @Staff.Surname</MudText>
+        <MudText>Name : @Staff.FirstName @Staff.MiddleName @Staff.Surname</MudText>
         <MudText>NationalId : @Staff.NationalId</MudText>
         <MudText>Teacher Type : @Teacher.TeacherType</MudText>
         <MudText>TSC Number : @Teacher.TSCNumber</MudText>
@@ -66,13 +66,13 @@
     </MudItem>
     <MudItem xs="6">
         <MudPaper Class="pa-4">
-            <MudForm Model="@Teacher" @ref="@registerTeacherForm" Validation="@(TeacherValidator.ValidateValue)" ValidationDelay="0">
+            <MudForm Model="@Teacher" @ref="@registerTeacherForm" ValidationDelay="0">
                 <MudText Align="Align.Center" Typo="Typo.h6"><b>Teacher Details</b></MudText>
                 <MudSelect For="@(() => Teacher.TeacherType)" @bind-Value="Teacher.TeacherType" T="string" Label="Teacher Type" AnchorOrigin="Origin.BottomCenter">
                     <MudSelectItem Value="@("Board Of Governors")" />
                     <MudSelectItem Value="@("Teachers Service Commission")" />
                 </MudSelect>
-                <MudTextField Immediate="true" @bind-Value="Teacher.TSCNumber" For="@(() => Teacher.TSCNumber)" Label="TSC Number" Variant="Variant.Outlined" />
+                <MudTextField Immediate="true" @bind-Value="Teacher.TSCNumber" Label="TSC Number" Variant="Variant.Outlined" />
             </MudForm>
         </MudPaper>
         <MudPaper Class="pa-4 mt-4">

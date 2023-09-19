@@ -2,7 +2,7 @@
 {
     public interface IStaffRepository
     {
-        Task<int> AddStaff(StaffModel staff);
-        Task<StaffModel> GetStaff(int nationalId);
+        Task<StaffModel> AddStaff(StaffModel staff);
+        Task<StaffModel> GetStaffById(int nationalId);
     }
 }

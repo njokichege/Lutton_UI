@@ -11,7 +11,6 @@ namespace FimiAppUI.Pages
         [Inject] public ITeacherService TeacherService { get; set; }
         [Inject] public ITeacherSubjectService TeacherSubjectService { get; set; }
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
-        public TeacherModelFluentValidator TeacherValidator { get; set; } = new TeacherModelFluentValidator();
         public StaffModelFluentValidator StaffValidator { get; set; } = new StaffModelFluentValidator();
         public TeacherModel Teacher { get; set; } = new TeacherModel();
         public StaffModel Staff { get; set; } = new StaffModel();
@@ -50,6 +49,7 @@ namespace FimiAppUI.Pages
             await registerTeacherForm.Validate();
             if (registerStaffForm.IsValid && registerTeacherForm.IsValid)
             {
+                Staff.Designation = "Teacher";
                 var staffResponse = await StaffService.AddStaff(Staff);
                 Teacher.Staff = Staff;
                 var teacherResponse = await TeacherService.AddTeacher(Teacher);
@@ -64,7 +64,7 @@ namespace FimiAppUI.Pages
                 var firstSubjectResponse = await TeacherSubjectService.CreateTeacherSubject(firstTeacherSubject);
                 var secondSubjectResponse = await TeacherSubjectService.CreateTeacherSubject(secondTeacherSubject);
 
-                if (staffResponse.StatusCode == HttpStatusCode.OK && teacherResponse.StatusCode == HttpStatusCode.OK && firstSubjectResponse.StatusCode == HttpStatusCode.OK && secondSubjectResponse.StatusCode == HttpStatusCode.OK)
+                if (staffResponse.StatusCode == HttpStatusCode.Created && teacherResponse.StatusCode == HttpStatusCode.Created && firstSubjectResponse.StatusCode == HttpStatusCode.Created && secondSubjectResponse.StatusCode == HttpStatusCode.Created)
                 {
                     ShowSuccessAlert($"{Teacher.Staff.FirstName} {Teacher.Staff.MiddleName} {Teacher.Staff.Surname} has been added");
                 }
@@ -77,9 +77,11 @@ namespace FimiAppUI.Pages
                     ShowFailAlert($"Failed to add {Teacher.Staff.FirstName} {Teacher.Staff.MiddleName} {Teacher.Staff.Surname} as a teacher");
                 }
             }
-            registerStaffForm.ResetAsync();
-            registerTeacherForm.ResetAsync();
-            registerTeacherSubjectsForm.ResetAsync();
+            await registerStaffForm.ResetAsync();
+            await registerTeacherForm.ResetAsync();
+            await registerTeacherSubjectsForm.ResetAsync();
+            FirstSubjectSpecialization = null;
+            SecondSubjectSpecialization = null;
         }
         public void Cancel() => MudDialog.Cancel();
         public void ShowSuccessAlert(string modelType)

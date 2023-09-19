@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FimiAppLibrary.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FimiAppApi.Controllers
@@ -20,6 +21,22 @@ namespace FimiAppApi.Controllers
             {
                 var teachers = await _teacherRepository.GetTeachers();
                 return Ok(teachers);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetTeacherById(int nationalId)
+        {
+            try
+            {
+                var teacher = await _teacherRepository.GetTeacherById(nationalId);
+                return Ok(teacher);
             }
             catch (Exception ex)
             {
@@ -59,15 +76,16 @@ namespace FimiAppApi.Controllers
 
         }
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> AddTeacher(TeacherModel teacher)
         {
             try
             {
-                var dbTeacherExists = await _teacherRepository.GetTeacher(teacher.Staff.NationalId);
+                var dbTeacherExists = await _teacherRepository.GetTeacherById(teacher.Staff.NationalId);
                 if (dbTeacherExists is null)
                 {
-                    var createdTeacher = await _teacherRepository.AddTeacher(teacher);
-                    return Ok(createdTeacher);
+                    var teacherEntry = await _teacherRepository.AddTeacher(teacher);
+                    return CreatedAtAction(nameof(GetTeacherById), new { id = teacherEntry.TeacherId}, teacherEntry);
                 }
                 else
                 {
@@ -78,7 +96,6 @@ namespace FimiAppApi.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
-
         }
     }
 }

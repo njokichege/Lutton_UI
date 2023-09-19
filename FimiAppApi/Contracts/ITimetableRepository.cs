@@ -4,5 +4,6 @@
     {
         Task<TimetableModel> AddTimetableEntry(TimetableModel timetable);
         Task<TimetableModel> GetTimetableEntryById(int timetableId);
+        Task<IEnumerable<TimetableModel>> GetTimetableModels();
     }
 }
