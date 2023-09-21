@@ -42,6 +42,11 @@
 
 <MudTabs Elevation="2" ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
     <MudTabPanel Text="Overall Timetable">
+        <MudGrid Class="d-flex px-4 mt-2 mb-2 align-left">
+            <MudItem xs="3">
+                <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@GenerateTimetable" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Generate Timetable</MudButton>
+            </MudItem>
+        </MudGrid>
         @if (TimetableModels is null)
         {
             <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true"/>
@@ -74,658 +79,3460 @@
                     </tr>
                     <tr>
                         <th>1K</th>
-                        @if (TM1K800_840 is null){<td></td>}else{<td>@TM1K800_840.Subject.SubjectName @TM1K800_840.Teacher.Initials()</td>}
-                        @if(TM1K840_920 is null){<td></td>}else{<td>@TM1K840_920.Subject.SubjectName @TM1K840_920.Teacher.Initials()</td>}
+                        @if (TM1K800_840_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K800_840_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K800_840_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K840_920_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K840_920_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K840_920_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K930_1010_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K930_1010_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K930_1010_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K1010_1050_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1010_1050_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1010_1050_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K1120_1200_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1120_1200_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1120_1200_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K1200_1240_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1200_1240_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1200_1240_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K1240_120_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1240_120_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1240_120_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K200_240_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K200_240_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K200_240_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K240_320_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K240_320_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K240_320_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K320_400_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K320_400_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K320_400_Monday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>1W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W800_840_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W800_840_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W800_840_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W840_920_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W840_920_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W840_920_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W930_1010_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W930_1010_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W930_1010_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W1010_1050_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1010_1050_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1010_1050_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W1120_1200_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1120_1200_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1120_1200_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W1200_1240_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1200_1240_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1200_1240_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W1240_120_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1240_120_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1240_120_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W200_240_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W200_240_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W200_240_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W240_320_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W240_320_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W240_320_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W320_400_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W320_400_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W320_400_Monday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>2K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K800_840_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K800_840_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K800_840_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K840_920_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K840_920_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K840_920_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K930_1010_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K930_1010_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K930_1010_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K1010_1050_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1010_1050_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1010_1050_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K1120_1200_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1120_1200_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1120_1200_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K1200_1240_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1200_1240_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1200_1240_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K1240_120_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1240_120_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1240_120_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K200_240_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K200_240_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K200_240_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K240_320_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K240_320_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K240_320_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K320_400_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K320_400_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K320_400_Monday.Teacher.Initials()</sub></td>
+                        }
 
                     </tr>
                     <tr>
                         <th>2W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W800_840_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W800_840_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W800_840_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W840_920_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W840_920_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W840_920_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W930_1010_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W930_1010_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W930_1010_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W1010_1050_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1010_1050_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1010_1050_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W1120_1200_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1120_1200_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1120_1200_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W1200_1240_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1200_1240_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1200_1240_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W1240_120_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1240_120_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1240_120_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
+                        @if (TM2W200_240_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W200_240_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W200_240_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W240_320_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W240_320_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W240_320_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W320_400_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W320_400_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W320_400_Monday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>3K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K800_840_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K800_840_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K800_840_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K840_920_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K840_920_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K840_920_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K930_1010_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K930_1010_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K930_1010_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K1010_1050_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1010_1050_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1010_1050_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K1120_1200_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1120_1200_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1120_1200_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K1200_1240_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1200_1240_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1200_1240_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K1240_120_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1240_120_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1240_120_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K200_240_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K200_240_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K200_240_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K240_320_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K240_320_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K240_320_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K320_400_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K320_400_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K320_400_Monday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>3W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W800_840_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W800_840_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W800_840_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W840_920_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W840_920_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W840_920_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W930_1010_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W930_1010_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W930_1010_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W1010_1050_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1010_1050_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1010_1050_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W1120_1200_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1120_1200_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1120_1200_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W1200_1240_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1200_1240_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1200_1240_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W1240_120_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1240_120_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1240_120_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
+                        @if (TM3W200_240_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W200_240_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W200_240_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W240_320_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W240_320_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W240_320_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W320_400_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W320_400_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W320_400_Monday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>4K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K800_840_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K800_840_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K800_840_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K840_920_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K840_920_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K840_920_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K930_1010_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K930_1010_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K930_1010_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K1010_1050_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1010_1050_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1010_1050_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K1120_1200_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1120_1200_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1120_1200_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K1200_1240_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1200_1240_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1200_1240_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K1240_120_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1240_120_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1240_120_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K200_240_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K200_240_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K200_240_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K240_320_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K240_320_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K240_320_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K320_400_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K320_400_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K320_400_Monday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>4W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W800_840_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W800_840_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W800_840_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W840_920_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W840_920_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W840_920_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W930_1010_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W930_1010_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W930_1010_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W1010_1050_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1010_1050_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1010_1050_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W1120_1200_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1120_1200_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1120_1200_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W1200_1240_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1200_1240_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1200_1240_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W1240_120_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1240_120_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1240_120_Monday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W200_240_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W200_240_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W200_240_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W240_320_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W240_320_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W240_320_Monday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W320_400_Monday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W320_400_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W320_400_Monday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th rowspan="9">TUESDAY</th>
                     </tr>
                     <tr>
                         <th>1K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K800_840_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K800_840_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K800_840_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K840_920_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K840_920_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K840_920_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K930_1010_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K930_1010_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K930_1010_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K1010_1050_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1010_1050_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1010_1050_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K1120_1200_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1120_1200_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1120_1200_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K1200_1240_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1200_1240_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1200_1240_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K1240_120_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1240_120_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1240_120_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K200_240_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K200_240_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K200_240_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K240_320_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K240_320_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K240_320_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K320_400_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K320_400_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K320_400_Tuesday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>1W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W800_840_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W800_840_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W800_840_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W840_920_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W840_920_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W840_920_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W930_1010_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W930_1010_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W930_1010_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W1010_1050_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1010_1050_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1010_1050_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W1120_1200_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1120_1200_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1120_1200_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W1200_1240_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1200_1240_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1200_1240_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W1240_120_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1240_120_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1240_120_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W200_240_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W200_240_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W200_240_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W240_320_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W240_320_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W240_320_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W320_400_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W320_400_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W320_400_Tuesday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>2K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K800_840_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K800_840_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K800_840_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K840_920_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K840_920_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K840_920_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K930_1010_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K930_1010_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K930_1010_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K1010_1050_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1010_1050_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1010_1050_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K1120_1200_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1120_1200_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1120_1200_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K1200_1240_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1200_1240_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1200_1240_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K1240_120_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1240_120_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1240_120_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K200_240_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K200_240_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K200_240_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K240_320_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K240_320_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K240_320_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K320_400_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K320_400_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K320_400_Tuesday.Teacher.Initials()</sub></td>
+                        }
+
                     </tr>
                     <tr>
                         <th>2W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W800_840_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W800_840_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W800_840_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W840_920_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W840_920_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W840_920_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W930_1010_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W930_1010_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W930_1010_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W1010_1050_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1010_1050_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1010_1050_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W1120_1200_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1120_1200_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1120_1200_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W1200_1240_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1200_1240_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1200_1240_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W1240_120_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1240_120_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1240_120_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W200_240_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W200_240_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W200_240_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W240_320_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W240_320_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W240_320_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W320_400_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W320_400_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W320_400_Tuesday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>3K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K800_840_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K800_840_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K800_840_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K840_920_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K840_920_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K840_920_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K930_1010_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K930_1010_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K930_1010_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K1010_1050_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1010_1050_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1010_1050_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K1120_1200_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1120_1200_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1120_1200_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K1200_1240_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1200_1240_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1200_1240_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K1240_120_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1240_120_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1240_120_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K200_240_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K200_240_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K200_240_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K240_320_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K240_320_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K240_320_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K320_400_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K320_400_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K320_400_Tuesday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>3W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W800_840_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W800_840_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W800_840_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W840_920_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W840_920_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W840_920_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W930_1010_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W930_1010_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W930_1010_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W1010_1050_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1010_1050_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1010_1050_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W1120_1200_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1120_1200_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1120_1200_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W1200_1240_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1200_1240_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1200_1240_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W1240_120_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1240_120_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1240_120_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W200_240_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W200_240_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W200_240_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W240_320_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W240_320_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W240_320_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W320_400_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W320_400_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W320_400_Tuesday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>4K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K800_840_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K800_840_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K800_840_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K840_920_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K840_920_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K840_920_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K930_1010_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K930_1010_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K930_1010_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K1010_1050_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1010_1050_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1010_1050_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K1120_1200_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1120_1200_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1120_1200_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K1200_1240_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1200_1240_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1200_1240_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K1240_120_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1240_120_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1240_120_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K200_240_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K200_240_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K200_240_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K240_320_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K240_320_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K240_320_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K320_400_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K320_400_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K320_400_Tuesday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>4W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W800_840_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W800_840_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W800_840_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W840_920_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W840_920_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W840_920_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W930_1010_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W930_1010_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W930_1010_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W1010_1050_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1010_1050_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1010_1050_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W1120_1200_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1120_1200_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1120_1200_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W1200_1240_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1200_1240_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1200_1240_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W1240_120_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1240_120_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1240_120_Tuesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W200_240_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W200_240_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W200_240_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W240_320_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W240_320_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W240_320_Tuesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W320_400_Tuesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W320_400_Tuesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W320_400_Tuesday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th rowspan="9">WEDNESDAY</th>
                     </tr>
                     <tr>
                         <th>1K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K800_840_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K800_840_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K800_840_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K840_920_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K840_920_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K840_920_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K930_1010_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K930_1010_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K930_1010_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K1010_1050_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1010_1050_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1010_1050_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K1120_1200_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1120_1200_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1120_1200_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K1200_1240_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1200_1240_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1200_1240_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K1240_120_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1240_120_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1240_120_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K200_240_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K200_240_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K200_240_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K240_320_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K240_320_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K240_320_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K320_400_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K320_400_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K320_400_Wednesday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>1W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W800_840_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W800_840_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W800_840_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W840_920_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W840_920_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W840_920_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W930_1010_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W930_1010_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W930_1010_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W1010_1050_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1010_1050_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1010_1050_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W1120_1200_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1120_1200_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1120_1200_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W1200_1240_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1200_1240_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1200_1240_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W1240_120_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1240_120_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1240_120_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W200_240_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W200_240_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W200_240_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W240_320_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W240_320_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W240_320_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W320_400_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W320_400_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W320_400_Wednesday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>2K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K800_840_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K800_840_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K800_840_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K840_920_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K840_920_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K840_920_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K930_1010_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K930_1010_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K930_1010_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K1010_1050_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1010_1050_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1010_1050_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K1120_1200_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1120_1200_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1120_1200_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K1200_1240_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1200_1240_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1200_1240_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K1240_120_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1240_120_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1240_120_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K200_240_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K200_240_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K200_240_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K240_320_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K240_320_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K240_320_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K320_400_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K320_400_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K320_400_Wednesday.Teacher.Initials()</sub></td>
+                        }
+
                     </tr>
                     <tr>
                         <th>2W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W800_840_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W800_840_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W800_840_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W840_920_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W840_920_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W840_920_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W930_1010_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W930_1010_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W930_1010_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W1010_1050_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1010_1050_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1010_1050_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W1120_1200_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1120_1200_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1120_1200_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W1200_1240_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1200_1240_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1200_1240_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W1240_120_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1240_120_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1240_120_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W200_240_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W200_240_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W200_240_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W240_320_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W240_320_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W240_320_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W320_400_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W320_400_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W320_400_Wednesday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>3K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K800_840_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K800_840_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K800_840_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K840_920_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K840_920_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K840_920_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K930_1010_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K930_1010_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K930_1010_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K1010_1050_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1010_1050_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1010_1050_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K1120_1200_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1120_1200_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1120_1200_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K1200_1240_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1200_1240_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1200_1240_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K1240_120_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1240_120_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1240_120_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K200_240_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K200_240_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K200_240_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K240_320_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K240_320_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K240_320_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K320_400_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K320_400_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K320_400_Wednesday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>3W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W800_840_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W800_840_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W800_840_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W840_920_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W840_920_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W840_920_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W930_1010_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W930_1010_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W930_1010_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W1010_1050_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1010_1050_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1010_1050_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W1120_1200_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1120_1200_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1120_1200_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W1200_1240_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1200_1240_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1200_1240_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W1240_120_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1240_120_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1240_120_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W200_240_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W200_240_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W200_240_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W240_320_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W240_320_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W240_320_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W320_400_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W320_400_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W320_400_Wednesday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>4K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K800_840_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K800_840_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K800_840_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K840_920_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K840_920_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K840_920_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K930_1010_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K930_1010_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K930_1010_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K1010_1050_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1010_1050_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1010_1050_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K1120_1200_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1120_1200_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1120_1200_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K1200_1240_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1200_1240_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1200_1240_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K1240_120_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1240_120_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1240_120_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K200_240_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K200_240_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K200_240_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K240_320_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K240_320_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K240_320_Wednesday .Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K320_400_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K320_400_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K320_400_Wednesday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>4W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W800_840_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W800_840_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W800_840_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W840_920_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W840_920_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W840_920_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W930_1010_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W930_1010_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W930_1010_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W1010_1050_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1010_1050_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1010_1050_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W1120_1200_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1120_1200_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1120_1200_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W1200_1240_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1200_1240_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1200_1240_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W1240_120_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1240_120_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1240_120_Wednesday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W200_240_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W200_240_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W200_240_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W240_320_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W240_320_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W240_320_Wednesday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W320_400_Wednesday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W320_400_Wednesday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W320_400_Wednesday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th rowspan="9">THURSDAY</th>
                     </tr>
                     <tr>
                         <th>1K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K800_840_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K800_840_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K800_840_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K840_920_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K840_920_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K840_920_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K930_1010_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K930_1010_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K930_1010_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K1010_1050_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1010_1050_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1010_1050_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K1120_1200_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1120_1200_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1120_1200_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K1200_1240_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1200_1240_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1200_1240_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K1240_120_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1240_120_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1240_120_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K200_240_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K200_240_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K200_240_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K240_320_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K240_320_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K240_320_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K320_400_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K320_400_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K320_400_Thursday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>1W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W800_840_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W800_840_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W800_840_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W840_920_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W840_920_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W840_920_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W930_1010_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W930_1010_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W930_1010_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W1010_1050_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1010_1050_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1010_1050_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W1120_1200_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1120_1200_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1120_1200_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W1200_1240_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1200_1240_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1200_1240_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W1240_120_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1240_120_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1240_120_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W200_240_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W200_240_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W200_240_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W240_320_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W240_320_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W240_320_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W320_400_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W320_400_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W320_400_Thursday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>2K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K800_840_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K800_840_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K800_840_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K840_920_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K840_920_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K840_920_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K930_1010_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K930_1010_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K930_1010_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K1010_1050_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1010_1050_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1010_1050_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K1120_1200_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1120_1200_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1120_1200_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K1200_1240_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1200_1240_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1200_1240_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K1240_120_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1240_120_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1240_120_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K200_240_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K200_240_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K200_240_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K240_320_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K240_320_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K240_320_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K320_400_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K320_400_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K320_400_Thursday.Teacher.Initials()</sub></td>
+                        }
+
                     </tr>
                     <tr>
                         <th>2W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W800_840_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W800_840_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W800_840_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W840_920_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W840_920_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W840_920_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W930_1010_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W930_1010_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W930_1010_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W1010_1050_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1010_1050_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1010_1050_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W1120_1200_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1120_1200_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1120_1200_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W1200_1240_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1200_1240_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1200_1240_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W1240_120_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1240_120_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1240_120_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W200_240_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W200_240_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W200_240_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W240_320_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W240_320_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W240_320_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W320_400_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W320_400_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W320_400_Thursday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>3K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K800_840_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K800_840_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K800_840_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K840_920_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K840_920_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K840_920_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K930_1010_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K930_1010_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K930_1010_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K1010_1050_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1010_1050_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1010_1050_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K1120_1200_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1120_1200_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1120_1200_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K1200_1240_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1200_1240_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1200_1240_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K1240_120_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1240_120_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1240_120_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K200_240_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K200_240_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K200_240_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K240_320_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K240_320_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K240_320_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K320_400_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K320_400_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K320_400_Thursday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>3W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W800_840_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W800_840_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W800_840_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W840_920_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W840_920_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W840_920_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W930_1010_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W930_1010_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W930_1010_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W1010_1050_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1010_1050_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1010_1050_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W1120_1200_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1120_1200_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1120_1200_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W1200_1240_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1200_1240_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1200_1240_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W1240_120_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1240_120_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1240_120_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W200_240_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W200_240_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W200_240_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W240_320_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W240_320_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W240_320_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W320_400_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W320_400_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W320_400_Thursday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>4K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K800_840_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K800_840_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K800_840_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K840_920_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K840_920_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K840_920_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K930_1010_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K930_1010_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K930_1010_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K1010_1050_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1010_1050_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1010_1050_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K1120_1200_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1120_1200_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1120_1200_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K1200_1240_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1200_1240_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1200_1240_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K1240_120_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1240_120_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1240_120_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K200_240_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K200_240_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K200_240_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K240_320_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K240_320_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K240_320_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K320_400_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K320_400_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K320_400_Thursday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>4W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W800_840_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W800_840_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W800_840_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W840_920_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W840_920_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W840_920_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W930_1010_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W930_1010_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W930_1010_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W1010_1050_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1010_1050_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1010_1050_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W1120_1200_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1120_1200_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1120_1200_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W1200_1240_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1200_1240_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1200_1240_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W1240_120_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1240_120_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1240_120_Thursday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W200_240_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W200_240_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W200_240_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W240_320_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W240_320_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W240_320_Thursday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W320_400_Thursday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W320_400_Thursday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W320_400_Thursday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th rowspan="9">FRIDAY</th>
                     </tr>
                     <tr>
                         <th>1K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K800_840_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K800_840_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K800_840_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K840_920_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K840_920_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K840_920_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K930_1010_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K930_1010_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K930_1010_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K1010_1050_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1010_1050_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1010_1050_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K1120_1200_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1120_1200_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1120_1200_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K1200_1240_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1200_1240_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1200_1240_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K1240_120_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K1240_120_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K1240_120_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1K200_240_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K200_240_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K200_240_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K240_320_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K240_320_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K240_320_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1K320_400_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1K320_400_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K320_400_Friday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>1W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W800_840_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W800_840_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W800_840_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W840_920_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W840_920_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W840_920_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W930_1010_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W930_1010_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W930_1010_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W1010_1050_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1010_1050_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1010_1050_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W1120_1200_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1120_1200_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1120_1200_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W1200_1240_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1200_1240_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1200_1240_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W1240_120_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W1240_120_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W1240_120_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM1W200_240_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W200_240_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W200_240_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W240_320_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W240_320_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W240_320_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM1W320_400_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM1W320_400_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1W320_400_Friday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>2K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K800_840_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K800_840_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K800_840_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K840_920_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K840_920_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K840_920_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K930_1010_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K930_1010_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K930_1010_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K1010_1050_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1010_1050_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1010_1050_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K1120_1200_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1120_1200_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1120_1200_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K1200_1240_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1200_1240_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1200_1240_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K1240_120_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K1240_120_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K1240_120_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2K200_240_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K200_240_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K200_240_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K240_320_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K240_320_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K240_320_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2K320_400_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2K320_400_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2K320_400_Friday.Teacher.Initials()</sub></td>
+                        }
+
                     </tr>
                     <tr>
                         <th>2W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W800_840_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W800_840_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W800_840_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W840_920_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W840_920_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W840_920_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W930_1010_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W930_1010_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W930_1010_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W1010_1050_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1010_1050_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1010_1050_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W1120_1200_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1120_1200_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1120_1200_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W1200_1240_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1200_1240_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1200_1240_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W1240_120_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W1240_120_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W1240_120_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM2W200_240_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W200_240_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W200_240_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W240_320_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W240_320_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W240_320_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM2W320_400_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM2W320_400_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM2W320_400_Friday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>3K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K800_840_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K800_840_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K800_840_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K840_920_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K840_920_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K840_920_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K930_1010_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K930_1010_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K930_1010_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K1010_1050_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1010_1050_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1010_1050_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K1120_1200_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1120_1200_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1120_1200_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K1200_1240_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1200_1240_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1200_1240_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K1240_120_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K1240_120_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K1240_120_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3K200_240_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K200_240_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K200_240_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K240_320_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K240_320_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K240_320_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3K320_400_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3K320_400_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3K320_400_Friday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>3W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W800_840_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W800_840_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W800_840_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W840_920_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W840_920_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W840_920_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W930_1010_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W930_1010_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W930_1010_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W1010_1050_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1010_1050_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1010_1050_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W1120_1200_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1120_1200_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1120_1200_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W1200_1240_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1200_1240_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1200_1240_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W1240_120_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W1240_120_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W1240_120_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM3W200_240_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W200_240_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W200_240_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W240_320_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W240_320_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W240_320_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM3W320_400_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM3W320_400_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM3W320_400_Friday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>4K</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K800_840_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K800_840_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K800_840_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K840_920_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K840_920_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K840_920_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K930_1010_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K930_1010_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K930_1010_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K1010_1050_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1010_1050_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1010_1050_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K1120_1200_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1120_1200_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1120_1200_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K1200_1240_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1200_1240_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1200_1240_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K1240_120_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K1240_120_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K1240_120_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4K200_240_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K200_240_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K200_240_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K240_320_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K240_320_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K240_320_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4K320_400_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4K320_400_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4K320_400_Friday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                     <tr>
                         <th>4W</th>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W800_840_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W800_840_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W800_840_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W840_920_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W840_920_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W840_920_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W930_1010_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W930_1010_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W930_1010_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W1010_1050_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1010_1050_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1010_1050_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W1120_1200_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1120_1200_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1120_1200_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W1200_1240_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1200_1240_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1200_1240_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W1240_120_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W1240_120_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W1240_120_Friday.Teacher.Initials()</sub></td>
+                        }
                         <td class="break"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        @if (TM4W200_240_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W200_240_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W200_240_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W240_320_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W240_320_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W240_320_Friday.Teacher.Initials()</sub></td>
+                        }
+                        @if (TM4W320_400_Friday is null)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>@TM4W320_400_Friday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM4W320_400_Friday.Teacher.Initials()</sub></td>
+                        }
                     </tr>
                 </tbody>
             </table>
@@ -733,7 +3540,7 @@
     </MudTabPanel>
     <MudTabPanel Text="Double Lessons">
         <MudGrid Class="d-flex px-4 mt-4 align-center">
-            <MudItem xs="3">
+            <MudItem xs="2">
                 <MudCard>
                     <MudCardContent>
                         <MudAutocomplete @ref="classSelect" T="ClassModel" Label="Form" @bind-Value="SelectedClass" ShowProgressIndicator="true"
@@ -746,6 +3553,14 @@
                     <MudCardContent>
                         <MudAutocomplete @ref="subjectSelect" T="SubjectModel" Label="Subject" @bind-Value="SelectedSubject" ShowProgressIndicator="true"
                                          SearchFunc="@SelectedSubjectSearch" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" />
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+            <MudItem xs="2">
+                <MudCard>
+                    <MudCardContent>
+                        <MudAutocomplete @ref="daySelect" T="string" Label="Day" @bind-Value="SelectedDay" ShowProgressIndicator="true"
+                                         SearchFunc="@DaySearch"/>
                     </MudCardContent>
                 </MudCard>
             </MudItem>

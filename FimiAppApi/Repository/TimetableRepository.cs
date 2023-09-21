@@ -21,14 +21,15 @@ namespace FimiAppApi.Repository
         {
             string sql = "INSERT INTO " +
                             "TimeTable " +
-                                "(Code,ClassId,TimeslotId,TeacherId) " +
+                                "(Code,ClassId,TimeslotId,TeacherId,DayOfTheWeek) " +
                             "VALUES " +
-                                "(@Code,@ClassId,@TimeslotId,@TeacherId); SELECT LAST_INSERT_ID();";
+                                "(@Code,@ClassId,@TimeslotId,@TeacherId,@DayOfTheWeek); SELECT LAST_INSERT_ID();";
             var parameters = new DynamicParameters();
             parameters.Add("Code", timetable.Subject.Code);
             parameters.Add("ClassId", timetable.ClassModel.ClassId);
             parameters.Add("TimeslotId", timetable.TimeSlot.TimeslotId);
             parameters.Add("TeacherId", timetable.Teacher.TeacherId);
+            parameters.Add("DayOfTheWeek", timetable.DayOfTheWeek);
 
             int id = await _dapperContext.LoadSingleData<int, dynamic>(sql, parameters);
             var createdModel = new TimetableModel 
@@ -45,6 +46,7 @@ namespace FimiAppApi.Repository
         {
             string sql = "select " +
                             "timetable.Code," +
+                            "timetable.DayOfTheWeek," +
                             "subjects.Code," +
                             "subjects.SubjectName," +
                             "subjectcategory.SubjectCategoryId," +

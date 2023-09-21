@@ -7,6 +7,7 @@
         public int ClassId { get; set; }
         public int TimeslotId { get; set; }
         public int TeacherId { get; set; }
+        public string DayOfTheWeek { get; set; }
         public SubjectModel Subject { get; set; }
         public ClassModel ClassModel { get; set; }
         public TimeSlotModel TimeSlot { get; set; }
