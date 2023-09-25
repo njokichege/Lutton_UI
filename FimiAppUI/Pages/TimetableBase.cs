@@ -539,7 +539,9 @@ namespace FimiAppUI.Pages
             var classes = await ClassService.GetMultipleMapping();
             var subjects = await SubjectService.GetSubjects();
             var teacherSubjects = await TeacherSubjectService.GetMultipleMapping();
-            
+            var timeslots = await TimeSlotService.GetTimeSlots();
+            var teachers = await TeacherService.GetTeachers();
+
             List<SubjectModel> doublesLessons = new List<SubjectModel> 
             { 
                 subjects.First(x => x.Code == 236),
@@ -555,17 +557,15 @@ namespace FimiAppUI.Pages
             {
                 if(cl.Form.Form.Equals("4") || cl.Form.Form.Equals("3"))
                 {
-                    GenerateDoubleLesson(doublesLessons, cl, teacherSubjects);
+                    await GenerateDoubleLesson(doublesLessons, cl, teacherSubjects,timeslots,teachers);
                 }
             }
         }
-        public async Task GenerateDoubleLesson(List<SubjectModel> subjects, ClassModel classModel,IEnumerable<TeacherSubjectModel> teacherSubjects)
+        public async Task GenerateDoubleLesson(List<SubjectModel> subjects, ClassModel classModel,IEnumerable<TeacherSubjectModel> teacherSubjects,IEnumerable<TimeSlotModel> timeslots,IEnumerable<TeacherModel> teachers)
         {
-            var timeslots = await TimeSlotService.GetTimeSlots();
             List<string> days = new List<string>{ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
             TimetableModel firstDoubleLesson = new() { ClassModel = classModel,};
             TimetableModel secondDoubleLesson = new() { ClassModel = classModel};
-            var teachers = await TeacherService.GetTeachers();
 
             var doubleLessons = new List<DoubleLessonModel>
             {
@@ -577,51 +577,82 @@ namespace FimiAppUI.Pages
                 new DoubleLessonModel {DoubleLessonId = 6, FirstSlot = timeslots.First(x => x.StartTime == "2:40"), SecondSlot = timeslots.First(x => x.StartTime == "3:20")}
             };
 
-            foreach(var subject in subjects)
+            Dictionary<int, List<DoubleLessonModel>> daysAndTimes = new Dictionary<int, List<DoubleLessonModel>>();
+            daysAndTimes.Add(0, doubleLessons);
+            daysAndTimes.Add(1, doubleLessons);
+            daysAndTimes.Add(2, doubleLessons);
+            daysAndTimes.Add(3, doubleLessons);
+            daysAndTimes.Add(4, doubleLessons);
+
+            int dayCount = 0;
+            foreach (var subject in subjects)
             {
-                var teachersub = teacherSubjects.First(x => x.Code == subject.Code);
-                var teacher = teachers.First(x => x.TeacherId == teachersub.TeacherId);
-
-                var ranDay = new Random();
-                var listIndex = ranDay.Next(days.Count + 1);
-                for (int j = 0; j <= days.Count; j++)
+                foreach (var dayandtime in daysAndTimes)
                 {
-                    if (j == listIndex)
+                    var teachersub = teacherSubjects.First(x => x.Code == subject.Code);
+                    var teacher = teachers.First(x => x.TeacherId == teachersub.TeacherId);
+
+                    if (dayCount == 4)
                     {
-                        firstDoubleLesson.DayOfTheWeek = days[j];
-                        secondDoubleLesson.DayOfTheWeek = days[j];
-                        days.RemoveAt(j);
-                        break;
+                        dayCount = 0;
                     }
-                }
-
-                var ran = new Random();
-                var listIndex2 = ran.Next(1, 7);
-                for (int i = 0; i <= doubleLessons.Count; i++)
-                {
-                    if (i == listIndex2)
+                    List<DoubleLessonModel> timeslot = new();
+                    if (dayandtime.Key == dayCount)
                     {
-                        firstDoubleLesson.TimeSlot = doubleLessons[i].FirstSlot;
-                        secondDoubleLesson.TimeSlot = doubleLessons[i].SecondSlot;
-                        doubleLessons.RemoveAt(i);
-                        break;
+                        firstDoubleLesson.DayOfTheWeek = days[dayCount];
+                        secondDoubleLesson.DayOfTheWeek = days[dayCount];
+                        timeslot = dayandtime.Value;
+                        dayCount++;
                     }
-                }
-                firstDoubleLesson.Subject = subject;
-                secondDoubleLesson.Subject = subject;
-                firstDoubleLesson.Teacher = teacher;
-                secondDoubleLesson.Teacher = teacher;
+                    var ran = new Random();
+                    var listIndex2 = ran.Next(timeslot.Count);
+                    for (int i = 0; i < timeslot.Count; i++)
+                    {
+                        if (i == listIndex2)
+                        {
+                            firstDoubleLesson.TimeSlot = timeslot[i].FirstSlot;
+                            secondDoubleLesson.TimeSlot = timeslot[i].SecondSlot;
+                            if (timeslot[i].FirstSlot.StartTime.Equals("11:20"))
+                            {
+                                timeslot.RemoveAt(i);
+                                timeslot.RemoveAt(i + 1);
+                            }
+                            else if (timeslot[i].FirstSlot.StartTime.Equals("12:00"))
+                            {
+                                timeslot.RemoveAt(i);
+                                timeslot.RemoveAt(i - 1);
+                            }
+                            else if (timeslot[i].FirstSlot.StartTime.Equals("2:00"))
+                            {
+                                timeslot.RemoveAt(i);
+                                timeslot.RemoveAt(i + 1);
+                            }
+                            else if (timeslot[i].FirstSlot.StartTime.Equals("2:40"))
+                            {
+                                timeslot.RemoveAt(i);
+                                timeslot.RemoveAt(i - 1);
+                            }
+                            else
+                            {
+                                timeslot.RemoveAt(i);
+                            }
+                            break;
+                        }
+                    }
+                    firstDoubleLesson.Subject = subject;
+                    secondDoubleLesson.Subject = subject;
+                    firstDoubleLesson.Teacher = teacher;
+                    secondDoubleLesson.Teacher = teacher;
 
-                var firstDoubleLessonResponse = await TimetableService.AddTimetableEntry(firstDoubleLesson);
-                var secondDoubleLessonResponse = await TimetableService.AddTimetableEntry(secondDoubleLesson);
-
-                if (firstDoubleLessonResponse.StatusCode == HttpStatusCode.Created && secondDoubleLessonResponse.StatusCode == HttpStatusCode.Created)
-                {
-                    continue;
-                }
-                else
-                {
-                    throw new Exception();
+                    try
+                    {
+                        await TimetableService.AddTimetableEntry(firstDoubleLesson);
+                        await TimetableService.AddTimetableEntry(secondDoubleLesson);
+                    }
+                    catch
+                    {
+                        throw new Exception($"Failed to add {classModel.Form.Form}{classModel.Stream.Stream} {subject.SubjectName} to the timetable");
+                    }
                 }
             }
         }
