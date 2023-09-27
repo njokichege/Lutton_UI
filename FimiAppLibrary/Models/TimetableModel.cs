@@ -8,9 +8,9 @@
         public int TimeslotId { get; set; }
         public int TeacherId { get; set; }
         public string DayOfTheWeek { get; set; }
-        public SubjectModel Subject { get; set; }
+        public List<SubjectModel> Subject { get; set; } = new List<SubjectModel>();
         public ClassModel ClassModel { get; set; }
         public TimeSlotModel TimeSlot { get; set; }
-        public TeacherModel Teacher { get; set; }
+        public List<TeacherModel> Teacher { get; set; } = new List<TeacherModel>(); 
     }
 }

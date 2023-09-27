@@ -25,10 +25,10 @@ namespace FimiAppApi.Repository
                             "VALUES " +
                                 "(@Code,@ClassId,@TimeslotId,@TeacherId,@DayOfTheWeek); SELECT LAST_INSERT_ID();";
             var parameters = new DynamicParameters();
-            parameters.Add("Code", timetable.Subject.Code);
+            parameters.Add("Code", timetable.Subject.FirstOrDefault().Code);
             parameters.Add("ClassId", timetable.ClassModel.ClassId);
             parameters.Add("TimeslotId", timetable.TimeSlot.TimeslotId);
-            parameters.Add("TeacherId", timetable.Teacher.TeacherId);
+            parameters.Add("TeacherId", timetable.Teacher.FirstOrDefault().TeacherId);
             parameters.Add("DayOfTheWeek", timetable.DayOfTheWeek);
 
             int id = await _dapperContext.LoadSingleData<int, dynamic>(sql, parameters);
@@ -44,43 +44,39 @@ namespace FimiAppApi.Repository
         }
         public async Task<IEnumerable<TimetableModel>> GetTimetableModels()
         {
-            string sql = "select " +
-                            "timetable.Code," +
-                            "timetable.DayOfTheWeek," +
-                            "subjects.Code," +
-                            "subjects.SubjectName," +
-                            "subjectcategory.SubjectCategoryId," +
-                            "subjectcategory.SubjectCategoryName," +
-                            "class.ClassId," +
-                            "class.FormId," +
-                            "class.StreamId," +
-                            "class.SessionYearId," +
+            string sql = "SELECT " +
+                            "timetable.TimeTableId AS _SplitPoint_, " +
+                            "timetable.*," +
+                            "subjects.Code AS _SplitPoint_," +
+                            "subjects.*," +
+                            "subjectcategory.SubjectCategoryId AS _SplitPoint_," +
+                            "subjectcategory.*," +
+                            "teacher.TeacherId AS _SplitPoint_," +
+                            "teacher.*," +
+                            "staff.NationalId AS _SplitPoint_," +
+                            "staff.*," +
+                            "class.ClassId AS _SplitPoint_," +
+                            "class.*," +
+                            "form.FormId FormId," +
                             "form.*," +
+                            "stream.StreamId AS _SplitPoint_," +
                             "stream.*," +
+                            "sessionyear.SessionYearId AS _SplitPoint_," +
                             "sessionyear.*," +
-                            "timeslot.TimeslotId," +
-                            "timeslot.StartTime," +
-                            "timeslot.EndTime," +
-                            "timeslot.IsAfterBreak," +
-                            "timeslot.IsBeforeBreak," +
-                            "teacher.TeacherId," +
-                            "teacher.NationalId," +
-                            "teacher.TeacherType," +
-                            "teacher.TSCNumber," +
-                            "staff.NationalId," +
-                            "staff.FirstName," +
-                            "staff.MiddleName," +
-                            "staff.Surname " +
-                        "from timetable " +
-                        "inner join subjects on timetable.Code = subjects.Code " +
-                            "inner join subjectcategory on subjects.SubjectCategoryId = subjectcategory.SubjectCategoryId " +
-                        "inner join class on timetable.ClassId = class.ClassId " +
-                            "inner join form on class.FormId = form.FormId " +
-                            "inner join stream on class.StreamId = stream.StreamId " +
-                            "inner join sessionyear on class.SessionYearId = sessionyear.SessionYearId " +
-                        "inner join timeslot on timetable.TimeslotId = timeslot.TimeslotId " +
-                        "inner join teacher on timetable.TeacherId = teacher.TeacherId " +
-                            "inner join staff on teacher.NationalId = staff.NationalId;";
+                            "timeslot.TimeslotId AS _SplitPoint_," +
+                            "timeslot.* " +
+                         "FROM timetable " +
+                         "INNER JOIN timetableSubject ON timetableSubject.TimeTableId = timetable.TimeTableId " +
+                         "INNER JOIN subjects ON subjects.Code = timetableSubject.Code " +
+                         "inner join subjectcategory on subjects.SubjectCategoryId = subjectcategory.SubjectCategoryId  " +
+                         "INNER JOIN timetableTeacher ON timetableTeacher.TimeTableId = timetable.TimeTableId " +
+                         "INNER JOIN teacher ON teacher.TeacherId = timetableTeacher.TeacherId " +
+                         "inner join staff on teacher.NationalId = staff.NationalId " +
+                         "inner join class on timetable.ClassId = class.ClassId " +
+                         "inner join form on class.FormId = form.FormId " +
+                         "inner join stream on class.StreamId = stream.StreamId " +
+                         "inner join sessionyear on class.SessionYearId = sessionyear.SessionYearId " +
+                         "inner join timeslot on timetable.TimeslotId = timeslot.TimeslotId; ";
 
             Type[] types =
             {
@@ -108,10 +104,10 @@ namespace FimiAppApi.Repository
                 TeacherModel teacherModel = obj[8] as TeacherModel;
                 StaffModel staffModel = obj[9] as StaffModel;
 
-                timetableModel.Subject = subjectModel;
+                if(timetableModel.Subject is null) { timetableModel.Subject.Add(subjectModel); }
+                if (timetableModel.Teacher is null) { timetableModel.Teacher.Add(teacherModel); }
                 timetableModel.ClassModel = classModel;
-                timetableModel.TimeSlot = timeSlotModel;
-                timetableModel.Teacher = teacherModel;
+                timetableModel.TimeSlot = timeSlotModel;     
                 subjectModel.SubjectCategory = subjectCategoryModel;
                 classModel.Form = formModel;
                 classModel.Stream = streamModel;
@@ -120,7 +116,7 @@ namespace FimiAppApi.Repository
 
                 return timetableModel;
             };
-            string splitOn = "Code,SubjectCategoryId,ClassId,FormId,StreamId,SessionYearId,TimeslotId,TeacherId,NationalId";
+            string splitOn = "_SplitPoint_";
             return await _dapperContext.MapMultipleObjects<TimetableModel, dynamic>(sql, types, map, splitOn, new { });
         }
     }

@@ -85,7 +85,13 @@
                         }
                         else
                         {
-                            <td>@TM1K800_840_Monday.Subject.SubjectName.Substring(0,3).ToUpper() <sub>@TM1K800_840_Monday.Teacher.Initials()</sub></td>
+                            @foreach(var subject in TM1K800_840_Monday.Subject)
+                            {
+                                @foreach(var teacher in TM1K800_840_Monday.Teacher)
+                                {
+                                    <td>@subject.SubjectName.Substring(0,3).ToUpper()/<sub>@teacher.Initials()/</sub></td>
+                                }
+                            }
                         }
                         @if (TM1K840_920_Monday is null)
                         {
