@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
+using System.Diagnostics;
+using System.Xml;
 
 namespace FimiAppApi.Repository
 {
@@ -9,6 +11,16 @@ namespace FimiAppApi.Repository
         public TimetableRepository(DapperContext dapperContext)
         {
             _dapperContext = dapperContext;
+        }
+        public async Task<TimetableModel> GetLastEntry()
+        {
+            string sql = "select max(TimeTableId) from timetable;";
+            int id = await _dapperContext.LoadSingleData<int, dynamic>(sql, new {});
+            var createdModel = new TimetableModel
+            {
+                TimetableId = id
+            };
+            return createdModel;
         }
         public async Task<TimetableModel> GetTimetableEntryById(int timetableId)
         {
@@ -21,91 +33,102 @@ namespace FimiAppApi.Repository
         {
             string sql = "INSERT INTO " +
                             "TimeTable " +
-                                "(Code,ClassId,TimeslotId,TeacherId,DayOfTheWeek) " +
+                                "(ClassId,TimeslotId,DayOfTheWeek) " +
                             "VALUES " +
-                                "(@Code,@ClassId,@TimeslotId,@TeacherId,@DayOfTheWeek); SELECT LAST_INSERT_ID();";
+                                "(@ClassId,@TimeslotId,@DayOfTheWeek); SELECT LAST_INSERT_ID();";
             var parameters = new DynamicParameters();
-            parameters.Add("Code", timetable.Subject.FirstOrDefault().Code);
             parameters.Add("ClassId", timetable.ClassModel.ClassId);
             parameters.Add("TimeslotId", timetable.TimeSlot.TimeslotId);
-            parameters.Add("TeacherId", timetable.Teacher.FirstOrDefault().TeacherId);
             parameters.Add("DayOfTheWeek", timetable.DayOfTheWeek);
 
             int id = await _dapperContext.LoadSingleData<int, dynamic>(sql, parameters);
             var createdModel = new TimetableModel 
             { 
                 TimetableId = id,
-                Subject = timetable.Subject,
                 ClassModel = timetable.ClassModel,
                 TimeSlot = timetable.TimeSlot,
-                Teacher = timetable.Teacher
             };
             return createdModel;
         }
         public async Task<IEnumerable<TimetableModel>> GetTimetableModels()
         {
             string sql = "SELECT " +
-                            "timetable.TimeTableId AS _SplitPoint_, " +
-                            "timetable.*," +
-                            "subjects.Code AS _SplitPoint_," +
-                            "subjects.*," +
-                            "subjectcategory.SubjectCategoryId AS _SplitPoint_," +
-                            "subjectcategory.*," +
-                            "teacher.TeacherId AS _SplitPoint_," +
-                            "teacher.*," +
-                            "staff.NationalId AS _SplitPoint_," +
-                            "staff.*," +
-                            "class.ClassId AS _SplitPoint_," +
-                            "class.*," +
-                            "form.FormId FormId," +
-                            "form.*," +
-                            "stream.StreamId AS _SplitPoint_," +
-                            "stream.*," +
-                            "sessionyear.SessionYearId AS _SplitPoint_," +
-                            "sessionyear.*," +
-                            "timeslot.TimeslotId AS _SplitPoint_," +
-                            "timeslot.* " +
+                            "timetable.TimeTableId, " +
+                            "timetable.DayOfTheWeek," +
+                            "teacherSubject.TeacherSubjectId," +
+                            "subjects.Code," +
+                            "subjects.SubjectName," +
+                            "subjectcategory.SubjectCategoryId," +
+                            "subjectcategory.SubjectCategoryName," +
+                            "teacher.TeacherId," +
+                            "teacher.TeacherType," +
+                            "teacher.TSCNumber," +
+                            "staff.NationalId," +
+                            "staff.FirstName," +
+                            "staff.MiddleName," +
+                            "staff.Surname," +
+                            "staff.PhoneNumber," +
+                            "staff.Gender," +
+                            "staff.EmploymentDate," +
+                            "staff.Designation," +
+                            "staff.DateOfBirth," +
+                            "class.ClassId," +
+                            "form.FormId," +
+                            "form.Form," +
+                            "stream.StreamId," +
+                            "stream.Stream," +
+                            "sessionyear.SessionYearId," +
+                            "sessionyear.StartDate," +
+                            "sessionyear.EndDate," +
+                            "timeslot.TimeslotId," +
+                            "timeslot.StartTime," +
+                            "timeslot.EndTime," +
+                            "timeslot.IsBeforeBreak," +
+                            "timeslot.IsAfterBreak " +
                          "FROM timetable " +
-                         "INNER JOIN timetableSubject ON timetableSubject.TimeTableId = timetable.TimeTableId " +
-                         "INNER JOIN subjects ON subjects.Code = timetableSubject.Code " +
+                         "INNER JOIN timetableTeacherSubject ON timetableTeacherSubject.TimeTableId = timetable.TimeTableId " +
+                         "INNER JOIN teacherSubject ON teacherSubject.TeacherSubjectId = timetableTeacherSubject.TeacherSubjectId " +
+                         "INNER JOIN subjects ON subjects.Code = teacherSubject.Code " +
                          "inner join subjectcategory on subjects.SubjectCategoryId = subjectcategory.SubjectCategoryId  " +
-                         "INNER JOIN timetableTeacher ON timetableTeacher.TimeTableId = timetable.TimeTableId " +
-                         "INNER JOIN teacher ON teacher.TeacherId = timetableTeacher.TeacherId " +
-                         "inner join staff on teacher.NationalId = staff.NationalId " +
+                         "INNER JOIN teacher ON teacher.TeacherId = teacherSubject.TeacherId " +
+                         "inner join staff on teacher.NationalId = staff.NationalId "+
                          "inner join class on timetable.ClassId = class.ClassId " +
                          "inner join form on class.FormId = form.FormId " +
                          "inner join stream on class.StreamId = stream.StreamId " +
                          "inner join sessionyear on class.SessionYearId = sessionyear.SessionYearId " +
                          "inner join timeslot on timetable.TimeslotId = timeslot.TimeslotId; ";
-
+            
             Type[] types =
             {
                  typeof(TimetableModel),
+                 typeof(TeacherSubjectModel),
                  typeof(SubjectModel),
                  typeof(SubjectCategoryModel),
+                 typeof(TeacherModel),
+                 typeof(StaffModel),
                  typeof(ClassModel),
                  typeof(FormModel),
                  typeof(StreamModel),
                  typeof(SessionYearModel),
-                 typeof(TimeSlotModel),
-                 typeof(TeacherModel),
-                 typeof(StaffModel)
+                 typeof(TimeSlotModel)
             };
             Func<object[], TimetableModel> map = delegate (object[] obj)
             {
                 TimetableModel timetableModel = obj[0] as TimetableModel;
-                SubjectModel subjectModel = obj[1] as SubjectModel;
-                SubjectCategoryModel subjectCategoryModel = obj[2] as SubjectCategoryModel;
-                ClassModel classModel = obj[3] as ClassModel;
-                FormModel formModel = obj[4] as FormModel;
-                StreamModel streamModel = obj[5] as StreamModel;
-                SessionYearModel sessionYearModel = obj[6] as SessionYearModel;
-                TimeSlotModel timeSlotModel = obj[7] as TimeSlotModel;
-                TeacherModel teacherModel = obj[8] as TeacherModel;
-                StaffModel staffModel = obj[9] as StaffModel;
-
-                if(timetableModel.Subject is null) { timetableModel.Subject.Add(subjectModel); }
-                if (timetableModel.Teacher is null) { timetableModel.Teacher.Add(teacherModel); }
+                TeacherSubjectModel teacherSubjectModel = obj[1] as TeacherSubjectModel;
+                SubjectModel subjectModel = obj[2] as SubjectModel;
+                SubjectCategoryModel subjectCategoryModel = obj[3] as SubjectCategoryModel;
+                TeacherModel teacherModel = obj[4] as TeacherModel;
+                StaffModel staffModel = obj[5] as StaffModel;
+                ClassModel classModel = obj[6] as ClassModel;
+                FormModel formModel = obj[7] as FormModel;
+                StreamModel streamModel = obj[8] as StreamModel;
+                SessionYearModel sessionYearModel = obj[9] as SessionYearModel;
+                TimeSlotModel timeSlotModel = obj[10] as TimeSlotModel;
+                
+                timetableModel.TeacherSubjects.Add(teacherSubjectModel);
+                teacherSubjectModel.Subject = subjectModel;
+                teacherSubjectModel.Teacher = teacherModel;
                 timetableModel.ClassModel = classModel;
                 timetableModel.TimeSlot = timeSlotModel;     
                 subjectModel.SubjectCategory = subjectCategoryModel;
@@ -116,8 +139,17 @@ namespace FimiAppApi.Repository
 
                 return timetableModel;
             };
-            string splitOn = "_SplitPoint_";
-            return await _dapperContext.MapMultipleObjects<TimetableModel, dynamic>(sql, types, map, splitOn, new { });
+            string splitOn = "TimeTableId,TeacherSubjectId,Code,SubjectCategoryId,TeacherId,NationalId,ClassId,FormId,StreamId,SessionYearId,TimeslotId";
+
+            var data =  await _dapperContext.MapMultipleObjects<TimetableModel, dynamic>(sql, types, map, splitOn, new { });
+            IEnumerable<TimetableModel> results = data.GroupBy(x => x.TimetableId).Select(group =>
+            {
+                var timetableInstance = group.First();
+                timetableInstance.TeacherSubjects = group.Select(tim => tim.TeacherSubjects.Single()).ToList();
+                return timetableInstance;
+            });
+          
+            return results;
         }
     }
 }

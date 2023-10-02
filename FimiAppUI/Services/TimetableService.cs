@@ -16,5 +16,9 @@
         {
             return await _httpClient.GetFromJsonAsync<TimetableModel[]>("api/timetable");
         }
+        public async Task<TimetableModel> GetLastEntry()
+        {
+            return await _httpClient.GetFromJsonAsync<TimetableModel>("api/timetable/getlastentry");
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace FimiAppUI.Pages
         [Inject] public ITimetableService TimetableService { get; set; }
         [Inject] public ITeacherService TeacherService { get; set; }
         [Inject] public ITeacherSubjectService TeacherSubjectService { get; set; }
+        [Inject] public ITimetableTeacherSubjectService TimetableTeacherSubjectService { get; set; }
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         public IEnumerable<TeacherSubjectModel> TeacherSubjects { get; set; }
         public IEnumerable<TimetableModel> TimetableModels { get; set; }
@@ -438,6 +439,7 @@ namespace FimiAppUI.Pages
         public TimetableModel TM4W200_240_Friday { get; set; }
         public TimetableModel TM4W240_320_Friday { get; set; }
         public TimetableModel TM4W320_400_Friday { get; set; }
+        public string space = " ";
         protected override async Task OnInitializedAsync()
         {
             await GetTimetableData();
@@ -480,14 +482,18 @@ namespace FimiAppUI.Pages
         public async Task DialogSubmit()
         {
             visible = false;
+
+            List<TeacherSubjectModel> teacherSubjects = new();
+            teacherSubjects.Add(TeacherAndSubject);
+
             TimetableModel timetableModel = new()
             {
-                Subject = TeacherAndSubject.Subject,
                 ClassModel= SelectedClass,
                 TimeSlot = SelectedTimeSlot,
-                Teacher = TeacherAndSubject.Teacher,
-                DayOfTheWeek = SelectedDay
+                DayOfTheWeek = SelectedDay,
+                TeacherSubjects = teacherSubjects
             };
+            
             var response = await TimetableService.AddTimetableEntry(timetableModel);
             
             if (response.StatusCode == HttpStatusCode.Created)
@@ -685,16 +691,25 @@ namespace FimiAppUI.Pages
             foreach (var subject in subjects)
             {
                 var teachersub = teacherSubjects.First(x => x.Code == subject.Code);
-                var teacher = teachers.First(x => x.TeacherId == teachersub.TeacherId);
-                firstDoubleLesson.Subject = subject;
-                secondDoubleLesson.Subject = subject;
-                firstDoubleLesson.Teacher = teacher;
-                secondDoubleLesson.Teacher = teacher;
 
                 try
                 {
                     await TimetableService.AddTimetableEntry(firstDoubleLesson);
+                    TimetableModel model = await TimetableService.GetLastEntry();
+                    TimetableTeacherSubjectModel timetableTeacherSubjectModel = new TimetableTeacherSubjectModel 
+                    {
+                        TimeTableId = model.TimetableId,
+                        TeacherSubjectId = teachersub.TeacherSubjectId
+                    };
+                    await TimetableTeacherSubjectService.AddTimetableEntry(timetableTeacherSubjectModel);
                     await TimetableService.AddTimetableEntry(secondDoubleLesson);
+                    TimetableModel model2 = await TimetableService.GetLastEntry();
+                    TimetableTeacherSubjectModel timetableTeacherSubjectModel2 = new TimetableTeacherSubjectModel
+                    {
+                        TimeTableId = model2.TimetableId,
+                        TeacherSubjectId = teachersub.TeacherSubjectId
+                    };
+                    await TimetableTeacherSubjectService.AddTimetableEntry(timetableTeacherSubjectModel2);
                 }
                 catch
                 {
@@ -720,7 +735,6 @@ namespace FimiAppUI.Pages
                     continue;
                 }
                 var teachersub = teacherSubjects.First(x => x.Code == subject.Code);
-                var teacher = teachers.First(x => x.TeacherId == teachersub.TeacherId);
 
                 firstDoubleLesson.DayOfTheWeek = days[dayandtime.Key];
                 secondDoubleLesson.DayOfTheWeek = days[dayandtime.Key];
@@ -766,15 +780,27 @@ namespace FimiAppUI.Pages
                         }
                     }
                 }
-                firstDoubleLesson.Subject = subject;
-                secondDoubleLesson.Subject = subject;
-                firstDoubleLesson.Teacher = teacher;
-                secondDoubleLesson.Teacher = teacher;
+                firstDoubleLesson.TeacherSubjects.Add(teachersub);
+                secondDoubleLesson.TeacherSubjects.Add(teachersub);
 
                 try
                 {
                     await TimetableService.AddTimetableEntry(firstDoubleLesson);
+                    TimetableModel model = await TimetableService.GetLastEntry();
+                    TimetableTeacherSubjectModel timetableTeacherSubjectModel = new TimetableTeacherSubjectModel
+                    {
+                        TimeTableId = model.TimetableId,
+                        TeacherSubjectId = teachersub.TeacherSubjectId
+                    };
+                    await TimetableTeacherSubjectService.AddTimetableEntry(timetableTeacherSubjectModel);
                     await TimetableService.AddTimetableEntry(secondDoubleLesson);
+                    TimetableModel model2 = await TimetableService.GetLastEntry();
+                    TimetableTeacherSubjectModel timetableTeacherSubjectModel2 = new TimetableTeacherSubjectModel
+                    {
+                        TimeTableId = model2.TimetableId,
+                        TeacherSubjectId = teachersub.TeacherSubjectId
+                    };
+                    await TimetableTeacherSubjectService.AddTimetableEntry(timetableTeacherSubjectModel2);
                 }
                 catch
                 {

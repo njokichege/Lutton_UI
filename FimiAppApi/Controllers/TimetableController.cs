@@ -12,6 +12,20 @@ namespace FimiAppApi.Controllers
         {
             _timetableRepository = timetableRepository;
         }
+        [HttpGet("getlastentry")]
+        public async Task<IActionResult> GetLastEntry()
+        {
+            try
+            {
+                var timeModel = await _timetableRepository.GetLastEntry();
+                return Ok(timeModel);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+        }
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetTimetableEntryById(int id)
