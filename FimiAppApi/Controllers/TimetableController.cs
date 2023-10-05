@@ -55,6 +55,20 @@ namespace FimiAppApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpGet("timetableentriesbyclass/{classId}")]
+        public async Task<IActionResult> GetTimetableModelsByClass(int classId)
+        {
+            try
+            {
+                var times = await _timetableRepository.GetTimetableModelsByClass(classId);
+                return Ok(times);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+        }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> AddTimetableEntry(TimetableModel timetableModel)

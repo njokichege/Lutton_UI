@@ -11,7 +11,7 @@ namespace FimiAppApi.Context
             _config = config;
         }
 
-        public async Task<IEnumerable<T>> LoadData<T, U>(string sql, U parameters)
+        public async Task<List<T>> LoadData<T, U>(string sql, U parameters)
         {
             string connectionString = _config.GetConnectionString(ConnecctionStringName);
             using (IDbConnection connection = new MySqlConnection(connectionString))
@@ -20,13 +20,13 @@ namespace FimiAppApi.Context
                 return data.ToList();
             }
         }
-        public async Task<IEnumerable<T>> MapMultipleObjects<T,U>(string sql, Type[] types, Func<object[], T> map, string splitOn, U parameters)
+        public async Task<List<T>> MapMultipleObjects<T,U>(string sql, Type[] types, Func<object[], T> map, string splitOn, U parameters)
         {
             string connectionString = _config.GetConnectionString(ConnecctionStringName);
             using (IDbConnection connection = new MySqlConnection(connectionString))
             {
                 var data = await connection.QueryAsync<T>(sql,types,map:map, parameters, splitOn:splitOn);
-                return data;
+                return data.ToList();
             }
         }
         public async Task<T> LoadSingleData<T,U>(string sql, U parameters)

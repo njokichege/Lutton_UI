@@ -12,9 +12,13 @@
         {
             return await _httpClient.PostAsJsonAsync<TimetableModel>("api/timetable", timetableModel);
         }
-        public async Task<IEnumerable<TimetableModel>> GetTimetableModels()
+        public async Task<List<TimetableModel>> GetTimetableModels()
         {
-            return await _httpClient.GetFromJsonAsync<TimetableModel[]>("api/timetable");
+            return await _httpClient.GetFromJsonAsync<List<TimetableModel>>("api/timetable");
+        }
+        public async Task<List<TimetableModel>> GetTimetableModelsByClass(int classId)
+        {
+            return await _httpClient.GetFromJsonAsync<List<TimetableModel>>($"api/timetable/timetableentriesbyclass/{classId}");
         }
         public async Task<TimetableModel> GetLastEntry()
         {

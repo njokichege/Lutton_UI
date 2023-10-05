@@ -5,6 +5,7 @@
         Task<TimetableModel> AddTimetableEntry(TimetableModel timetable);
         Task<TimetableModel> GetLastEntry();
         Task<TimetableModel> GetTimetableEntryById(int timetableId);
-        Task<IEnumerable<TimetableModel>> GetTimetableModels();
+        Task<List<TimetableModel>> GetTimetableModels();
+        Task<List<TimetableModel>> GetTimetableModelsByClass(int classId);
     }
 }

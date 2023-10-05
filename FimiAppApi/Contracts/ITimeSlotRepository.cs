@@ -2,6 +2,6 @@
 {
     public interface ITimeSlotRepository
     {
-        Task<IEnumerable<TimeSlotModel>> GetAllTimaSlots();
+        Task<List<TimeSlotModel>> GetAllTimaSlots();
     }
 }

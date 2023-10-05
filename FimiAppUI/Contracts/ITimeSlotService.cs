@@ -2,6 +2,6 @@
 {
     public interface ITimeSlotService
     {
-        Task<IEnumerable<TimeSlotModel>> GetTimeSlots();
+        Task<List<TimeSlotModel>> GetTimeSlots();
     }
 }

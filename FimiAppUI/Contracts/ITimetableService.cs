@@ -4,6 +4,7 @@
     {
         Task<HttpResponseMessage> AddTimetableEntry(TimetableModel timetableModel);
         Task<TimetableModel> GetLastEntry();
-        Task<IEnumerable<TimetableModel>> GetTimetableModels();
+        Task<List<TimetableModel>> GetTimetableModels();
+        Task<List<TimetableModel>> GetTimetableModelsByClass(int classId);
     }
 }

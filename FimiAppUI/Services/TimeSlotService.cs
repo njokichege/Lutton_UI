@@ -8,9 +8,9 @@
         {
             _httpClient = httpClient;
         }
-        public async Task<IEnumerable<TimeSlotModel>> GetTimeSlots()
+        public async Task<List<TimeSlotModel>> GetTimeSlots()
         {
-            return await _httpClient.GetFromJsonAsync<TimeSlotModel[]>("api/timeslot");
+            return await _httpClient.GetFromJsonAsync<List<TimeSlotModel>>("api/timeslot");
         }
     }
 }

@@ -10,7 +10,7 @@ namespace FimiAppApi.Repository
         {
             _dapperContext = dapperContext;
         }
-        public async Task<IEnumerable<TimeSlotModel>> GetAllTimaSlots()
+        public async Task<List<TimeSlotModel>> GetAllTimaSlots()
         {
             string sql = "SELECT * FROM TimeSlot";
             return await _dapperContext.LoadData<TimeSlotModel, dynamic>(sql, new { });
