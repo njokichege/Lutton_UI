@@ -1,11 +1,35 @@
-﻿td.break {
-    background: #acecf7;
+﻿
+.formandstream {
+    text-align: left;
 }
-
+.vertical {
+    text-align: center;
+    white-space: nowrap;
+    g-origin: 50% 50%;
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    transform: rotate(270deg);
+}
+    td.vertical p {
+        font-size: xx-large;
+        font-weight: bold;
+        display: inline-block;
+    }
+        td.vertical p:before {
+            content: '';
+            display: inline-block;
+            vertical-align: middle;
+        }
+table {
+    text-align: left;
+    table-layout: fixed;
+}
 table.minimalistBlack {
     border: 3px solid #808080;
-    width: 100%;
-    text-align: left;
+    width:fit-content;
+    text-align: center;
     border-collapse: collapse;
 }
 
