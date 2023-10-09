@@ -690,14 +690,18 @@ namespace FimiAppUI.Pages
                             int beforeIsFound = 0;
                             int afterIsFound = 0;
 
-                            if (i > 0 && i < dayandtime.Value.Count - 1)
+                            if (i == 0)
+                            {
+                                singleLesson.TimeSlot = dayandtime.Value[i];
+                            }
+                            else if (i > 0 && i < dayandtime.Value.Count - 1)
                             {
                                 timeslotBefore = dayandtime.Value[i - 1].TimeslotId;
                                 timeslotAfter = dayandtime.Value[i + 1].TimeslotId;
                                 beforeIsFound = await TimetableService.GetTimetableEntryByTimeslot(classModel.ClassId, subject.Code, timeslotBefore,dayandtime.Key);
                                 afterIsFound = await TimetableService.GetTimetableEntryByTimeslot(classModel.ClassId, subject.Code, timeslotAfter, dayandtime.Key);
                             }
-                            else if(i <= 0)
+                            else if(i < 0)
                             {
                                 timeslotAfter = dayandtime.Value[i + 1].TimeslotId;
                                 afterIsFound = await TimetableService.GetTimetableEntryByTimeslot(classModel.ClassId, subject.Code, timeslotAfter, dayandtime.Key);
@@ -805,7 +809,11 @@ namespace FimiAppUI.Pages
                             }
                             else
                             {
-                                if (i > 0 && i < dayandtime.Value.Count - 1)
+                                if (i == 0)
+                                {
+                                    singleLesson.TimeSlot = dayandtime.Value[i];
+                                }
+                                else if (i > 0 && i < dayandtime.Value.Count - 1)
                                 {
                                     timeslotBefore = dayandtime.Value[i - 1].TimeslotId;
                                     timeslotAfter = dayandtime.Value[i + 1].TimeslotId;
@@ -817,11 +825,12 @@ namespace FimiAppUI.Pages
                                     timeslotAfter = dayandtime.Value[i + 1].TimeslotId;
                                     afterIsFound = await TimetableService.GetTimetableEntryByTimeslot(classModel.ClassId, subject.Code, timeslotAfter, dayandtime.Key);
                                 }
-                                else if (i > dayandtime.Value.Count - 1)
+                                else if (i >= dayandtime.Value.Count - 1)
                                 {
                                     timeslotBefore = dayandtime.Value[i - 1].TimeslotId;
                                     beforeIsFound = await TimetableService.GetTimetableEntryByTimeslot(classModel.ClassId, subject.Code, timeslotBefore, dayandtime.Key);
                                 }
+                                
 
                                 if (beforeIsFound > 0 || afterIsFound > 0)
                                 {
@@ -874,10 +883,12 @@ namespace FimiAppUI.Pages
                     if (sub.Code == 236 || sub.Code == 232)
                     {
                         lessonCount = 3;
+                        break;
                     }
                     if (sub.Code == 311 || sub.Code == 312 || sub.Code == 565 || sub.Code == 443)
                     {
                         lessonCount = 5;
+                        break;
                     }
                 }
             }
@@ -885,6 +896,9 @@ namespace FimiAppUI.Pages
             int day = 0;
             for (int x = 0; x < lessonCount; x++)
             {
+                int timeslotBefore = 0;
+                int timeslotAfter = 0;
+
                 if (day >= 5 || day >= daysAndTimes.Count)
                 {
                     var rand = new Random();
@@ -896,19 +910,53 @@ namespace FimiAppUI.Pages
                 singleLesson.DayOfTheWeek = dayandtime.Key;
 
                 var ran = new Random();
-                var listIndex2 = ran.Next(dayandtime.Value.Count);
+                var listIndex = ran.Next(dayandtime.Value.Count);
 
                 for (int i = 0; i < dayandtime.Value.Count; i++)
                 {
-                    if (i == listIndex2)
+                    if (i == listIndex)
                     {
-                        singleLesson.TimeSlot = dayandtime.Value[i];
+                        int beforeIsFound = 0;
+                        int afterIsFound = 0;
 
-                        await TimetableService.AddTimetableEntry(singleLesson);
-                        TimetableModel entry = await TimetableService.GetLastEntry();
+                        if (i == 0)
+                        {
+                            singleLesson.TimeSlot = dayandtime.Value[i];
+                        }
+                        else if (i > 0 && i < dayandtime.Value.Count - 1)
+                        {
+                            timeslotBefore = dayandtime.Value[i - 1].TimeslotId;
+                            timeslotAfter = dayandtime.Value[i + 1].TimeslotId;
+                            beforeIsFound = await TimetableService.GetTimetableEntryByTimeslot(classModel.ClassId, subjects.First().Code, timeslotBefore, dayandtime.Key);
+                            afterIsFound = await TimetableService.GetTimetableEntryByTimeslot(classModel.ClassId, subjects.First().Code, timeslotAfter, dayandtime.Key);
+                        }
+                        else if (i < 0)
+                        {
+                            timeslotAfter = dayandtime.Value[i + 1].TimeslotId;
+                            afterIsFound = await TimetableService.GetTimetableEntryByTimeslot(classModel.ClassId, subjects.First().Code, timeslotAfter, dayandtime.Key);
+                        }
+                        else if (i >= dayandtime.Value.Count - 1)
+                        {
+                            timeslotBefore = dayandtime.Value[i - 1].TimeslotId;
+                            beforeIsFound = await TimetableService.GetTimetableEntryByTimeslot(classModel.ClassId, subjects.First().Code, timeslotBefore, dayandtime.Key);
+                        }
+
+                        if (beforeIsFound > 0 || afterIsFound > 0)
+                        {
+                            listIndex = ran.Next(dayandtime.Value.Count);
+                            i = -1;
+                            break;
+                        }
+                        else
+                        {
+                            singleLesson.TimeSlot = dayandtime.Value[i];
+                        }
 
                         foreach (var subject in subjects)
                         {
+                            await TimetableService.AddTimetableEntry(singleLesson);
+                            TimetableModel entry = await TimetableService.GetLastEntry();
+
                             var teachersub = teacherSubjects.First(x => x.Code == subject.Code);
 
                             TimetableTeacherSubjectModel timetableTeacherSubjectModel = new TimetableTeacherSubjectModel
