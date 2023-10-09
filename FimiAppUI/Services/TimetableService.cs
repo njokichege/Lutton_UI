@@ -20,6 +20,10 @@
         {
             return await _httpClient.GetFromJsonAsync<List<TimetableModel>>($"api/timetable/timetableentriesbyclass/{classId}");
         }
+        public async Task<int> GetTimetableEntryByTimeslot(int classId, int subjectCode, int timeslotId, string dayOfTheWeek)
+        {
+            return await _httpClient.GetFromJsonAsync<int>($"api/timetable/{classId}/{subjectCode}/{timeslotId}/{dayOfTheWeek}");
+        }
         public async Task<TimetableModel> GetLastEntry()
         {
             return await _httpClient.GetFromJsonAsync<TimetableModel>("api/timetable/getlastentry");

@@ -29,6 +29,25 @@ namespace FimiAppApi.Repository
             parameteres.Add("TimeTableId", timetableId, DbType.Int32);
             return await _dapperContext.LoadSingleData<TimetableModel, dynamic>(sql, parameteres);
         }
+        public async Task<int> GetTimetableEntryByTimeslot(int classId, int subjectCode, int timeslotId, string dayOfTheWeek)
+        {
+            string sql = "SELECT " +
+                            "timetable.TimeTableId " +
+                         "from timetable " +
+                         "INNER JOIN timetableTeacherSubject ON timetableTeacherSubject.TimeTableId = timetable.TimeTableId " +
+                         "INNER JOIN teacherSubject ON teacherSubject.TeacherSubjectId = timetableTeacherSubject.TeacherSubjectId " +
+                         "INNER JOIN subjects ON subjects.Code = teacherSubject.Code " +
+                         "where ClassId = @ClassId AND " +
+                         "subjects.Code = @Code AND " +
+                         "TimeslotId = @TimeslotId AND " +
+                         "timetable.DayOfTheWeek = @DayOfTheWeek;";
+            var parameteres = new DynamicParameters();
+            parameteres.Add("ClassId", classId);
+            parameteres.Add("Code", subjectCode);
+            parameteres.Add("TimeslotId", timeslotId);
+            parameteres.Add("DayOfTheWeek", dayOfTheWeek);
+            return await _dapperContext.LoadSingleData<int, dynamic>(sql, parameteres);
+        }
         public async Task<TimetableModel> AddTimetableEntry(TimetableModel timetable)
         {
             string sql = "INSERT INTO " +
