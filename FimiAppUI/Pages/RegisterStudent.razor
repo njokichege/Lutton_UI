@@ -38,50 +38,91 @@
     </DialogActions>
 </MudDialog>
 
-
-<MudGrid Class="pa-4">
-    <MudItem xs="6">
-        <MudPaper Class="pa-4">
-            <MudForm Model="@Student"@ref="@registerStudentForm" Validation="@(StudentValidator.ValidateValue)" ValidationDelay="0">
-                <MudText Align="Align.Center" Typo="Typo.h6"><b>Student Details</b></MudText>
-                <MudTextField Immediate="true" @bind-Value="Student.FirstName" For="@(() => Student.FirstName)" Label="First name" Variant="Variant.Outlined" />
-                <MudTextField Immediate="true" @bind-Value="Student.MiddleName" For="@(() => Student.MiddleName)" Label="Middle name" Variant="Variant.Outlined" />
-                <MudTextField Immediate="true" @bind-Value="Student.Surname" For="@(() => Student.Surname)" Label="Surname" Variant="Variant.Outlined" />
-                <MudDatePicker PickerVariant="PickerVariant.Dialog" @bind-Date="Student.DateOfBirth" For="@(() => Student.DateOfBirth)" Label="Date of birth" OpenTo="OpenTo.Year" Variant="Variant.Outlined" />
-                <MudAutocomplete T="FormModel" Label="Form" Variant="Variant.Outlined" @bind-Value="NewStudentForm" ShowProgressIndicator="true" Required="true" RequiredError="Form is required!"
-                                 SearchFunc="@FormSearch" ToStringFunc="@(e=> e==null?null : $"{e.Form}")" />
-                <MudAutocomplete T="StreamModel" Label="Stream" Variant="Variant.Outlined" @bind-Value="NewStudentStream" ShowProgressIndicator="true" Required="true" RequiredError="Stream is required!"
-                                 SearchFunc="@StreamSearch" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
-                <div class="d-flex">
-                    <MudRadioGroup @bind-SelectedOption="Student.Gender" T="string" For="@(() => Student.Gender)">
-                        <MudRadio Option="@("F")">Female</MudRadio>
-                        <MudRadio Option="@("M")">Male</MudRadio>
-                    </MudRadioGroup>
-                </div>
-            </MudForm>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="6">
-        <MudPaper Class="pa-4">
-            <MudForm Model="@Parent" @ref="@registerParentForm" Validation="@(ParentValidator.ValidateValue)" ValidationDelay="0">
-            <MudText Align="Align.Center" Typo="Typo.h6"><b>Parent Details</b></MudText>
-            <MudTextField Immediate="true" @bind-Value="Parent.FirstName" For="@(() => Parent.FirstName)" Label="First name" Variant="Variant.Outlined" />
-            <MudTextField Immediate="true" @bind-Value="Parent.MiddleName" For="@(() => Parent.MiddleName)" Label="Middle name" Variant="Variant.Outlined" />
-            <MudTextField Immediate="true" @bind-Value="Parent.Surname" For="@(() => Parent.Surname)" Label="Surname" Variant="Variant.Outlined" />
-            <MudTextField Immediate="true" @bind-Value="Parent.NationalId" For="@(() => Parent.NationalId)" Label="National Id" Variant="Variant.Outlined" />
-            <MudTextField Immediate="true" @bind-Value="Parent.PhoneNumber" For="@(() => Parent.PhoneNumber)" Label="Phone number" Variant="Variant.Outlined" />
-            <div class="d-flex">
-                <MudRadioGroup @bind-SelectedOption="Parent.Gender" T="string" For="@(() => Parent.Gender)">
-                    <MudRadio Option="@("F")">Female</MudRadio>
-                    <MudRadio Option="@("M")">Male</MudRadio>
-                </MudRadioGroup>
-            </div>
-            </MudForm>
-        </MudPaper>
-    </MudItem>
-</MudGrid>
-<MudGrid Class="mt-n12 pa-4">
-    <MudItem xs="12">
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Style="background-color:#e38d43" OnClick="@(async () => await Submit())" FullWidth="true" StartIcon="@Icons.Material.Filled.Save">Register</MudButton>
-    </MudItem>
-</MudGrid>
+<MudTabs Elevation="2" ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
+    <MudTabPanel Text="Add Individual Student">
+        <MudGrid Class="pa-4">
+            <MudItem xs="6">
+                <MudPaper Class="pa-4">
+                    <MudForm Model="@Student" @ref="@registerStudentForm" Validation="@(StudentValidator.ValidateValue)" ValidationDelay="0">
+                        <MudText Align="Align.Center" Typo="Typo.h6"><b>Student Details</b></MudText>
+                        <MudTextField Immediate="true" @bind-Value="Student.FirstName" For="@(() => Student.FirstName)" Label="First name" Variant="Variant.Outlined" />
+                        <MudTextField Immediate="true" @bind-Value="Student.MiddleName" For="@(() => Student.MiddleName)" Label="Middle name" Variant="Variant.Outlined" />
+                        <MudTextField Immediate="true" @bind-Value="Student.Surname" For="@(() => Student.Surname)" Label="Surname" Variant="Variant.Outlined" />
+                        <MudDatePicker PickerVariant="PickerVariant.Dialog" @bind-Date="Student.DateOfBirth" For="@(() => Student.DateOfBirth)" Label="Date of birth" OpenTo="OpenTo.Year" Variant="Variant.Outlined" />
+                        <MudAutocomplete T="FormModel" Label="Form" Variant="Variant.Outlined" @bind-Value="NewStudentForm" ShowProgressIndicator="true" Required="true" RequiredError="Form is required!"
+                                         SearchFunc="@FormSearch" ToStringFunc="@(e=> e==null?null : $"{e.Form}")" />
+                        <MudAutocomplete T="StreamModel" Label="Stream" Variant="Variant.Outlined" @bind-Value="NewStudentStream" ShowProgressIndicator="true" Required="true" RequiredError="Stream is required!"
+                                         SearchFunc="@StreamSearch" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
+                        <div class="d-flex">
+                            <MudRadioGroup @bind-SelectedOption="Student.Gender" T="string" For="@(() => Student.Gender)">
+                                <MudRadio Option="@("F")">Female</MudRadio>
+                                <MudRadio Option="@("M")">Male</MudRadio>
+                            </MudRadioGroup>
+                        </div>
+                    </MudForm>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="6">
+                <MudPaper Class="pa-4">
+                    <MudForm Model="@Parent" @ref="@registerParentForm" Validation="@(ParentValidator.ValidateValue)" ValidationDelay="0">
+                        <MudText Align="Align.Center" Typo="Typo.h6"><b>Parent Details</b></MudText>
+                        <MudTextField Immediate="true" @bind-Value="Parent.FirstName" For="@(() => Parent.FirstName)" Label="First name" Variant="Variant.Outlined" />
+                        <MudTextField Immediate="true" @bind-Value="Parent.MiddleName" For="@(() => Parent.MiddleName)" Label="Middle name" Variant="Variant.Outlined" />
+                        <MudTextField Immediate="true" @bind-Value="Parent.Surname" For="@(() => Parent.Surname)" Label="Surname" Variant="Variant.Outlined" />
+                        <MudTextField Immediate="true" @bind-Value="Parent.NationalId" For="@(() => Parent.NationalId)" Label="National Id" Variant="Variant.Outlined" />
+                        <MudTextField Immediate="true" @bind-Value="Parent.PhoneNumber" For="@(() => Parent.PhoneNumber)" Label="Phone number" Variant="Variant.Outlined" />
+                        <div class="d-flex">
+                            <MudRadioGroup @bind-SelectedOption="Parent.Gender" T="string" For="@(() => Parent.Gender)">
+                                <MudRadio Option="@("F")">Female</MudRadio>
+                                <MudRadio Option="@("M")">Male</MudRadio>
+                            </MudRadioGroup>
+                        </div>
+                    </MudForm>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+        <MudGrid Class="mt-n12 pa-4">
+            <MudItem xs="12">
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Style="background-color:#e38d43" OnClick="@(async () => await Submit())" FullWidth="true" StartIcon="@Icons.Material.Filled.Save">Register</MudButton>
+            </MudItem>
+        </MudGrid>
+    </MudTabPanel>
+    <MudTabPanel Text="Add Bulk Students">
+        <MudGrid Class="pa-4">
+            <MudItem xs="6">
+                <MudCard>
+                    <MudForm Model="@model" @ref="@form" Validation="@(FileValidator.ValidateValue)" ValidationDelay="0">
+                        <MudCardContent>
+                            <MudFileUpload T="IBrowserFile" For="@(() => model.File)" @bind-Files="model.File" OnFilesChanged="UploadFiles" SuppressOnChangeWhenInvalid="true">
+                                <ButtonTemplate>
+                                    <MudButton HtmlTag="label"
+                                               Variant="Variant.Filled"
+                                               Color="Color.Primary"
+                                               StartIcon="@Icons.Material.Filled.CloudUpload"
+                                               Style="background-color:#e38d43"
+                                               for="@context">
+                                        Upload Files
+                                    </MudButton>
+                                </ButtonTemplate>
+                                <SelectedTemplate>
+                                    @if (context != null)
+                                    {
+                                        <MudText>@context.Name</MudText>
+                                    }
+                                    else
+                                    {
+                                        <MudText>No File</MudText>
+                                    }
+                                </SelectedTemplate>
+                            </MudFileUpload>
+                        </MudCardContent>
+                        <MudCardActions>
+                            <MudButton Variant="Variant.Filled" Color="Color.Primary" Style="background-color:#e38d43" Class="ml-auto" OnClick="@(async () => await SubmitFileUpload())">Submit</MudButton>
+                        </MudCardActions>
+                    </MudForm>
+                </MudCard>
+            </MudItem>
+        </MudGrid>
+    </MudTabPanel>
+</MudTabs>
+    

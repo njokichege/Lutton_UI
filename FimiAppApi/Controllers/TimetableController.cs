@@ -69,6 +69,20 @@ namespace FimiAppApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpGet("{classId}/{subjectCode}/{dayOfTheWeek}")]
+        public async Task<IActionResult> GetTimetableEntryByDayOfTheWeek(int classId, int subjectCode, string dayOfTheWeek)
+        {
+            try
+            {
+                var times = await _timetableRepository.GetTimetableEntryByDayOfTheWeek(classId, subjectCode, dayOfTheWeek);
+                return Ok(times);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+        }
         [HttpGet("{classId}/{subjectCode}/{timeslotId}/{dayOfTheWeek}")]
         public async Task<IActionResult> GetTimetableEntryByTimeslot(int classId, int subjectCode, int timeslotId, string dayOfTheWeek)
         {

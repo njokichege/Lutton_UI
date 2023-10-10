@@ -19,8 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ExcelDataReader" Version="3.7.0-develop00385" />
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.7.0-develop00385" />
     <PackageReference Include="FluentValidation" Version="11.6.0" />
-    <PackageReference Include="IronPdf" Version="2023.8.6" />
     <PackageReference Include="Microsoft.Identity.Web" Version="2.10.0" />
     <PackageReference Include="Microsoft.Identity.Web.UI" Version="2.10.0" />
     <PackageReference Include="MudBlazor" Version="6.2.3" />

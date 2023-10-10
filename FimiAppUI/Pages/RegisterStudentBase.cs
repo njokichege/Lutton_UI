@@ -1,5 +1,8 @@
 ﻿using Azure;
+using Microsoft.AspNetCore.Components.Forms;
+using System.Data;
 using System.Net;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace FimiAppUI.Pages
 {
@@ -11,6 +14,8 @@ namespace FimiAppUI.Pages
         [Inject] public IParentService ParentService { get; set; }
         [Inject] public IParentStudentService ParentStudentService { get; set; }
         [Inject] public IDialogService DialogService { get; set; }
+        [Inject] public ISnackbar Snackbar { get; set; }
+        public FileModelFluentValidator FileValidator { get; set; } = new FileModelFluentValidator();
         public StudentModelFluentValidator StudentValidator { get; set; } = new StudentModelFluentValidator();
         public ParentModelFluentValidator ParentValidator { get; set; } = new ParentModelFluentValidator();
         public StudentModel Student { get; set; } = new StudentModel();
@@ -31,6 +36,8 @@ namespace FimiAppUI.Pages
         public bool showSuccessAlert = false;
         public bool showFailAlert = false;
         public bool visible;
+        public MudForm form;
+        public FileModel model = new();
         protected override Task OnInitializedAsync()
         {
             return base.OnInitializedAsync();
@@ -80,6 +87,25 @@ namespace FimiAppUI.Pages
             }
             await registerStudentForm.ResetAsync();
             await registerParentForm.ResetAsync();
+        }
+        public void UploadFiles(InputFileChangeEventArgs e)
+        {
+            using(var stream = model.File.OpenReadStream())
+            {
+                using(var reader = ExcelDataReader.ExcelReaderFactory.CreateReader(stream))
+                {
+                    var conf = new
+                }
+            }
+        }
+        public async Task SubmitFileUpload()
+        {
+            await form.Validate();
+
+            if (form.IsValid)
+            {
+                Snackbar.Add("Submited!");
+            }
         }
         public void Cancel() => visible = false;
         public void ShowSuccessAlert(string modelType)

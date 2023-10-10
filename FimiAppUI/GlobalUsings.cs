@@ -18,3 +18,4 @@ global using FimiAppUI.Validators;
 global using System.Net;
 global using static MudBlazor.CategoryTypes;
 global using static MudBlazor.Defaults;
+global using ExcelDataReader.DataSet;
