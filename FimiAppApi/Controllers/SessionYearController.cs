@@ -46,7 +46,20 @@ namespace FimiAppApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-
+        [HttpGet("SessionYearByStartDate/{dateTime}")]
+        public async Task<IActionResult> GetSessionYearByStartDate(DateTime dateTime)
+        {
+            try
+            {
+                var oneSession = await _sessionYearRepository.GetSessionYearByStartDate(dateTime);
+                
+                return Ok(oneSession);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
         [HttpGet]
         public async Task<IActionResult> GetSessionYears()
         {

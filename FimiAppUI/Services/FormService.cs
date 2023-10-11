@@ -1,4 +1,5 @@
 ﻿using FimiAppUI.Contracts;
+using System.Net.Http;
 
 namespace FimiAppUI.Services
 {
@@ -17,6 +18,10 @@ namespace FimiAppUI.Services
         public async Task<FormModel> GetFormById(int formId)
         {
             return await httpClient.GetFromJsonAsync<FormModel>($"api/form/{formId}");
+        }
+        public async Task<int> GetFormByName(string formName)
+        {
+            return await httpClient.GetFromJsonAsync<int>($"api/form/formbyname/{formName}");
         }
     }
 }

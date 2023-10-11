@@ -1,10 +1,8 @@
 ﻿using static MudBlazor.Colors;
 using static Slapper.AutoMapper;
-using IronPdf;
 using Microsoft.JSInterop;
 using MudBlazor;
 using static MudBlazor.CategoryTypes;
-using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Reflection;

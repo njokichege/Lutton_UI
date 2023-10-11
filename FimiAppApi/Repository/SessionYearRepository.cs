@@ -23,6 +23,13 @@ namespace FimiAppApi.Repository
             parameters.Add("EndDate", sessionYear.EndDate, DbType.DateTime);
             return await _dapperContext.LoadSingleData<SessionYearModel,dynamic>(sql, parameters);
         }
+        public async Task<int> GetSessionYearByStartDate(DateTime dateTime)
+        {
+            string sql = "select\n\tSessionYearId\nfrom SessionYear\nwhere StartDate = @StartDate;";
+            var parameters = new DynamicParameters();
+            parameters.Add("StartDate", dateTime);
+            return await _dapperContext.LoadSingleData<int, dynamic>(sql, parameters);
+        }
         public async Task<IEnumerable<SessionYearModel>> GetSessionYears()
         {
             string sql = "SELECT* FROM SessionYear";

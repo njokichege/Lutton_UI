@@ -20,5 +20,9 @@ namespace FimiAppUI.Services
         {
             return await _httpClient.GetFromJsonAsync<StreamModel>($"api/stream/{streamId}");
         }
+        public async Task<int> GetStreamByName(string streamName)
+        {
+            return await _httpClient.GetFromJsonAsync<int>($"api/stream/streambyname/{streamName}");
+        }
     }
 }

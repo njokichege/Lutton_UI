@@ -8,6 +8,8 @@ public class StudentModel
     public string Gender { get; set; }
     public DateTime? DateOfBirth { get; set; }
     public DateTime AdmissionDate { get; set; }
+    public int KCPEResult { get; set; }
+    public string PhoneNumber { get; set; }
     public List<ClassModel> StudentClasses { get; set; } = new List<ClassModel>();
     public string StudentName()
     {

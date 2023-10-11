@@ -4,7 +4,7 @@
     {
         public FileModelFluentValidator()
         {
-            RuleFor(x => x.File.ContentType).NotNull().Must(x => x.Equals("application/vnd.ms-excel")) 
+            RuleFor(x => x.File.ContentType).NotNull().Must(x => x.Equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) 
                 .WithMessage("File type is not allowed");
         }
 

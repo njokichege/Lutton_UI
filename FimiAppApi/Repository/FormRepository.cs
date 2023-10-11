@@ -22,5 +22,12 @@ namespace FimiAppApi.Repository
             parameteres.Add("FormId", formId, DbType.Int32);
             return await _dapperContext.LoadSingleData<FormModel, dynamic>(sql, parameteres);
         }
+        public async Task<int> GetFormByName(string formName)
+        {
+            string sql = "select\r\n\tFormId\r\nfrom Form\r\nwhere Form = @Form;";
+            var parameteres = new DynamicParameters();
+            parameteres.Add("Form", formName);
+            return await _dapperContext.LoadSingleData<int, dynamic>(sql, parameteres);
+        }
     }
 }

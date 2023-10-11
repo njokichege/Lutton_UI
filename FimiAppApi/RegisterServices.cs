@@ -33,6 +33,7 @@ namespace FimiAppApi
             builder.Services.AddSingleton<ITimeSlotRepository, TimeSlotRepository>();
             builder.Services.AddSingleton<ITimetableRepository, TimetableRepository>();
             builder.Services.AddSingleton<ITimetableTeacherSubjectRepository, TimetableTeacherSubjectRepository>();
+            builder.Services.AddSingleton<IStudentClassRepository, StudentClassRepository>();
         }
     }
 }

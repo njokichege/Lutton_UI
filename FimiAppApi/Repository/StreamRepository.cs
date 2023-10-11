@@ -20,5 +20,15 @@
             parameteres.Add("StreamId", streamId, DbType.Int32);
             return await _dapperContext.LoadSingleData<StreamModel, dynamic>(sql, parameteres);
         }
+        public async Task<int> GetStreamByName(string streamName)
+        {
+            string sql = "select " +
+                            "StreamId " +
+                         "from Stream " +
+                         "where Stream = @Stream;";
+            var parameteres = new DynamicParameters();
+            parameteres.Add("Stream", streamName);
+            return await _dapperContext.LoadSingleData<int, dynamic>(sql, parameteres);
+        }
     }
 }

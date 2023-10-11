@@ -41,5 +41,20 @@ namespace FimiAppApi.Controllers
             }
 
         }
+        [HttpGet("formbyname/{formName}")]
+        public async Task<IActionResult> GetFormByName(string formName)
+        {
+            try
+            {
+                var form = await _formRepository.GetFormByName(formName);
+                return Ok(form);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+
+        }
     }
 }

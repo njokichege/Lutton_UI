@@ -46,5 +46,20 @@ namespace FimiAppApi.Context
                 var data = await connection.ExecuteAsync(sql, parameters);
             }
         }
+        public async Task BulkInsert(StringBuilder sql, List<string> rows)
+        {
+            string connectionString = _config.GetConnectionString(ConnecctionStringName);
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                sql.Append(string.Join(",", rows));
+                sql.Append(";");
+                connection.Open();
+                using (MySqlCommand myCmd = new MySqlCommand(sql.ToString(), connection))
+                {
+                    myCmd.CommandType = CommandType.Text;
+                    myCmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

@@ -100,6 +100,10 @@ namespace FimiAppUI
             {
                 client.BaseAddress = new Uri(uriLink);
             });
+            builder.Services.AddHttpClient<IStudentClassService, StudentClassService>(client =>
+            {
+                client.BaseAddress = new Uri(uriLink);
+            });
         }
     }
 }
