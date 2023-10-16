@@ -8,5 +8,6 @@
         Task<int> GetTimetableEntryByTimeslot(int classId, int subjectCode, int timeslotId, string dayOfTheWeek);
         Task<List<TimetableModel>> GetTimetableModels();
         Task<List<TimetableModel>> GetTimetableModelsByClass(int classId);
+        Task<List<TimetableModel>> GetTimetableModelsByTeacher(int teacherId);
     }
 }

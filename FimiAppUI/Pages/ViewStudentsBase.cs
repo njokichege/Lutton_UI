@@ -1,4 +1,7 @@
-﻿namespace FimiAppUI.Pages
+﻿using Azure;
+using static Slapper.AutoMapper;
+
+namespace FimiAppUI.Pages
 {
     public class ViewStudentsBase : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -14,13 +17,29 @@
         public SessionYearModel SelectedStudentSchoolYear { get; set; }
         public FormModel SelectedStudentForm { get; set; }
         public StreamModel SelectedStudentStream { get; set; }
+        public string ModelFail { get; set; }
+        public string ModelSuccess { get; set; }
         public StudentModel selectedStudent = null;
         public MudTable<StudentModel> mudTable;
         public bool visible = false;
         public bool visibleAllStudents = true;
+        public bool showSuccessAlert = false;
+        public bool showFailAlert = false;
         protected override async Task OnInitializedAsync()
         {
-            AllStudents = (await StudentService.GetStudents()).ToList();
+            var date = DateTime.Now.Year;
+            var currdate = new DateTime(date, 1, 1);
+
+            try
+            {
+                var sessionId = await SessionYearService.GetSessionYearByStartDate(currdate.ToString("s"));
+                AllStudents = (await StudentService.GetAllStudentsBySessionYear(sessionId)).ToList();
+            }
+            catch (Exception ex)
+            {
+                if (AllStudents is null)
+                    ShowFailAlert("No student records found");
+            }
         }
         public async Task<IEnumerable<SessionYearModel>> SelectedSessionYearSearch(string value)
         {
@@ -38,13 +57,49 @@
         {
             visibleAllStudents = false;
             visible = true;
-            SelectedClass = await ClassService.GetClassByForeignKeys(SelectedStudentForm.FormId, SelectedStudentStream.StreamId, SelectedStudentSchoolYear.SessionYearId);
-            Students = (await StudentService.MapClassOnStudent(SelectedClass.ClassId));
+
+            if (SelectedStudentForm is null || SelectedStudentStream is null || SelectedStudentSchoolYear is null)
+                throw new ArgumentException("A stream, form and school year must be supplied");
+            
+            try
+            {
+                SelectedClass = await ClassService.GetClassByForeignKeys(SelectedStudentForm.FormId, SelectedStudentStream.StreamId, SelectedStudentSchoolYear.SessionYearId);
+                Students = (await StudentService.MapClassOnStudent(SelectedClass.ClassId));
+            }
+            catch (Exception ex)
+            {
+                if (Students is null || SelectedClass is null)
+                    ShowFailAlert("No student records found");
+            }
             this.StateHasChanged();
         }
         public void StudentRowClickEvent(TableRowClickEventArgs<StudentModel> tableRowClickEventArgs)
         {
             Navigation.NavigateTo("/studentdetails/" + tableRowClickEventArgs.Item.StudentNumber);
+        }
+        public void Cancel() => visible = false;
+        public void ShowSuccessAlert(string modelType)
+        {
+            ModelSuccess = modelType;
+            showSuccessAlert = true;
+        }
+        public void ShowFailAlert(string modelType)
+        {
+            ModelFail = modelType;
+            showFailAlert = true;
+        }
+        public void CloseMe(bool value)
+        {
+            if (value)
+            {
+                showSuccessAlert = false;
+                showFailAlert = false;
+            }
+            else
+            {
+                showSuccessAlert = false;
+                showFailAlert = false;
+            }
         }
     }
 }

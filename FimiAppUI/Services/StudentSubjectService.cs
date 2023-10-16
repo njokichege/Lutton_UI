@@ -12,5 +12,9 @@
         {
             return await _httpClient.GetFromJsonAsync<IEnumerable<ClassSubjectList>>($"api/studentsubject/mapstudentonsubject/{classId}");
         }
+        public async Task<List<StudentSubjectModel>> GetSubjectsByStudentNumber(int studentNumber)
+        {
+            return await _httpClient.GetFromJsonAsync<List<StudentSubjectModel>>($"api/studentsubject/subjectsbystudentnumber/{studentNumber}");
+        }
     }
 }

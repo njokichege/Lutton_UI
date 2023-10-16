@@ -34,15 +34,13 @@
                 {
                     <MudTable Items="@Classes" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="ClassModel">
                         <HeaderContent>
-                            <MudTh>Form</MudTh>
-                            <MudTh>Stream</MudTh>
+                            <MudTh>Class</MudTh>
                             <MudTh>Session Start</MudTh>
                             <MudTh>Session End</MudTh>
                             <MudTh>Class Teacher</MudTh>
                         </HeaderContent>
                         <RowTemplate>
-                            <MudTd DataLabel="SubjectCategory">@context.Form.Form</MudTd>
-                            <MudTd DataLabel="SubjectName">@context.Stream.Stream</MudTd>
+                            <MudTd DataLabel="SubjectCategory">@context.FullClass()</MudTd>
                             <MudTd DataLabel="Surname">@context.SessionYear.StartDate.ToShortDateString()</MudTd>
                             <MudTd DataLabel="Surname">@context.SessionYear.EndDate.ToShortDateString()</MudTd>
                             <MudTd DataLabel="Surname">@context.ClassTeacherName()</MudTd>

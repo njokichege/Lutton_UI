@@ -13,6 +13,21 @@ namespace FimiAppApi.Controllers
         {
             _sessionYearRepository = sessionYearRepository;
         }
+
+        [HttpGet("sessionyearbystartdate/{date}")]
+        public async Task<IActionResult> GetSessionYearByStartDate(string date)
+        {
+            try
+            {
+                var oneSession = await _sessionYearRepository.GetSessionYearByStartDate(date);
+
+                return Ok(oneSession);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetSessionYearById(int id)
@@ -35,10 +50,6 @@ namespace FimiAppApi.Controllers
             try
             {
                 var oneSession = await _sessionYearRepository.GetSessionYearByDates(sessionYear);
-                if (oneSession is null)
-                {
-                    return NotFound();
-                }
                 return Ok(oneSession);
             }
             catch (Exception ex)
@@ -46,20 +57,7 @@ namespace FimiAppApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-        [HttpGet("SessionYearByStartDate/{dateTime}")]
-        public async Task<IActionResult> GetSessionYearByStartDate(DateTime dateTime)
-        {
-            try
-            {
-                var oneSession = await _sessionYearRepository.GetSessionYearByStartDate(dateTime);
-                
-                return Ok(oneSession);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
+        
         [HttpGet]
         public async Task<IActionResult> GetSessionYears()
         {

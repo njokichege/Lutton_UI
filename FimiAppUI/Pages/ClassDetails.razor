@@ -2,6 +2,8 @@
 @page "/classdetails/{id}"
 @inherits ClassDetailsBase
 
+<link href="css/App.css" rel="stylesheet" />
+
 <MudGrid Class="mt-n12 px-5">
     <MudItem xs="9">
         <MudText Typo="Typo.h5" Class="d-flex justify-start">CLASS DETAILS</MudText>
@@ -63,16 +65,27 @@ else
                     }
                     else
                     {
-                        <MudDataGrid Items="@Students" Filterable="false" SortMode="@SortMode.None" Groupable="false">
-                            <Columns>
-                                <PropertyColumn Property="x => x.StudentNumber" Title="Student Number" />
-                                <PropertyColumn Property="x => x.StudentName()" Title="Name" />
-                                <PropertyColumn Property="x => x.Age()" Title="Age" />
-                                <PropertyColumn Property="x => x.Gender" Title="Gender" />
-                                <PropertyColumn Property="x => x.DateOfBirth.Value.ToShortDateString()" Title="Date of Birth" />
-                                <PropertyColumn Property="x => x.AdmissionDate.ToShortDateString()" Title="Admission Date" />
-                            </Columns>
-                        </MudDataGrid>
+                        <MudTable Items="@Students" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" T="StudentModel">
+                            <HeaderContent>
+                                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentNumber)">Adm No.</MudTableSortLabel></MudTh>
+                                <MudTh>Class</MudTh>
+                                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentName())">Name</MudTableSortLabel></MudTh>
+                                <MudTh>Gender</MudTh>
+                                <MudTh>KCPE</MudTh>
+                                <MudTh>Contact</MudTh>
+                            </HeaderContent>
+                            <RowTemplate>
+                                <MudTd DataLabel="StudentNumber">@context.StudentNumber</MudTd>
+                                <MudTd DataLabel="StudentClass">@context.StudentClass.FullClass()</MudTd>
+                                <MudTd DataLabel="Name">@context.StudentName()</MudTd>
+                                <MudTd DataLabel="Gender">@context.Gender</MudTd>
+                                <MudTd DataLabel="KCPEResult">@context.KCPEResult</MudTd>
+                                <MudTd DataLabel="PhoneNumber">@context.PhoneNumber</MudTd>
+                            </RowTemplate>
+                            <PagerContent>
+                                <MudTablePager />
+                            </PagerContent>
+                        </MudTable>
                     }
                 </MudTabPanel>
                 <MudTabPanel Text="Subjects">
@@ -84,11 +97,813 @@ else
                     {
                         <MudDataGrid Items="@ClassSubjectList" Filterable="false" SortMode="@SortMode.None" Groupable="false">
                             <Columns>
-                                <PropertyColumn Property="x => x.SubjectCode" Title="Subject Code" />
+                                <PropertyColumn Property="x => x.SubjectCode" Title="Code" />
                                 <PropertyColumn Property="x => x.SubjectName" Title="Subject" />
-                                <PropertyColumn Property="x => x.StudentCount" Title="Students" />
+                                <PropertyColumn Property="x => x.StudentCount" Title="Student Count" />
                             </Columns>
+                            <PagerContent>
+                                <MudDataGridPager T="StudentModel" />
+                            </PagerContent>
                         </MudDataGrid>
+                    }
+                </MudTabPanel>
+                <MudTabPanel Text="Timetable">
+                    @if (TimetableModels is null)
+                    {
+                        <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+                    }
+                    else
+                    {
+                        <table class="minimalistBlack">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>8:00 - 8:40</th>
+                                    <th>8:40 - 9:20</th>
+                                    <th>9:20 - 9:30</th>
+                                    <th>9:30 - 10:10</th>
+                                    <th>10:10 - 10:50</th>
+                                    <th>10:50 - 11:20</th>
+                                    <th>11:20 - 12:00</th>
+                                    <th>12:00 - 12:40</th>
+                                    <th>12:40 - 1:20</th>
+                                    <th>1:20 - 2:00</th>
+                                    <th>2:00 - 2:40</th>
+                                    <th>2:40 - 3:20</th>
+                                    <th>3:20 - 4:00</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>MON</th>
+                                    @if (TM800_840_Monday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM800_840_Monday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM840_920_Monday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM840_920_Monday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    <td class="vertical" rowspan="5"><b>SHORT BREAK</b></td>
+                                    @if (TM930_1010_Monday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM930_1010_Monday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1010_1050_Monday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1010_1050_Monday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    <td class="vertical" rowspan="5"><b>LONG BREAK</b></td>
+                                    @if (TM1120_1200_Monday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1120_1200_Monday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1200_1240_Monday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1200_1240_Monday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1240_120_Monday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1240_120_Monday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    <td class="vertical" rowspan="5"><b>LUNCH BREAK</b></td>
+                                    @if (TM200_240_Monday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM200_240_Monday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM240_320_Monday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM240_320_Monday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM320_400_Monday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM320_400_Monday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <th>TUE</th>
+                                    @if (TM800_840_Tuesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM800_840_Tuesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM840_920_Tuesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM840_920_Tuesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM930_1010_Tuesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM930_1010_Tuesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1010_1050_Tuesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1010_1050_Tuesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1120_1200_Tuesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1120_1200_Tuesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1200_1240_Tuesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1200_1240_Tuesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1240_120_Tuesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1240_120_Tuesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM200_240_Tuesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM200_240_Tuesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM240_320_Tuesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM240_320_Tuesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM320_400_Tuesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM320_400_Tuesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <th>WED</th>
+                                    @if (TM800_840_Wednesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM800_840_Wednesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM840_920_Wednesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM840_920_Wednesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM930_1010_Wednesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM930_1010_Wednesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1010_1050_Wednesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1010_1050_Wednesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1120_1200_Wednesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1120_1200_Wednesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1200_1240_Wednesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1200_1240_Wednesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1240_120_Wednesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1240_120_Wednesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM200_240_Wednesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM200_240_Wednesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM240_320_Wednesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM240_320_Wednesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM320_400_Wednesday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM320_400_Wednesday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <th>THUR</th>
+                                    @if (TM800_840_Thursday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM800_840_Thursday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM840_920_Thursday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM840_920_Thursday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM930_1010_Thursday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM930_1010_Thursday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1010_1050_Thursday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1010_1050_Thursday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1120_1200_Thursday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1120_1200_Thursday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1200_1240_Thursday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1200_1240_Thursday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1240_120_Thursday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1240_120_Thursday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM200_240_Thursday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM200_240_Thursday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM240_320_Thursday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM240_320_Thursday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM320_400_Thursday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM320_400_Thursday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <th>FRI</th>
+                                    @if (TM800_840_Friday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM800_840_Friday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM840_920_Friday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM840_920_Friday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM930_1010_Friday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM930_1010_Friday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1010_1050_Friday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1010_1050_Friday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1120_1200_Friday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1120_1200_Friday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1200_1240_Friday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1200_1240_Friday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM1240_120_Friday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM1240_120_Friday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM200_240_Friday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM200_240_Friday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM240_320_Friday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM240_320_Friday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                    @if (TM320_400_Friday is null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @foreach (var teacherSubject in TM320_400_Friday.TeacherSubjects)
+                                            {
+                                                @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
+                                                <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                            }
+                                        </td>
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
                     }
                 </MudTabPanel>
             </MudTabs>

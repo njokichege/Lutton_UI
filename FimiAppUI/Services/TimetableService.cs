@@ -20,6 +20,10 @@
         {
             return await _httpClient.GetFromJsonAsync<List<TimetableModel>>($"api/timetable/timetableentriesbyclass/{classId}");
         }
+        public async Task<List<TimetableModel>> GetTimetableModelsByTeacher(int teacherId)
+        {
+            return await _httpClient.GetFromJsonAsync<List<TimetableModel>>($"api/timetable/timetableentriesbyteacher/{teacherId}");
+        }
         public async Task<int> GetTimetableEntryByDayOfTheWeek(int classId, int subjectCode, string dayOfTheWeek)
         {
             return await _httpClient.GetFromJsonAsync<int>($"api/timetable/{classId}/{subjectCode}/{dayOfTheWeek}");

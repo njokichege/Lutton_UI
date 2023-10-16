@@ -41,6 +41,20 @@ namespace FimiAppApi.Controllers
             }
 
         }
+        [HttpGet("allstudents/{sesionYearId}")]
+        public async Task<IActionResult> GetAllStudentsBySessionYear(int sesionYearId)
+        {
+            try
+            {
+                var students = await _studentRepository.GetAllStudentsBySessionYear(sesionYearId);
+                return Ok(students);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
         [HttpGet("{studentnumber}")]
         public async Task<IActionResult> GetStudentByStudentNumber(int studentNumber)
         {
@@ -63,6 +77,27 @@ namespace FimiAppApi.Controllers
                 if(student is not null)
                 {
                     var studentModel = await _studentRepository.CreateStudent(student);
+                    return CreatedAtAction(nameof(GetStudentByStudentNumber), new { studentNumber = studentModel.StudentNumber }, studentModel);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpPost("existingstudent")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<ActionResult> AddExistingStudent([FromBody] StudentModel student)
+        {
+            try
+            {
+                if (student is not null)
+                {
+                    var studentModel = await _studentRepository.AddExistingStudent(student);
                     return CreatedAtAction(nameof(GetStudentByStudentNumber), new { studentNumber = studentModel.StudentNumber }, studentModel);
                 }
                 else

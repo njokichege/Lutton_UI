@@ -69,6 +69,20 @@ namespace FimiAppApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpGet("timetableentriesbyteacher/{teacherId}")]
+        public async Task<IActionResult> GetTimetableModelsByTeacher(int teacherId)
+        {
+            try
+            {
+                var times = await _timetableRepository.GetTimetableModelsByTeacher(teacherId);
+                return Ok(times);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+        }
         [HttpGet("{classId}/{subjectCode}/{dayOfTheWeek}")]
         public async Task<IActionResult> GetTimetableEntryByDayOfTheWeek(int classId, int subjectCode, string dayOfTheWeek)
         {

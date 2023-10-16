@@ -27,5 +27,19 @@ namespace FimiAppApi.Controllers
             }
 
         }
+        [HttpGet("subjectsbystudentnumber/{studentNumber}")]
+        public async Task<IActionResult> GetSubjectsByStudentNumber(int studentNumber)
+        {
+            try
+            {
+                var subjects = await _studentSubjectRepository.GetSubjectsByStudentNumber(studentNumber);
+                return Ok(subjects);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
     }
 }

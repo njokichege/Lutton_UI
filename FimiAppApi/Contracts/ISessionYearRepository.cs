@@ -5,7 +5,7 @@
         Task<SessionYearModel> CreateSessionYear(SessionYearModel sessionYear);
         Task<SessionYearModel> GetSessionYearByDates(SessionYearModel sessionYear);
         Task<SessionYearModel> GetSessionYearById(int sessionId);
-        Task<int> GetSessionYearByStartDate(DateTime dateTime);
+        Task<int> GetSessionYearByStartDate(string date);
         Task<IEnumerable<SessionYearModel>> GetSessionYears();
     }
 }

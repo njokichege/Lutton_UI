@@ -42,17 +42,29 @@ else
         </MudItem>
         <MudItem xs="9" Class="d-flex justify-space-between gap-1">
             <MudTabs ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
-                <MudTabPanel Text="Form 1">
-                    
-                </MudTabPanel>
-                <MudTabPanel Text="Form 2">
-                    
-                </MudTabPanel>
-                <MudTabPanel Text="Form 3">
-
-                </MudTabPanel>
-                <MudTabPanel Text="Form 4">
-
+                <MudTabPanel Text="Subjects">
+                    @if (Subjects is null)
+                    {
+                        <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+                    }
+                    else
+                    {
+                        <MudTable Items="@Subjects" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" T="StudentSubjectModel">
+                            <HeaderContent>
+                                <MudTh>Code</MudTh>
+                                <MudTh>Category</MudTh>
+                                <MudTh>Subject</MudTh>
+                            </HeaderContent>
+                            <RowTemplate>
+                                <MudTd DataLabel="Code">@context.Subject.Code</MudTd>
+                                <MudTd DataLabel="Code">@context.Subject.SubjectCategory.SubjectCategoryName</MudTd>
+                                <MudTd DataLabel="SubjectName">@context.Subject.SubjectName</MudTd>
+                            </RowTemplate>
+                            <PagerContent>
+                                <MudTablePager />
+                            </PagerContent>
+                        </MudTable>
+                    }
                 </MudTabPanel>
             </MudTabs>
         </MudItem>

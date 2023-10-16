@@ -3,7 +3,7 @@
     public interface ISessionYearService
     {
         Task<HttpResponseMessage> CreateSessionYear(SessionYearModel sessionYear);
-        Task<int> GetSessionYearByStartDate(DateTime dateTime);
+        Task<int> GetSessionYearByStartDate(string date);
         Task<IEnumerable<SessionYearModel>> GetSessionYears();
     }
 }

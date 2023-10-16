@@ -20,9 +20,9 @@ namespace FimiAppUI.Services
         {
             return await _httpClient.PostAsJsonAsync<SessionYearModel>("api/sessionyear", sessionYear);
         }
-        public async Task<int> GetSessionYearByStartDate(DateTime dateTime)
+        public async Task<int> GetSessionYearByStartDate(string date)
         {
-            return await _httpClient.GetFromJsonAsync<int>($"api/sessionyear/SessionYearByStartDate/{dateTime}");
+            return await _httpClient.GetFromJsonAsync<int>($"api/sessionyear/sessionyearbystartdate/{date}");
         }
     }
 }

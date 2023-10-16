@@ -89,11 +89,11 @@
     </MudTabPanel>
     <MudTabPanel Text="Add Bulk Students">
         <MudGrid Class="pa-4">
-            <MudItem xs="6">
+            <MudItem xs="4">
                 <MudCard>
                     <MudForm Model="@model" @ref="@form" Validation="@(FileValidator.ValidateValue)" ValidationDelay="0">
                         <MudCardContent>
-                            <MudFileUpload T="IBrowserFile" For="@(() => model.File)" @bind-Files="model.File" OnFilesChanged="UploadFiles" SuppressOnChangeWhenInvalid="true">
+                            <MudFileUpload T="IBrowserFile" For="@(() => model.File)" @bind-Files="model.File" OnFilesChanged="@UploadFiles" SuppressOnChangeWhenInvalid="true">
                                 <ButtonTemplate>
                                     <MudButton HtmlTag="label"
                                                Variant="Variant.Filled"
@@ -118,6 +118,12 @@
                         </MudCardContent>
                     </MudForm>
                 </MudCard>
+            </MudItem>
+            <MudItem xs="8">
+                @if (loadFile is true)
+                {
+                    <MudProgressLinear Color="Color.Tertiary" Size="Size.Large" Indeterminate="true" />
+                }
             </MudItem>
         </MudGrid>
     </MudTabPanel>

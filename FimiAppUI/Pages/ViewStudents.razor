@@ -14,12 +14,21 @@
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" />
 
+@if (showSuccessAlert)
+{
+    <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelSuccess</MudAlert>
+}
+@if (showFailAlert)
+{
+    <MudAlert Severity="Severity.Error" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelFail</MudAlert>
+}
+
 <MudGrid Class="d-flex px-4 mt-4 align-center">
     <MudItem xs="3">
         <MudCard>
             <MudCardContent>
                 <MudAutocomplete T="SessionYearModel" Label="School Year" @bind-Value="SelectedStudentSchoolYear" ShowProgressIndicator="true"
-                                 SearchFunc="@SelectedSessionYearSearch" ToStringFunc="@(e=> e==null?null : $"{e.SessionString()}")" />
+                                 SearchFunc="@SelectedSessionYearSearch" ToStringFunc="@(e=> e==null?null : $"{e.StartDate.Year}")" />
             </MudCardContent>
         </MudCard>
     </MudItem>
@@ -49,26 +58,26 @@
     <MudItem xs="12">
         @if (AllStudents is null)
         {
-            <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+            <MudProgressLinear Color="Color.Tertiary" Size="Size.Large" Indeterminate="true" />
         }
         else if(AllStudents is not null && Students is null)
         {
             <MudTable Items="@AllStudents" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="StudentRowClickEvent" T="StudentModel">
                 <HeaderContent>
-                    <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentNumber)">Student Number</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentNumber)">Adm No.</MudTableSortLabel></MudTh>
+                    <MudTh>Class</MudTh>
                     <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentName())">Name</MudTableSortLabel></MudTh>
-                    <MudTh>Age</MudTh>
                     <MudTh>Gender</MudTh>
-                    <MudTh>Date of Birth</MudTh>
-                    <MudTh>Admission Date</MudTh>
+                    <MudTh>KCPE</MudTh>
+                    <MudTh>Contact</MudTh>
                 </HeaderContent>
                 <RowTemplate>
-                    <MudTd DataLabel="Student Number">@context.StudentNumber</MudTd>
+                    <MudTd DataLabel="StudentNumber">@context.StudentNumber</MudTd>
+                    <MudTd DataLabel="StudentClass">@context.StudentClass.FullClass()</MudTd>
                     <MudTd DataLabel="Name">@context.StudentName()</MudTd>
-                    <MudTd DataLabel="Age">@context.Age()</MudTd>
                     <MudTd DataLabel="Gender">@context.Gender</MudTd>
-                    <MudTd DataLabel="Date of Birth">@context.DateOfBirth.Value.ToShortDateString()</MudTd>
-                    <MudTd DataLabel="Admission Date">@context.AdmissionDate.ToShortDateString()</MudTd>
+                    <MudTd DataLabel="KCPEResult">@context.KCPEResult</MudTd>
+                    <MudTd DataLabel="PhoneNumber">@context.PhoneNumber</MudTd>
                 </RowTemplate>
                 <PagerContent>
                     <MudTablePager />
@@ -79,21 +88,24 @@
         {
             <MudTable Items="@Students" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" Striped="true" FixedHeader="true" OnRowClick="StudentRowClickEvent" T="StudentModel">
                 <HeaderContent>
-                    <MudTh>Student Number</MudTh>
-                    <MudTh>Name</MudTh>
-                    <MudTh>Age</MudTh>
+                    <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentNumber)">Adm No.</MudTableSortLabel></MudTh>
+                    <MudTh>Class</MudTh>
+                    <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentName())">Name</MudTableSortLabel></MudTh>
                     <MudTh>Gender</MudTh>
-                    <MudTh>Date of Birth</MudTh>
-                    <MudTh>Admission Date</MudTh>
+                    <MudTh>KCPE</MudTh>
+                    <MudTh>Contact</MudTh>
                 </HeaderContent>
                 <RowTemplate>
-                    <MudTd DataLabel="Student Number">@context.StudentNumber</MudTd>
+                    <MudTd DataLabel="StudentNumber">@context.StudentNumber</MudTd>
+                    <MudTd DataLabel="StudentClass">@context.StudentClass.FullClass()</MudTd>
                     <MudTd DataLabel="Name">@context.StudentName()</MudTd>
-                    <MudTd DataLabel="Age">@context.Age()</MudTd>
                     <MudTd DataLabel="Gender">@context.Gender</MudTd>
-                    <MudTd DataLabel="Date of Birth">@context.DateOfBirth.Value.ToShortDateString()</MudTd>
-                    <MudTd DataLabel="Admission Date">@context.AdmissionDate.ToShortDateString()</MudTd>
+                    <MudTd DataLabel="KCPEResult">@context.KCPEResult</MudTd>
+                    <MudTd DataLabel="PhoneNumber">@context.PhoneNumber</MudTd>
                 </RowTemplate>
+                <PagerContent>
+                    <MudTablePager />
+                </PagerContent>
             </MudTable>
         }
     </MudItem>

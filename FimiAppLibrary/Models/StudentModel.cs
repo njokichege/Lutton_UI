@@ -10,13 +10,20 @@ public class StudentModel
     public DateTime AdmissionDate { get; set; }
     public int KCPEResult { get; set; }
     public string PhoneNumber { get; set; }
-    public List<ClassModel> StudentClasses { get; set; } = new List<ClassModel>();
+    public ClassModel StudentClass { get; set; } = new ClassModel();
     public string StudentName()
     {
         return $"{FirstName} {MiddleName} {Surname}";
     }
     public int Age()
     {
-        return DateTime.Now.Year - DateOfBirth.Value.Year;
+        if(DateOfBirth  == null)
+        {
+            return 0;
+        }
+        else
+        {
+            return DateTime.Now.Year - DateOfBirth.Value.Year;
+        }
     }
 }

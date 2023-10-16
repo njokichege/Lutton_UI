@@ -46,6 +46,7 @@ namespace FimiAppUI.Pages
         public bool visible;
         public MudForm form;
         public FileModel model = new();
+        public bool loadFile = false;
         protected override Task OnInitializedAsync()
         {
             return base.OnInitializedAsync();
@@ -96,8 +97,9 @@ namespace FimiAppUI.Pages
             await registerStudentForm.ResetAsync();
             await registerParentForm.ResetAsync();
         }
-        public async void UploadFiles(InputFileChangeEventArgs e)
+        public async Task UploadFiles(InputFileChangeEventArgs e)
         {
+            loadFile = true;
             await form.Validate();
 
             if (form.IsValid)
@@ -121,19 +123,15 @@ namespace FimiAppUI.Pages
                         DataSet dataset = reader.AsDataSet(conf);
                         DataRowCollection row = dataset.Tables["Sheet1"].Rows;
 
-                        List<object> rowDataList = null;
-                        List<StudentModel> students = new List<StudentModel>();
-                        List<StudentClassModel> studentClasses = new List<StudentClassModel>();
                         ClassModel classModel = new ClassModel();
 
                         string formStream = string.Empty;
-                        string secondStream = string.Empty;
                         int year = 0;
                         string form = string.Empty;
 
-                        foreach (DataRow item in row)
+                        for(int j = 0 ; j < row.Count; j++)
                         {
-                            rowDataList = item.ItemArray.ToList();
+                            List<object>  rowDataList = row[j].ItemArray.ToList();
 
                             int i = 0;
                             string name = rowDataList[i + 1].ToString();
@@ -146,34 +144,52 @@ namespace FimiAppUI.Pages
                                 year = Convert.ToInt32(rowDataList[i + 2]);
                             }
 
-                            if (formStream == string.Empty && form == string.Empty)
-                            {
-                                form = currentForm;
-                                formStream = currentFormStream;
+                            form = currentForm;
+                            formStream = currentFormStream;
 
-                                DateTime date = new DateTime(year, 1, 1);
+                            DateTime date = new DateTime(year, 1, 1);
 
-                                var streamId = await StreamService.GetStreamByName(formStream);
-                                var formId = await FormService.GetFormByName(form);
-                                var sessionId = await SessionYearService.GetSessionYearByStartDate(date);
+                            var streamId = await StreamService.GetStreamByName(formStream);
+                            var formId = await FormService.GetFormByName(form);
+                            var sessionId = await SessionYearService.GetSessionYearByStartDate(date.ToString("s"));
 
-                                classModel = await ClassService.GetClassByForeignKeys(formId, streamId, sessionId);
-                            }
-                            else if (formStream.Equals(currentFormStream) is false)
-                            {
-                                secondStream = currentFormStream;
-                            }
+                            classModel = await ClassService.GetClassByForeignKeys(formId, streamId, sessionId);
 
                             StudentModel student = new StudentModel();
-                            student.StudentNumber = (int)rowDataList[i];
+                            student.StudentNumber = Convert.ToInt32(rowDataList[i]);
                             student.FirstName = splitName[i];
                             student.MiddleName = splitName[i + 1];
-                            student.Surname = splitName[i + 2];
-                            student.KCPEResult = (int)rowDataList[i + 5];
-                            student.PhoneNumber = rowDataList[i + 6].ToString();
-                            student.Gender = rowDataList[i + 7].ToString();
+                            if(splitName.Length > 2)
+                            {
+                                student.Surname = splitName[i + 2];
+                            }
 
-                            students.Add(student);
+                            if (rowDataList[i + 5].ToString().Equals(string.Empty))
+                            {
+                                student.KCPEResult = 0;
+                            }
+                            else
+                            {
+                                student.KCPEResult = Convert.ToInt32(rowDataList[i + 5]);
+                            }
+
+                            if (rowDataList[i + 6].ToString().Equals(string.Empty))
+                            {
+                                student.PhoneNumber = string.Empty;
+                            }
+                            else
+                            {
+                                student.PhoneNumber = rowDataList[i + 6].ToString();
+                            }
+
+                            if (rowDataList[i + 7].ToString().Equals(string.Empty))
+                            {
+                                student.Gender = string.Empty;
+                            }
+                            else
+                            {
+                                student.Gender = rowDataList[i + 7].ToString();
+                            }
 
                             StudentClassModel studentClass = new StudentClassModel
                             {
@@ -181,47 +197,28 @@ namespace FimiAppUI.Pages
                                 StudentNumber = student.StudentNumber
                             };
 
-                            studentClasses.Add(studentClass);
-                        }
-                        foreach (var student in students)
-                        {
-                            var response = await StudentService.AddStudent(student);
-                            if (response.StatusCode == HttpStatusCode.Created)
+                            var response = await StudentService.AddExistingStudent(student);
+                            if (response.StatusCode != HttpStatusCode.Created)
                             {
-                                continue;
+                                ShowFailAlert($"Failed to add student - {student.StudentNumber}!");
+                                break;
                             }
-                            else if (response.StatusCode == HttpStatusCode.Conflict)
+
+                            var classResponse = await StudentClassService.AddStudentClass(studentClass);
+                            if (classResponse.StatusCode != HttpStatusCode.Created)
                             {
-                                ShowFailAlert($"Student {student.StudentNumber} already exists!");
+                                ShowFailAlert($"Failed to add {student.StudentNumber}!");
+                                break;
                             }
-                            else
+                            if( j == row.Count - 1)
                             {
-                                ShowFailAlert($"Failed to add student!");
-                            }
-                        }
-                        foreach (var studentClass in studentClasses)
-                        {
-                            var response = await StudentClassService.AddStudentClass(studentClass);
-                            if (response.StatusCode == HttpStatusCode.Created)
-                            {
-                                continue;
-                            }
-                            else if (response.StatusCode == HttpStatusCode.Conflict)
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                ShowFailAlert($"Failed to add {studentClass.StudentNumber} to respective class!");
+                                loadFile = false;
+                                ShowSuccessAlert($"Successfully added students");
                             }
                         }
                     }
                 }
             }
-        }
-        public async Task SubmitFileUpload()
-        {
-            
         }
         public void Cancel() => visible = false;
         public void ShowSuccessAlert(string modelType)

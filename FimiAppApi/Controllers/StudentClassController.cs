@@ -12,7 +12,7 @@ namespace FimiAppApi.Controllers
         {
             _studentClassRepository = studentClassRepository;
         }
-        [HttpGet("{studentnumber}")]
+        [HttpGet("{studentClassId}")]
         public async Task<IActionResult> GetStudentClassById(int studentClassId)
         {
             try
