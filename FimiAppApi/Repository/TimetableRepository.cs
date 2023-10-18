@@ -1,4 +1,5 @@
-﻿using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
+﻿using FimiAppLibrary.Models;
+using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
 using System.Diagnostics;
 using System.Xml;
 
@@ -86,6 +87,29 @@ namespace FimiAppApi.Repository
             };
             return createdModel;
         }
+        public async Task<TimetableModel> AddTimetableEntryWithLab(TimetableModel timetable)
+        {
+            string sql = "INSERT INTO " +
+                            "TimeTable " +
+                                "(ClassId,TimeslotId,DayOfTheWeek,LabId) " +
+                            "VALUES " +
+                                "(@ClassId,@TimeslotId,@DayOfTheWeek,@LabId); SELECT LAST_INSERT_ID();";
+            var parameters = new DynamicParameters();
+            parameters.Add("ClassId", timetable.ClassModel.ClassId);
+            parameters.Add("TimeslotId", timetable.TimeSlot.TimeslotId);
+            parameters.Add("DayOfTheWeek", timetable.DayOfTheWeek);
+            parameters.Add("LabId", timetable.LabId);
+
+            int id = await _dapperContext.LoadSingleData<int, dynamic>(sql, parameters);
+            var createdModel = new TimetableModel
+            {
+                TimetableId = id,
+                ClassModel = timetable.ClassModel,
+                TimeSlot = timetable.TimeSlot,
+                Lab = timetable.Lab,
+            };
+            return createdModel;
+        }
         public async Task<List<TimetableModel>> GetTimetableModels()
         {
             string sql = "SELECT " +
@@ -120,7 +144,9 @@ namespace FimiAppApi.Repository
                             "timeslot.StartTime," +
                             "timeslot.EndTime," +
                             "timeslot.IsBeforeBreak," +
-                            "timeslot.IsAfterBreak " +
+                            "timeslot.IsAfterBreak," +
+                            "lab.LabId," +
+                            "lab.LabName " +
                          "FROM timetable " +
                          "INNER JOIN timetableTeacherSubject ON timetableTeacherSubject.TimeTableId = timetable.TimeTableId " +
                          "INNER JOIN teacherSubject ON teacherSubject.TeacherSubjectId = timetableTeacherSubject.TeacherSubjectId " +
@@ -132,7 +158,8 @@ namespace FimiAppApi.Repository
                          "inner join form on class.FormId = form.FormId " +
                          "inner join stream on class.StreamId = stream.StreamId " +
                          "inner join sessionyear on class.SessionYearId = sessionyear.SessionYearId " +
-                         "inner join timeslot on timetable.TimeslotId = timeslot.TimeslotId; ";
+                         "inner join timeslot on timetable.TimeslotId = timeslot.TimeslotId " +
+                         "left join lab on lab.LabId = timetable.LabId ; ";
             
             Type[] types =
             {
@@ -146,7 +173,8 @@ namespace FimiAppApi.Repository
                  typeof(FormModel),
                  typeof(StreamModel),
                  typeof(SessionYearModel),
-                 typeof(TimeSlotModel)
+                 typeof(TimeSlotModel),
+                 typeof(LabModel)
             };
             Func<object[], TimetableModel> map = delegate (object[] obj)
             {
@@ -161,12 +189,14 @@ namespace FimiAppApi.Repository
                 StreamModel streamModel = obj[8] as StreamModel;
                 SessionYearModel sessionYearModel = obj[9] as SessionYearModel;
                 TimeSlotModel timeSlotModel = obj[10] as TimeSlotModel;
+                LabModel labModel = obj[11] as LabModel;
                 
                 timetableModel.TeacherSubjects.Add(teacherSubjectModel);
                 teacherSubjectModel.Subject = subjectModel;
                 teacherSubjectModel.Teacher = teacherModel;
                 timetableModel.ClassModel = classModel;
-                timetableModel.TimeSlot = timeSlotModel;     
+                timetableModel.TimeSlot = timeSlotModel;  
+                timetableModel.Lab = labModel;
                 subjectModel.SubjectCategory = subjectCategoryModel;
                 classModel.Form = formModel;
                 classModel.Stream = streamModel;
@@ -175,7 +205,7 @@ namespace FimiAppApi.Repository
 
                 return timetableModel;
             };
-            string splitOn = "TimeTableId,TeacherSubjectId,Code,SubjectCategoryId,TeacherId,NationalId,ClassId,FormId,StreamId,SessionYearId,TimeslotId";
+            string splitOn = "TimeTableId,TeacherSubjectId,Code,SubjectCategoryId,TeacherId,NationalId,ClassId,FormId,StreamId,SessionYearId,TimeslotId,LabId";
 
             var data =  await _dapperContext.MapMultipleObjects<TimetableModel, dynamic>(sql, types, map, splitOn, new { });
             IEnumerable<TimetableModel> results = data.GroupBy(x => x.TimetableId).Select(group =>
@@ -221,7 +251,9 @@ namespace FimiAppApi.Repository
                             "timeslot.StartTime," +
                             "timeslot.EndTime," +
                             "timeslot.IsBeforeBreak," +
-                            "timeslot.IsAfterBreak " +
+                            "timeslot.IsAfterBreak," +
+                            "lab.LabId," +
+                            "lab.LabName  " +
                          "FROM timetable " +
                          "INNER JOIN timetableTeacherSubject ON timetableTeacherSubject.TimeTableId = timetable.TimeTableId " +
                          "INNER JOIN teacherSubject ON teacherSubject.TeacherSubjectId = timetableTeacherSubject.TeacherSubjectId " +
@@ -234,6 +266,7 @@ namespace FimiAppApi.Repository
                          "inner join stream on class.StreamId = stream.StreamId " +
                          "inner join sessionyear on class.SessionYearId = sessionyear.SessionYearId " +
                          "inner join timeslot on timetable.TimeslotId = timeslot.TimeslotId " +
+                         "left join lab on lab.LabId = timetable.LabId " +
                          "where class.ClassId = @ClassId; ";
 
             var parameters = new DynamicParameters();
@@ -251,7 +284,8 @@ namespace FimiAppApi.Repository
                  typeof(FormModel),
                  typeof(StreamModel),
                  typeof(SessionYearModel),
-                 typeof(TimeSlotModel)
+                 typeof(TimeSlotModel),
+                 typeof(LabModel)
             };
             Func<object[], TimetableModel> map = delegate (object[] obj)
             {
@@ -266,12 +300,14 @@ namespace FimiAppApi.Repository
                 StreamModel streamModel = obj[8] as StreamModel;
                 SessionYearModel sessionYearModel = obj[9] as SessionYearModel;
                 TimeSlotModel timeSlotModel = obj[10] as TimeSlotModel;
+                LabModel labModel = obj[11] as LabModel;
 
                 timetableModel.TeacherSubjects.Add(teacherSubjectModel);
                 teacherSubjectModel.Subject = subjectModel;
                 teacherSubjectModel.Teacher = teacherModel;
                 timetableModel.ClassModel = classModel;
                 timetableModel.TimeSlot = timeSlotModel;
+                timetableModel.Lab = labModel;
                 subjectModel.SubjectCategory = subjectCategoryModel;
                 classModel.Form = formModel;
                 classModel.Stream = streamModel;
@@ -280,7 +316,7 @@ namespace FimiAppApi.Repository
 
                 return timetableModel;
             };
-            string splitOn = "TimeTableId,TeacherSubjectId,Code,SubjectCategoryId,TeacherId,NationalId,ClassId,FormId,StreamId,SessionYearId,TimeslotId";
+            string splitOn = "TimeTableId,TeacherSubjectId,Code,SubjectCategoryId,TeacherId,NationalId,ClassId,FormId,StreamId,SessionYearId,TimeslotId,LabId";
 
             var data = await _dapperContext.MapMultipleObjects<TimetableModel, dynamic>(sql, types, map, splitOn, parameters);
             IEnumerable<TimetableModel> results = data.GroupBy(x => x.TimetableId).Select(group =>
@@ -326,7 +362,9 @@ namespace FimiAppApi.Repository
                             "timeslot.StartTime," +
                             "timeslot.EndTime," +
                             "timeslot.IsBeforeBreak," +
-                            "timeslot.IsAfterBreak " +
+                            "timeslot.IsAfterBreak," +
+                            "lab.LabId," +
+                            "lab.LabName  " +
                          "FROM timetable " +
                          "INNER JOIN timetableTeacherSubject ON timetableTeacherSubject.TimeTableId = timetable.TimeTableId " +
                          "INNER JOIN teacherSubject ON teacherSubject.TeacherSubjectId = timetableTeacherSubject.TeacherSubjectId " +
@@ -339,6 +377,7 @@ namespace FimiAppApi.Repository
                          "inner join stream on class.StreamId = stream.StreamId " +
                          "inner join sessionyear on class.SessionYearId = sessionyear.SessionYearId " +
                          "inner join timeslot on timetable.TimeslotId = timeslot.TimeslotId " +
+                         "left join lab on lab.LabId = timetable.LabId " +
                          "where teacher.TeacherId = @TeacherId; ";
 
             var parameters = new DynamicParameters();
@@ -356,7 +395,8 @@ namespace FimiAppApi.Repository
                  typeof(FormModel),
                  typeof(StreamModel),
                  typeof(SessionYearModel),
-                 typeof(TimeSlotModel)
+                 typeof(TimeSlotModel),
+                 typeof(LabModel)
             };
             Func<object[], TimetableModel> map = delegate (object[] obj)
             {
@@ -371,12 +411,14 @@ namespace FimiAppApi.Repository
                 StreamModel streamModel = obj[8] as StreamModel;
                 SessionYearModel sessionYearModel = obj[9] as SessionYearModel;
                 TimeSlotModel timeSlotModel = obj[10] as TimeSlotModel;
+                LabModel labModel = obj[11] as LabModel;
 
                 timetableModel.TeacherSubjects.Add(teacherSubjectModel);
                 teacherSubjectModel.Subject = subjectModel;
                 teacherSubjectModel.Teacher = teacherModel;
                 timetableModel.ClassModel = classModel;
                 timetableModel.TimeSlot = timeSlotModel;
+                timetableModel.Lab = labModel;
                 subjectModel.SubjectCategory = subjectCategoryModel;
                 classModel.Form = formModel;
                 classModel.Stream = streamModel;
@@ -385,7 +427,7 @@ namespace FimiAppApi.Repository
 
                 return timetableModel;
             };
-            string splitOn = "TimeTableId,TeacherSubjectId,Code,SubjectCategoryId,TeacherId,NationalId,ClassId,FormId,StreamId,SessionYearId,TimeslotId";
+            string splitOn = "TimeTableId,TeacherSubjectId,Code,SubjectCategoryId,TeacherId,NationalId,ClassId,FormId,StreamId,SessionYearId,TimeslotId,LabId";
 
             var data = await _dapperContext.MapMultipleObjects<TimetableModel, dynamic>(sql, types, map, splitOn, parameters);
             IEnumerable<TimetableModel> results = data.GroupBy(x => x.TimetableId).Select(group =>
@@ -396,6 +438,44 @@ namespace FimiAppApi.Repository
             });
 
             return results.ToList();
+        }
+        public async Task<int> GetLabAvailability(int timeslotId, string day)
+        {
+            string sql = "SELECT " +
+                            "count(LabId) " +
+                         "FROM timetable " +
+                         "where DayOfTheWeek = @DayOfTheWeek AND " +
+                         "TimeslotId = @TimeslotId;";
+
+            var parameteres = new DynamicParameters();
+            parameteres.Add("DayOfTheWeek", day);
+            parameteres.Add("TimeslotId", timeslotId);
+            
+            return await _dapperContext.LoadSingleData<int, dynamic>(sql, parameteres);
+        }
+        public async Task<List<LessonCountModel>> GetLessonCounts()
+        {
+            string sql = "select " +
+                            "timetable.ClassId AS ClassId," +
+                            "form.Form AS Form," +
+                            "stream.Stream AS Stream," +
+                            "subjects.SubjectName AS Subject," +
+                            "count(*) AS LessonCount " +
+                         "from timetable " +
+                         "inner join class on class.ClassId = timetable.ClassId " +
+                         "inner join form on form.FormId = class.FormId " +
+                         "inner join stream on stream.StreamId = class.StreamId " +
+                         "inner join timetableteachersubject on timetableteachersubject.TimeTableId = timetable.TimeTableId " +
+                         "inner join TeacherSubject on TeacherSubject.TeacherSubjectId = timetableteachersubject.TeacherSubjectId " +
+                         "inner join Subjects on Subjects.Code = TeacherSubject.Code " +
+                         "group by " +
+                            "timetable.ClassId," +
+                            "form.Form," +
+                            "stream.Stream," +
+                            "subjects.SubjectName " +
+                         "ORDER BY LessonCount DESC;";
+
+            return await _dapperContext.LoadData<LessonCountModel,dynamic>(sql, new { });
         }
     }
 }

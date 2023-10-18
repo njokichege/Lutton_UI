@@ -10,6 +10,7 @@ namespace FimiAppUI.Pages
         [Inject] public ITeacherSubjectService TeacherSubjectService { get; set; }
         [Inject] public IStudentSubjectService StudentSubjectService { get; set; }
         [Inject] public ITimetableService TimetableService { get; set; }
+        [Inject] public NavigationManager Navigation { get; set; }
         [Parameter] public string Id { get; set; }
         public IEnumerable<StudentModel> Students { get; set; } = new List<StudentModel>();
         public IEnumerable<TeacherSubjectModel> TeacherSubjects { get; set; } = new List<TeacherSubjectModel>();
@@ -93,7 +94,10 @@ namespace FimiAppUI.Pages
             ClassSubjectList = await StudentSubjectService.MapStudentOnSubject(ClassSelected.ClassId);
             await GenerateTimetable();
         }
-
+        public void StudentRowClickEvent(TableRowClickEventArgs<StudentModel> tableRowClickEventArgs)
+        {
+            Navigation.NavigateTo("/studentdetails/" + tableRowClickEventArgs.Item.StudentNumber);
+        }
         private async Task GenerateTimetable()
         {
             TimetableModels = await TimetableService.GetTimetableModelsByClass(ClassSelected.ClassId);

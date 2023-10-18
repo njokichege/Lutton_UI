@@ -65,7 +65,7 @@ else
                     }
                     else
                     {
-                        <MudTable Items="@Students" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" T="StudentModel">
+                        <MudTable Items="@Students" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" T="StudentModel" OnRowClick="StudentRowClickEvent">
                             <HeaderContent>
                                 <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentNumber)">Adm No.</MudTableSortLabel></MudTh>
                                 <MudTh>Class</MudTh>
@@ -148,6 +148,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM800_840_Monday.Lab is not null)
+                                                {
+                                                    <sub>@TM800_840_Monday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -162,6 +167,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM840_920_Monday.Lab is not null)
+                                                {
+                                                    <sub>@TM840_920_Monday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -179,6 +189,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM930_1010_Monday.Lab is not null)
+                                                {
+                                                    <sub>@TM930_1010_Monday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -193,6 +208,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM1010_1050_Monday.Lab is not null)
+                                                {
+                                                    <sub>@TM1010_1050_Monday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -210,6 +230,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM1120_1200_Monday.Lab is not null)
+                                                {
+                                                    <sub>@TM1120_1200_Monday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -225,6 +250,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM1200_1240_Monday.Lab is not null)
+                                                {
+                                                    <sub>@TM1200_1240_Monday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -239,6 +269,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM1240_120_Monday.Lab is not null)
+                                                {
+                                                    <sub>@TM1240_120_Monday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -256,6 +291,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM200_240_Monday.Lab is not null)
+                                                {
+                                                    <sub>@TM200_240_Monday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -271,6 +311,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM240_320_Monday.Lab is not null)
+                                                {
+                                                    <sub>@TM240_320_Monday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -285,6 +330,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM320_400_Monday.Lab is not null)
+                                                {
+                                                    <sub>@TM320_400_Monday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -304,6 +354,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM800_840_Tuesday.Lab is not null)
+                                                {
+                                                    <sub>@TM800_840_Tuesday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -318,6 +373,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM840_920_Tuesday.Lab is not null)
+                                                {
+                                                    <sub>@TM840_920_Tuesday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -334,6 +394,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM930_1010_Tuesday.Lab is not null)
+                                                {
+                                                    <sub>@TM930_1010_Tuesday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -348,6 +413,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM1010_1050_Tuesday.Lab is not null)
+                                                {
+                                                    <sub>@TM1010_1050_Tuesday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -364,6 +434,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM1120_1200_Tuesday.Lab is not null)
+                                                {
+                                                    <sub>@TM1120_1200_Tuesday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -378,6 +453,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM1200_1240_Tuesday.Lab is not null)
+                                                {
+                                                    <sub>@TM1200_1240_Tuesday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -394,6 +474,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM1240_120_Tuesday.Lab is not null)
+                                                {
+                                                    <sub>@TM1240_120_Tuesday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -408,6 +493,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM200_240_Tuesday.Lab is not null)
+                                                {
+                                                    <sub>@TM200_240_Tuesday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -424,6 +514,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM240_320_Tuesday.Lab is not null)
+                                                {
+                                                    <sub>@TM240_320_Tuesday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -438,6 +533,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM320_400_Tuesday.Lab is not null)
+                                                {
+                                                    <sub>@TM320_400_Tuesday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -457,6 +557,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM800_840_Wednesday.Lab is not null)
+                                                {
+                                                    <sub>@TM800_840_Wednesday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -471,6 +576,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM840_920_Wednesday.Lab is not null)
+                                                {
+                                                    <sub>@TM840_920_Wednesday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -487,6 +597,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM930_1010_Wednesday.Lab is not null)
+                                                {
+                                                    <sub>@TM930_1010_Wednesday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -501,6 +616,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM1010_1050_Wednesday.Lab is not null)
+                                                {
+                                                    <sub>@TM1010_1050_Wednesday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -517,6 +637,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM1120_1200_Wednesday.Lab is not null)
+                                                {
+                                                    <sub>@TM1120_1200_Wednesday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -531,6 +656,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM1200_1240_Wednesday.Lab is not null)
+                                                {
+                                                    <sub>@TM1200_1240_Wednesday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -547,6 +677,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM1240_120_Wednesday.Lab is not null)
+                                                {
+                                                    <sub>@TM1240_120_Wednesday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -561,6 +696,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM200_240_Wednesday.Lab is not null)
+                                                {
+                                                    <sub>@TM200_240_Wednesday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -577,6 +717,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM240_320_Wednesday.Lab is not null)
+                                                {
+                                                    <sub>@TM240_320_Wednesday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -591,6 +736,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM320_400_Wednesday.Lab is not null)
+                                                {
+                                                    <sub>@TM320_400_Wednesday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -610,6 +760,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM800_840_Thursday.Lab is not null)
+                                                {
+                                                    <sub>@TM800_840_Thursday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -624,6 +779,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM840_920_Thursday.Lab is not null)
+                                                {
+                                                    <sub>@TM840_920_Thursday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -640,6 +800,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM930_1010_Thursday.Lab is not null)
+                                                {
+                                                    <sub>@TM930_1010_Thursday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -654,6 +819,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM1010_1050_Thursday.Lab is not null)
+                                                {
+                                                    <sub>@TM1010_1050_Thursday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -670,6 +840,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM1120_1200_Thursday.Lab is not null)
+                                                {
+                                                    <sub>@TM1120_1200_Thursday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -684,6 +859,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM1200_1240_Thursday.Lab is not null)
+                                                {
+                                                    <sub>@TM1200_1240_Thursday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -700,6 +880,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM1240_120_Thursday.Lab is not null)
+                                                {
+                                                    <sub>@TM1240_120_Thursday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -714,6 +899,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM200_240_Thursday.Lab is not null)
+                                                {
+                                                    <sub>@TM200_240_Thursday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -730,6 +920,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM240_320_Thursday.Lab is not null)
+                                                {
+                                                    <sub>@TM240_320_Thursday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -744,6 +939,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM320_400_Thursday.Lab is not null)
+                                                {
+                                                    <sub>@TM320_400_Thursday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -763,6 +963,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM800_840_Friday.Lab is not null)
+                                                {
+                                                    <sub>@TM800_840_Friday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -777,6 +982,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM840_920_Friday.Lab is not null)
+                                                {
+                                                    <sub>@TM840_920_Friday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -793,6 +1003,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM930_1010_Friday.Lab is not null)
+                                                {
+                                                    <sub>@TM930_1010_Friday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -807,6 +1022,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM1010_1050_Friday.Lab is not null)
+                                                {
+                                                    <sub>@TM1010_1050_Friday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -823,6 +1043,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM1120_1200_Friday.Lab is not null)
+                                                {
+                                                    <sub>@TM1120_1200_Friday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -837,6 +1062,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM1200_1240_Friday.Lab is not null)
+                                                {
+                                                    <sub>@TM1200_1240_Friday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -853,6 +1083,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM1240_120_Friday.Lab is not null)
+                                                {
+                                                    <sub>@TM1240_120_Friday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -867,6 +1102,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM200_240_Friday.Lab is not null)
+                                                {
+                                                    <sub>@TM200_240_Friday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>
@@ -883,6 +1123,11 @@ else
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
                                                 @space
+                                                @if (TM240_320_Friday.Lab is not null)
+                                                {
+                                                    <sub>@TM240_320_Friday.Lab.LabName.ToUpper()</sub>
+                                                }
+                                                @space
                                             }
                                         </td>
                                     }
@@ -897,6 +1142,11 @@ else
                                             {
                                                 @teacherSubject.Subject.SubjectName.Substring(0,3).ToUpper()
                                                 <sub>@teacherSubject.Teacher.Initials()</sub>
+                                                @space
+                                                @if (TM320_400_Friday.Lab is not null)
+                                                {
+                                                    <sub>@TM320_400_Friday.Lab.LabName.ToUpper()</sub>
+                                                }
                                                 @space
                                             }
                                         </td>

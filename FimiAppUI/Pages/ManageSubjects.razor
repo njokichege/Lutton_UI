@@ -30,24 +30,22 @@
     <MudTabPanel Text="All Subjects">
         <MudGrid Class="d-flex pa-4">
             <MudItem xs="12">
-                @if (TeacherSubjectModel is null)
+                @if (SubjectsWithCategories is null)
                 {
                     <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
                 }
                 else
                 {
-                    <MudTable Items="@TeacherSubjectModel" FixedHeader="@fixed_header" Hover="true" SortLabel="Sort By" Striped="true" @bind-SelectedItem="SelectedTeacherSubjectModel">
+                    <MudTable Items="@SubjectsWithCategories" FixedHeader="@fixed_header" Hover="true" SortLabel="Sort By" Striped="true">
                         <HeaderContent>
-                            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<TeacherSubjectModel, object>(x=>x.Code)">Code</MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SubjectModel, object>(x=>x.Code)">Code</MudTableSortLabel></MudTh>
                             <MudTh>Category</MudTh>
                             <MudTh>Subject</MudTh>
-                            <MudTh>Teacher</MudTh>
                         </HeaderContent>
                         <RowTemplate>
                             <MudTd DataLabel="Code">@context.Code</MudTd>
-                            <MudTd DataLabel="SubjectCategory">@context.Subject.SubjectCategory.SubjectCategoryName</MudTd>
-                            <MudTd DataLabel="SubjectName">@context.Subject.SubjectName</MudTd>
-                            <MudTd DataLabel="Surname">@context.Teacher.Staff.FirstName @context.Teacher.Staff.MiddleName @context.Teacher.Staff.Surname</MudTd>
+                            <MudTd DataLabel="SubjectCategory">@context.SubjectCategory.SubjectCategoryName</MudTd>
+                            <MudTd DataLabel="SubjectName">@context.SubjectName</MudTd>
                         </RowTemplate>
                         <PagerContent>
                             <MudTablePager />
@@ -103,7 +101,7 @@
             </MudItem>
         </MudGrid>
     </MudTabPanel>
-    <MudTabPanel Text="Add Subjects">
+    <MudTabPanel Text="Subject Selection">
         <MudGrid Class="pa-4">
             <MudItem xs="3">
                 <MudCard>

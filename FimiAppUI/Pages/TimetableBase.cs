@@ -22,6 +22,7 @@ namespace FimiAppUI.Pages
         [Inject] public ITeacherService TeacherService { get; set; }
         [Inject] public ITeacherSubjectService TeacherSubjectService { get; set; }
         [Inject] public ITimetableTeacherSubjectService TimetableTeacherSubjectService { get; set; }
+        [Inject] public ILabSubjectService LabSubjectService { get; set; }
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         public IEnumerable<TeacherSubjectModel> TeacherSubjects { get; set; } = new List<TeacherSubjectModel>();
         public IEnumerable<TimetableModel> TimetableModels { get; set; } = new List<TimetableModel>();
@@ -446,12 +447,79 @@ namespace FimiAppUI.Pages
         public TimetableModel TM4South200_240_Friday { get; set; }
         public TimetableModel TM4South240_320_Friday { get; set; }
         public TimetableModel TM4South320_400_Friday { get; set; }
+        public int TM1NorthEnglish { get; set; }
+        public int TM1NorthKiswahili { get; set; }
+        public int TM1NorthMathematics { get; set; }
+        public int TM1NorthChemistry { get; set; }
+        public int TM1NorthPhysics { get; set; }
+        public int TM1NorthBiology { get; set; }
+        public int TM1NorthHistory { get; set; }
+        public int TM1NorthGeography { get; set; }
+        public int TM1NorthCRE { get; set; }
+        public int TM1NorthAgriculture { get; set; }
+        public int TM1NorthBusiness { get; set; }
+        public int TM1NorthPE { get; set; }
+        public int TM1NorthLifeSkill { get; set; }
+        public int TM2NorthEnglish { get; set; }
+        public int TM2NorthKiswahili { get; set; }
+        public int TM2NorthMathematics { get; set; }
+        public int TM2NorthChemistry { get; set; }
+        public int TM2NorthPhysics { get; set; }
+        public int TM2NorthBiology { get; set; }
+        public int TM2NorthHistory { get; set; }
+        public int TM2NorthGeography { get; set; }
+        public int TM2NorthCRE { get; set; }
+        public int TM2NorthAgriculture { get; set; }
+        public int TM2NorthBusiness { get; set; }
+        public int TM2NorthPE { get; set; }
+        public int TM2NorthLifeSkill { get; set; }
+        public int TM3NorthEnglish { get; set; }
+        public int TM3NorthKiswahili { get; set; }
+        public int TM3NorthMathematics { get; set; }
+        public int TM3NorthChemistry { get; set; }
+        public int TM3NorthPhysicsBiology { get; set; }
+        public int TM3NorthHistoryGeography { get; set; }
+        public int TM3NorthCRE { get; set; }
+        public int TM3NorthBusinessAgriculture { get; set; }
+        public int TM3NorthPE { get; set; }
+        public int TM3NorthLifeSkill { get; set; }
+        public int TM3SouthEnglish { get; set; }
+        public int TM3SouthKiswahili { get; set; }
+        public int TM3SouthMathematics { get; set; }
+        public int TM3SouthChemistry { get; set; }
+        public int TM3SouthPhysicsBiology { get; set; }
+        public int TM3SouthHistoryGeography { get; set; }
+        public int TM3SouthCRE { get; set; }
+        public int TM3SouthBusinessAgriculture { get; set; }
+        public int TM3SouthPE { get; set; }
+        public int TM3SouthLifeSkill { get; set; }
+        public int TM4NorthEnglish { get; set; }
+        public int TM4NorthKiswahili { get; set; }
+        public int TM4NorthMathematics { get; set; }
+        public int TM4NorthChemistry { get; set; }
+        public int TM4NorthPhysicsBiology { get; set; }
+        public int TM4NorthHistoryGeography { get; set; }
+        public int TM4NorthCRE { get; set; }
+        public int TM4NorthBusinessAgriculture { get; set; }
+        public int TM4NorthPE { get; set; }
+        public int TM4NorthLifeSkill { get; set; }
+        public int TM4SouthEnglish { get; set; }
+        public int TM4SouthKiswahili { get; set; }
+        public int TM4SouthMathematics { get; set; }
+        public int TM4SouthChemistry { get; set; }
+        public int TM4SouthPhysicsBiology { get; set; }
+        public int TM4SouthHistoryGeography { get; set; }
+        public int TM4SouthCRE { get; set; }
+        public int TM4SouthBusinessAgriculture { get; set; }
+        public int TM4SouthPE { get; set; }
+        public List<LessonCountModel> LessonCounts { get; set; } = new List<LessonCountModel>();
+        public int TM4SouthLifeSkill { get; set; }
         public string space = " ";
         public bool loadTimetable = false;
-        public Dictionary<int, List<TimetableModel>> SchoolTimetable = new Dictionary<int, List<TimetableModel>>();
         protected override async Task OnInitializedAsync()
         {
             await GetTimetableData();
+            LessonCounts = await TimetableService.GetLessonCounts();
         }
         public async Task<IEnumerable<string>> DaySearch(string value)
         {
@@ -984,6 +1052,7 @@ namespace FimiAppUI.Pages
         public async Task GenerateGroupedDoubleLessons(List<SubjectModel> subjects, ClassModel classModel, IEnumerable<TeacherSubjectModel> teacherSubjects,
             IEnumerable<TimeSlotModel> timeslots,Dictionary<string, List<DoubleLessonModel>> daysAndTimes)
         {
+            var labSubjects = await LabSubjectService.GetAllLabSubjects();
             int lessonCount = 0;
             foreach(var sub in subjects)
             {
@@ -1021,9 +1090,24 @@ namespace FimiAppUI.Pages
                                 firstDoubleLesson.TimeSlot = item.Value[i].FirstSlot;
                                 secondDoubleLesson.TimeSlot = item.Value[i].SecondSlot;
 
-                                await TimetableService.AddTimetableEntry(firstDoubleLesson);
+                                int labavailability = await TimetableService.GetLabAvailability(firstDoubleLesson.TimeSlot.TimeslotId, firstDoubleLesson.DayOfTheWeek);
+                                int labavailability2 = await TimetableService.GetLabAvailability(secondDoubleLesson.TimeSlot.TimeslotId, secondDoubleLesson.DayOfTheWeek);
+
+                                if (labavailability > 0 || labavailability2 > 0)
+                                {
+                                    listIndex2 = ran.Next(dayandtime.Value.Count);
+                                    i = -1;
+                                    break;
+                                }
+
+                                var lab = labSubjects.First(x => x.Code == 236);
+
+                                firstDoubleLesson.LabId = lab.LabId;
+                                secondDoubleLesson.LabId = lab.LabId;
+
+                                await TimetableService.AddTimetableEntryWithLab(firstDoubleLesson);
                                 TimetableModel firstEntry = await TimetableService.GetLastEntry();
-                                await TimetableService.AddTimetableEntry(secondDoubleLesson);
+                                await TimetableService.AddTimetableEntryWithLab(secondDoubleLesson);
                                 TimetableModel secondEntry = await TimetableService.GetLastEntry();
 
                                 foreach (var subject in subjects)
@@ -1089,6 +1173,7 @@ namespace FimiAppUI.Pages
         {
             TimetableModel firstDoubleLesson = new() { ClassModel = classModel,};
             TimetableModel secondDoubleLesson = new() { ClassModel = classModel};
+            var labSubjects = await LabSubjectService.GetAllLabSubjects();
 
             foreach (var subject in subjects)
             {
@@ -1149,9 +1234,24 @@ namespace FimiAppUI.Pages
                                         firstDoubleLesson.TeacherSubjects.Add(teachersub);
                                         secondDoubleLesson.TeacherSubjects.Add(teachersub);
 
+                                        int labavailability = await TimetableService.GetLabAvailability(firstDoubleLesson.TimeSlot.TimeslotId, firstDoubleLesson.DayOfTheWeek);
+                                        int labavailability2 = await TimetableService.GetLabAvailability(secondDoubleLesson.TimeSlot.TimeslotId, secondDoubleLesson.DayOfTheWeek);
+
+                                        if (labavailability > 0 || labavailability2 > 0)
+                                        {
+                                            listIndex2 = ran.Next(dayandtime.Value.Count);
+                                            i = -1;
+                                            break;
+                                        }
+
+                                        var lab = labSubjects.First(x => x.Code == subject.Code);
+
+                                        firstDoubleLesson.LabId = lab.LabId;
+                                        secondDoubleLesson.LabId = lab.LabId;
+
                                         try
                                         {
-                                            await TimetableService.AddTimetableEntry(firstDoubleLesson);
+                                            await TimetableService.AddTimetableEntryWithLab(firstDoubleLesson);
                                             TimetableModel model = await TimetableService.GetLastEntry();
                                             TimetableTeacherSubjectModel timetableTeacherSubjectModel = new TimetableTeacherSubjectModel
                                             {
@@ -1159,7 +1259,7 @@ namespace FimiAppUI.Pages
                                                 TeacherSubjectId = teachersub.TeacherSubjectId
                                             };
                                             await TimetableTeacherSubjectService.AddTimetableEntry(timetableTeacherSubjectModel);
-                                            await TimetableService.AddTimetableEntry(secondDoubleLesson);
+                                            await TimetableService.AddTimetableEntryWithLab(secondDoubleLesson);
                                             TimetableModel model2 = await TimetableService.GetLastEntry();
                                             TimetableTeacherSubjectModel timetableTeacherSubjectModel2 = new TimetableTeacherSubjectModel
                                             {

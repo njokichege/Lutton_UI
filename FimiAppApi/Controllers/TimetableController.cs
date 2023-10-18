@@ -12,6 +12,7 @@ namespace FimiAppApi.Controllers
         {
             _timetableRepository = timetableRepository;
         }
+
         [HttpGet("getlastentry")]
         public async Task<IActionResult> GetLastEntry()
         {
@@ -26,6 +27,7 @@ namespace FimiAppApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetTimetableEntryById(int id)
@@ -41,6 +43,7 @@ namespace FimiAppApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
         [HttpGet]
         public async Task<IActionResult> GetTimetableModels()
         {
@@ -55,6 +58,22 @@ namespace FimiAppApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpGet("getlessoncount")]
+        public async Task<IActionResult> GetLessonCounts()
+        {
+            try
+            {
+                var times = await _timetableRepository.GetLessonCounts();
+                return Ok(times);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpGet("timetableentriesbyclass/{classId}")]
         public async Task<IActionResult> GetTimetableModelsByClass(int classId)
         {
@@ -69,6 +88,22 @@ namespace FimiAppApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpGet("labavailability/{timeslotId}/{day}")]
+        public async Task<IActionResult> GetLabAvailability(int timeslotId, string day)
+        {
+            try
+            {
+                var id = await _timetableRepository.GetLabAvailability(timeslotId, day);
+                return Ok(id);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpGet("timetableentriesbyteacher/{teacherId}")]
         public async Task<IActionResult> GetTimetableModelsByTeacher(int teacherId)
         {
@@ -83,6 +118,7 @@ namespace FimiAppApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
         [HttpGet("{classId}/{subjectCode}/{dayOfTheWeek}")]
         public async Task<IActionResult> GetTimetableEntryByDayOfTheWeek(int classId, int subjectCode, string dayOfTheWeek)
         {
@@ -97,6 +133,7 @@ namespace FimiAppApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
         [HttpGet("{classId}/{subjectCode}/{timeslotId}/{dayOfTheWeek}")]
         public async Task<IActionResult> GetTimetableEntryByTimeslot(int classId, int subjectCode, int timeslotId, string dayOfTheWeek)
         {
@@ -111,6 +148,7 @@ namespace FimiAppApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> AddTimetableEntry(TimetableModel timetableModel)
@@ -125,6 +163,28 @@ namespace FimiAppApi.Controllers
                 {
                     var timetableEntry = await _timetableRepository.AddTimetableEntry(timetableModel);
                     return CreatedAtAction(nameof(GetTimetableEntryById),new {id = timetableEntry.TimetableId},timetableEntry);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, ex.Message);
+                }
+            }
+        }
+
+        [HttpPost("lablesson")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> AddTimetableEntryWithLab(TimetableModel timetableModel)
+        {
+            if (timetableModel is null)
+            {
+                return BadRequest(new ArgumentNullException());
+            }
+            else
+            {
+                try
+                {
+                    var timetableEntry = await _timetableRepository.AddTimetableEntryWithLab(timetableModel);
+                    return CreatedAtAction(nameof(GetTimetableEntryById), new { id = timetableEntry.TimetableId }, timetableEntry);
                 }
                 catch (Exception ex)
                 {

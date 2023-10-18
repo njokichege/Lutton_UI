@@ -104,6 +104,14 @@ namespace FimiAppUI
             {
                 client.BaseAddress = new Uri(uriLink);
             });
+            builder.Services.AddHttpClient<ILabService, LabService>(client =>
+            {
+                client.BaseAddress = new Uri(uriLink);
+            });
+            builder.Services.AddHttpClient<ILabSubjectService, LabSubjectService>(client =>
+            {
+                client.BaseAddress = new Uri(uriLink);
+            });
         }
     }
 }
