@@ -41,7 +41,8 @@ namespace FimiAppApi.Repository
             int id = await _dapperContext.LoadSingleData<int, dynamic>(sql, parameters);
             var createdModel = new ParentModel
             {
-                NationalId = id,
+                ParentId = id,
+                NationalId = parent.NationalId,
                 FirstName = parent.FirstName,
                 MiddleName = parent.MiddleName,
                 Surname = parent.Surname,

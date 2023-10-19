@@ -28,9 +28,6 @@
                 .NotNull().WithMessage("'{PropertyName}' is required.")
                 .MinimumLength(10).WithMessage("'{PropertyName}' must not be less than 10 characters.")
                 .MaximumLength(11).WithMessage("'{PropertyName}' must not exceed 50 characters.");
-            RuleFor(x => x.Gender)
-                .NotEmpty().WithMessage("'{PropertyName}' is required")
-                .NotNull().WithMessage("'{PropertyName}' is required");
         }
         public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
         {

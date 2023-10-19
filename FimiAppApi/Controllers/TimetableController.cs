@@ -151,7 +151,7 @@ namespace FimiAppApi.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> AddTimetableEntry(TimetableModel timetableModel)
+        public async Task<ActionResult<TimetableModel>> AddTimetableEntry([FromBody] TimetableModel timetableModel)
         {
             if (timetableModel is null)
             {
@@ -173,7 +173,7 @@ namespace FimiAppApi.Controllers
 
         [HttpPost("lablesson")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> AddTimetableEntryWithLab(TimetableModel timetableModel)
+        public async Task<ActionResult<TimetableModel>> AddTimetableEntryWithLab([FromBody] TimetableModel timetableModel)
         {
             if (timetableModel is null)
             {

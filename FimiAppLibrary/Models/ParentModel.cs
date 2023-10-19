@@ -2,6 +2,7 @@
 {
     public class ParentModel
     {
+        public int ParentId { get; set; }
         public int NationalId { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }

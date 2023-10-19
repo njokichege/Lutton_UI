@@ -65,7 +65,7 @@ else
                     }
                     else
                     {
-                        <MudTable Items="@Students" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" T="StudentModel" OnRowClick="StudentRowClickEvent">
+                        <MudTable Items="@Students" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" T="StudentModel" OnRowClick="StudentRowClickEvent"Dense="true">
                             <HeaderContent>
                                 <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentNumber)">Adm No.</MudTableSortLabel></MudTh>
                                 <MudTh>Class</MudTh>
@@ -95,16 +95,21 @@ else
                     }
                     else
                     {
-                        <MudDataGrid Items="@ClassSubjectList" Filterable="false" SortMode="@SortMode.None" Groupable="false">
-                            <Columns>
-                                <PropertyColumn Property="x => x.SubjectCode" Title="Code" />
-                                <PropertyColumn Property="x => x.SubjectName" Title="Subject" />
-                                <PropertyColumn Property="x => x.StudentCount" Title="Student Count" />
-                            </Columns>
+                        <MudTable Items="@ClassSubjectList" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" T="ClassSubjectList" Dense="true">
+                            <HeaderContent>
+                                <MudTh>Code</MudTh>
+                                <MudTh>Subject</MudTh>
+                                <MudTh>Student Count</MudTh>
+                            </HeaderContent>
+                            <RowTemplate>
+                                <MudTd DataLabel="StudentNumber">@context.SubjectCode</MudTd>
+                                <MudTd DataLabel="StudentClass">@context.SubjectName</MudTd>
+                                <MudTd DataLabel="Name">@context.StudentCount</MudTd>
+                            </RowTemplate>
                             <PagerContent>
-                                <MudDataGridPager T="StudentModel" />
+                                <MudTablePager />
                             </PagerContent>
-                        </MudDataGrid>
+                        </MudTable>
                     }
                 </MudTabPanel>
                 <MudTabPanel Text="Timetable">

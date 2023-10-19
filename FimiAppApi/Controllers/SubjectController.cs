@@ -45,7 +45,7 @@ namespace FimiAppApi.Controllers
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> CreateSubject(SubjectModel subjectModel)
+        public async Task<ActionResult<SubjectModel>> CreateSubject([FromBody] SubjectModel subjectModel)
         {
             try
             {

@@ -13,30 +13,18 @@
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" />
 
-@if (showSuccessAlert)
-{
-    <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelSuccess</MudAlert>
-}
-@if (showFailAlert)
-{
-    <MudAlert Severity="Severity.Error" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelFail</MudAlert>
-}
-@if (showWarningAlert)
-{
-    <MudAlert Severity="Severity.Warning" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelWarning</MudAlert>
-}
 
-<MudTabs Elevation="2" ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
+<MudTabs Elevation="0" ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
     <MudTabPanel Text="All Subjects">
         <MudGrid Class="d-flex pa-4">
             <MudItem xs="12">
-                @if (SubjectsWithCategories is null)
+                @if (SubjectsWithCategories is null )
                 {
                     <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
                 }
                 else
                 {
-                    <MudTable Items="@SubjectsWithCategories" FixedHeader="@fixed_header" Hover="true" SortLabel="Sort By" Striped="true">
+                    <MudTable  Items="@SubjectsWithCategories" FixedHeader="@fixed_header" Hover="true" SortLabel="Sort By" Striped="true" Dense="true" RowsPerPage="15">
                         <HeaderContent>
                             <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SubjectModel, object>(x=>x.Code)">Code</MudTableSortLabel></MudTh>
                             <MudTh>Category</MudTh>
@@ -58,18 +46,19 @@
     <MudTabPanel Text="Assign Teacher">
         <MudGrid Class="pa-4">
             <MudItem xs="3">
-                <MudCard>
-                    <MudCardHeader>
-                        <CardHeaderContent>
-                            <MudText Typo="Typo.h5" Align="Align.Center" Class="mb-n12">Assign Teacher</MudText>
-                        </CardHeaderContent>
-                    </MudCardHeader>
-                    <MudCardContent>
-                        <MudDivider DividerType="DividerType.FullWidth" Class="my-4" />
-                        <MudAutocomplete T="TeacherModel" Label="Teacher" @bind-Value="SelectedTeacherOnAssignTeacherTab" ShowProgressIndicator="true"
+                <MudCard Style="width:250px">
+                    <MudCardContent Class="ma-2">
+                        <MudAutocomplete T="TeacherModel" Label="Select Teacher" @bind-Value="SelectedTeacherOnAssignTeacherTab" ShowProgressIndicator="true"
                                          SearchFunc="@TeacherSearchOnAssignTeacherTab"
                                          ToStringFunc="@(e=> e==null?null : $"{e.Staff.FirstName} {e.Staff.MiddleName} {e.Staff.Surname}")"/>
-                        <MudAutocomplete T="SubjectModel" Label="Subject" @bind-Value="SelectedSubjectOnAssignTeacherTab" ShowProgressIndicator="true"
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@GetTeacher" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
+                    </MudCardActions>
+                </MudCard>
+                <MudCard Style="width:250px" Class="ma-2">
+                    <MudCardContent>
+                        <MudAutocomplete T="SubjectModel" Label="Assign Subject" @bind-Value="SelectedSubjectOnAssignTeacherTab" ShowProgressIndicator="true"
                                          SearchFunc="@SubjectSearchOnAssignTeacherTab" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" />
                     </MudCardContent>
                     <MudCardActions>
@@ -77,21 +66,25 @@
                     </MudCardActions>
                 </MudCard>
             </MudItem>
-            <MudItem xs="9">
+            <MudDivider Vertical="true" FlexItem="true" />
+            <MudItem xs="6">
                 @if (showTeacherSubject)
                 {
-                    <MudTable Items="@TeacherSubjects" Hover="true" SortLabel="Sort By" Striped="true">
+                    <MudCard Class="ma-2">
+                        <MudCardContent>
+                            <MudText Typo="Typo.h6">@TeacherSubjects.FirstOrDefault().Teacher.Staff.FirstName @TeacherSubjects.FirstOrDefault().Teacher.Staff.MiddleName @TeacherSubjects.FirstOrDefault().Teacher.Staff.Surname</MudText>
+                        </MudCardContent>
+                    </MudCard>
+                    <MudTable Class="ma-2" Items="@TeacherSubjects" Hover="true" SortLabel="Sort By" Striped="true" Dense="true">
                         <HeaderContent>
                             <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<TeacherSubjectModel, object>(x=>x.Code)">Code</MudTableSortLabel></MudTh>
                             <MudTh>Category</MudTh>
                             <MudTh>Subject</MudTh>
-                            <MudTh>Teacher</MudTh>
                         </HeaderContent>
                         <RowTemplate>
                             <MudTd DataLabel="Code">@context.Code</MudTd>
                             <MudTd DataLabel="SubjectCategory">@context.Subject.SubjectCategory.SubjectCategoryName</MudTd>
                             <MudTd DataLabel="SubjectName">@context.Subject.SubjectName</MudTd>
-                            <MudTd DataLabel="Surname">@context.Teacher.Staff.FirstName @context.Teacher.Staff.MiddleName @context.Teacher.Staff.Surname</MudTd>
                         </RowTemplate>
                         <PagerContent>
                             <MudTablePager />
@@ -102,42 +95,73 @@
         </MudGrid>
     </MudTabPanel>
     <MudTabPanel Text="Subject Selection">
-        <MudGrid Class="pa-4">
+        <MudGrid Class="d-flex pa-4">
             <MudItem xs="3">
-                <MudCard>
-                    <MudCardHeader>
-                        <CardHeaderContent>
-                            <MudText Typo="Typo.h5" Align="Align.Center" Class="mb-n12">Add Subject</MudText>
-                        </CardHeaderContent>
-                    </MudCardHeader>
+                <MudCard Class="ma-2" Style="width:250px">
                     <MudCardContent>
-                        <MudDivider DividerType="DividerType.FullWidth" Class="my-4" />
-                        <MudTextField @bind-Value="@NewSubject.SubjectName" Label="Subject " Variant="Variant.Outlined" />
-                        <MudTextField @bind-Value="@NewSubject.Code" Label="Subject Code" Variant="Variant.Outlined"/>
-                        <MudAutocomplete T="SubjectCategoryModel" Label="Subject Category" @bind-Value="NewSubject.SubjectCategory" ShowProgressIndicator="true"
-                                         SearchFunc="@SubjectCategorySearch" ToStringFunc="@(e=> e==null?null : $"{e.SubjectCategoryName}")" />
+                        <MudNumericField @bind-Value="StudentNumber" Label="Admission number" Variant="Variant.Outlined" />
                     </MudCardContent>
                     <MudCardActions>
-                        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@AddSubject" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
+                        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@GetStudent" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
+                    </MudCardActions>
+                </MudCard>
+                <MudCard Class="ma-2" Style="width:250px">
+                    <MudCardContent>
+                        <MudAutocomplete T="SubjectModel" Label="Sciences" @bind-Value="SelectedScience" ShowProgressIndicator="true"
+                                         SearchFunc="@ScienceSearchOnSelectionTab" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" />
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@ScienceSelection" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
+                    </MudCardActions>
+                </MudCard>
+                <MudCard Class="ma-2" Style="width:250px">
+                    <MudCardContent>
+                        <MudAutocomplete T="SubjectModel" Label="Humanities" @bind-Value="SelectedHumanity" ShowProgressIndicator="true"
+                                         SearchFunc="@HumanitySearchOnSelectionTab" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" />
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@HumanitySelection" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
+                    </MudCardActions>
+                </MudCard>
+                <MudCard Class="ma-2" Style="width:250px">
+                    <MudCardContent>
+                        <MudAutocomplete T="SubjectModel" Label="Technicals" @bind-Value="SelectedTechnical" ShowProgressIndicator="true"
+                                         SearchFunc="@TechnicalSearchOnSelectionTab" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" />
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@TechnicalSelection" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
                     </MudCardActions>
                 </MudCard>
             </MudItem>
-            <MudItem xs="9">
-                <MudTable Items="@SubjectsWithCategories" Hover="true" SortLabel="Sort By" Striped="true">
-                    <HeaderContent>
-                        <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SubjectModel, object>(x=>x.Code)">Code</MudTableSortLabel></MudTh>
-                        <MudTh>Category</MudTh>
-                        <MudTh>Subject</MudTh>
-                    </HeaderContent>
-                    <RowTemplate>
-                        <MudTd DataLabel="Code">@context.Code</MudTd>
-                        <MudTd DataLabel="SubjectCategory">@context.SubjectCategory.SubjectCategoryName</MudTd>
-                        <MudTd DataLabel="SubjectName">@context.SubjectName</MudTd>
-                    </RowTemplate>
-                    <PagerContent>
-                        <MudTablePager />
-                    </PagerContent>
-                </MudTable>
+            <MudDivider Vertical="true" FlexItem="true" />
+            <MudItem xs="6">
+                @if (StudentSubjects is null)
+                {
+                    <MudProgressCircular Size="Size.Large" Color="Color.Info" Indeterminate="true" />
+                }
+                else if (showTable is true)
+                {
+                    <MudCard Class="ma-2">
+                        <MudCardContent>
+                            <MudText Typo="Typo.h6">@Student.FirstName @Student.MiddleName @Student.Surname</MudText>
+                        </MudCardContent>
+                    </MudCard>
+                    <MudTable Class="ma-2" Items="@StudentSubjects" FixedHeader="@fixed_header" Hover="true" SortLabel="Sort By" Striped="true" Dense="true" RowsPerPage="15">
+                        <HeaderContent>
+                            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SubjectModel, object>(x=>x.Code)">Code</MudTableSortLabel></MudTh>
+                            <MudTh>Category</MudTh>
+                            <MudTh>Subject</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Code">@context.Code</MudTd>
+                            <MudTd DataLabel="SubjectCategory">@context.Subject.SubjectCategory.SubjectCategoryName</MudTd>
+                            <MudTd DataLabel="SubjectName">@context.Subject.SubjectName</MudTd>
+                        </RowTemplate>
+                        <PagerContent>
+                            <MudTablePager />
+                        </PagerContent>
+                    </MudTable>
+                }
             </MudItem>
         </MudGrid>
     </MudTabPanel>

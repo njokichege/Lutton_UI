@@ -22,7 +22,7 @@
 {
     <MudAlert Severity="Severity.Error" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelFail</MudAlert>
 }
-<MudTabs Elevation="2" ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
+<MudTabs Elevation="0" ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
     <MudTabPanel Text="Classes">
         <MudGrid Class="pa-4">
             <MudItem xs="12" Class="d-flex justify-space-between">
@@ -32,7 +32,7 @@
                 }
                 else
                 {
-                    <MudTable Items="@Classes" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="ClassModel">
+                    <MudTable Items="@Classes" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="ClassModel" Dense="true">
                         <HeaderContent>
                             <MudTh>Class</MudTh>
                             <MudTh>Session Start</MudTh>
@@ -98,75 +98,6 @@
                     </MudCardContent>
                     <MudCardActions>
                         <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@CreateClass" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
-                    </MudCardActions>
-                </MudCard>
-            </MudItem>
-        </MudGrid>
-    </MudTabPanel>
-    <MudTabPanel Text="School Year">
-        <MudGrid Class="pa-4">
-            <MudItem xs="12">
-                <MudCard Class="align-self-center">
-                    <MudCardContent>
-                        <MudText Typo="Typo.h5" Align="Align.Center">Current School Year : @SessionYearModelTitle</MudText>
-                    </MudCardContent>
-                </MudCard>
-            </MudItem>
-            <MudItem xs="5">
-
-                @if (SessionYears is null)
-                {
-                    <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true"/>
-                }
-                else
-                {
-                    <MudDataGrid Items="@SessionYears" Filterable="false" SortMode="@SortMode.None" Groupable="false">
-                        <Columns>
-                            <PropertyColumn Property="x => x.SessionYearId" Title="#" />
-                            <PropertyColumn Property="x => x.StartDate.ToShortDateString()" Title="Start Date" />
-                            <PropertyColumn Property="x => x.EndDate.ToShortDateString()" Title="End Date" />
-                            <TemplateColumn CellClass="d-flex justify-end" Title="Option">
-                                <CellTemplate>
-                                    <MudStack Row>
-                                    <MudButton Variant="Variant.Filled" Color="Color.Tertiary">Edit School Year</MudButton>
-                                </MudStack>
-                            </CellTemplate>
-                        </TemplateColumn>
-                    </Columns>
-                </MudDataGrid>
-                }
-            </MudItem>
-            <MudItem xs="4">
-                <MudCard>
-                    <MudCardHeader>
-                        <CardHeaderContent>
-                            <MudText Typo="Typo.h5" Align="Align.Center" Class="mb-n12">Add School Year</MudText>
-                        </CardHeaderContent>
-                    </MudCardHeader>
-                    <MudCardContent>
-                        <MudDivider DividerType="DividerType.FullWidth" Class="my-4" />
-                        <MudDatePicker OpenTo="OpenTo.Year" PickerVariant="PickerVariant.Dialog" Label="Start Date" @bind-Date="startDate" />
-                        <MudDatePicker OpenTo="OpenTo.Year" PickerVariant="PickerVariant.Dialog" Label="End Date" @bind-Date="endDate" />
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton Variant="Variant.Filled" OnClick="@CreateNewSchoolYear" FullWidth="true" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
-                    </MudCardActions>
-                </MudCard>
-            </MudItem>
-            <MudItem xs="3">
-                <MudCard>
-                    <MudCardHeader Class="d-flex flex-column object-center">
-                        <CardHeaderContent>
-                            <MudText Typo="Typo.h5" Align="Align.Center" Class="mb-n12">Change School Year</MudText>
-                        </CardHeaderContent>
-                    </MudCardHeader>
-                    <MudCardContent>
-                        <MudDivider DividerType="DividerType.FullWidth" Class="my-4" />
-                        <MudAutocomplete T="SessionYearModel" Label="School Year" @bind-Value="SelectedSessionYearOnSessionYearCard" ShowProgressIndicator="true"
-                                         SearchFunc="@SessionYearSearchOnSessionYearCard" ToStringFunc="@(e=> e==null?null : $"{e.SessionString()}")" />
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton Variant="Variant.Filled" FullWidth="true" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43" OnClick="@ChangeSchoolYear">Submit</MudButton>
                     </MudCardActions>
                 </MudCard>
             </MudItem>

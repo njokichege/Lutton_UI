@@ -8,9 +8,9 @@
         {
             _httpClient = httpClient;
         }
-        public async Task<HttpResponseMessage> AddParentStudent(ParentModel parent)
+        public async Task<HttpResponseMessage> AddParentStudent(ParentStudentModel parentStudent)
         {
-            return await _httpClient.PostAsJsonAsync($"api/parentstudent",parent);
+            return await _httpClient.PostAsJsonAsync($"api/parentstudent",parentStudent);
         }
     }
 }

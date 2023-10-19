@@ -21,7 +21,7 @@
         }
         else 
         {
-            <MudTable Items="@Teachers" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="TeacherRowClickEvent" T="TeacherModel">
+            <MudTable Items="@Teachers" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="TeacherRowClickEvent" T="TeacherModel" Dense="true">
                 <HeaderContent>
                     <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StaffModel, object>(x=>x.NationalId)">NationalId</MudTableSortLabel></MudTh>
                     <MudTh>Name</MudTh>

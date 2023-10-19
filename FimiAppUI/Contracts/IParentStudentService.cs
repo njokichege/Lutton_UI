@@ -2,6 +2,6 @@
 {
     public interface IParentStudentService
     {
-        Task<HttpResponseMessage> AddParentStudent(ParentModel parent);
+        Task<HttpResponseMessage> AddParentStudent(ParentStudentModel parentStudent);
     }
 }

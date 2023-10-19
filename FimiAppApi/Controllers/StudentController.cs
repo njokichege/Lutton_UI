@@ -70,7 +70,7 @@ namespace FimiAppApi.Controllers
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult> CreateStudent([FromBody]StudentModel student)
+        public async Task<ActionResult<StudentModel>> CreateStudent([FromBody]StudentModel student)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace FimiAppApi.Controllers
         }
         [HttpPost("existingstudent")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult> AddExistingStudent([FromBody] StudentModel student)
+        public async Task<ActionResult<StudentModel>> AddExistingStudent([FromBody] StudentModel student)
         {
             try
             {

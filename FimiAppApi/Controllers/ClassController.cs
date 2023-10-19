@@ -58,7 +58,7 @@ namespace FimiAppApi.Controllers
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> CreateClass(ClassModel classModel)
+        public async Task<ActionResult<ClassModel>> CreateClass([FromBody] ClassModel classModel)
         {
             try
             {

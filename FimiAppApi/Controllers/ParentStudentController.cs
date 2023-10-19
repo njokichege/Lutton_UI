@@ -30,14 +30,14 @@ namespace FimiAppApi.Controllers
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult> AddParentStudent(ParentModel parent)
+        public async Task<ActionResult<ParentStudentModel>> AddParentStudent([FromBody] ParentStudentModel parentStudent)
         {
             try
             {
-                if (parent is not null)
+                if (parentStudent is not null)
                 {
-                    var parentStudent = await _parentStudentRepository.AddParentStudent(parent.NationalId);
-                    return CreatedAtAction(nameof(GetParentStudentById), new { id = parentStudent.ParentStudentId}, parentStudent);
+                    var parentStudentModel = await _parentStudentRepository.AddParentStudent(parentStudent);
+                    return CreatedAtAction(nameof(GetParentStudentById), new { id = parentStudentModel.ParentStudentId}, parentStudentModel);
                 }
                 else
                 {

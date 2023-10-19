@@ -5,6 +5,6 @@ namespace FimiAppLibrary.Models
     {
         public int ParentStudentId { get; set; }
         public int StudentNumber { get; set; }
-        public int ParentNationalId { get; set; }
+        public int ParentId { get; set; }
     }
 }

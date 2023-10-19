@@ -62,7 +62,7 @@
         }
         else if(AllStudents is not null && Students is null)
         {
-            <MudTable Items="@AllStudents" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="StudentRowClickEvent" T="StudentModel">
+            <MudTable Items="@AllStudents" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="StudentRowClickEvent" T="StudentModel" Dense="true">
                 <HeaderContent>
                     <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentNumber)">Adm No.</MudTableSortLabel></MudTh>
                     <MudTh>Class</MudTh>
@@ -86,7 +86,7 @@
         }
         else if (AllStudents is not null && Students is not null)
         {
-            <MudTable Items="@Students" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" Striped="true" FixedHeader="true" OnRowClick="StudentRowClickEvent" T="StudentModel">
+            <MudTable Items="@Students" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" Striped="true" FixedHeader="true" OnRowClick="StudentRowClickEvent" T="StudentModel" Dense="true">
                 <HeaderContent>
                     <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentNumber)">Adm No.</MudTableSortLabel></MudTh>
                     <MudTh>Class</MudTh>

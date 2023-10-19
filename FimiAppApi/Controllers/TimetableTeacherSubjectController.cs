@@ -29,7 +29,7 @@ namespace FimiAppApi.Controllers
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> AddTimetableEntry(TimetableTeacherSubjectModel timetableTeacherSubjectModel)
+        public async Task<ActionResult<TimetableTeacherSubjectModel>> AddTimetableEntry([FromBody]TimetableTeacherSubjectModel timetableTeacherSubjectModel)
         {
             if (timetableTeacherSubjectModel is null)
             {

@@ -16,5 +16,13 @@
         {
             return await _httpClient.GetFromJsonAsync<List<StudentSubjectModel>>($"api/studentsubject/subjectsbystudentnumber/{studentNumber}");
         }
+        public async Task<HttpResponseMessage> AddStudentSubject(StudentSubjectModel studentSubjectModel)
+        {
+            return await _httpClient.PostAsJsonAsync<StudentSubjectModel>("api/studentsubject", studentSubjectModel);
+        }
+        public async Task<StudentSubjectModel> FindEntry(int studentNumber, int code)
+        {
+            return await _httpClient.GetFromJsonAsync<StudentSubjectModel>($"api/studentsubject/findentry/{studentNumber}/{code}");
+        }
     }
 }

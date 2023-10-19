@@ -45,7 +45,7 @@ namespace FimiAppApi.Controllers
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> AddGrade(GradeModel grade)
+        public async Task<ActionResult<GradeModel>> AddGrade([FromBody]GradeModel grade)
         {
             if (grade is null)
             {

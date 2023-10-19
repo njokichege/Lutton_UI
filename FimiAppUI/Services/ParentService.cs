@@ -12,9 +12,9 @@
         {
             return await _httpClient.GetFromJsonAsync<ParentModel[]>("api/parent");
         }
-        public async Task<ParentModel> GetParentById(int studentNumber)
+        public async Task<ParentModel> GetParentById(int nationalId)
         {
-            return await _httpClient.GetFromJsonAsync<ParentModel>($"api/parent/{studentNumber}");
+            return await _httpClient.GetFromJsonAsync<ParentModel>($"api/parent/{nationalId}");
         }
         public async Task<HttpResponseMessage> AddParent(ParentModel parent)
         {

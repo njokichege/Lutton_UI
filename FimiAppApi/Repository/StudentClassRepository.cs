@@ -42,18 +42,5 @@ namespace FimiAppApi.Repository
             };
             return createdModel;
         }
-        public async Task AddStudentClassBulk(List<StudentClassModel> studentClasses)
-        {
-            StringBuilder sql = new StringBuilder("INSERT INTO StudentClass (ClassId,StudentNumber) VALUES ");
-
-            List<string> rows = new List<string>();
-            foreach(var studentClass in studentClasses)
-            {
-                for (int i = 0; i < 100000; i++)
-                {
-                    rows.Add(string.Format("('{0}','{1}')", MySqlHelper.EscapeString($"{studentClass.StudentNumber}"), MySqlHelper.EscapeString($"]")));
-                }
-            }
-        }
     }
 }

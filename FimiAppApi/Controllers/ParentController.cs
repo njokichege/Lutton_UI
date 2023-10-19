@@ -43,7 +43,7 @@ namespace FimiAppApi.Controllers
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult> CreateParent([FromBody] ParentModel parent)
+        public async Task<ActionResult<ParentModel>> CreateParent([FromBody] ParentModel parent)
         {
             try
             {

@@ -77,7 +77,7 @@ namespace FimiAppApi.Controllers
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> AddTeacher(TeacherModel teacher)
+        public async Task<ActionResult<TeacherModel>> AddTeacher([FromBody] TeacherModel teacher)
         {
             try
             {

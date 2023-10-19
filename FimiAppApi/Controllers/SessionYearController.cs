@@ -75,7 +75,7 @@ namespace FimiAppApi.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> CreateSessionYear(int id, [FromBody] SessionYearModel sessionYear)
+        public async Task<ActionResult<SessionYearModel>> CreateSessionYear(int id, [FromBody] SessionYearModel sessionYear)
         {
             try
             {

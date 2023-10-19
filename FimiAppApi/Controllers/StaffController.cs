@@ -31,7 +31,7 @@ namespace FimiAppApi.Controllers
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> AddStaff(StaffModel staff)
+        public async Task<ActionResult<StaffModel>> AddStaff([FromBody] StaffModel staff)
         {
             try
             {

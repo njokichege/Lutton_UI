@@ -13,24 +13,21 @@
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" />
 
-@if (showSuccessAlert)
-{
-    <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelSuccess</MudAlert>
-}
-@if (showFailAlert)
-{
-    <MudAlert Severity="Severity.Error" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@ModelFail</MudAlert>
-}
-
 <MudDialog @ref="registerDialog" @bind-IsVisible="visible" Options="dialogOptions">
     <TitleContent>
         <MudText Typo="Typo.h6" Align="Align.Center"><b>Confirm Submission</b></MudText>
     </TitleContent>
     <DialogContent>
-        <MudText><b>Student:</b></MudText>
-        <MudText>@Student.FirstName @Student.MiddleName @Student.Surname</MudText>
-        <MudText><b>Parent:</b></MudText>
-        <MudText>@Parent.FirstName @Parent.MiddleName @Parent.Surname</MudText>
+        <MudText><b>Student</b></MudText>
+        <MudText>Name - @Student.FirstName @Student.MiddleName @Student.Surname</MudText>
+        <MudText>Date of Birth - @Student.DateOfBirth</MudText>
+        <MudText>Class - @NewStudentForm.Form@NewStudentStream.Stream</MudText>
+        <MudText>Gender - @Student.Gender</MudText>
+        <MudText><b>Parent</b></MudText>
+        <MudText>Name - @Parent.FirstName @Parent.MiddleName @Parent.Surname</MudText>
+        <MudText>National Id - @Parent.NationalId</MudText>
+        <MudText>Phone - @Parent.PhoneNumber</MudText>
+        <MudText>Gender - @Parent.Gender</MudText>
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
@@ -38,7 +35,23 @@
     </DialogActions>
 </MudDialog>
 
-<MudTabs Elevation="2" ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
+<MudDialog @ref="parentExistsDialog" @bind-IsVisible="parentExistsDialogVisible" Options="dialogOptions">
+    <TitleContent>
+        <MudText Typo="Typo.h6" Align="Align.Center"><b>The given parent already exists</b></MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudText>Name - @ParentExists.FirstName @ParentExists.MiddleName @ParentExists.Surname</MudText>
+        <MudText>National Id - @ParentExists.NationalId</MudText>
+        <MudText>Phone - @ParentExists.PhoneNumber</MudText>
+        <MudText>Gender - @ParentExists.Gender</MudText>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="RegisterWithExistingParent">Continue</MudButton>
+    </DialogActions>
+</MudDialog>
+
+<MudTabs Elevation="0" ApplyEffectsToContainer="true" Border="true" Color="Color.Surface">
     <MudTabPanel Text="Add Individual Student">
         <MudGrid Class="pa-4">
             <MudItem xs="6">
@@ -54,7 +67,7 @@
                         <MudAutocomplete T="StreamModel" Label="Stream" Variant="Variant.Outlined" @bind-Value="NewStudentStream" ShowProgressIndicator="true" Required="true" RequiredError="Stream is required!"
                                          SearchFunc="@StreamSearch" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
                         <div class="d-flex">
-                            <MudRadioGroup @bind-SelectedOption="Student.Gender" T="string" For="@(() => Student.Gender)">
+                            <MudRadioGroup  @bind-SelectedOption="Student.Gender" T="string">
                                 <MudRadio Option="@("F")">Female</MudRadio>
                                 <MudRadio Option="@("M")">Male</MudRadio>
                             </MudRadioGroup>
@@ -72,7 +85,7 @@
                         <MudTextField Immediate="true" @bind-Value="Parent.NationalId" For="@(() => Parent.NationalId)" Label="National Id" Variant="Variant.Outlined" />
                         <MudTextField Immediate="true" @bind-Value="Parent.PhoneNumber" For="@(() => Parent.PhoneNumber)" Label="Phone number" Variant="Variant.Outlined" />
                         <div class="d-flex">
-                            <MudRadioGroup @bind-SelectedOption="Parent.Gender" T="string" For="@(() => Parent.Gender)">
+                            <MudRadioGroup @bind-SelectedOption="Parent.Gender" T="string">
                                 <MudRadio Option="@("F")">Female</MudRadio>
                                 <MudRadio Option="@("M")">Male</MudRadio>
                             </MudRadioGroup>
