@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@page "/my-page"
+@inherits LayoutComponentBase
 
 <MudThemeProvider Theme="MyCustomTheme"/>
 <MudDialogProvider />
@@ -7,7 +8,7 @@
 <MudLayout>
     <MudDrawer Open="true" Elevation="0" Variant="@DrawerVariant.Persistent" >
         <MudDrawerHeader>
-            <MudText Typo="Typo.h6" Align="Align.Center" Style="@($"text:#ffffff;margin-top:20px;")">GLOBAL MENU</MudText>
+            <MudText Typo="Typo.h6" Align="Align.Center" Style="@($"text:#ffffff;margin-top:20px;")"><b>Global Menu</b></MudText>
         </MudDrawerHeader>
         <MudDivider DividerType="DividerType.Middle" Class="my-6" />
         <NavMenu/>
@@ -41,18 +42,17 @@
         }
         isLoaded = true;
     }
-
     MudTheme MyCustomTheme = new MudTheme()
         {
             Palette = new Palette()
             {
-                AppbarBackground = "#F7F6F4",
+                AppbarBackground = "#ffffff",
                 Background = "#F7F6F4",
                 AppbarText ="#000000",
-                DrawerBackground = "#163236",
+                DrawerBackground = "#00466C",
                 DrawerIcon = "#ffffff",
                 DrawerText = "#ffffff",
-                Primary = "#163236",
+                Primary = "#00466C",
             },
             Typography = new Typography()
             {

@@ -2,9 +2,9 @@
 {
     public class ExamResultModel
     {
-        public int Marks { get; set; }
-        public int StudentNumber { get; set; }
-        public int Code { get; set; }
-        public StudentModel Student { get; set; }
+        public string Form { get; set; }
+        public string Stream { get; set; }
+        public string TermName { get; set; }
+        public double Total { get; set; }
     }
 }

@@ -4,7 +4,7 @@
 
 <style>
     .selected {
-        background-color: #e38d43 !important;
+        background-color: #FFBC42 !important;
     }
 
         .selected > td {
@@ -16,9 +16,11 @@
             }
 </style>
 
-<MudGrid Class="mt-n12 px-5">
+<PageTitle>Examination</PageTitle>
+
+<MudGrid Class="mt-n16 px-5" Style="@($"background:#ffffff;")">
     <MudItem xs="9">
-        <MudText Typo="Typo.h5" Class="d-flex justify-start">MANAGE EXAMINATIONS</MudText>
+        <MudText Typo="Typo.h5" Class="d-flex pt-2 justify-start"><b>Manage Examination</b></MudText>
     </MudItem>
     <MudItem xs="3" Class="d-flex justify-end">
         <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
@@ -26,7 +28,6 @@
     </MudItem>
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" />
-
 
 <MudTabs ApplyEffectsToContainer="true" Elevation="0" Border="true" Color="Color.Surface" AlwaysShowScrollButtons="false" >
     <MudTabPanel Text="Term One">
@@ -40,7 +41,7 @@
                         }
                         else
                         {
-                            <MudTable RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermOneMidTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel" Dense="true">
+                            <MudTable Elevation="0" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermOneMidTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel" Dense="true">
                                 <HeaderContent>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>
@@ -70,7 +71,7 @@
                         }
                         else
                         {
-                            <MudTable Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermOneEndTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
+                            <MudTable Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermOneEndTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
                                 <HeaderContent>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>
@@ -104,7 +105,7 @@
                         }
                         else
                         {
-                            <MudTable Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermTwoMidTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
+                            <MudTable Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermTwoMidTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
                                 <HeaderContent>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>
@@ -134,7 +135,7 @@
                         }
                         else
                         {
-                            <MudTable Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermTwoEndTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
+                            <MudTable Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermTwoEndTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
                                 <HeaderContent>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>
@@ -168,7 +169,7 @@
                         }
                         else
                         {
-                            <MudTable Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermThreeMidTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
+                            <MudTable Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermThreeMidTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
                                 <HeaderContent>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>
@@ -198,7 +199,7 @@
                         }
                         else
                         {
-                            <MudTable Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermThreeEndTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
+                            <MudTable Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermThreeEndTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
                                 <HeaderContent>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>

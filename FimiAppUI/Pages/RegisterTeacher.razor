@@ -2,16 +2,17 @@
 
 @inherits RegisterTeacherBase
 
-<MudGrid Class="mt-n12 px-5">
+<PageTitle>Register Teacher</PageTitle>
+
+<MudGrid Class="mt-n16 px-5" Style="@($"background:#ffffff;")">
     <MudItem xs="9">
-        <MudText Typo="Typo.h5" Class="d-flex justify-start">REGISTER TEACHER</MudText>
+        <MudText Typo="Typo.h5" Class="d-flex pt-2 justify-start"><b>Register Teacher</b></MudText>
     </MudItem>
     <MudItem xs="3" Class="d-flex justify-end">
         <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
         <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
     </MudItem>
 </MudGrid>
-<MudDivider DividerType="DividerType.FullWidth" />
 
 @if (showSuccessAlert)
 {
@@ -46,7 +47,7 @@
 
 <MudGrid Class="pa-4">
     <MudItem xs="6">
-        <MudPaper Class="pa-4">
+        <MudPaper Class="pa-4" Elevation="0">
             <MudForm Model="@Staff" @ref="@registerStaffForm" Validation="@(StaffValidator.ValidateValue)" ValidationDelay="0">
                 <MudText Align="Align.Center" Typo="Typo.h6"><b>Staff Details</b></MudText>
                 <MudTextField Immediate="true" @bind-Value="Staff.NationalId" For="@(() => Staff.NationalId)" Label="National Id" Variant="Variant.Outlined" />
@@ -65,7 +66,7 @@
         </MudPaper>
     </MudItem>
     <MudItem xs="6">
-        <MudPaper Class="pa-4">
+        <MudPaper Class="pa-4" Elevation="0">
             <MudForm Model="@Teacher" @ref="@registerTeacherForm" ValidationDelay="0">
                 <MudText Align="Align.Center" Typo="Typo.h6"><b>Teacher Details</b></MudText>
                 <MudSelect For="@(() => Teacher.TeacherType)" @bind-Value="Teacher.TeacherType" T="string" Label="Teacher Type" AnchorOrigin="Origin.BottomCenter">
@@ -75,7 +76,7 @@
                 <MudTextField Immediate="true" @bind-Value="Teacher.TSCNumber" Label="TSC Number" Variant="Variant.Outlined" />
             </MudForm>
         </MudPaper>
-        <MudPaper Class="pa-4 mt-4">
+        <MudPaper Class="pa-4 mt-4" Elevation="0">
             <MudForm Model="@Subject" @ref="@registerTeacherSubjectsForm">
                 <MudText Align="Align.Center" Typo="Typo.h6"><b>Subject Details</b></MudText>
                 <MudAutocomplete T="SubjectModel" Label="First Subject Specialization" @bind-Value="FirstSubjectSpecialization" ShowProgressIndicator="true"
@@ -88,6 +89,6 @@
 </MudGrid>
 <MudGrid Class="mt-n12 pa-4">
     <MudItem xs="12">
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Style="background-color:#e38d43" OnClick="@(async () => await Submit())" FullWidth="true" StartIcon="@Icons.Material.Filled.Save">Register</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Style="background-color:#8F2D56" OnClick="@(async () => await Submit())" FullWidth="true" StartIcon="@Icons.Material.Filled.Save">Register</MudButton>
     </MudItem>
 </MudGrid>

@@ -140,14 +140,14 @@ namespace FimiAppApi.Repository
 
             await _context.UpdateData<ClassModel, dynamic>(sql, parameters);
         }
-        public async Task UpdateClassTeacher(int classId, int teacherId)
+        public async Task<int> UpdateClassTeacher(int classId, int teacherId)
         {
             string sql = "UPDATE Class SET TeacherId=@TeacherId WHERE ClassId=@ClassId";
             var parameters = new DynamicParameters();
             parameters.Add("TeacherId", teacherId, DbType.Int32);
             parameters.Add("ClassId", classId, DbType.Int32);
 
-            await _context.UpdateData<ClassModel, dynamic>(sql, parameters);
+            return await _context.UpdateData<ClassModel, dynamic>(sql, parameters);
         }
         public async Task<IEnumerable<ClassModel>> GetClassMultipleMapping()
         {

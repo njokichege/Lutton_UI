@@ -88,8 +88,15 @@ namespace FimiAppApi.Controllers
                 {
                     return NotFound();
                 }
-                await _classRepository.UpdateClassTeacher(classModel.ClassId, classModel.TeacherId);
-                return Ok();
+                var rowsAffected = await _classRepository.UpdateClassTeacher(dbClass.ClassId, classModel.TeacherId);
+                if(rowsAffected > 0)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
             catch (Exception ex)
             {

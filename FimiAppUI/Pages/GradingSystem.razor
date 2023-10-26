@@ -2,16 +2,17 @@
 
 @inherits GradingSystemBase
 
-<MudGrid Class="mt-n12 px-5">
+<PageTitle>Grading System</PageTitle>
+
+<MudGrid Class="mt-n16 px-5" Style="@($"background:#ffffff;")">
     <MudItem xs="9">
-        <MudText Typo="Typo.h5" Class="d-flex justify-start">GRADING SYSTEM</MudText>
+        <MudText Typo="Typo.h5" Class="d-flex pt-2 justify-start"><b>Grading System</b></MudText>
     </MudItem>
     <MudItem xs="3" Class="d-flex justify-end">
         <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
         <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
     </MudItem>
 </MudGrid>
-<MudDivider DividerType="DividerType.FullWidth" />
 
 @if (showSuccessAlert)
 {
@@ -41,7 +42,7 @@
 
 <MudGrid Class="d-flex justify-center pa-4">
     <MudItem xs="3">
-        <MudPaper Class="pa-4">
+        <MudPaper Class="pa-4" Elevation="0">
             <MudForm Model="@NewGrade" @ref="@addGradeForm" Validation="@(GradeValidator.ValidateValue)" ValidationDelay="0">
                 <MudText Typo="Typo.h5" Align="Align.Center">Add Grade</MudText>
                 <MudTextField Immediate="true" @bind-Value="NewGrade.Grade" For="@(() => NewGrade.Grade)" Label="Grade Letter" Variant="Variant.Outlined" />
@@ -49,7 +50,7 @@
                 <MudTextField Immediate="true" @bind-Value="NewGrade.UpperLimit" For="@(() => NewGrade.UpperLimit)" Label="Upper Limit" Variant="Variant.Outlined" />
                 <MudTextField Immediate="true" @bind-Value="NewGrade.LowerLimit" For="@(() => NewGrade.LowerLimit)" Label="Lower Limit" Variant="Variant.Outlined" />
                 <MudTextField Immediate="true" @bind-Value="NewGrade.Remarks" For="@(() => NewGrade.Remarks)" Label="Remarks" Variant="Variant.Outlined" />
-                <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@AddGrade" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
+                <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@AddGrade" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#8F2D56" Color="Color.Primary">Submit</MudButton>
             </MudForm>
         </MudPaper>        
     </MudItem>
@@ -60,7 +61,7 @@
         }
         else
         {
-            <MudTable Items="@GradesList" FixedHeader="true" Hover="true" Striped="true" Dense="true">
+            <MudTable Elevation="0" Items="@GradesList" FixedHeader="true" Hover="true" Striped="true" Dense="true">
                 <HeaderContent>
                     <MudTh>Name</MudTh>
                     <MudTh>Points</MudTh>

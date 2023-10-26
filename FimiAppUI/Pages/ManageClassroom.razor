@@ -3,9 +3,11 @@
 
 @inherits ManageClassroomBase
 
-<MudGrid Class="mt-n12 px-5">
+<PageTitle>Classroom</PageTitle>
+
+<MudGrid Class="mt-n16 px-5" Style="@($"background:#ffffff;")">
     <MudItem xs="9">
-        <MudText Typo="Typo.h5" Class="d-flex justify-start">MANAGE CLASSROOM</MudText>
+        <MudText Typo="Typo.h5" Class="d-flex pt-2 justify-start"><b>Manage Classroom</b></MudText>
     </MudItem>
     <MudItem xs="3" Class="d-flex justify-end">
         <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
@@ -32,7 +34,7 @@
                 }
                 else
                 {
-                    <MudTable Items="@Classes" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="ClassModel" Dense="true">
+                    <MudTable Elevation="0" Items="@Classes" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="ClassModel" Dense="true"RowsPerPage="15">
                         <HeaderContent>
                             <MudTh>Class</MudTh>
                             <MudTh>Session Start</MudTh>
@@ -56,7 +58,7 @@
     <MudTabPanel Text="Add/Update Classes">
         <MudGrid Class="pa-4">
             <MudItem xs="3">
-                <MudCard>
+                <MudCard Elevation="0">
                     <MudCardHeader>
                         <CardHeaderContent>
                             <MudText Typo="Typo.h5" Align="Align.Center" Class="mb-n12">Change Class Teacher</MudText>
@@ -79,7 +81,7 @@
                 </MudCard>
             </MudItem>
             <MudItem xs="3">
-                <MudCard>
+                <MudCard Elevation="0">
                     <MudCardHeader>
                         <CardHeaderContent>
                             <MudText Typo="Typo.h5" Align="Align.Center" Class="mb-n12">Add Class</MudText>

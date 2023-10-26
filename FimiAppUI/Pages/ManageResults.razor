@@ -2,21 +2,22 @@
 
 @inherits ManageResultsBase
 
-<MudGrid Class="mt-n12 px-5">
+<PageTitle>Results</PageTitle>
+
+<MudGrid Class="mt-n16 px-5" Style="@($"background:#ffffff;")">
     <MudItem xs="9">
-        <MudText Typo="Typo.h5" Class="d-flex justify-start">MANAGE RESULTS</MudText>
+        <MudText Typo="Typo.h5" Class="d-flex pt-2 justify-start"><b>Manage Results</b></MudText>
     </MudItem>
     <MudItem xs="3" Class="d-flex justify-end">
         <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
         <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
     </MudItem>
 </MudGrid>
-<MudDivider DividerType="DividerType.FullWidth" />
 
 
 <MudGrid Class="d-flex px-4 mt-4 align-center">
     <MudItem xs="2">
-        <MudCard>
+        <MudCard Elevation="0">
             <MudCardContent>
                 <MudAutocomplete T="TermModel" Label="Term" @bind-Value="SelectedTerm" ShowProgressIndicator="true"
                                  SearchFunc="@SelectedTermSearch" ToStringFunc="@(e=> e==null?null : $"{e.TermName}")" />
@@ -24,7 +25,7 @@
         </MudCard>
     </MudItem>
     <MudItem xs="2">
-        <MudCard>
+        <MudCard Elevation="0">
             <MudCardContent>
                 <MudAutocomplete T="ExamTypeModel" Label="Exam Type" @bind-Value="SelectedExamType" ShowProgressIndicator="true"
                                  SearchFunc="@SelectedExamTypeSearch" ToStringFunc="@(e=> e==null?null : $"{e.ExamName}")" />
@@ -32,7 +33,7 @@
         </MudCard>
     </MudItem>
     <MudItem xs="2">
-        <MudCard>
+        <MudCard Elevation="0">
             <MudCardContent>
                 <MudAutocomplete T="FormModel" Label="Form" @bind-Value="SelectedForm" ShowProgressIndicator="true"
                                  SearchFunc="@SelectedFormSearch" ToStringFunc="@(e=> e==null?null : $"{e.Form}")" />
@@ -40,7 +41,7 @@
         </MudCard>
     </MudItem>
     <MudItem xs="2">
-        <MudCard>
+        <MudCard Elevation="0">
             <MudCardContent>
                 <MudAutocomplete T="StreamModel" Label="Stream" @bind-Value="SelectedStream" ShowProgressIndicator="true"
                                  SearchFunc="@SelectedStreamSearch" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
@@ -48,7 +49,7 @@
         </MudCard>
     </MudItem>
     <MudItem xs="2">
-        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@FindClass" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
+        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@FindClass" StartIcon="@Icons.Material.Filled.Save" Color="Color.Primary" Style="background-color:#8F2D56">Submit</MudButton>
     </MudItem>
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
@@ -61,7 +62,7 @@
         }
         else 
         {
-            <MudTable Items="@StudentsSubjectPerformance"Dense="true" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" CanCancelEdit="true"
+            <MudTable Elevation="0" Items="@StudentsSubjectPerformance"Dense="true" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" CanCancelEdit="true"
                       @bind-SelectedItem="SelectedItem" CommitEditTooltip="Submit" OnCommitEditClick="ItemHasBeenCommitted" RowEditPreview="BackupItem" 
                       RowEditCancel="ResetItemToOriginalValues" IsEditRowSwitchingBlocked="true"ApplyButtonPosition="TableApplyButtonPosition.StartAndEnd" 
                       EditButtonPosition="TableEditButtonPosition.StartAndEnd" EditTrigger="TableEditTrigger.EditButton">

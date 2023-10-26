@@ -112,6 +112,10 @@ namespace FimiAppUI
             {
                 client.BaseAddress = new Uri(uriLink);
             });
+            builder.Services.AddHttpClient<IExamResultService, ExamResultService>(client =>
+            {
+                client.BaseAddress = new Uri(uriLink);
+            });
         }
     }
 }

@@ -2,70 +2,87 @@
 
 @inherits IndexBase
 
-<MudGrid Class="mt-n12 px-5">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes"></script>
+<script src="lib/SchoolPerformance.js"></script>
+
+<PageTitle>Dashboard</PageTitle>
+
+<MudGrid Class="mt-n16 px-5" Style="@($"background:#ffffff;")">
     <MudItem xs="9">
-        <MudText Typo="Typo.h5" Class="d-flex justify-start">DASHBOARD</MudText>
+        <MudText Typo="Typo.h5" Class="d-flex pt-2 justify-start"><b>Dashboard</b></MudText>
     </MudItem>
     <MudItem xs="3" Class="d-flex justify-end">
         <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
         <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
     </MudItem>
 </MudGrid>
-<MudDivider DividerType="DividerType.FullWidth" />
 
 @if(AllStudents is not null && AllTeachers is not null && AllParents is not null)
 {
     <MudGrid Class="pa-5">
         <MudItem xs="3">
-            <MudPaper Class="d-flex flex-row gap-0">
-                <MudImage Src="images/forward.png" Width="100" Height="100" Elevation="0" Class="rounded-lg pa-1" />
+            <MudPaper Class="d-flex flex-row gap-0 px-2 py-3 rounded-lg" Style="background:#0496FF;" Elevation="0">
+                <MudText Style="font-size:small;color:#000000;" Align="Align.Center"><b>Running Session</b></MudText>
                 <MudDivider Vertical="true" FlexItem="true" />
-                <MudCard Elevation="0">
-                    <MudCardContent>
-                        <MudText Style="font-size:small;"><b>Running Session</b></MudText>
-                        <MudText Style="font-size:small;">@SessionYearModelTitle</MudText>
-                    </MudCardContent>
-                </MudCard>
+                <MudText Class="pl-2" Style="font-size:small;color:#000000;"><b>@SessionYearModelTitle</b></MudText>
             </MudPaper>
         </MudItem>
-        <MudItem xs="3">
-            <MudPaper Class="d-flex flex-row gap-0">
-                <MudImage Src="images/student.png" Width="100" Height="100" Elevation="0" Class="rounded-lg pa-1" />
+        <MudItem xs="2">
+            <MudPaper Class="d-flex flex-row gap-0 px-2 py-4 rounded-lg" Style="background:#A6808C;"Elevation="0">
+                <MudText Class="pr-2" Style="font-size:small;color:#000000;" Align="Align.Center"><b>Students</b></MudText>
                 <MudDivider Vertical="true" FlexItem="true" />
-                <MudCard Elevation="0">
-                    <MudCardContent>
-                        <MudText Style="font-size:small;"><b>STUDENTS</b></MudText>
-                        <MudText Style="font-size:small;">@AllStudents.Count()</MudText>
-                    </MudCardContent>
-                </MudCard>
+                <MudText Class="pl-2" Style="font-size:large;color:#000000;"><b>@AllStudents.Count()</b></MudText>
             </MudPaper>
         </MudItem>
-        <MudItem xs="3">
-            <MudPaper Class="d-flex flex-row gap-0">
-                <MudImage Src="images/teacher.png" Width="100" Height="100" Elevation="0" Class="rounded-lg pa-1" />
+        <MudItem xs="2">
+            <MudPaper Class="d-flex flex-row gap-0 px-2 py-4 rounded-lg" Style="background:#FFBC42;"Elevation="0">
+                <MudText Class="pr-2" Style="font-size:small;color:#000000;" Align="Align.Center"><b>Teachers</b></MudText>
                 <MudDivider Vertical="true" FlexItem="true" />
-                <MudCard Elevation="0">
-                    <MudCardContent>
-                        <MudText Style="font-size:small;"><b>TEACHERS</b></MudText>
-                        <MudText Style="font-size:small;">@AllTeachers.Count()</MudText>
-                    </MudCardContent>
-                </MudCard>
+                <MudText Class="pl-2" Style="font-size:large;color:#000000;"><b>@AllTeachers.Count()</b></MudText>
             </MudPaper>
         </MudItem>
-        <MudItem xs="3">
-            <MudPaper Class="d-flex flex-row gap-0">
-                <MudImage Src="images/parent.png" Width="100" Height="100" Elevation="0" Class="rounded-lg pa-1" />
+        <MudItem xs="2">
+            <MudPaper Class="d-flex flex-row gap-0 px-2 py-4 rounded-lg" Style="background:#8F2D56;" MaxWidth="100"MaxHeight="100"Elevation="0">
+                <MudText Class="pr-2" Style="font-size:small;color:#000000;" Align="Align.Center"><b>Parents</b></MudText>
                 <MudDivider Vertical="true" FlexItem="true" />
-                <MudCard Elevation="0">
-                    <MudCardContent>
-                        <MudText Style="font-size:small;"><b>PARENTS</b></MudText>
-                        <MudText Style="font-size:small;">@AllParents.Count()</MudText>
-                    </MudCardContent>
-                </MudCard>
+                <MudText Class="pl-2" Style="font-size:large;color:#000000;"><b>@AllParents.Count()</b></MudText>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="2">
+            <MudPaper Class="d-flex flex-row gap-0 px-2 py-4 rounded-lg" Style="background:#FFEAEE;" MaxWidth="100" MaxHeight="100"Elevation="0">
+                <MudText Class="pr-2" Style="font-size:small;color:#000000;" Align="Align.Center"><b>Classes</b></MudText>
+                <MudDivider Vertical="true" FlexItem="true" />
+                <MudText Class="pl-2" Style="font-size:large;color:#000000;"><b>@AllClasses.Count()</b></MudText>
             </MudPaper>
         </MudItem>
     </MudGrid>
 }
 <MudDivider DividerType="DividerType.FullWidth" />
+
+<MudGrid Class="pa-5">
+    <MudItem Class="pa-2" xs="6">
+        <MudPaper Class="pa-4" Elevation="0">
+            <SchoolPerformance Id="myChart" Type="@SchoolPerformance.ChartType.Bar"BackgroundColor="@(new[] { "yellow","red"})"Labels="@XAxisLabels"
+                               LabelF1N="F1N" LabelF1S="F1S" LabelF2N="F2N" LabelF2S="F2S" 
+                               LabelF3N="F3N" LabelF3S="F3S" LabelF4N="F4N" LabelF4S="F4S"
+                               DataF1N="@(new[]{F1NorthT1,F1NorthT2,F1NorthT3})"
+                               DataF1S="@(new[]{F1SouthT1,F1SouthT2,F1SouthT3})"
+                               DataF2N="@(new[]{F2NorthT1,F2NorthT2,F2NorthT3})"
+                               DataF2S="@(new[]{F2SouthT1,F2SouthT2,F2SouthT3})"
+                               DataF3N="@(new[]{F3NorthT1,F3NorthT2,F3NorthT3})"
+                               DataF3S="@(new[]{F3SouthT1,F3SouthT2,F3SouthT3})"
+                               DataF4N="@(new[]{F4NorthT1,F4NorthT2,F4NorthT3})"
+                               DataF4S="@(new[]{F4SouthT1,F4SouthT2,F4SouthT3})">
+            </SchoolPerformance>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+
+
+
+
+
 
 

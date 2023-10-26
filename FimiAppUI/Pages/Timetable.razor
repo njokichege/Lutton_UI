@@ -4,9 +4,11 @@
 
 <link href="css/App.css" rel="stylesheet" />
 
-<MudGrid Class="mt-n12 px-5">
+<PageTitle>Timetable</PageTitle>
+
+<MudGrid Class="mt-n16 px-5" Style="@($"background:#ffffff;")">
     <MudItem xs="9">
-        <MudText Typo="Typo.h5" Class="d-flex justify-start">TIMETABLE</MudText>
+        <MudText Typo="Typo.h5" Class="d-flex pt-2 justify-start"><b>Timetable</b></MudText>
     </MudItem>
     <MudItem xs="3" Class="d-flex justify-end">
         <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
@@ -44,7 +46,7 @@
     <MudTabPanel Text="Overall Timetable">
         <MudGrid Class="d-flex px-4 mt-2 mb-2 align-left">
             <MudItem xs="3">
-                <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@GenerateTimetable" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Generate Timetable</MudButton>
+                <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@GenerateTimetable" StartIcon="@Icons.Material.Filled.Save" Color="Color.Primary" Style="background-color:#8F2D56">Generate Timetable</MudButton>
             </MudItem>
             <MudItem xs="9">
                 @if (loadTimetable is true)
@@ -8236,7 +8238,7 @@
                 }
                 else
                 {
-                    <MudTable Items="@LessonCounts" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" T="LessonCountModel"Dense="true"Bordered="true">
+                    <MudTable Elevation="0" Items="@LessonCounts" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" T="LessonCountModel"Dense="true"Bordered="true">
                         <HeaderContent>
                             <MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<LessonCountModel, object>(x=>x.Form)">Form</MudTableSortLabel>
                             <MudTh>Stream</MudTh>

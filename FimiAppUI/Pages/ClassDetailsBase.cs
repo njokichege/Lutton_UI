@@ -10,7 +10,9 @@ namespace FimiAppUI.Pages
         [Inject] public ITeacherSubjectService TeacherSubjectService { get; set; }
         [Inject] public IStudentSubjectService StudentSubjectService { get; set; }
         [Inject] public ITimetableService TimetableService { get; set; }
+        [Inject] public ITeacherService TeacherService { get; set; }
         [Inject] public NavigationManager Navigation { get; set; }
+        [Inject] public ISnackbar Snackbar { get; set; }
         [Parameter] public string Id { get; set; }
         public IEnumerable<StudentModel> Students { get; set; } = new List<StudentModel>();
         public IEnumerable<TeacherSubjectModel> TeacherSubjects { get; set; } = new List<TeacherSubjectModel>();
@@ -18,6 +20,7 @@ namespace FimiAppUI.Pages
         public ClassModel ClassSelected { get; set; } = new ClassModel();
         public List<SubjectModel> Subjects { get; set; } = new List<SubjectModel>();
         public IEnumerable<TimetableModel> TimetableModels { get; set; } = new List<TimetableModel>();
+        public TeacherModel SelectedTeacherOnTeacherCard { get; set; }
         public TimetableModel TM800_840_Monday { get; set; }
         public TimetableModel TM840_920_Monday { get; set; }
         public TimetableModel TM930_1010_Monday { get; set; }
@@ -73,6 +76,10 @@ namespace FimiAppUI.Pages
         public bool dataIsLoaded = false;
         public string TeacherName;
         public string space = " ";
+        public bool showTeacherList = false;
+        public MudDialog changeTeacherDialog;
+        public bool changeTeacherDialogVisible;
+        public DialogOptions changeTeacherDialogOptions = new() { FullWidth = true };
         protected async override Task OnInitializedAsync()
         {
             ClassSelected = await ClassService.GetClassById(int.Parse(Id));
@@ -97,6 +104,52 @@ namespace FimiAppUI.Pages
         public void StudentRowClickEvent(TableRowClickEventArgs<StudentModel> tableRowClickEventArgs)
         {
             Navigation.NavigateTo("/studentdetails/" + tableRowClickEventArgs.Item.StudentNumber);
+        }
+        public async Task<IEnumerable<TeacherModel>> TeacherSearchOnTeacherCard(string value)
+        {
+            return (await TeacherService.MapStaffOnTeacher()).ToList();
+        }
+        public async Task ChangeClassTeacher()
+        {
+            showTeacherList = true;
+        }
+        public async Task ChangeClassTeacherSubmit()
+        {
+            changeTeacherDialogVisible = true;
+            showTeacherList = false;
+        }
+        public async Task ChangeTeacherDialogDialogSubmit()
+        {
+            changeTeacherDialogVisible = true;
+            var classModel = new ClassModel
+            {
+                FormId = ClassSelected.FormId,
+                StreamId = ClassSelected.StreamId,
+                SessionYearId = ClassSelected.SessionYearId,
+                TeacherId = SelectedTeacherOnTeacherCard.TeacherId
+            };
+            var response = await ClassService.UpdateClass(classModel).ConfigureAwait(false);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                changeTeacherDialogVisible = false;
+                ReloadPage(Navigation);
+            }
+            else
+            {
+                changeTeacherDialogVisible = false;
+                Snackbar.Add("Failed to change class teacher", MudBlazor.Severity.Error);
+            }
+            SelectedTeacherOnTeacherCard = null;
+        }
+
+        public void Cancel()
+        {
+            changeTeacherDialogVisible = false;
+            SelectedTeacherOnTeacherCard = null;
+        }
+        public void ReloadPage(NavigationManager manager)
+        {
+            manager.NavigateTo(manager.Uri, true);
         }
         private async Task GenerateTimetable()
         {

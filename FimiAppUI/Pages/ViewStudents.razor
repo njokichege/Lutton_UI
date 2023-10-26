@@ -3,16 +3,17 @@
 
 @inherits ViewStudentsBase
 
-<MudGrid Class="mt-n12 px-5">
+<PageTitle>View Students</PageTitle>
+
+<MudGrid Class="mt-n16 px-5" Style="@($"background:#ffffff;")">
     <MudItem xs="9">
-        <MudText Typo="Typo.h5" Class="d-flex justify-start">VIEW STUDENTS</MudText>
+        <MudText Typo="Typo.h5" Class="d-flex pt-2 justify-start"><b>View Students</b></MudText>
     </MudItem>
     <MudItem xs="3" Class="d-flex justify-end">
         <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
         <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
     </MudItem>
 </MudGrid>
-<MudDivider DividerType="DividerType.FullWidth" />
 
 @if (showSuccessAlert)
 {
@@ -25,7 +26,7 @@
 
 <MudGrid Class="d-flex px-4 mt-4 align-center">
     <MudItem xs="3">
-        <MudCard>
+        <MudCard Elevation="0">
             <MudCardContent>
                 <MudAutocomplete T="SessionYearModel" Label="School Year" @bind-Value="SelectedStudentSchoolYear" ShowProgressIndicator="true"
                                  SearchFunc="@SelectedSessionYearSearch" ToStringFunc="@(e=> e==null?null : $"{e.StartDate.Year}")" />
@@ -33,7 +34,7 @@
         </MudCard>
     </MudItem>
     <MudItem xs="3">
-        <MudCard>
+        <MudCard Elevation="0">
             <MudCardContent>
                 <MudAutocomplete T="FormModel" Label="Form" @bind-Value="SelectedStudentForm" ShowProgressIndicator="true"
                                  SearchFunc="@SelectedFormSearch" ToStringFunc="@(e=> e==null?null : $"{e.Form}")" />
@@ -41,7 +42,7 @@
         </MudCard>
     </MudItem>
     <MudItem xs="3">
-        <MudCard>
+        <MudCard Elevation="0">
             <MudCardContent>
                 <MudAutocomplete T="StreamModel" Label="Stream" @bind-Value="SelectedStudentStream" ShowProgressIndicator="true"
                                  SearchFunc="@SelectedStreamSearch" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
@@ -49,7 +50,7 @@
         </MudCard>
     </MudItem>
     <MudItem xs="2">
-        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@FindClass" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" OnClick="@FindClass" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#8F2D56">Submit</MudButton>
     </MudItem>
 </MudGrid>
 <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
@@ -62,7 +63,7 @@
         }
         else if(AllStudents is not null && Students is null)
         {
-            <MudTable Items="@AllStudents" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="StudentRowClickEvent" T="StudentModel" Dense="true">
+            <MudTable Elevation="0" Items="@AllStudents" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="StudentRowClickEvent" T="StudentModel" Dense="true">
                 <HeaderContent>
                     <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentNumber)">Adm No.</MudTableSortLabel></MudTh>
                     <MudTh>Class</MudTh>
@@ -86,7 +87,7 @@
         }
         else if (AllStudents is not null && Students is not null)
         {
-            <MudTable Items="@Students" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" Striped="true" FixedHeader="true" OnRowClick="StudentRowClickEvent" T="StudentModel" Dense="true">
+            <MudTable Elevation="0" Items="@Students" Hover="true" Breakpoint="Breakpoint.Sm" @ref="mudTable" Striped="true" FixedHeader="true" OnRowClick="StudentRowClickEvent" T="StudentModel" Dense="true">
                 <HeaderContent>
                     <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentNumber)">Adm No.</MudTableSortLabel></MudTh>
                     <MudTh>Class</MudTh>

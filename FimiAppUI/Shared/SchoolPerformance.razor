@@ -1,0 +1,49 @@
+﻿@inject IJSRuntime JSRuntime
+
+<canvas id="@Id"></canvas>
+
+@code {
+    public enum ChartType
+    {
+        Pie,
+        Bar
+    }
+    
+    [Parameter] public string[] Labels { get; set; }
+
+    [Parameter] public string Id { get; set; }
+    [Parameter] public ChartType Type { get; set; }
+    [Parameter] public string[] Data { get; set; }
+    [Parameter] public string[] BackgroundColor { get; set; }
+
+    [Parameter] public double[] DataF1N { get; set; }
+    [Parameter] public double[] DataF1S { get; set; }
+    [Parameter] public double[] DataF2N { get; set; }
+    [Parameter] public double[] DataF2S { get; set; }
+    [Parameter] public double[] DataF3N { get; set; }
+    [Parameter] public double[] DataF3S { get; set; }
+    [Parameter] public double[] DataF4N { get; set; }
+    [Parameter] public double[] DataF4S { get; set; }
+
+    [Parameter] public string LabelF1N { get; set; }
+    [Parameter] public string LabelF1S { get; set; }
+    [Parameter] public string LabelF2N { get; set; }
+    [Parameter] public string LabelF2S { get; set; }
+    [Parameter] public string LabelF3N { get; set; }
+    [Parameter] public string LabelF3S { get; set; }
+    [Parameter] public string LabelF4N { get; set; }
+    [Parameter] public string LabelF4S { get; set; }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // Here we create an anonymous type with all the options
+        // that need to be sent to Chart.
+        if (!firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("setup", Id, Labels, LabelF1N, LabelF1S, LabelF2N, LabelF2S, LabelF3N, LabelF3S, LabelF4N, LabelF4S, 
+            DataF1N, DataF1S, DataF2N, DataF2S, DataF3N, DataF3S, DataF4N, DataF4S);
+        }
+        
+    }
+}

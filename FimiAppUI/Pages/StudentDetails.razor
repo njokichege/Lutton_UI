@@ -1,16 +1,17 @@
 ﻿@page "/studentdetails/{id}"
 @inherits StudentDetailsBase
 
-<MudGrid Class="mt-n12 px-5">
+<PageTitle>Student Details</PageTitle>
+
+<MudGrid Class="mt-n16 px-5" Style="@($"background:#ffffff;")">
     <MudItem xs="9">
-        <MudText Typo="Typo.h5" Class="d-flex justify-start">STUDENT DETAILS</MudText>
+        <MudText Typo="Typo.h5" Class="d-flex pt-2 justify-start"><b>Student Details</b></MudText>
     </MudItem>
     <MudItem xs="3" Class="d-flex justify-end">
         <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
         <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
     </MudItem>
 </MudGrid>
-<MudDivider DividerType="DividerType.FullWidth" />
 
 @if (dataIsLoaded == false)
 {
@@ -60,9 +61,6 @@ else
                                 <MudTd DataLabel="Code">@context.Subject.SubjectCategory.SubjectCategoryName</MudTd>
                                 <MudTd DataLabel="SubjectName">@context.Subject.SubjectName</MudTd>
                             </RowTemplate>
-                            <PagerContent>
-                                <MudTablePager />
-                            </PagerContent>
                         </MudTable>
                     }
                 </MudTabPanel>
