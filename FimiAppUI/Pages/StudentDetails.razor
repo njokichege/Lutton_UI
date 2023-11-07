@@ -15,7 +15,7 @@
 
 @if (dataIsLoaded == false)
 {
-    <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+    <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
 }
 else
 {
@@ -46,11 +46,11 @@ else
                 <MudTabPanel Text="Subjects">
                     @if (Subjects is null)
                     {
-                        <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+                        <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
                     }
                     else
                     {
-                        <MudTable Items="@Subjects" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" T="StudentSubjectModel" Dense="true">
+                        <MudTable Bordered="true" Items="@Subjects" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" T="StudentSubjectModel" Dense="true">
                             <HeaderContent>
                                 <MudTh>Code</MudTh>
                                 <MudTh>Category</MudTh>

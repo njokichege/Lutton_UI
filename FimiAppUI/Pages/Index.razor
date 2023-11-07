@@ -3,7 +3,6 @@
 @inherits IndexBase
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes"></script>
 <script src="lib/SchoolPerformance.js"></script>
 
 <PageTitle>Dashboard</PageTitle>
@@ -17,8 +16,11 @@
         <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
     </MudItem>
 </MudGrid>
-
-@if(AllStudents is not null && AllTeachers is not null && AllParents is not null)
+@if (AllStudents is null && AllTeachers is null && AllParents is null)
+{
+    <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
+}
+else if(AllStudents is not null && AllTeachers is not null && AllParents is not null)
 {
     <MudGrid Class="pa-5">
         <MudItem xs="3">

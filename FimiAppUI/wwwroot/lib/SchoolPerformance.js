@@ -52,9 +52,6 @@ window.setup = (Id, Labels, LabelF1N, LabelF1S, LabelF2N, LabelF2S, LabelF3N, La
     var options = {
         responsive: true,
         plugins: {
-            colorschemes: {
-                scheme: 'tableau.Tableau20'
-            },
             legend: {
                 position: 'bottom',
             },

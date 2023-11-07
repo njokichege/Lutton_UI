@@ -18,11 +18,11 @@
     <MudItem xs="12">
         @if (Teachers is null)
         {
-            <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+            <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
         }
         else 
         {
-            <MudTable Elevation="0" Items="@Teachers" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="TeacherRowClickEvent" T="TeacherModel" Dense="true">
+            <MudTable Bordered="true" Elevation="0" Items="@Teachers" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="TeacherRowClickEvent" T="TeacherModel" Dense="true">
                 <HeaderContent>
                     <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StaffModel, object>(x=>x.NationalId)">NationalId</MudTableSortLabel></MudTh>
                     <MudTh>Name</MudTh>

@@ -37,11 +37,11 @@
                     <MudItem xs="12" Class="d-flex justify-space-between">
                         @if (showTermOneMidTerm is false)
                         {
-                            <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+                            <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
                         }
                         else
                         {
-                            <MudTable Elevation="0" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermOneMidTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel" Dense="true">
+                            <MudTable Bordered="true" Elevation="0" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermOneMidTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel" Dense="true">
                                 <HeaderContent>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>
@@ -67,11 +67,11 @@
                     <MudItem xs="12" Class="d-flex justify-space-between">
                         @if (showTermOneEndTerm is false)
                         {
-                            <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+                            <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
                         }
                         else
                         {
-                            <MudTable Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermOneEndTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
+                            <MudTable Bordered="true" Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermOneEndTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
                                 <HeaderContent>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>
@@ -101,11 +101,11 @@
                     <MudItem xs="12" Class="d-flex justify-space-between">
                         @if (showTermTwoMidTerm is false)
                         {
-                            <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+                            <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
                         }
                         else
                         {
-                            <MudTable Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermTwoMidTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
+                            <MudTable Bordered="true" Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermTwoMidTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
                                 <HeaderContent>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>
@@ -131,11 +131,11 @@
                     <MudItem xs="12" Class="d-flex justify-space-between">
                         @if (showTermTwoEndTerm is false)
                         {
-                            <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+                            <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
                         }
                         else
                         {
-                            <MudTable Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermTwoEndTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
+                            <MudTable Bordered="true" Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermTwoEndTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
                                 <HeaderContent>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>
@@ -165,11 +165,11 @@
                     <MudItem xs="12" Class="d-flex justify-space-between">
                         @if (showTermThreeMidTerm is false)
                         {
-                            <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+                            <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
                         }
                         else
                         {
-                            <MudTable Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermThreeMidTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
+                            <MudTable Bordered="true" Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermThreeMidTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
                                 <HeaderContent>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>
@@ -195,11 +195,11 @@
                     <MudItem xs="12" Class="d-flex justify-space-between">
                         @if (showTermThreeEndTerm is false)
                         {
-                            <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+                            <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
                         }
                         else
                         {
-                            <MudTable Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermThreeEndTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
+                            <MudTable Bordered="true" Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermThreeEndTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
                                 <HeaderContent>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>

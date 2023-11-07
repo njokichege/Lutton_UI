@@ -57,11 +57,11 @@
     <MudItem xs="9">
         @if (GradesList is null)
         {
-            <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+            <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
         }
         else
         {
-            <MudTable Elevation="0" Items="@GradesList" FixedHeader="true" Hover="true" Striped="true" Dense="true">
+            <MudTable Bordered="true" Elevation="0" Items="@GradesList" FixedHeader="true" Hover="true" Striped="true" Dense="true">
                 <HeaderContent>
                     <MudTh>Name</MudTh>
                     <MudTh>Points</MudTh>

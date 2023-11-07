@@ -30,11 +30,11 @@
             <MudItem xs="12" Class="d-flex justify-space-between">
                 @if (Classes is null)
                 {
-                    <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true"/>
+                    <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
                 }
                 else
                 {
-                    <MudTable Elevation="0" Items="@Classes" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="ClassModel" Dense="true"RowsPerPage="15">
+                    <MudTable Bordered="true" Elevation="0" Items="@Classes" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="ClassModel" Dense="true" RowsPerPage="15">
                         <HeaderContent>
                             <MudTh>Class</MudTh>
                             <MudTh>Session Start</MudTh>
@@ -52,56 +52,6 @@
                         </PagerContent>
                     </MudTable>
                 }
-            </MudItem>
-        </MudGrid>
-    </MudTabPanel>
-    <MudTabPanel Text="Add/Update Classes">
-        <MudGrid Class="pa-4">
-            <MudItem xs="3">
-                <MudCard Elevation="0">
-                    <MudCardHeader>
-                        <CardHeaderContent>
-                            <MudText Typo="Typo.h5" Align="Align.Center" Class="mb-n12">Change Class Teacher</MudText>
-                        </CardHeaderContent>
-                    </MudCardHeader>
-                    <MudCardContent>
-                        <MudDivider DividerType="DividerType.FullWidth" Class="my-4" />
-                        <MudAutocomplete T="FormModel" Label="Form" @bind-Value="SelectedFormOnTeacherCard" ShowProgressIndicator="true"
-                                         SearchFunc="@FormSearchOnTeacherCard" ToStringFunc="@(e=> e==null?null : $"{e.Form}")" />
-                        <MudAutocomplete T="StreamModel" Label="Stream" @bind-Value="SelectedStreamOnTeacherCard" ShowProgressIndicator="true"
-                                         SearchFunc="@StreamSearchOnTeacherCard" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
-                        <MudAutocomplete T="SessionYearModel" Label="Session Year" @bind-Value="SelectedSessionYearOnTeacherCard" ShowProgressIndicator="true"
-                                         SearchFunc="@SessionYearSearchOnTeacherCard" ToStringFunc="@(e=> e==null?null : $"{e.SessionString()}")" />
-                        <MudAutocomplete T="TeacherModel" Label="Teacher" @bind-Value="SelectedTeacherOnTeacherCard" ShowProgressIndicator="true"
-                                         SearchFunc="@TeacherSearchOnTeacherCard" ToStringFunc="@(e=> e==null?null : $"{e.Staff.FirstName} {e.Staff.MiddleName} {e.Staff.Surname}")" />
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@AssignClassTeacher" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
-                    </MudCardActions>
-                </MudCard>
-            </MudItem>
-            <MudItem xs="3">
-                <MudCard Elevation="0">
-                    <MudCardHeader>
-                        <CardHeaderContent>
-                            <MudText Typo="Typo.h5" Align="Align.Center" Class="mb-n12">Add Class</MudText>
-                        </CardHeaderContent>
-                    </MudCardHeader>
-                    <MudCardContent>
-                        <MudDivider DividerType="DividerType.FullWidth" Class="my-4" />
-                        <MudAutocomplete T="FormModel" Label="Form" @bind-Value="SelectedFormOnClassCard" ShowProgressIndicator="true"
-                                         SearchFunc="@FormSearchOnClassCard" ToStringFunc="@(e=> e==null?null : $"{e.Form}")" />
-                        <MudAutocomplete T="StreamModel" Label="Stream" @bind-Value="SelectedStreamOnClassCard" ShowProgressIndicator="true"
-                                         SearchFunc="@StreamSearchOnClassCard" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" />
-                        <MudAutocomplete T="SessionYearModel" Label="Session Year" @bind-Value="SelectedSessionYearOnClassCard" ShowProgressIndicator="true"
-                                         SearchFunc="@SessionYearSearchOnClassCard" ToStringFunc="@(e=> e==null?null : $"{e.SessionString()}")" />
-                        <MudAutocomplete T="TeacherModel" Label="Teacher" @bind-Value="SelectedTeacherOnClassCard" ShowProgressIndicator="true"
-                                         SearchFunc="@TeacherSearchOnTeacherCard" ToStringFunc="@(e=> e==null?null : $"{e.Staff.FirstName} {e.Staff.MiddleName} {e.Staff.Surname}")" />
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@CreateClass" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#e38d43">Submit</MudButton>
-                    </MudCardActions>
-                </MudCard>
             </MudItem>
         </MudGrid>
     </MudTabPanel>

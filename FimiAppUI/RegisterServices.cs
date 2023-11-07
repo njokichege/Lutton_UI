@@ -12,6 +12,8 @@ namespace FimiAppUI
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
             builder.Services.AddMemoryCache();
+            builder.Services.AddScoped<Radzen.DialogService>();
+
             builder.Services.AddHttpClient<IClassService, ClassService>(client =>
             {
                 client.BaseAddress = new Uri(uriLink);
@@ -113,6 +115,10 @@ namespace FimiAppUI
                 client.BaseAddress = new Uri(uriLink);
             });
             builder.Services.AddHttpClient<IExamResultService, ExamResultService>(client =>
+            {
+                client.BaseAddress = new Uri(uriLink);
+            });
+            builder.Services.AddHttpClient<IEventService, EventService>(client =>
             {
                 client.BaseAddress = new Uri(uriLink);
             });

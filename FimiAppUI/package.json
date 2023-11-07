@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@fullcalendar/core": "^6.1.9"
+  }
+}

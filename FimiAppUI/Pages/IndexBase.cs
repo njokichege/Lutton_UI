@@ -11,7 +11,6 @@ namespace FimiAppUI.Pages
         [Inject] public ITeacherService TeacherService { get; set; }
         [Inject] public IParentService ParentService { get; set; }
         [Inject] public IExamResultService ExamResultService { get; set; }
-        [Inject] public IJSRuntime JSRuntime { get; set; }
         [Inject] public IClassService ClassService { get; set; }
         [CascadingParameter] public SessionYearModel SchoolYear { get; set; }
         public IEnumerable<StudentModel> AllStudents { get; set; } 

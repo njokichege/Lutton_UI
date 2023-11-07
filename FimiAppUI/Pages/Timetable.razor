@@ -57,7 +57,7 @@
         </MudGrid>
         @if (TimetableModels is null)
         {
-            <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true"/>
+            <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
         }
         else
         {
@@ -8234,7 +8234,7 @@
             <MudItem xs="7" Class="d-flex justify-space-between">
                 @if (LessonCounts is null)
                 {
-                    <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true"/>
+                    <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
                 }
                 else
                 {

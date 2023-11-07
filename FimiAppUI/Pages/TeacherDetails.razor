@@ -17,7 +17,7 @@
 
 @if (dataIsLoaded == false)
 {
-    <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+    <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
 }
 else
 {
@@ -53,7 +53,7 @@ else
                 <MudTabPanel Text="Timetable">
                     @if (TimetableModels is null)
                     {
-                        <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+                        <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
                     }
                     else
                     {

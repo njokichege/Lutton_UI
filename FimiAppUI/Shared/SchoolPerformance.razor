@@ -37,8 +37,6 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        // Here we create an anonymous type with all the options
-        // that need to be sent to Chart.
         if (!firstRender)
         {
             await JSRuntime.InvokeVoidAsync("setup", Id, Labels, LabelF1N, LabelF1S, LabelF2N, LabelF2S, LabelF3N, LabelF3S, LabelF4N, LabelF4S, 

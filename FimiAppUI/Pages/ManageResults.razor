@@ -58,11 +58,11 @@
     <MudItem xs="12">
         @if (StudentsSubjectPerformance is null && visible is true)
         {
-            <MudProgressCircular Size="Size.Medium" Color="Color.Success" Indeterminate="true" />
+            <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
         }
         else 
         {
-            <MudTable Elevation="0" Items="@StudentsSubjectPerformance"Dense="true" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" CanCancelEdit="true"
+            <MudTable Bordered="true" Elevation="0" Items="@StudentsSubjectPerformance" Dense="true" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" CanCancelEdit="true"
                       @bind-SelectedItem="SelectedItem" CommitEditTooltip="Submit" OnCommitEditClick="ItemHasBeenCommitted" RowEditPreview="BackupItem" 
                       RowEditCancel="ResetItemToOriginalValues" IsEditRowSwitchingBlocked="true"ApplyButtonPosition="TableApplyButtonPosition.StartAndEnd" 
                       EditButtonPosition="TableEditButtonPosition.StartAndEnd" EditTrigger="TableEditTrigger.EditButton">

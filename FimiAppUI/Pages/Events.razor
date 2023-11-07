@@ -1,0 +1,75 @@
+﻿@page "/Pages/Events"
+@using Radzen.Blazor;
+@inherits EventsBase
+
+<style>
+    .mud-table-cell-custom-group {
+        font-weight: 500;
+    }
+
+    .mud-table-cell-custom-group-footer {
+        padding-bottom: 50px;
+        text-align: right;
+    }
+</style>
+
+<PageTitle>Events</PageTitle>
+
+<MudGrid Class="mt-n16 px-5" Style="@($"background:#ffffff;")">
+    <MudItem xs="9">
+        <MudText Typo="Typo.h5" Class="d-flex pt-2 justify-start"><b>Events Manager</b></MudText>
+    </MudItem>
+    <MudItem xs="3" Class="d-flex justify-end">
+        <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
+        <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
+    </MudItem>
+</MudGrid>
+
+@if (Events is null)
+{
+    <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4"/>
+}
+else
+{
+    <MudGrid Class="pa-4">
+        <MudItem xs="5">
+            <MudTable Hover="true" Breakpoint="Breakpoint.Sm" Height="500px" FixedHeader="true" Items="@Events" GroupBy="@GroupDefinition"
+                    GroupHeaderStyle="background-color:var(--mud-palette-background-grey)"GroupFooterClass="mb-4"Dense="true"
+                <ColGroup>
+                    <col />
+                    <col />
+                    <col />
+                    <col />
+                    <col />
+                </ColGroup>
+                <HeaderContent>
+                    <MudTh>Nr</MudTh>
+                    <MudTh>Sign</MudTh>
+                    <MudTh>Name</MudTh>
+                    <MudTh>Position</MudTh>
+                    <MudTh>Molar mass</MudTh>
+                </HeaderContent>
+                <GroupHeaderTemplate>
+                    <MudTh Class="mud-table-cell-custom-group" colspan="5">@($"{context.GroupName}: {context.Key}")</MudTh>
+                </GroupHeaderTemplate>
+                <RowTemplate>
+                    <MudTd DataLabel="Start">@context.Start.ToShortDateString()</MudTd>
+                    <MudTd DataLabel="End">@context.End.ToShortDateString()</MudTd>
+                    <MudTd DataLabel="Text">@context.Text</MudTd>
+                    <MudTd Style="text-align: right" DataLabel="EventType">@context.EventType"</MudTd>
+                </RowTemplate>
+                </MudTable>
+     </MudItem>
+     <MudItem xs="7" Class="pa-2">
+         <RadzenScheduler @ref=@scheduler SlotRender=@OnSlotRender style="height: 550px;" TItem="EventModel" Data=@Events StartProperty="Start" EndProperty="End"
+                          TextProperty="Text" SelectedIndex="2" SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect AppointmentRender=@OnAppointmentRender>
+             <RadzenDayView />
+             <RadzenWeekView />
+             <RadzenMonthView />
+             <RadzenYearView />
+         </RadzenScheduler>
+     </MudItem>
+ </MudGrid>
+}
+
+
