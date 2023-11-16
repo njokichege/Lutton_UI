@@ -9,42 +9,42 @@ window.setup = (Id, Labels, LabelF1N, LabelF1S, LabelF2N, LabelF2S, LabelF3N, La
             {
                 label: LabelF1N,
                 data: DataF1N,
-                backgroundColor: '#006BA6',
+                backgroundColor: '#78CDD7',
             },
             {
                 label: LabelF1S,
                 data: DataF1S,
-                backgroundColor: '#FFBC42',
+                backgroundColor: '#A24936',
             },
             {
                 label: LabelF2N,
                 data: DataF2N,
-                backgroundColor: '#0496FF',
+                backgroundColor: '#D36135',
             },
             {
                 label: LabelF2S,
                 data: DataF2S,
-                backgroundColor: '#8F2D56',
+                backgroundColor: '#4A051C',
             },
             {
                 label: LabelF3N,
                 data: DataF3N,
-                backgroundColor: '#A6808C',
+                backgroundColor: '#830A48',
             },
             {
                 label: LabelF3S,
                 data: DataF3S,
-                backgroundColor: '#44AF69',
+                backgroundColor: '#251101',
             },
             {
                 label: LabelF4N,
                 data: DataF4N,
-                backgroundColor: '#FFEAEE',
+                backgroundColor: '#006494',
             },
             {
                 label: LabelF4S,
                 data: DataF4S,
-                backgroundColor: '#D64550',
+                backgroundColor: '#DA4167',
             }
         ]
     };

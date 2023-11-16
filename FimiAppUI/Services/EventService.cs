@@ -14,5 +14,13 @@ namespace FimiAppUI.Services
         {
             return await httpClient.GetFromJsonAsync<EventModel[]>("api/event");
         }
+        public async Task<HttpResponseMessage> UpdateEvent(EventModel eventModel)
+        {
+            return await httpClient.PutAsJsonAsync<EventModel>("api/event", eventModel);
+        }
+        public async Task<HttpResponseMessage> CreateEvent(EventModel eventModel)
+        {
+            return await httpClient.PostAsJsonAsync<EventModel>("api/event", eventModel);
+        }
     }
 }

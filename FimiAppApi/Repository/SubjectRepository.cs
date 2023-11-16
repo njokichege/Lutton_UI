@@ -14,7 +14,15 @@ namespace FimiAppApi.Repository
         public async Task<IEnumerable<SubjectModel>> GetSubjects()
         {
             string sql = "SELECT* FROM Subjects";
-            return await _dapperContext.LoadData<SubjectModel, dynamic>(sql, new { });
+            var data = await _dapperContext.LoadData<SubjectModel, dynamic>(sql, new { });
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
         }
         public async Task<SubjectModel> GetSubjectId(int code)
         {
@@ -71,7 +79,15 @@ namespace FimiAppApi.Repository
             };
             string splitOn = "SubjectCategoryId";
 
-            return await _dapperContext.MapMultipleObjects<SubjectModel, dynamic>(sql, types, map, splitOn,new {});
+            var data = await _dapperContext.MapMultipleObjects<SubjectModel, dynamic>(sql, types, map, splitOn,new {});
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
         }
     }
 }

@@ -20,7 +20,15 @@ namespace FimiAppApi.Repository
         public async Task<IEnumerable<GradeModel>> GetAllGrades()
         {
             string sql = "SELECT * FROM Grade";
-            return await _dapperContext.LoadData<GradeModel, dynamic>(sql, new { });
+            var data = await _dapperContext.LoadData<GradeModel, dynamic>(sql, new { });
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
         }
         public async Task<GradeModel> AddGrades(GradeModel grade)
         {

@@ -1,10 +1,11 @@
 ﻿@page "/"
 
+@using Radzen.Blazor;
 @inherits IndexBase
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="lib/SchoolPerformance.js"></script>
-
+   
 <PageTitle>Dashboard</PageTitle>
 
 <MudGrid Class="mt-n16 px-5" Style="@($"background:#ffffff;")">
@@ -12,47 +13,47 @@
         <MudText Typo="Typo.h5" Class="d-flex pt-2 justify-start"><b>Dashboard</b></MudText>
     </MudItem>
     <MudItem xs="3" Class="d-flex justify-end">
-        <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Inherit" Edge="Edge.End" />
-        <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End" />
+        <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Primary" Edge="Edge.End" />
+        <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Primary" Edge="Edge.End" />
     </MudItem>
 </MudGrid>
 @if (AllStudents is null && AllTeachers is null && AllParents is null)
 {
-    <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
+    <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" />
 }
-else if(AllStudents is not null && AllTeachers is not null && AllParents is not null)
+else if (AllStudents is not null && AllTeachers is not null && AllParents is not null)
 {
-    <MudGrid Class="pa-5">
+    <MudGrid Class="pa-2">
         <MudItem xs="3">
-            <MudPaper Class="d-flex flex-row gap-0 px-2 py-3 rounded-lg" Style="background:#0496FF;" Elevation="0">
+            <MudPaper Class="d-flex flex-row gap-0 px-2 py-3 rounded-lg" Style="background:#FFFFFA;" Elevation="0">
                 <MudText Style="font-size:small;color:#000000;" Align="Align.Center"><b>Running Session</b></MudText>
                 <MudDivider Vertical="true" FlexItem="true" />
                 <MudText Class="pl-2" Style="font-size:small;color:#000000;"><b>@SessionYearModelTitle</b></MudText>
             </MudPaper>
         </MudItem>
         <MudItem xs="2">
-            <MudPaper Class="d-flex flex-row gap-0 px-2 py-4 rounded-lg" Style="background:#A6808C;"Elevation="0">
+            <MudPaper Class="d-flex flex-row gap-0 px-2 py-4 rounded-lg" Style="background:#FFFFFA;" Elevation="0">
                 <MudText Class="pr-2" Style="font-size:small;color:#000000;" Align="Align.Center"><b>Students</b></MudText>
                 <MudDivider Vertical="true" FlexItem="true" />
                 <MudText Class="pl-2" Style="font-size:large;color:#000000;"><b>@AllStudents.Count()</b></MudText>
             </MudPaper>
         </MudItem>
         <MudItem xs="2">
-            <MudPaper Class="d-flex flex-row gap-0 px-2 py-4 rounded-lg" Style="background:#FFBC42;"Elevation="0">
+            <MudPaper Class="d-flex flex-row gap-0 px-2 py-4 rounded-lg" Style="background:#FFFFFA;" Elevation="0">
                 <MudText Class="pr-2" Style="font-size:small;color:#000000;" Align="Align.Center"><b>Teachers</b></MudText>
                 <MudDivider Vertical="true" FlexItem="true" />
                 <MudText Class="pl-2" Style="font-size:large;color:#000000;"><b>@AllTeachers.Count()</b></MudText>
             </MudPaper>
         </MudItem>
         <MudItem xs="2">
-            <MudPaper Class="d-flex flex-row gap-0 px-2 py-4 rounded-lg" Style="background:#8F2D56;" MaxWidth="100"MaxHeight="100"Elevation="0">
+            <MudPaper Class="d-flex flex-row gap-0 px-2 py-4 rounded-lg" Style="background:#FFFFFA;" MaxWidth="100" MaxHeight="100" Elevation="0">
                 <MudText Class="pr-2" Style="font-size:small;color:#000000;" Align="Align.Center"><b>Parents</b></MudText>
                 <MudDivider Vertical="true" FlexItem="true" />
                 <MudText Class="pl-2" Style="font-size:large;color:#000000;"><b>@AllParents.Count()</b></MudText>
             </MudPaper>
         </MudItem>
         <MudItem xs="2">
-            <MudPaper Class="d-flex flex-row gap-0 px-2 py-4 rounded-lg" Style="background:#FFEAEE;" MaxWidth="100" MaxHeight="100"Elevation="0">
+            <MudPaper Class="d-flex flex-row gap-0 px-2 py-4 rounded-lg" Style="background:#FFFFFA;" MaxWidth="100" MaxHeight="100" Elevation="0">
                 <MudText Class="pr-2" Style="font-size:small;color:#000000;" Align="Align.Center"><b>Classes</b></MudText>
                 <MudDivider Vertical="true" FlexItem="true" />
                 <MudText Class="pl-2" Style="font-size:large;color:#000000;"><b>@AllClasses.Count()</b></MudText>
@@ -62,11 +63,11 @@ else if(AllStudents is not null && AllTeachers is not null && AllParents is not 
 }
 <MudDivider DividerType="DividerType.FullWidth" />
 
-<MudGrid Class="pa-5">
-    <MudItem Class="pa-2" xs="6">
-        <MudPaper Class="pa-4" Elevation="0">
-            <SchoolPerformance Id="myChart" Type="@SchoolPerformance.ChartType.Bar"BackgroundColor="@(new[] { "yellow","red"})"Labels="@XAxisLabels"
-                               LabelF1N="F1N" LabelF1S="F1S" LabelF2N="F2N" LabelF2S="F2S" 
+<MudGrid Class="pa-2">
+    <MudItem xs="6">
+        <MudPaper Class="pa-2 rounded-lg" Elevation="0" Square="false">
+            <SchoolPerformance Id="myChart" Type="@SchoolPerformance.ChartType.Bar" BackgroundColor="@(new[] { "yellow","red"})" Labels="@XAxisLabels"
+                               LabelF1N="F1N" LabelF1S="F1S" LabelF2N="F2N" LabelF2S="F2S"
                                LabelF3N="F3N" LabelF3S="F3S" LabelF4N="F4N" LabelF4S="F4S"
                                DataF1N="@(new[]{F1NorthT1,F1NorthT2,F1NorthT3})"
                                DataF1S="@(new[]{F1SouthT1,F1SouthT2,F1SouthT3})"
@@ -79,7 +80,17 @@ else if(AllStudents is not null && AllTeachers is not null && AllParents is not 
             </SchoolPerformance>
         </MudPaper>
     </MudItem>
+    <MudItem xs="6" Class="pa-2 rounded-lg">
+        <RadzenScheduler @ref=@scheduler SlotRender=@OnSlotRender style="height: 500px;font-size:small;" TItem="EventModel" Data=@EventModels StartProperty="Start" EndProperty="End"
+                          TextProperty="Text" SelectedIndex="1" AppointmentRender=@OnAppointmentRender>
+            <RadzenDayView />
+            <RadzenWeekView />
+            <RadzenMonthView />
+            <RadzenYearView />
+         </RadzenScheduler>
+    </MudItem>
 </MudGrid>
+
 
 
 

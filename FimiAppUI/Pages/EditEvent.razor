@@ -1,53 +1,80 @@
 ﻿@using Radzen.Blazor;
 
+@inject IEventService EventService
+@inject ISnackbar Snackbar
 @inject Radzen.DialogService RadzenDialog
+@inject IEventTypeService EventTypeService
 
 <RadzenTemplateForm TItem="EventModel" Data="@model" Submit=@OnSubmit>
-<div class="row" style="margin-bottom: 16px">
-    <div class="col-md-3">
-        <RadzenLabel Text="Text" />
+    <div class="row" style="margin-bottom: 16px">
+        <div class="col-md-3">
+            <RadzenLabel Text="Event Type" />
+        </div>
+        <div class="col">
+            <RadzenDropDown @bind-Value=@model.EventType.EventType Data=@eventTypeModels Style="width: 100%; max-width: 400px;" />
+        </div>
     </div>
-    <div class="col">
-        <RadzenTextBox @bind-Value="@model.Text" Name="Text" />
-        <RadzenRequiredValidator Text="Title is required" Component="Text" />
+    <div class="row" style="margin-bottom: 16px">
+        <div class="col-md-3">
+            <RadzenLabel Text="Event Tile" />
+        </div>
+        <div class="col">
+            <RadzenTextBox @bind-Value="@model.Text" Name="Text" />
+            <RadzenRequiredValidator Text="Title is required" Component="Text" />
+        </div>
     </div>
-</div>
-<div class="row" style="margin-bottom: 16px">
-    <div class="col-md-3">
-        <RadzenLabel Text="Start" />
+    <div class="row" style="margin-bottom: 16px">
+        <div class="col-md-3">
+            <RadzenLabel Text="Start Date" />
+        </div>
+        <div class="col">
+            <RadzenDatePicker @bind-Value="@model.Start" Name="Start" ShowTime="true" />
+            <RadzenRequiredValidator Text="Start is required" Component="Start" />
+        </div>
     </div>
-    <div class="col">
-        <RadzenDatePicker @bind-Value="@model.Start" Name="Start" ShowTime="true" />
-        <RadzenRequiredValidator Text="Start is required" Component="Start" />
+    <div class="row" style="margin-bottom: 16px">
+        <div class="col-md-3">
+            <RadzenLabel Text="End Date" />
+        </div>
+        <div class="col">
+            <RadzenDatePicker Name="End" @bind-Value="@model.End" ShowTime="true" />
+            <RadzenRequiredValidator Component="End" Text="End is required" />
+        </div>
     </div>
-</div>
-<div class="row" style="margin-bottom: 16px">
-    <div class="col-md-3">
-        <RadzenLabel Text="End" />
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col">
+            <RadzenButton Style="background-color:#8F2D56" Click=@OnSave ButtonType="Radzen.ButtonType.Submit" Text="Save" />
+        </div>
     </div>
-    <div class="col">
-        <RadzenDatePicker Name="End" @bind-Value="@model.End" ShowTime="true" />
-        <RadzenRequiredValidator Component="End" Text="End is required" />
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-3"></div>
-    <div class="col">
-        <RadzenButton ButtonType="Radzen.ButtonType.Submit" Text="Save" />
-    </div>
-</div>
 </RadzenTemplateForm>
 @code {
     [Parameter] public EventModel Event { get; set; }
+    [Parameter] public IEnumerable<EventTypeModel> EventTypes { get; set; }
+    public IEnumerable<string> eventTypeModels { get; set; }
     public EventModel model = new EventModel();
 
-    protected override void OnParametersSet()
+
+    protected override async void OnParametersSet()
     {
         model = Event;
+        eventTypeModels = EventTypes.Select(c => c.EventType).Distinct();
     }
 
     void OnSubmit(EventModel eventModel)
     {
         RadzenDialog.Close(eventModel);
+    }
+    async Task OnSave()
+    {
+        var response = await EventService.UpdateEvent(model);
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+            Snackbar.Add("Event successfuly edited", MudBlazor.Severity.Success);
+        }
+        else
+        {
+            Snackbar.Add("Failed to edit event", MudBlazor.Severity.Error);
+        }
     }
 }

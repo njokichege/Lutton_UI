@@ -16,7 +16,16 @@
             parameters.Add("SessionYearId", sessionYearId);
             parameters.Add("TermId", termId);
             parameters.Add("ExamTypeId", examTypeId);
-            return await _dapperContext.LoadData<SchoolPerformanceModel, dynamic>(sql, parameters);
+
+            var data = await _dapperContext.LoadData<SchoolPerformanceModel, dynamic>(sql, parameters);
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
         }
         public async Task<IEnumerable<SchoolPerformanceModel>> GetSchoolPerformance(int sessionYearId, int termId, int examTypeId)
         {
@@ -47,7 +56,15 @@
                 studentPerformance.Average = studentPerformance.Total / subjectCount;
             }
             IEnumerable<SchoolPerformanceModel> schoolPerformances = new List<SchoolPerformanceModel>();
-            return schoolPerformances;
+            var data = schoolPerformances;
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
         }
     }
 }

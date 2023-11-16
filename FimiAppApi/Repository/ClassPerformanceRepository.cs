@@ -23,8 +23,13 @@ namespace FimiAppApi.Repository
             parameters.Add("StudentNumber", studentNumber);
 
             var studentPerformances = await _dapperContext.LoadData<ClassPerformanceModel, dynamic>(sql, parameters);
+            int index = 0;
+
             foreach (var studentPerformance in studentPerformances)
             {
+                index++;
+                studentPerformance.Index = index;
+
                 int subjectCount = 0;
                 double studentTotal = 0;
                 if (studentPerformance.English != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.English; }
@@ -52,8 +57,13 @@ namespace FimiAppApi.Repository
             parameteres.Add("StudentNumber", studentNumber);
 
             var studentPerformances = await _dapperContext.LoadData<ClassPerformanceModel, dynamic>(sql, parameteres);
+            int index = 0;
+
             foreach (var studentPerformance in studentPerformances)
             {
+                index++;
+                studentPerformance.Index = index;
+
                 int subjectCount = 0;
                 double studentTotal = 0;
                 if (studentPerformance.English != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.English; }
@@ -85,8 +95,13 @@ namespace FimiAppApi.Repository
             parameters.Add("ExamTypeId", examTypeId);
 
             var studentPerformances =  await _dapperContext.LoadData<ClassPerformanceModel, dynamic>(sql, parameters);
+            int index = 0;
+
             foreach (var studentPerformance in studentPerformances)
             {
+                index++;
+                studentPerformance.Index = index;
+
                 int subjectCount = 0;
                 double studentTotal = 0;
                 if (studentPerformance.English != 0) { subjectCount++; studentTotal = studentTotal + studentPerformance.English; }

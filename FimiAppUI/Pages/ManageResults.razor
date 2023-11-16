@@ -67,6 +67,7 @@
                       RowEditCancel="ResetItemToOriginalValues" IsEditRowSwitchingBlocked="true"ApplyButtonPosition="TableApplyButtonPosition.StartAndEnd" 
                       EditButtonPosition="TableEditButtonPosition.StartAndEnd" EditTrigger="TableEditTrigger.EditButton">
                 <HeaderContent>
+                    <MudTh Style="font-size:12px;">#</MudTh>
                     <MudTh Style="font-size:12px;"><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ClassPerformanceModel, object>(x=>x.StudentNumber)">Student Number</MudTableSortLabel></MudTh>
                     <MudTh Style="font-size:12px;"><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ClassPerformanceModel, object>(x=>x.FirstName)">Name</MudTableSortLabel></MudTh>
                     <MudTh Style="font-size:12px;">English</MudTh>
@@ -83,6 +84,7 @@
                     <MudTh Style="font-size:12px;">Business Studies</MudTh>
                 </HeaderContent>
                 <RowTemplate>
+                    <MudTd Style="font-size:12px;" DataLabel="Student Number">@context.Index</MudTd>
                     <MudTd Style="font-size:12px;" DataLabel="Student Number">@context.StudentNumber</MudTd>
                     <MudTd Style="font-size:12px;" DataLabel="Name">@context.FirstName @context.MiddleName @context.Surname</MudTd>
                     <MudTd Style="font-size:12px;" DataLabel="English">@context.English.ToString("0.00")</MudTd>

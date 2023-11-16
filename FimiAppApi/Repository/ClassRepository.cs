@@ -129,7 +129,15 @@ namespace FimiAppApi.Repository
         public async Task<IEnumerable<ClassModel>> GetClasses()
         {
             string sql = "SELECT* FROM Class";
-            return await _context.LoadData<ClassModel, dynamic>(sql, new { });
+            var data = await _context.LoadData<ClassModel, dynamic>(sql, new { });
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
         }
         public async Task UpdateClassGrade(int classId, int gradeId)
         {
@@ -205,7 +213,15 @@ namespace FimiAppApi.Repository
                 return classDetails;
             };
             string splitOn = "FormId,StreamId,SessionYearId,TeacherId,NationalId";
-            return await _context.MapMultipleObjects<ClassModel,dynamic>(query, types, map, splitOn, new {});   
+            var data = await _context.MapMultipleObjects<ClassModel,dynamic>(query, types, map, splitOn, new {});
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
         }
     }
 }

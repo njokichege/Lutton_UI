@@ -23,7 +23,15 @@
             var parameters = new DynamicParameters();
             parameters.Add("ClassId", classId, DbType.Int32);
 
-            return await _dapperContext.LoadData<ClassSubjectList, dynamic>(sql, parameters);
+            var data = await _dapperContext.LoadData<ClassSubjectList, dynamic>(sql, parameters);
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
         }
         public async Task<List<StudentSubjectModel>> GetSubjectsByStudentNumber(int studentNumber)
         {
@@ -61,7 +69,16 @@
                 return studentSubjectModel;
             };
             string splitOn = "StudentNumber,Code,SubjectCategoryId";
-            return await _dapperContext.MapMultipleObjects<StudentSubjectModel, dynamic>(sql, types, map, splitOn, parameters);
+            var data = await _dapperContext.MapMultipleObjects<StudentSubjectModel, dynamic>(sql, types, map, splitOn, parameters);
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
+
         }
         public async Task<StudentSubjectModel> AddStudentSubject(StudentSubjectModel studentSubjectModel)
         {

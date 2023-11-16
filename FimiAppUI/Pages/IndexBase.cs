@@ -1,6 +1,8 @@
 ﻿using FimiAppUI.Shared;
 using Microsoft.AspNetCore.Mvc;
-
+using Radzen;
+using Radzen.Blazor;
+using Radzen.Blazor.Rendering;
 
 namespace FimiAppUI.Pages
 {
@@ -12,6 +14,7 @@ namespace FimiAppUI.Pages
         [Inject] public IParentService ParentService { get; set; }
         [Inject] public IExamResultService ExamResultService { get; set; }
         [Inject] public IClassService ClassService { get; set; }
+        [Inject] public IEventService EventService { get; set; }
         [CascadingParameter] public SessionYearModel SchoolYear { get; set; }
         public IEnumerable<StudentModel> AllStudents { get; set; } 
         public IEnumerable<TeacherModel> AllTeachers { get; set; }
@@ -19,9 +22,11 @@ namespace FimiAppUI.Pages
         public IEnumerable<ClassModel> AllClasses { get; set; }
         public IEnumerable<ExamResultModel> ExamResults { get; set; }  
         public SessionYearModel SelectedRunningSession { get; set; }
+        public IList<EventModel> EventModels { get; set; }
         public string SessionYearModelTitle { get; set; }
         public List<ChartSeries> Series = new List<ChartSeries>();
         public string[] XAxisLabels = { "Term1","Term2","Term3" };
+        public RadzenScheduler<EventModel> scheduler;
         public double F1NorthT1, F1SouthT1, F2NorthT1, F2SouthT1,
                F1NorthT2, F1SouthT2, F2NorthT2, F2SouthT2,
                F1NorthT3, F1SouthT3, F2NorthT3, F2SouthT3,
@@ -31,6 +36,7 @@ namespace FimiAppUI.Pages
                F3NorthT3, F3SouthT3, F4NorthT3, F4SouthT3;
         protected override async Task OnInitializedAsync()
         {
+            EventModels = await EventService.GetAllEvents();
             AllStudents = (await StudentService.GetStudents()).ToList();
             AllTeachers = (await TeacherService.GetTeachers()).ToList();
             AllParents = (await ParentService.GetParents()).ToList();
@@ -182,6 +188,41 @@ namespace FimiAppUI.Pages
                 Data = new double[] { F4SouthT1, F4SouthT2, F4SouthT3 }
             });
 
+        }
+        public void OnSlotRender(SchedulerSlotRenderEventArgs args)
+        {
+            // Highlight today in month view
+            if (args.View.Text == "Month" && args.Start.Date == DateTime.Today)
+            {
+                args.Attributes["style"] = "background: rgba(255,220,40,.2);";
+            }
+
+            // Highlight working hours (9-18)
+            if ((args.View.Text == "Week" || args.View.Text == "Day") && args.Start.Hour > 8 && args.Start.Hour < 19)
+            {
+                args.Attributes["style"] = "background: rgba(255,220,40,.2);";
+            }
+        }
+        public void OnAppointmentRender(SchedulerAppointmentRenderEventArgs<EventModel> args)
+        {
+            // Never call StateHasChanged in AppointmentRender - would lead to infinite loop
+
+            if (args.Data.EventType.EventType.Equals("Term Dates"))
+            {
+                args.Attributes["style"] = "background: #DA4167";
+            }
+            else if (args.Data.EventType.EventType.Equals("Exam"))
+            {
+                args.Attributes["style"] = "background: #78CDD7";
+            }
+            else if (args.Data.EventType.EventType.Equals("Student Event"))
+            {
+                args.Attributes["style"] = "background: #D36135";
+            }
+            else if (args.Data.EventType.EventType.Equals("Parent Event"))
+            {
+                args.Attributes["style"] = "background: #006494";
+            }
         }
     }
 }

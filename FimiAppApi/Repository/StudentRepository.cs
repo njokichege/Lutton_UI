@@ -14,7 +14,15 @@ namespace FimiAppApi.Repository
         public async Task<IEnumerable<StudentModel>> GetAllStudents()
         {
             string sql = "SELECT * FROM Student";
-            return await _dapperContext.LoadData<StudentModel, dynamic>(sql, new {});
+            var data = await _dapperContext.LoadData<StudentModel, dynamic>(sql, new {});
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
         }
         public async Task<StudentModel> CreateStudent(StudentModel student)
         {
@@ -119,7 +127,15 @@ namespace FimiAppApi.Repository
             };
             string splitOn = "StudentNumber,ClassId,FormId,StreamId";
 
-            return await _dapperContext.MapMultipleObjects<StudentModel, dynamic>(sql, types, map, splitOn, parameters);
+            var data = await _dapperContext.MapMultipleObjects<StudentModel, dynamic>(sql, types, map, splitOn, parameters);
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
         }
         public async Task<IEnumerable<StudentModel>> MapClassOnStudent(int classId)
         {
@@ -159,7 +175,15 @@ namespace FimiAppApi.Repository
             };
             string splitOn = "StudentNumber,ClassId,FormId,StreamId";
 
-            return await _dapperContext.MapMultipleObjects<StudentModel,dynamic>(sql,types, map, splitOn, parameters);
+            var data = await _dapperContext.MapMultipleObjects<StudentModel,dynamic>(sql,types, map, splitOn, parameters);
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
         }
     }
 }

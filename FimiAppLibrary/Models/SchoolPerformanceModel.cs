@@ -3,6 +3,7 @@
     public class SchoolPerformanceModel
     {
         public int ClassId { get; set; }
+        public int Index { get; set; }
         public int TermId { get; set; }
         public int ExamTypeId { get; set; }
         public double ClassAverage { get; set; }

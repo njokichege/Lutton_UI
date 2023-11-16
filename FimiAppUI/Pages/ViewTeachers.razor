@@ -24,6 +24,7 @@
         {
             <MudTable Bordered="true" Elevation="0" Items="@Teachers" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="TeacherRowClickEvent" T="TeacherModel" Dense="true">
                 <HeaderContent>
+                    <MudTh>#</MudTh>
                     <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StaffModel, object>(x=>x.NationalId)">NationalId</MudTableSortLabel></MudTh>
                     <MudTh>Name</MudTh>
                     <MudTh>Teacher Type</MudTh>
@@ -32,6 +33,7 @@
                     <MudTh>Gender</MudTh>
                 </HeaderContent>
                 <RowTemplate>
+                    <MudTd DataLabel="Age">@context.Index</MudTd>
                     <MudTd DataLabel="Student Number">@context.Staff.NationalId</MudTd>
                     <MudTd DataLabel="Name">@context.Staff.FirstName @context.Staff.MiddleName @context.Staff.Surname</MudTd>
                     <MudTd DataLabel="Age">@context.TeacherType</MudTd>

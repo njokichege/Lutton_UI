@@ -3,6 +3,7 @@
     public class TeacherSubjectModel
     {
         public int TeacherSubjectId { get; set; }
+        public int Index { get; set; }
         public int TeacherId { get; set; }
         public int Code { get; set; }
         public TeacherModel Teacher { get; set; }

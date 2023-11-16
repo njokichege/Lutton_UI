@@ -7,10 +7,11 @@
 
 <MudLayout>
     <MudDrawer Open="true" Elevation="0" Variant="@DrawerVariant.Persistent" >
-        <MudDrawerHeader>
-            <MudText Typo="Typo.h6" Align="Align.Center" Style="@($"text:#ffffff;margin-top:20px;")"><b>Global Menu</b></MudText>
+        <MudDrawerHeader Class="d-flex justify-center flex-column" >
+            <MudIcon Icon="@Icons.Material.Filled.AcUnit" Style="font-size: 3rem;align-self:center;"></MudIcon>
+            <MudText Typo="Typo.h5" Align="Align.Center" Style="@($"text:#ffffff;margin-top:20px;")"><b>Global Menu</b></MudText>
         </MudDrawerHeader>
-        <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+        <MudDivider DividerType="DividerType.Middle"/>
         <NavMenu/>
     </MudDrawer>
     <MudMainContent>
@@ -20,6 +21,7 @@
                 @Body
             }
         </CascadingValue>
+        <Radzen.Blazor.RadzenDialog/>
     </MudMainContent>
 </MudLayout>
 
@@ -47,12 +49,12 @@
             Palette = new Palette()
             {
                 AppbarBackground = "#ffffff",
-                Background = "#F7F6F4",
+                Background = "#EEECE7",
                 AppbarText ="#000000",
-                DrawerBackground = "#00466C",
+                DrawerBackground = "#006494",
                 DrawerIcon = "#ffffff",
                 DrawerText = "#ffffff",
-                Primary = "#00466C",
+                Primary = "#006494",
             },
             Typography = new Typography()
             {
@@ -61,10 +63,6 @@
                 {
                     FontWeight = 100
                 }
-            },
-             LayoutProperties = new LayoutProperties()
-            {
-                DefaultBorderRadius = "0px"
             }
         };
 }

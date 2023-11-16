@@ -9,13 +9,16 @@ namespace FimiAppUI.Pages
     {
         [Inject] public IEventService EventService { get; set; }
         [Inject] public Radzen.DialogService RadzenDialog { get; set; }
+        [Inject] public IEventTypeService EventTypeService { get; set; }
         public IList<EventModel> Events { get; set; } 
         public RadzenScheduler<EventModel> scheduler;
         public Dictionary<DateTime, string> events = new Dictionary<DateTime, string>();
+        public IEnumerable<EventTypeModel> EventTypeModels { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             Events = await EventService.GetAllEvents();
+            EventTypeModels = await EventTypeService.GetAllEventTypes();
         }
         public void OnSlotRender(SchedulerSlotRenderEventArgs args)
         {
@@ -36,13 +39,14 @@ namespace FimiAppUI.Pages
         {
             if (args.View.Text != "Year")
             {
-                EventModel data = await RadzenDialog.OpenAsync<AddEvent>("Add Appointment",
-                    new Dictionary<string, object> { { "Start", args.Start }, { "End", args.End } });
+                EventModel data = await RadzenDialog.OpenAsync<AddEvent>("Add Event",
+                    new Dictionary<string, object> { { "Start", args.Start }, { "End", args.End }, { "EventTypes", EventTypeModels } });
 
                 if (data != null)
                 {
-                    Events.Add(data);
                     // Either call the Reload method or reassign the Data property of the Scheduler
+                    Events = await EventService.GetAllEvents();
+                    scheduler.Data = Events;
                     await scheduler.Reload();
                 }
             }
@@ -52,12 +56,14 @@ namespace FimiAppUI.Pages
         {
             var copy = new EventModel
             {
+                EventId = args.Data.EventId,
                 Start = args.Data.Start,
                 End = args.Data.End,
-                Text = args.Data.Text
+                Text = args.Data.Text,
+                EventType = args.Data.EventType
             };
 
-            var data = await RadzenDialog.OpenAsync<EditEvent>("Edit Appointment", new Dictionary<string, object> { { "Appointment", copy } });
+            var data = await RadzenDialog.OpenAsync<EditEvent>("Edit Event", new Dictionary<string, object> { { "Event", copy },{ "EventTypes", EventTypeModels } });
 
             if (data != null)
             {
@@ -65,8 +71,11 @@ namespace FimiAppUI.Pages
                 args.Data.Start = data.Start;
                 args.Data.End = data.End;
                 args.Data.Text = data.Text;
+                args.Data.EventType.EventType = data.EventType.EventType;
             }
 
+            Events = await EventService.GetAllEvents();
+            scheduler.Data = Events;
             await scheduler.Reload();
         }
 
@@ -74,34 +83,22 @@ namespace FimiAppUI.Pages
         {
             // Never call StateHasChanged in AppointmentRender - would lead to infinite loop
 
-            if (args.Data.EventType.Equals("Term Dates"))
+            if (args.Data.EventType.EventType.Equals("Term Dates"))
             {
                 args.Attributes["style"] = "background: #44AF69";
             }
-            else if(args.Data.EventType.Equals("Exam"))
+            else if(args.Data.EventType.EventType.Equals("Exam"))
             {
                 args.Attributes["style"] = "background: #D64550";
             }
-            else if (args.Data.EventType.Equals("Student Event"))
+            else if (args.Data.EventType.EventType.Equals("Student Event"))
             {
                 args.Attributes["style"] = "background: #A6808C";
             }
-            else if (args.Data.EventType.Equals("Parent Event"))
+            else if (args.Data.EventType.EventType.Equals("Parent Event"))
             {
                 args.Attributes["style"] = "background: #FFBC42";
             }
-        }
-        public TableGroupDefinition<EventModel> GroupDefinition()
-        {
-            TableGroupDefinition<EventModel> tableGroup = new
-            {
-                GroupName = "Group",
-                Indentation = false,
-                Expandable = false,
-                Selector = (e) => e.
-            };
-            tableGroup.Selector = (e) => { e.EventType = e.EventType.ToString(); };
-            return tableGroup;
         }
     }
 }

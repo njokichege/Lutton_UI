@@ -122,6 +122,10 @@ namespace FimiAppUI
             {
                 client.BaseAddress = new Uri(uriLink);
             });
+            builder.Services.AddHttpClient<IEventTypeService, EventTypeService>(client =>
+            {
+                client.BaseAddress = new Uri(uriLink);
+            });
         }
     }
 }

@@ -1,57 +1,85 @@
 ﻿@using Radzen.Blazor
 @inject Radzen.DialogService RadzenDialog
+@inject IEventService EventService
+@inject IEventTypeService EventTypeService
+@inject ISnackbar Snackbar
 
-<RadzenTemplateForm TItem="EventModel" Data="@model" Submit=@OnSubmit>
-<div class="row" style="margin-bottom: 16px">
-    <div class="col-md-3">
-        <RadzenLabel Text="Text" />
+<RadzenTemplateForm @ref="addForm" TItem="EventModel" Data="@model" Submit=@OnSubmit>
+    <div class="row" style="margin-bottom: 16px">
+        <div class="col-md-3">
+            <RadzenLabel Text="Event Type" />
+        </div>
+        <div class="col">
+            <RadzenDropDown @bind-Value=@model.EventType.EventType Data=@eventTypeModels Style="width: 100%; max-width: 400px;" />
+            <RadzenRequiredValidator Text="Event Type is required" />
+        </div>
     </div>
-    <div class="col">
-        <RadzenTextBox @bind-Value="@model.Text" Name="Text" />
-        <RadzenRequiredValidator Text="Title is required" Component="Text" />
+    <div class="row" style="margin-bottom: 16px">
+        <div class="col-md-3">
+            <RadzenLabel Text="Text" />
+        </div>
+        <div class="col">
+            <RadzenTextBox @bind-Value="@model.Text" Name="Text" />
+            <RadzenRequiredValidator Text="Title is required" Component="Text" />
+        </div>
     </div>
-</div>
-<div class="row" style="margin-bottom: 16px">
-    <div class="col-md-3">
-        <RadzenLabel Text="Start" />
+    <div class="row" style="margin-bottom: 16px">
+        <div class="col-md-3">
+            <RadzenLabel Text="Start" />
+        </div>
+        <div class="col">
+            <RadzenDatePicker @bind-Value="@model.Start" Name="Start" ShowTime="true" />
+            <RadzenRequiredValidator Text="Start is required" Component="Start" />
+        </div>
     </div>
-    <div class="col">
-        <RadzenDatePicker @bind-Value="@model.Start" Name="Start" ShowTime="true" />
-        <RadzenRequiredValidator Text="Start is required" Component="Start" />
+    <div class="row" style="margin-bottom: 16px">
+        <div class="col-md-3">
+            <RadzenLabel Text="End" />
+        </div>
+        <div class="col">
+            <RadzenDatePicker Name="End" @bind-Value="@model.End" ShowTime="true" />
+            <RadzenRequiredValidator Component="End" Text="End is required" />
+        </div>
     </div>
-</div>
-<div class="row" style="margin-bottom: 16px">
-    <div class="col-md-3">
-        <RadzenLabel Text="End" />
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col">
+            <RadzenButton Style="background-color:#8F2D56" ButtonType="Radzen.ButtonType.Submit" Text="Save" />
+        </div>
     </div>
-    <div class="col">
-        <RadzenDatePicker Name="End" @bind-Value="@model.End" ShowTime="true" />
-        <RadzenRequiredValidator Component="End" Text="End is required" />
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-3"></div>
-    <div class="col">
-            <RadzenButton ButtonType="Radzen.ButtonType.Submit" Text="Save" />
-    </div>
-</div>
 </RadzenTemplateForm>
+
 @code {
     [Parameter] public DateTime Start { get; set; }
     [Parameter] public DateTime End { get; set; }
-    [Parameter] public string Text { get; set; }
-
-    EventModel model = new EventModel();
-
+    [Parameter] public IEnumerable<EventTypeModel> EventTypes { get; set; }
+    public IEnumerable<string> eventTypeModels { get; set; }
+    public EventModel model = new EventModel();
+    RadzenTemplateForm<EventModel> addForm;
     protected override void OnParametersSet()
     {
         model.Start = Start;
         model.End = End;
-        model.Text = Text;
+        model.Text = "";
+        model.EventType = EventTypes.First();
+        eventTypeModels = EventTypes.Select(c => c.EventType).Distinct();
     }
 
-    void OnSubmit(EventModel model)
+    async Task OnSubmit()
     {
+        var eventTypeModel = await EventTypeService.GetEventTypeByName(model.EventType.EventType);
+        model.EventType = eventTypeModel;
+
+        var response = await EventService.CreateEvent(model);
+
+        if (response.StatusCode == HttpStatusCode.Created)
+        {
+            Snackbar.Add("Event created successfully", MudBlazor.Severity.Success);
+        }
+        else
+        {
+            Snackbar.Add("Failed to create Event", MudBlazor.Severity.Error);
+        }
         RadzenDialog.Close(model);
     }
 }

@@ -15,7 +15,15 @@ namespace FimiAppApi.Repository
         public async Task<IEnumerable<TeacherModel>> GetTeachers()
         {
             string sql = "SELECT* FROM Teacher";
-            return await _dapperContext.LoadData<TeacherModel, dynamic>(sql, new { });
+            var data = await _dapperContext.LoadData<TeacherModel, dynamic>(sql, new { });
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
         }
         public async Task<TeacherModel> GetTeacherById(int nationalId)
         {
@@ -79,7 +87,15 @@ namespace FimiAppApi.Repository
             };
             string splitOn = "NationalId";
 
-            return await _dapperContext.MapMultipleObjects<TeacherModel,dynamic>(sql, types, map, splitOn, new {});
+            var data = await _dapperContext.MapMultipleObjects<TeacherModel,dynamic>(sql, types, map, splitOn, new {});
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
         }
         public async Task<IEnumerable<TeacherModel>> MapStaffOnTeacherById(int teacherId)
         {
@@ -117,7 +133,15 @@ namespace FimiAppApi.Repository
             };
             string splitOn = "NationalId";
 
-            return await _dapperContext.MapMultipleObjects<TeacherModel, dynamic>(sql, types, map, splitOn, parameters);
+            var data = await _dapperContext.MapMultipleObjects<TeacherModel, dynamic>(sql, types, map, splitOn, parameters);
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
         }
     }
 }

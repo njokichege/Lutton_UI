@@ -63,12 +63,14 @@
         {
             <MudTable Bordered="true" Elevation="0" Items="@GradesList" FixedHeader="true" Hover="true" Striped="true" Dense="true">
                 <HeaderContent>
+                    <MudTh>#</MudTh>
                     <MudTh>Name</MudTh>
                     <MudTh>Points</MudTh>
                     <MudTh><MudTableSortLabel InitialDirection="SortDirection.Descending" SortBy="new Func<GradeModel, object>(x=>x.UpperLimit)">Upper Limit</MudTableSortLabel></MudTh>
                     <MudTh>Lower Limit</MudTh>
                 </HeaderContent>
                 <RowTemplate>
+                    <MudTd DataLabel="Grade">@context.Index</MudTd>
                     <MudTd DataLabel="Grade">@context.Grade</MudTd>
                     <MudTd DataLabel="Grade">@context.Points</MudTd>
                     <MudTd DataLabel="PercentageFrom">@context.UpperLimit.ToString("F")</MudTd>

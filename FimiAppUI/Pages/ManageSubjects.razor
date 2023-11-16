@@ -27,11 +27,13 @@
                 {
                     <MudTable Bordered="true" Elevation="0" Items="@SubjectsWithCategories" FixedHeader="@fixed_header" Hover="true" SortLabel="Sort By" Striped="true" Dense="true" RowsPerPage="15">
                         <HeaderContent>
-                            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SubjectModel, object>(x=>x.Code)">Code</MudTableSortLabel></MudTh>
+                            <MudTh>#</MudTh>
+                            <MudTh>Code</MudTh>
                             <MudTh>Category</MudTh>
                             <MudTh>Subject</MudTh>
                         </HeaderContent>
                         <RowTemplate>
+                            <MudTd DataLabel="#">@context.Index</MudTd>
                             <MudTd DataLabel="Code">@context.Code</MudTd>
                             <MudTd DataLabel="SubjectCategory">@context.SubjectCategory.SubjectCategoryName</MudTd>
                             <MudTd DataLabel="SubjectName">@context.SubjectName</MudTd>
@@ -78,11 +80,13 @@
                     </MudCard>
                     <MudTable Bordered="true" Elevation="0" Class="ma-2" Items="@TeacherSubjects" Hover="true" SortLabel="Sort By" Striped="true" Dense="true">
                         <HeaderContent>
-                            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<TeacherSubjectModel, object>(x=>x.Code)">Code</MudTableSortLabel></MudTh>
+                            <MudTh>#</MudTh>
+                            <MudTh>Code</MudTh>
                             <MudTh>Category</MudTh>
                             <MudTh>Subject</MudTh>
                         </HeaderContent>
                         <RowTemplate>
+                            <MudTd DataLabel="#">@context.Index</MudTd>
                             <MudTd DataLabel="Code">@context.Code</MudTd>
                             <MudTd DataLabel="SubjectCategory">@context.Subject.SubjectCategory.SubjectCategoryName</MudTd>
                             <MudTd DataLabel="SubjectName">@context.Subject.SubjectName</MudTd>
@@ -149,11 +153,13 @@
                     </MudCard>
                     <MudTable Bordered="true" Elevation="0" Class="ma-2" Items="@StudentSubjects" FixedHeader="@fixed_header" Hover="true" SortLabel="Sort By" Striped="true" Dense="true" RowsPerPage="15">
                         <HeaderContent>
-                            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SubjectModel, object>(x=>x.Code)">Code</MudTableSortLabel></MudTh>
+                            <MudTh>#</MudTh>
+                            <MudTh>Code</MudTh>
                             <MudTh>Category</MudTh>
                             <MudTh>Subject</MudTh>
                         </HeaderContent>
                         <RowTemplate>
+                            <MudTd DataLabel="#">@context.Index</MudTd>
                             <MudTd DataLabel="Code">@context.Code</MudTd>
                             <MudTd DataLabel="SubjectCategory">@context.Subject.SubjectCategory.SubjectCategoryName</MudTd>
                             <MudTd DataLabel="SubjectName">@context.Subject.SubjectName</MudTd>

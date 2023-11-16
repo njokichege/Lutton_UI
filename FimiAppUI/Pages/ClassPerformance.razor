@@ -39,6 +39,7 @@ else
                       Breakpoint="Breakpoint.Sm" FixedHeader="true" FixedFooter="true" Style="max-width: 2000px; overflow: scroll;font-size:12px;" OnRowClick="StudentRowClickEventAsync">
                 <HeaderContent>
                     <MudTh Style="font-size:12px;">#</MudTh>
+                    <MudTh Style="font-size:12px;">Adm No</MudTh>
                     <MudTh Style="font-size:12px;">Name</MudTh>
                     <MudTh Style="font-size:12px;">Grade</MudTh>
                     <MudTh Style="font-size:12px;">Total</MudTh>
@@ -56,6 +57,7 @@ else
                     <MudTh Style="font-size:12px;">Business Studies</MudTh>
                 </HeaderContent>
                 <RowTemplate>
+                    <MudTd Style="font-size:12px;" DataLabel="#">@context.Index</MudTd>
                     <MudTd Style="font-size:12px;" DataLabel="StudentNumber">@context.StudentNumber</MudTd>
                     <MudTd Style="min-width: 200px;font-size:12px;" DataLabel="Name">@context.FirstName @context.MiddleName @context.Surname</MudTd>
                     <MudTd Style="font-size:12px;" DataLabel="Grade"><b>@context.TotalGrade.Grade</b></MudTd>

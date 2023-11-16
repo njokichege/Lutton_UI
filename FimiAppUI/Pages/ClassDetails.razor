@@ -97,6 +97,7 @@ else
                     {
                         <MudTable Bordered="true" Elevation="0" RowsPerPage="20" Items="@Students" FixedHeader="true" Hover="true" SortLabel="Sort By" T="StudentModel" OnRowClick="StudentRowClickEvent" Dense="true">
                             <HeaderContent>
+                                <MudTh>#</MudTh>
                                 <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentNumber)">Adm No.</MudTableSortLabel></MudTh>
                                 <MudTh>Class</MudTh>
                                 <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<StudentModel, object>(x=>x.StudentName())">Name</MudTableSortLabel></MudTh>
@@ -105,6 +106,7 @@ else
                                 <MudTh>Contact</MudTh>
                             </HeaderContent>
                             <RowTemplate>
+                                <MudTd DataLabel="StudentNumber">@context.Index</MudTd>
                                 <MudTd DataLabel="StudentNumber">@context.StudentNumber</MudTd>
                                 <MudTd DataLabel="StudentClass">@context.StudentClass.FullClass()</MudTd>
                                 <MudTd DataLabel="Name">@context.StudentName()</MudTd>
@@ -127,11 +129,13 @@ else
                     {
                         <MudTable Bordered="true"Elevation="0" Items="@ClassSubjectList" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" T="ClassSubjectList" Dense="true">
                             <HeaderContent>
+                                <MudTh>#</MudTh>
                                 <MudTh>Code</MudTh>
                                 <MudTh>Subject</MudTh>
                                 <MudTh>Student Count</MudTh>
                             </HeaderContent>
                             <RowTemplate>
+                                <MudTd DataLabel="#">@context.Index</MudTd>
                                 <MudTd DataLabel="StudentNumber">@context.SubjectCode</MudTd>
                                 <MudTd DataLabel="StudentClass">@context.SubjectName</MudTd>
                                 <MudTd DataLabel="Name">@context.StudentCount</MudTd>

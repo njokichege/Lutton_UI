@@ -5,6 +5,7 @@ namespace FimiAppLibrary.Models
     public class ClassModel
     {
         public int ClassId { get; set; }
+        public int Index { get; set; }
         public int FormId { get; set; }
         public int StreamId { get; set; }
         public int SessionYearId { get; set; }

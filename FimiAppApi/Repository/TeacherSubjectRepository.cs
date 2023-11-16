@@ -125,7 +125,15 @@ namespace FimiAppApi.Repository
                 return teacherSubjectModel;
             };
             string splitOn = "Code,SubjectCategoryId,TeacherId,NationalId";
-            return await _dapperContext.MapMultipleObjects<TeacherSubjectModel, dynamic>(query, types, map, splitOn, new { });
+            var data = await _dapperContext.MapMultipleObjects<TeacherSubjectModel, dynamic>(query, types, map, splitOn, new { });
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
         }
         public async Task<IEnumerable<TeacherSubjectModel>> GetSubjectsMultipleMappingByTeacher(int teacherId)
         {
@@ -183,7 +191,15 @@ namespace FimiAppApi.Repository
                 return teacherSubjectModel;
             };
             string splitOn = "Code,SubjectCategoryId,TeacherId,NationalId";
-            return await _dapperContext.MapMultipleObjects<TeacherSubjectModel, dynamic>(query, types, map, splitOn, parameters);
+            var data = await _dapperContext.MapMultipleObjects<TeacherSubjectModel, dynamic>(query, types, map, splitOn, parameters);
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
         }
         public async Task<IEnumerable<TeacherSubjectModel>> GetSubjectsMultipleMappingBySubject(int subjectCode)
         {
@@ -241,7 +257,15 @@ namespace FimiAppApi.Repository
                 return teacherSubjectModel;
             };
             string splitOn = "Code,SubjectCategoryId,TeacherId,NationalId";
-            return await _dapperContext.MapMultipleObjects<TeacherSubjectModel, dynamic>(query, types, map, splitOn, parameters);
+            var data = await _dapperContext.MapMultipleObjects<TeacherSubjectModel, dynamic>(query, types, map, splitOn, parameters);
+
+            int index = 0;
+            foreach (var item in data)
+            {
+                index++;
+                item.Index = index;
+            }
+            return data;
         }
     }
 }

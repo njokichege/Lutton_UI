@@ -43,12 +43,14 @@
                         {
                             <MudTable Bordered="true" Elevation="0" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermOneMidTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel" Dense="true">
                                 <HeaderContent>
+                                    <MudTh>#</MudTh>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>
                                     <MudTh>ClassAverage</MudTh>
                                     <MudTh>Grade</MudTh>
                                 </HeaderContent>
                                 <RowTemplate>
+                                    <MudTd DataLabel="Form">@context.Index</MudTd>
                                     <MudTd DataLabel="Form">@context.Class.Form.Form</MudTd>
                                     <MudTd DataLabel="Stream">@context.Class.Stream.Stream</MudTd>
                                     <MudTd DataLabel="ClassAverage">@context.ClassAverage.ToString("0.00")</MudTd>
@@ -73,12 +75,14 @@
                         {
                             <MudTable Bordered="true" Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermOneEndTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
                                 <HeaderContent>
+                                    <MudTh>#</MudTh>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>
                                     <MudTh>ClassAverage</MudTh>
                                     <MudTh>Grade</MudTh>
                                 </HeaderContent>
                                 <RowTemplate>
+                                    <MudTd DataLabel="Form">@context.Index</MudTd>
                                     <MudTd DataLabel="Form">@context.Class.Form.Form</MudTd>
                                     <MudTd DataLabel="Stream">@context.Class.Stream.Stream</MudTd>
                                     <MudTd DataLabel="ClassAverage">@context.ClassAverage.ToString("0.00")</MudTd>
@@ -107,12 +111,14 @@
                         {
                             <MudTable Bordered="true" Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermTwoMidTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
                                 <HeaderContent>
+                                    <MudTh>#</MudTh>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>
                                     <MudTh>ClassAverage</MudTh>
                                     <MudTh>Grade</MudTh>
                                 </HeaderContent>
                                 <RowTemplate>
+                                    <MudTd DataLabel="Form">@context.Index</MudTd>
                                     <MudTd DataLabel="Form">@context.Class.Form.Form</MudTd>
                                     <MudTd DataLabel="Stream">@context.Class.Stream.Stream</MudTd>
                                     <MudTd DataLabel="ClassAverage">@context.ClassAverage.ToString("0.00")</MudTd>
@@ -137,12 +143,14 @@
                         {
                             <MudTable Bordered="true" Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermTwoEndTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
                                 <HeaderContent>
+                                    <MudTh>#</MudTh>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>
                                     <MudTh>ClassAverage</MudTh>
                                     <MudTh>Grade</MudTh>
                                 </HeaderContent>
                                 <RowTemplate>
+                                    <MudTd DataLabel="Form">@context.Index</MudTd>
                                     <MudTd DataLabel="Form">@context.Class.Form.Form</MudTd>
                                     <MudTd DataLabel="Stream">@context.Class.Stream.Stream</MudTd>
                                     <MudTd DataLabel="ClassAverage">@context.ClassAverage.ToString("0.00")</MudTd>
@@ -171,12 +179,14 @@
                         {
                             <MudTable Bordered="true" Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermThreeMidTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
                                 <HeaderContent>
+                                    <MudTh>#</MudTh>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>
                                     <MudTh>ClassAverage</MudTh>
                                     <MudTh>Grade</MudTh>
                                 </HeaderContent>
                                 <RowTemplate>
+                                    <MudTd DataLabel="Form">@context.Index</MudTd>
                                     <MudTd DataLabel="Form">@context.Class.Form.Form</MudTd>
                                     <MudTd DataLabel="Stream">@context.Class.Stream.Stream</MudTd>
                                     <MudTd DataLabel="ClassAverage">@context.ClassAverage.ToString("0.00")</MudTd>
@@ -201,12 +211,14 @@
                         {
                             <MudTable Bordered="true" Elevation="0" Dense="true" RowClassFunc="@SelectedRowClassFunc" @ref="mudTable" Items="@TermThreeEndTerm" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" OnRowClick="ClassRowClickEvent" T="SchoolPerformanceModel">
                                 <HeaderContent>
+                                    <MudTh>#</MudTh>
                                     <MudTh>Form</MudTh>
                                     <MudTh>Stream</MudTh>
                                     <MudTh>ClassAverage</MudTh>
                                     <MudTh>Grade</MudTh>
                                 </HeaderContent>
                                 <RowTemplate>
+                                    <MudTd DataLabel="Form">@context.Index</MudTd>
                                     <MudTd DataLabel="Form">@context.Class.Form.Form</MudTd>
                                     <MudTd DataLabel="Stream">@context.Class.Stream.Stream</MudTd>
                                     <MudTd DataLabel="ClassAverage">@context.ClassAverage.ToString("0.00")</MudTd>
