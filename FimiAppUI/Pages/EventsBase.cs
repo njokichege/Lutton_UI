@@ -85,19 +85,19 @@ namespace FimiAppUI.Pages
 
             if (args.Data.EventType.EventType.Equals("Term Dates"))
             {
-                args.Attributes["style"] = "background: #44AF69";
+                args.Attributes["style"] = "background: #DA4167";
             }
-            else if(args.Data.EventType.EventType.Equals("Exam"))
+            else if (args.Data.EventType.EventType.Equals("Exam"))
             {
-                args.Attributes["style"] = "background: #D64550";
+                args.Attributes["style"] = "background: #78CDD7";
             }
             else if (args.Data.EventType.EventType.Equals("Student Event"))
             {
-                args.Attributes["style"] = "background: #A6808C";
+                args.Attributes["style"] = "background: #D36135";
             }
             else if (args.Data.EventType.EventType.Equals("Parent Event"))
             {
-                args.Attributes["style"] = "background: #FFBC42";
+                args.Attributes["style"] = "background: #006494";
             }
         }
     }

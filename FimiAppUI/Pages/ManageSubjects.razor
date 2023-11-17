@@ -50,22 +50,15 @@
         <MudGrid Class="pa-4">
             <MudItem xs="3">
                 <MudCard Style="width:250px" Elevation="0">
-                    <MudCardContent Class="ma-2">
-                        <MudAutocomplete T="TeacherModel" Label="Select Teacher" @bind-Value="SelectedTeacherOnAssignTeacherTab" ShowProgressIndicator="true"
-                                         SearchFunc="@TeacherSearchOnAssignTeacherTab"
-                                         ToStringFunc="@(e=> e==null?null : $"{e.Staff.FirstName} {e.Staff.MiddleName} {e.Staff.Surname}")"/>
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@GetTeacher" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#8F2D56">Submit</MudButton>
-                    </MudCardActions>
-                </MudCard>
-                <MudCard Style="width:250px" Class="ma-2"Elevation="0">
                     <MudCardContent>
-                        <MudAutocomplete T="SubjectModel" Label="Assign Subject" @bind-Value="SelectedSubjectOnAssignTeacherTab" ShowProgressIndicator="true"
-                                         SearchFunc="@SubjectSearchOnAssignTeacherTab" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" />
+                        <MudAutocomplete T="TeacherModel" Label="Select Teacher" Value="SelectedTeacherOnAssignTeacherTab" ShowProgressIndicator="true" ProgressIndicatorColor="Color.Secondary"
+                                         SearchFunc="@TeacherSearchOnAssignTeacherTab" ValueChanged="@GetTeacher" Variant="Variant.Outlined" Margin="Margin.None" Dense="true"
+                                         ToStringFunc="@(e=> e==null?null : $"{e.Staff.FirstName} {e.Staff.MiddleName} {e.Staff.Surname}")"/>
+                        <MudAutocomplete T="SubjectModel" Label="Assign Subject" @bind-Value="SelectedSubjectOnAssignTeacherTab" ShowProgressIndicator="true" Margin="Margin.None" Dense="true"
+                                         SearchFunc="@SubjectSearchOnAssignTeacherTab" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" Variant="Variant.Outlined" />
                     </MudCardContent>
-                    <MudCardActions>
-                        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@AssignClassTeacher" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#8F2D56">Submit</MudButton>
+                    <MudCardActions Class="d-flex justify-center">
+                        <MudButton Class="rounded-pill" Variant="Variant.Filled" OnClick="@AssignClassTeacher" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#DA4167">Submit</MudButton>
                     </MudCardActions>
                 </MudCard>
             </MudItem>
@@ -104,39 +97,47 @@
             <MudItem xs="3">
                 <MudCard Class="ma-2" Style="width:250px" Elevation="0">
                     <MudCardContent>
-                        <MudNumericField @bind-Value="StudentNumber" Label="Admission number" Variant="Variant.Outlined" />
+                        <MudNumericField Label="Admission number" Variant="Variant.Outlined" Value="StudentNumber" ValueChanged="@GetStudent" T="int" />
+                        <MudAutocomplete T="SubjectCategoryModel" Label="Subject Category" Value="SelectedSubjectCategory" ShowProgressIndicator="true" Variant="Variant.Outlined" Margin="Margin.None" Dense="true"
+                                         SearchFunc="@SubjectCategorySerach" ToStringFunc="@(e=> e==null?null : $"{e.SubjectCategoryName}")" ValueChanged="@SubjectCategorySelection" />
                     </MudCardContent>
-                    <MudCardActions>
-                        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@GetStudent" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#8F2D56">Submit</MudButton>
-                    </MudCardActions>
                 </MudCard>
-                <MudCard Class="ma-2" Style="width:250px" Elevation="0">
-                    <MudCardContent>
-                        <MudAutocomplete T="SubjectModel" Label="Sciences" @bind-Value="SelectedScience" ShowProgressIndicator="true"
-                                         SearchFunc="@ScienceSearchOnSelectionTab" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" />
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@ScienceSelection" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#8F2D56">Submit</MudButton>
-                    </MudCardActions>
-                </MudCard>
-                <MudCard Class="ma-2" Style="width:250px" Elevation="0">
-                    <MudCardContent>
-                        <MudAutocomplete T="SubjectModel" Label="Humanities" @bind-Value="SelectedHumanity" ShowProgressIndicator="true"
-                                         SearchFunc="@HumanitySearchOnSelectionTab" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" />
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@HumanitySelection" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#8F2D56">Submit</MudButton>
-                    </MudCardActions>
-                </MudCard>
-                <MudCard Class="ma-2" Style="width:250px" Elevation="0">
-                    <MudCardContent>
-                        <MudAutocomplete T="SubjectModel" Label="Technicals" @bind-Value="SelectedTechnical" ShowProgressIndicator="true"
-                                         SearchFunc="@TechnicalSearchOnSelectionTab" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" />
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@TechnicalSelection" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#8F2D56">Submit</MudButton>
-                    </MudCardActions>
-                </MudCard>
+                @if(showScienceSelection is true)
+                {
+                    <MudCard Class="ma-2" Style="width:250px" Elevation="0">
+                        <MudCardContent>
+                            <MudAutocomplete T="SubjectModel" Label="Sciences" @bind-Value="SelectedScience" ShowProgressIndicator="true"
+                                             SearchFunc="@ScienceSearchOnSelectionTab" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" />
+                        </MudCardContent>
+                        <MudCardActions Class="d-flex justify-center">
+                            <MudButton Class="rounded-pill" FullWidth="true" OnClick="@ScienceSelection" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#DA4167">Submit</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                }
+                else if(showHumanitySelection is true)
+                {
+                    <MudCard Class="ma-2" Style="width:250px" Elevation="0">
+                        <MudCardContent>
+                            <MudAutocomplete T="SubjectModel" Label="Humanities" @bind-Value="SelectedHumanity" ShowProgressIndicator="true"
+                                             SearchFunc="@HumanitySearchOnSelectionTab" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" />
+                        </MudCardContent>
+                        <MudCardActions Class="d-flex justify-center">
+                            <MudButton Class="rounded-pill" Variant="Variant.Filled" OnClick="@HumanitySelection" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#DA4167">Submit</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                }
+                else if(showTechnicalSelection is true)
+                {
+                    <MudCard Class="ma-2" Style="width:250px" Elevation="0">
+                        <MudCardContent>
+                            <MudAutocomplete T="SubjectModel" Label="Technicals" @bind-Value="SelectedTechnical" ShowProgressIndicator="true"
+                                             SearchFunc="@TechnicalSearchOnSelectionTab" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" />
+                        </MudCardContent>
+                        <MudCardActions Class="d-flex justify-center">
+                            <MudButton Class="rounded-pill" Variant="Variant.Filled" OnClick="@TechnicalSelection" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#DA4167">Submit</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                }
             </MudItem>
             <MudDivider Vertical="true" FlexItem="true" />
             <MudItem xs="6">

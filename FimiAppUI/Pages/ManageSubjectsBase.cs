@@ -5,6 +5,7 @@ namespace FimiAppUI.Pages
     public class ManageSubjectsBase : Microsoft.AspNetCore.Components.ComponentBase
     {
         [Inject] public ISubjectService SubjectService { get; set; }
+        [Inject] public ISubjectCategoryService SubjectCategoryService { get; set; }
         [Inject] public ITeacherSubjectService TeacherSubjectService { get; set; }
         [Inject] public ITeacherService TeacherService { get; set; }
         [Inject] public IStudentService StudentService { get; set; }
@@ -19,6 +20,7 @@ namespace FimiAppUI.Pages
         public List<StudentSubjectModel> StudentSubjects { get; set; } = new List<StudentSubjectModel>();
         public TeacherModel SelectedTeacherOnAssignTeacherTab { get; set; }
         public SubjectModel SelectedSubjectOnAssignTeacherTab { get; set; }
+        public SubjectCategoryModel SelectedSubjectCategory { get; set; }
         public SubjectModel SelectedScience { get; set; }
         public SubjectModel SelectedHumanity { get; set; }
         public SubjectModel SelectedTechnical { get; set; }
@@ -28,10 +30,17 @@ namespace FimiAppUI.Pages
         private TeacherModel _selectedTeacherOnAssignTeacherTab;
         public int StudentNumber;
         public bool showTable = false;
+        public bool showScienceSelection = false;
+        public bool showHumanitySelection = false;
+        public bool showTechnicalSelection = false;
         protected override async Task OnInitializedAsync()
         {
             TeacherSubjectModel = (await TeacherSubjectService.GetMultipleMapping()).ToList();
             SubjectsWithCategories = await SubjectService.MapSubjectOnCategory();
+        }
+        public async Task<IEnumerable<SubjectCategoryModel>> SubjectCategorySerach(string value)
+        {
+            return (await SubjectCategoryService.GetSubjectCategories()).Where(x => x.SubjectCategoryId == 2 || x.SubjectCategoryId == 3 || x.SubjectCategoryId == 4).ToList();
         }
         public async Task<IEnumerable<TeacherModel>> TeacherSearchOnAssignTeacherTab(string value)
         {
@@ -56,14 +65,35 @@ namespace FimiAppUI.Pages
             TechnicalSubjects = (await SubjectService.GetSubjects()).Where(x => x.Code == 565 || x.Code == 443).ToList();
             return TechnicalSubjects;
         }
-        public async Task GetStudent()
+        public async Task SubjectCategorySelection(SubjectCategoryModel subjectCategory)
         {
+            SelectedSubjectCategory = subjectCategory;
+            if (SelectedSubjectCategory.SubjectCategoryId == 2)
+            {
+                showScienceSelection = true;
+                SelectedSubjectCategory = null;
+            }
+            else if (SelectedSubjectCategory.SubjectCategoryId == 3)
+            {
+                showHumanitySelection = true;
+                SelectedSubjectCategory = null;
+            }
+            else if (SelectedSubjectCategory.SubjectCategoryId == 4)
+            {
+                showTechnicalSelection = true;
+                SelectedSubjectCategory = null;
+            }
+        }
+        public async Task GetStudent(int studentNumber)
+        {
+            StudentNumber = studentNumber;
             Student = await StudentService.GetStudentByStudentNumber(StudentNumber);
             StudentSubjects = await StudentSubjectService.GetSubjectsByStudentNumber(StudentNumber);
             showTable = true;
         }
-        public async Task GetTeacher()
+        public async Task GetTeacher(TeacherModel teacher)
         {
+            SelectedTeacherOnAssignTeacherTab = teacher;
             TeacherSubjects = (await TeacherSubjectService.GetMultipleMappingByTeacher(SelectedTeacherOnAssignTeacherTab.TeacherId)).ToList();
             showTeacherSubject = true;
         }
@@ -95,7 +125,7 @@ namespace FimiAppUI.Pages
                 if (response.StatusCode == HttpStatusCode.Created)
                 {
                     Snackbar.Add($"{SelectedScience.SubjectName} selected", MudBlazor.Severity.Success);
-                    await GetStudent();
+                    await GetStudent(StudentNumber);
                 }
                 else if (response.StatusCode == HttpStatusCode.Conflict)
                 {
@@ -107,6 +137,7 @@ namespace FimiAppUI.Pages
                 }
             }
             SelectedScience = null;
+            showScienceSelection = false;
         }
         public async Task HumanitySelection()
         {
@@ -136,7 +167,7 @@ namespace FimiAppUI.Pages
                 if (response.StatusCode == HttpStatusCode.Created)
                 {
                     Snackbar.Add($"{SelectedHumanity.SubjectName} selected", MudBlazor.Severity.Success);
-                    await GetStudent();
+                    await GetStudent(StudentNumber);
                 }
                 else if (response.StatusCode == HttpStatusCode.Conflict)
                 {
@@ -148,6 +179,7 @@ namespace FimiAppUI.Pages
                 }
             }
             SelectedHumanity = null;
+            showHumanitySelection = false;
         }
         public async Task TechnicalSelection()
         {
@@ -177,7 +209,7 @@ namespace FimiAppUI.Pages
                 if (response.StatusCode == HttpStatusCode.Created)
                 {
                     Snackbar.Add($"{SelectedTechnical.SubjectName} selected", MudBlazor.Severity.Success);
-                    await GetStudent();
+                    await GetStudent(StudentNumber);
                 }
                 else if (response.StatusCode == HttpStatusCode.Conflict)
                 {
@@ -189,6 +221,7 @@ namespace FimiAppUI.Pages
                 }
             }
             SelectedTechnical = null;
+            showTechnicalSelection = false;
         }
         public async Task AssignClassTeacher()
         {
@@ -202,11 +235,11 @@ namespace FimiAppUI.Pages
             if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 Snackbar.Add($"Successfully added {SelectedSubjectOnAssignTeacherTab.SubjectName}", MudBlazor.Severity.Success);
-                await GetTeacher();
+                await GetTeacher(SelectedTeacherOnAssignTeacherTab);
             }
             else if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
             {
-                Snackbar.Add($"{SelectedSubjectOnAssignTeacherTab.SubjectName} is already assigned", MudBlazor.Severity.Warning);
+                Snackbar.Add($"{SelectedSubjectOnAssignTeacherTab.SubjectName} is already assigned to {SelectedTeacherOnAssignTeacherTab.Staff.FirstName}", MudBlazor.Severity.Warning);
             }
             else
             {

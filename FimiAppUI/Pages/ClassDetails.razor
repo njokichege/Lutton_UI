@@ -76,12 +76,12 @@ else
                         </MudList>
                     }
                     <MudDivider DividerType="DividerType.FullWidth" Class="my-4" />
-                    <MudButton Class="py-2" Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" OnClick="@ChangeClassTeacher" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#8F2D56">Change class teacher</MudButton>
+                    <MudButton Class="py-2" Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" OnClick="@ChangeClassTeacher" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#DA4167">Change class teacher</MudButton>
                     @if(showTeacherList)
                     {
                         <MudAutocomplete Class="py-2" T="TeacherModel" Label="Teacher" @bind-Value="SelectedTeacherOnTeacherCard" ShowProgressIndicator="true"
                                          SearchFunc="@TeacherSearchOnTeacherCard" ToStringFunc="@(e=> e==null?null : $"{e.Staff.FirstName} {e.Staff.MiddleName} {e.Staff.Surname}")" />
-                        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="py-2" FullWidth="true" OnClick="@ChangeClassTeacherSubmit" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#8F2D56">Submit</MudButton>
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="py-2" FullWidth="true" OnClick="@ChangeClassTeacherSubmit" StartIcon="@Icons.Material.Filled.Save" Style="background-color:#DA4167">Submit</MudButton>
                     }
                 </MudCardContent>
             </MudCard>
