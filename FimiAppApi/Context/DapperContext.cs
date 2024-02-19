@@ -5,7 +5,7 @@ namespace FimiAppApi.Context
     public class DapperContext
     {
         private readonly IConfiguration _config;
-        public string ConnecctionStringName { get; set; } = "Default";
+        public string ConnecctionStringName { get; set; } = "AZURE_MYSQL_CONNECTIONSTRING";
         public DapperContext(IConfiguration config)
         {
             _config = config;
