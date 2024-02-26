@@ -21,7 +21,7 @@ if (!app.Environment.IsProduction())
     builder.Services.AddHttpsRedirection(options =>
     {
         options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
-        options.HttpsPort = 8080; // Set your desired HTTPS port here
+        options.HttpsPort = 3306; // Set your desired HTTPS port here
     });
     app.UseExceptionHandler("/Error");
 }
