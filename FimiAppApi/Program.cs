@@ -15,17 +15,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsProduction())
-{
-    builder.Services.AddHttpsRedirection(options =>
-    {
-        options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
-        options.HttpsPort = 3306; // Set your desired HTTPS port here
-    });
-    app.UseExceptionHandler("/Error");
-}
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
