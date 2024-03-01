@@ -6,7 +6,7 @@ namespace FimiAppUI
 {
     public static class RegisterServices
     {
-        static private readonly string uriLink = "http://lutton-web-app.azurewebsites.net/";
+        static private readonly string uriLink = "https://lutton-web-app.azurewebsites.net/";
         public static void ConfigureServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddRazorPages();
