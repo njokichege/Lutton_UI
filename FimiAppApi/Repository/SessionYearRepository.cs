@@ -33,7 +33,15 @@ namespace FimiAppApi.Repository
         public async Task<IEnumerable<SessionYearModel>> GetSessionYears()
         {
             string sql = "SELECT* FROM SessionYear";
-            return await _dapperContext.LoadData<SessionYearModel, dynamic>(sql, new { });
+            var data = await _dapperContext.LoadData<SessionYearModel, dynamic>(sql, new { });
+            if(data != null)
+            {
+                return data;
+            }
+            else
+            {
+                throw new Exception("Empty data returned");
+            }
         }
         public async Task<SessionYearModel> GetSessionYearById(int sessionId)
         {
