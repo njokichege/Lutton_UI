@@ -8,20 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.ConfigureServices();
 builder.Services.AddMudServices();
+builder.Services.AddHttpsRedirection(options =>
+{
+    options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
+    options.HttpsPort = 8080; // Set your desired HTTPS port here
+});
 builder.Services.AddHttpClient();
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsProduction())
-{
-    builder.Services.AddHttpsRedirection(options =>
-    {
-        options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
-        options.HttpsPort = 8080; // Set your desired HTTPS port here
-    });
-    app.UseExceptionHandler("/Error");
-}
 
 app.UseHttpsRedirection();
 

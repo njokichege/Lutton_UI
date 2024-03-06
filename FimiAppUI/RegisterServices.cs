@@ -1,6 +1,7 @@
 ﻿using FimiAppApi.Contracts;
 using FimiAppApi.Repository;
 using FimiAppUI.Contracts;
+using Microsoft.Identity.Web;
 
 namespace FimiAppUI
 {

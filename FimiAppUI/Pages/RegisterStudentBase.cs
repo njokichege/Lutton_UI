@@ -270,12 +270,11 @@ namespace FimiAppUI.Pages
                             }
                         };
                         DataSet dataset = reader.AsDataSet(conf);
-                        DataRowCollection row = dataset.Tables["Sheet1"].Rows;
+                        DataRowCollection row = dataset.Tables["Result"].Rows;
 
                         ClassModel classModel = new ClassModel();
 
                         string formStream = string.Empty;
-                        int year = 0;
                         string form = string.Empty;
 
                         for(int j = 0 ; j < row.Count; j++)
@@ -285,18 +284,14 @@ namespace FimiAppUI.Pages
                             int i = 0;
                             string name = rowDataList[i + 1].ToString();
                             string[] splitName = name.Split(null);
-                            string currentForm = rowDataList[i + 3].ToString();
-                            string currentFormStream = rowDataList[i + 4].ToString();
+                            string currentForm = rowDataList[i + 2].ToString();
+                            string currentFormStream = rowDataList[i + 3].ToString();
 
-                            if (year == 0)
-                            {
-                                year = Convert.ToInt32(rowDataList[i + 2]);
-                            }
 
                             form = currentForm;
                             formStream = currentFormStream;
 
-                            DateTime date = new DateTime(year, 1, 1);
+                            DateTime date = new DateTime(SchoolYear.StartDate.Year, 1, 1);
 
                             var streamId = await StreamService.GetStreamByName(formStream);
                             var formId = await FormService.GetFormByName(form);
@@ -311,33 +306,6 @@ namespace FimiAppUI.Pages
                             if(splitName.Length > 2)
                             {
                                 student.Surname = splitName[i + 2];
-                            }
-
-                            if (rowDataList[i + 5].ToString().Equals(string.Empty))
-                            {
-                                student.KCPEResult = 0;
-                            }
-                            else
-                            {
-                                student.KCPEResult = Convert.ToInt32(rowDataList[i + 5]);
-                            }
-
-                            if (rowDataList[i + 6].ToString().Equals(string.Empty))
-                            {
-                                student.PhoneNumber = string.Empty;
-                            }
-                            else
-                            {
-                                student.PhoneNumber = rowDataList[i + 6].ToString();
-                            }
-
-                            if (rowDataList[i + 7].ToString().Equals(string.Empty))
-                            {
-                                student.Gender = string.Empty;
-                            }
-                            else
-                            {
-                                student.Gender = rowDataList[i + 7].ToString();
                             }
 
                             StudentClassModel studentClass = new StudentClassModel
