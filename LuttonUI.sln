@@ -12,8 +12,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FimiAppLibrary", "FimiAppLi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FimiAppUI", "FimiAppUI\FimiAppUI.csproj", "{34CBC156-E1A7-4417-AA7B-CC47D5DA19FA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FimiAppApi", "FimiAppApi\FimiAppApi.csproj", "{577B9A0C-692A-4067-9F81-557EE8D303D6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,10 +26,6 @@ Global
 		{34CBC156-E1A7-4417-AA7B-CC47D5DA19FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34CBC156-E1A7-4417-AA7B-CC47D5DA19FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34CBC156-E1A7-4417-AA7B-CC47D5DA19FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{577B9A0C-692A-4067-9F81-557EE8D303D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{577B9A0C-692A-4067-9F81-557EE8D303D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{577B9A0C-692A-4067-9F81-557EE8D303D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{577B9A0C-692A-4067-9F81-557EE8D303D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,4 @@
 ﻿global using FimiAppLibrary.Models;
-global using FimiAppApi.Context;
 global using FimiAppUI.Contracts;
 global using Microsoft.AspNetCore.Components;
 global using System.Net.Http.Json;
