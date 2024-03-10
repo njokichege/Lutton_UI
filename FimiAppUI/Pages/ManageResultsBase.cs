@@ -8,15 +8,19 @@ namespace FimiAppUI.Pages
     {
         [Inject] public ITermService TermService { get; set; }
         [Inject] public IExamTypeService ExamTypeService { get; set; }
+        [Inject] public IExamResultService ExamResultService { get; set; }
         [Inject] public IFormService FormService { get; set; }
         [Inject] public IStreamService StreamService { get; set; }
         [Inject] public IStudentService StudentService { get; set; }
         [Inject] public IClassService ClassService { get; set; }
+        [Inject] public IStudentSubjectService SubjectService { get; set; }
         [Inject] public ISnackbar Snackbar { get; set; }
         [Inject] public IClassPerformanceService ClassPerformanceService { get; set; }
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         [CascadingParameter] public SessionYearModel SchoolYear { get; set; }
         public IEnumerable<ClassPerformanceModel> StudentsSubjectPerformance { get; set; }
+        public IEnumerable<StudentModel> Students { get; set; }
+        public List<StudentSubjectModel> Subjects { get; set; }
         public ClassPerformanceModel SelectedItem { get; set; }
         public ClassPerformanceModel itemBeforeEdit { get; set; }
         public ClassPerformanceModel UpdateResults { get; set; }
@@ -24,6 +28,7 @@ namespace FimiAppUI.Pages
         public ExamTypeModel SelectedExamType { get; set; }
         public FormModel SelectedForm { get; set; }
         public StreamModel SelectedStream { get; set; }
+        public StudentModel UpdateStudent { get; set; }
         public int ClassId { get; set; }
         public bool visible = false;
         protected override Task OnInitializedAsync()
@@ -46,13 +51,38 @@ namespace FimiAppUI.Pages
         {
             return (await StreamService.GetStreams()).ToList();
         }
+        public async Task FindStudent()
+        {
+            //var studentToUpdate = await StudentService.GetStudentByStudentNumber(UpdateStudent.StudentNumber);
+
+        }
         public async Task FindClass()
         {
             visible = true;
             ClassModel classModel = new ClassModel();
             classModel = await ClassService.GetClassByForeignKeys(SelectedForm.FormId, SelectedStream.StreamId, SchoolYear.SessionYearId);
-            ClassId = classModel.ClassId;
-            StudentsSubjectPerformance = await ClassPerformanceService.GetStudentResultsByClass(ClassId, SchoolYear.SessionYearId, SelectedTerm.TermId, SelectedExamType.ExamTypeId);
+            StudentsSubjectPerformance = await ClassPerformanceService.GetStudentResultsByClass(classModel.ClassId, SchoolYear.SessionYearId, SelectedTerm.TermId, SelectedExamType.ExamTypeId);
+            
+            /*if(StudentsSubjectPerformance.ToList().Count == 0)
+            {
+                Students = (await StudentService.MapClassOnStudent(classModel.ClassId));
+                foreach(var student in Students)
+                {
+                    Subjects = await SubjectService.GetSubjectsByStudentNumber(student.StudentNumber);
+                    foreach(var subject in Subjects)
+                    {
+                        var result = await ExamResultService.AddExamResult(
+                            new ExamResultModel()
+                            {
+                                ExamId = 1,
+                                StudentClassId = student.StudentClass.ClassId,
+                                Code = subject.Code,
+                                GradeId = 1,
+                                Marks = 0
+                            });
+                    }
+                }
+            }*/
         }
         public async void ItemHasBeenCommitted()
         {

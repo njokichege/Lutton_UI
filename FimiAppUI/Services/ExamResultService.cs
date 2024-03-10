@@ -12,5 +12,9 @@
         {
             return await _httpClient.GetFromJsonAsync<ExamResultModel[]>($"api/examresult/{sessionYearId}");
         }
+        public async Task<HttpResponseMessage> AddExamResult(ExamResultModel examResultModel)
+        {
+            return await _httpClient.PostAsJsonAsync<ExamResultModel>("api/examresult", examResultModel);
+        }
     }
 }

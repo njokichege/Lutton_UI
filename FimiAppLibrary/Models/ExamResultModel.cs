@@ -2,6 +2,12 @@
 {
     public class ExamResultModel
     {
+        public int ExamResultId { get; set; }
+        public int ExamId { get; set; }
+        public int StudentClassId { get; set; }
+        public int Code { get; set; }
+        public int GradeId { get; set; }
+        public int Marks { get; set; }
         public string Form { get; set; }
         public string Stream { get; set; }
         public string TermName { get; set; }
