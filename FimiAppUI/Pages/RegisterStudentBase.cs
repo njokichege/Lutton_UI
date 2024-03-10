@@ -1,15 +1,7 @@
-﻿using Azure;
-using ExcelDataReader;
-using FimiAppLibrary.Models;
+﻿using ExcelDataReader;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Reporting.Map.WebForms.BingMaps;
-using MudBlazor;
 using System.Data;
-using System.IO;
-using System.IO.Pipelines;
-using System.Net;
 using System.Text.Json;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace FimiAppUI.Pages
 {

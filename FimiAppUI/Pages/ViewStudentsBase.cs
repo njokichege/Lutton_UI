@@ -1,7 +1,4 @@
-﻿using Azure;
-using static Slapper.AutoMapper;
-
-namespace FimiAppUI.Pages
+﻿namespace FimiAppUI.Pages
 {
     public class ViewStudentsBase : Microsoft.AspNetCore.Components.ComponentBase
     {

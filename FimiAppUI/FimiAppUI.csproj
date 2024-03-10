@@ -54,9 +54,6 @@
     <PackageReference Include="FluentValidation" Version="11.9.0" />
     <PackageReference Include="Microsoft.Identity.Web" Version="2.17.0" />
     <PackageReference Include="Microsoft.Identity.Web.UI" Version="2.17.0" />
-    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.2.2" />
-    <PackageReference Include="Microsoft.Owin.Security.Cookies" Version="4.2.2" />
-    <PackageReference Include="Microsoft.Owin.Security.OpenIdConnect" Version="4.2.2" />
     <PackageReference Include="MudBlazor" Version="6.15.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="PSC.Blazor.Components.Chartjs" Version="6.0.44" />

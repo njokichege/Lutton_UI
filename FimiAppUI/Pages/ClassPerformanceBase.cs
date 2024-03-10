@@ -1,13 +1,4 @@
-﻿using static MudBlazor.Colors;
-using static Slapper.AutoMapper;
-using Microsoft.JSInterop;
-using MudBlazor;
-using static MudBlazor.CategoryTypes;
-using Microsoft.AspNetCore.Mvc;
-using System.Data;
-using System.Reflection;
-
-namespace FimiAppUI.Pages
+﻿namespace FimiAppUI.Pages
 {
     public class ClassPerformanceBase : Microsoft.AspNetCore.Components.ComponentBase
     {
