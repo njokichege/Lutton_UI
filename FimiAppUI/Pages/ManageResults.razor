@@ -20,7 +20,7 @@
         <MudItem xs="2">
             <MudCard Elevation="0">
                 <MudCardContent>
-                    <MudField Label="Term" Variant="Variant.Outlined">@SelectedTerm.TermName</MudField>
+                    <MudField Label="Term" Variant="Variant.Outlined"><b>@SelectedTerm.TermName</b></MudField>
                     <!--<MudAutocomplete T="TermModel" Label="Term" @bind-Value="SelectedTerm" ShowProgressIndicator="true"
                                      SearchFunc="@SelectedTermSearch" ToStringFunc="@(e=> e==null?null : $"{e.TermName}")" Variant="Variant.Outlined" />-->
                 </MudCardContent>
@@ -29,7 +29,7 @@
         <MudItem xs="2">
             <MudCard Elevation="0">
                 <MudCardContent>
-                    <MudField Label="Exam Type" Variant="Variant.Outlined">@SelectedExamType.ExamName</MudField>
+                    <MudField Label="Exam Type" Variant="Variant.Outlined"><b>@SelectedExamType.ExamName</b></MudField>
                     <!--<MudAutocomplete T="ExamTypeModel" Label="Exam Type" @bind-Value="SelectedExamType" ShowProgressIndicator="true"
                                      SearchFunc="@SelectedExamTypeSearch" ToStringFunc="@(e=> e==null?null : $"{e.ExamName}")" Variant="Variant.Outlined" />-->
                 </MudCardContent>
@@ -66,16 +66,21 @@
 
 <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
 
-<MudGrid Class="pa-4" Style="@($"background:#ffffff;")">
-    @if (UpdateStudent is not null && StudentFoundVisible is true)
-    {
-        <MudItem xs="4">
-            <MudCardContent>
-                <MudField Label="First Name" Variant="Variant.Outlined">@UpdateStudent.FirstName</MudField>
-                <MudField Label="Middle Name" Variant="Variant.Outlined">@UpdateStudent.MiddleName</MudField>
-                <MudField Label="Surname" Variant="Variant.Outlined">@UpdateStudent.Surname</MudField>
-            </MudCardContent>
+@if (UpdateStudent is not null && StudentFoundVisible is true)
+{
+    <MudGrid Class="d-flex pa-5" Style="@($"background:#ffffff;")">
+        <MudItem xs="12" sm="6" md="4">
+            <MudField Label="First Name" Variant="Variant.Outlined"><b>@UpdateStudent.FirstName</b></MudField>
         </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudField Label="Middle Name" Variant="Variant.Outlined"><b>@UpdateStudent.MiddleName</b></MudField>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudField Label="Admission Number" Variant="Variant.Outlined"><b>@UpdateStudent.StudentNumber.ToString()</b></MudField>
+        </MudItem>
+    </MudGrid>
+    <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+    <MudGrid Class="pa-4" Style="@($"background:#ffffff;")">
         <MudItem xs="4">
             <MudCardContent>
                 <MudNumericField @bind-Value="EnglishMarks" Label="English" Format="F1" Variant="Variant.Outlined" />
@@ -84,110 +89,23 @@
                 <MudNumericField @bind-Value="PhysicsMarks" Label="Physics" Format="F1" Variant="Variant.Outlined" />
                 <MudNumericField @bind-Value="ChemistryMarks" Label="Chemistry" Format="F1" Variant="Variant.Outlined" />
                 <MudNumericField @bind-Value="BiologyMarks" Label="Biology" Format="F1" Variant="Variant.Outlined" />
+            </MudCardContent>
+        </MudItem>
+        <MudItem xs="4">
+            <MudCardContent>
                 <MudNumericField @bind-Value="HistoryMarks" Label="History & Government" Format="F1" Variant="Variant.Outlined" />
                 <MudNumericField @bind-Value="GeographyMarks" Label="Geography" Format="F1" Variant="Variant.Outlined" />
                 <MudNumericField @bind-Value="CreMarks" Label="Cre" Format="F1" Variant="Variant.Outlined" />
                 <MudNumericField @bind-Value="AgricultureMarks" Label="Agriculture" Format="F1" Variant="Variant.Outlined" />
                 <MudNumericField @bind-Value="BusinessMarks" Label="Business Studies" Format="F1" Variant="Variant.Outlined" />
-                <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@SubmitStudentsResults" StartIcon="@Icons.Material.Filled.Save" Color="Color.Primary" Style="background-color:#DA4167">Submit</MudButton>
             </MudCardContent>
         </MudItem>
-    }
-    <MudItem xs="12">
-        @if (StudentsSubjectPerformance is null && visible is true)
-        {
-            <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
-        }
-        else 
-        {
-            <MudTable Bordered="true" Elevation="0" Items="@StudentsSubjectPerformance" Dense="true" FixedHeader="true" Hover="true" SortLabel="Sort By" Striped="true" CanCancelEdit="true"
-                      @bind-SelectedItem="SelectedItem" CommitEditTooltip="Submit" OnCommitEditClick="ItemHasBeenCommitted" RowEditPreview="BackupItem" 
-                      RowEditCancel="ResetItemToOriginalValues" IsEditRowSwitchingBlocked="true"ApplyButtonPosition="TableApplyButtonPosition.StartAndEnd" 
-                      EditButtonPosition="TableEditButtonPosition.StartAndEnd" EditTrigger="TableEditTrigger.EditButton">
-                <HeaderContent>
-                    <MudTh Style="font-size:12px;">#</MudTh>
-                    <MudTh Style="font-size:12px;"><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ClassPerformanceModel, object>(x=>x.StudentNumber)">Student Number</MudTableSortLabel></MudTh>
-                    <MudTh Style="font-size:12px;"><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ClassPerformanceModel, object>(x=>x.FirstName)">Name</MudTableSortLabel></MudTh>
-                    <MudTh Style="font-size:12px;">English</MudTh>
-                    <MudTh Style="font-size:12px;">Kiswahili</MudTh>
-                    <MudTh Style="font-size:12px;">Mathematics</MudTh>
-                    <MudTh Style="font-size:12px;">Physics</MudTh>
-                    <MudTh Style="font-size:12px;">Chemistry</MudTh>
-                    <MudTh Style="font-size:12px;">Biology</MudTh>
-                    <MudTh Style="font-size:12px;">History & Government</MudTh>
-                    <MudTh Style="font-size:12px;">Geography</MudTh>
-                    <MudTh Style="font-size:12px;">Christian Religion</MudTh>
-                    <MudTh Style="font-size:12px;">Home Science</MudTh>
-                    <MudTh Style="font-size:12px;">Agriculture</MudTh>
-                    <MudTh Style="font-size:12px;">Business Studies</MudTh>
-                </HeaderContent>
-                <RowTemplate>
-                    <MudTd Style="font-size:12px;" DataLabel="Student Number">@context.Index</MudTd>
-                    <MudTd Style="font-size:12px;" DataLabel="Student Number">@context.StudentNumber</MudTd>
-                    <MudTd Style="font-size:12px;" DataLabel="Name">@context.FirstName @context.MiddleName @context.Surname</MudTd>
-                    <MudTd Style="font-size:12px;" DataLabel="English">@context.English.ToString("0.00")</MudTd>
-                    <MudTd Style="font-size:12px;" DataLabel="Kiswahili">@context.Kiswahili.ToString("0.00")</MudTd>
-                    <MudTd Style="font-size:12px;" DataLabel="Mathematics">@context.Mathematics.ToString("0.00")</MudTd>
-                    <MudTd Style="font-size:12px;" DataLabel="Physics">@context.Physics.ToString("0.00")</MudTd>
-                    <MudTd Style="font-size:12px;" DataLabel="Chemistry">@context.Chemistry.ToString("0.00")</MudTd>
-                    <MudTd Style="font-size:12px;" DataLabel="Biology">@context.Biology.ToString("0.00")</MudTd>
-                    <MudTd Style="font-size:12px;" DataLabel="HistoryAndGoverment">@context.HistoryAndGoverment.ToString("0.00")</MudTd>
-                    <MudTd Style="font-size:12px;" DataLabel="Geography">@context.Geography.ToString("0.00")</MudTd>
-                    <MudTd Style="font-size:12px;" DataLabel="ChristianReligion">@context.ChristianReligion.ToString("0.00")</MudTd>
-                    <MudTd Style="font-size:12px;" DataLabel="HomeScience">@context.HomeScience.ToString("0.00")</MudTd>
-                    <MudTd Style="font-size:12px;" DataLabel="Agriculture">@context.Agriculture.ToString("0.00")</MudTd>
-                    <MudTd Style="font-size:12px;" DataLabel="BusinessStudies">@context.BusinessStudies.ToString("0.00")</MudTd>
-                </RowTemplate>
-                <RowEditingTemplate>
-                    <MudTd DataLabel="Student Number"><b>@context.StudentNumber</b></MudTd>
-                    <MudTd DataLabel="Name"><b>@context.FirstName @context.MiddleName @context.Surname</b></MudTd>
-                    <MudTd DataLabel="English">
-                        <MudNumericField T="double" @bind-Value="@context.English" Required HideSpinButtons="true" Style="font-weight:700;" />
-                    </MudTd>
-                    <MudTd DataLabel="Kiswahili">
-                        <MudNumericField T="double" @bind-Value="@context.Kiswahili" Required HideSpinButtons="true" Style="font-weight:700;" />
-                    </MudTd>
-                    <MudTd DataLabel="Mathematics">
-                        <MudNumericField T="double" @bind-Value="@context.Mathematics" Required HideSpinButtons="true" Style="font-weight:700;"/>
-                    </MudTd>
-                    <MudTd DataLabel="Physics">
-                         <MudNumericField T="double" @bind-Value="@context.Physics" Required HideSpinButtons="true" Style="font-weight:700;"/>
-                    </MudTd>
-                    <MudTd DataLabel="Chemistry">
-                         <MudNumericField T="double" @bind-Value="@context.Chemistry" Required HideSpinButtons="true" Style="font-weight:700;"/>
-                    </MudTd>
-                    <MudTd DataLabel="Biology">
-                         <MudNumericField T="double" @bind-Value="@context.Biology" Required HideSpinButtons="true" Style="font-weight:700;"/>
-                    </MudTd>
-                    <MudTd DataLabel="HistoryAndGoverment">
-                         <MudNumericField T="double" @bind-Value="@context.HistoryAndGoverment" Required HideSpinButtons="true" Style="font-weight:700;"/>
-                    </MudTd>
-                    <MudTd DataLabel="Geography">
-                         <MudNumericField T="double" @bind-Value="@context.Geography" Required HideSpinButtons="true" Style="font-weight:700;"/>
-                    </MudTd>
-                    <MudTd DataLabel="ChristianReligion">
-                         <MudNumericField T="double" @bind-Value="@context.ChristianReligion" Required HideSpinButtons="true" Style="font-weight:700;" />
-                    </MudTd>
-                    <MudTd DataLabel="HomeScience">
-                         <MudNumericField T="double" @bind-Value="@context.HomeScience" Required HideSpinButtons="true" Style="font-weight:700;" />
-                    </MudTd>
-                    <MudTd DataLabel="Agriculture">
-                         <MudNumericField T="double" @bind-Value="@context.Agriculture" Required HideSpinButtons="true" Style="font-weight:700;" />
-                    </MudTd>
-                    <MudTd DataLabel="BusinessStudies">
-                         <MudNumericField T="double" @bind-Value="@context.BusinessStudies" Required HideSpinButtons="true" Style="font-weight:700;"/>
-                    </MudTd>
-                </RowEditingTemplate>
-                <PagerContent>
-                    <MudTablePager/>
-                </PagerContent>
-                <EditButtonContent Context="button">
-                    <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" Class="pa-0" OnClick="@button.ButtonAction" Disabled="@button.ButtonDisabled" />
-                </EditButtonContent>
-            </MudTable>
-        }
-    </MudItem>
-</MudGrid>
+        <MudItem Class="align-content-center"  xs="2">
+            <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@SubmitStudentsResults" StartIcon="@Icons.Material.Filled.Save" Color="Color.Primary" Style="background-color:#DA4167">Submit</MudButton>
+        </MudItem>
+    </MudGrid>
+}
+
 
 
     

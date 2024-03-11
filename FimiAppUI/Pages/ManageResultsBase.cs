@@ -97,230 +97,172 @@ namespace FimiAppUI.Pages
 
             StudentFoundVisible = true;
         }
+
+        private void ResetSubjectMarks()
+        {
+            EnglishMarks = 0;
+            KiswahiliMarks = 0;
+            MathematicsMarks = 0;
+            PhysicsMarks = 0;
+            ChemistryMarks = 0;
+            BiologyMarks = 0;
+            HistoryMarks = 0;
+            GeographyMarks = 0;
+            CreMarks = 0;
+            AgricultureMarks = 0;
+            BusinessMarks = 0;
+        }
+
         public async Task SubmitStudentsResults()
         {
-            var EnglishResult = new ExamResultModel
+            if(EnglishMarks > 0.0)
             {
-                ExamId = 1,
-                StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                Code = 101,
-                GradeId = 1,
-                Marks = EnglishMarks
-            };
-            var KiswahiliResult = new ExamResultModel
+                var EnglishResult = new ExamResultModel
+                {
+                    ExamId = 1,
+                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
+                    Code = 101,
+                    GradeId = 1,
+                    Marks = EnglishMarks
+                };
+                UpdateStudentsExamResults.Add(EnglishResult);
+            }
+            if (KiswahiliMarks > 0.0)
             {
-                ExamId = 1,
-                StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                Code = 101,
-                GradeId = 1,
-                Marks = KiswahiliMarks
-            };
-            var MathematicsResult = new ExamResultModel
+                var KiswahiliResult = new ExamResultModel
+                {
+                    ExamId = 1,
+                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
+                    Code = 102,
+                    GradeId = 1,
+                    Marks = KiswahiliMarks
+                };
+                UpdateStudentsExamResults.Add(KiswahiliResult);
+            }
+            if (MathematicsMarks > 0.0)
             {
-                ExamId = 1,
-                StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                Code = 101,
-                GradeId = 1,
-                Marks = MathematicsMarks
-            };
-            var PhysicsResult = new ExamResultModel
+                var MathematicsResult = new ExamResultModel
+                {
+                    ExamId = 1,
+                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
+                    Code = 121,
+                    GradeId = 1,
+                    Marks = MathematicsMarks
+                };
+                UpdateStudentsExamResults.Add(MathematicsResult);
+            }
+            if (PhysicsMarks > 0.0)
             {
-                ExamId = 1,
-                StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                Code = 101,
-                GradeId = 1,
-                Marks = PhysicsMarks
-            };
-            var ChemistryResult = new ExamResultModel
+                var PhysicsResult = new ExamResultModel
+                {
+                    ExamId = 1,
+                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
+                    Code = 232,
+                    GradeId = 1,
+                    Marks = PhysicsMarks
+                };
+                UpdateStudentsExamResults.Add(PhysicsResult);
+            }
+            if (ChemistryMarks > 0.0)
             {
-                ExamId = 1,
-                StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                Code = 101,
-                GradeId = 1,
-                Marks = ChemistryMarks
-            };
-            var BiologyResult = new ExamResultModel
+                var ChemistryResult = new ExamResultModel
+                {
+                    ExamId = 1,
+                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
+                    Code = 233,
+                    GradeId = 1,
+                    Marks = ChemistryMarks
+                };
+                UpdateStudentsExamResults.Add(ChemistryResult);
+            }
+            if (BiologyMarks > 0.0)
             {
-                ExamId = 1,
-                StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                Code = 101,
-                GradeId = 1,
-                Marks = BiologyMarks
-            };
-            var HistoryResult = new ExamResultModel
+                var BiologyResult = new ExamResultModel
+                {
+                    ExamId = 1,
+                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
+                    Code = 236,
+                    GradeId = 1,
+                    Marks = BiologyMarks
+                };
+                UpdateStudentsExamResults.Add(BiologyResult);
+            }
+            if (HistoryMarks > 0.0)
             {
-                ExamId = 1,
-                StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                Code = 101,
-                GradeId = 1,
-                Marks = HistoryMarks
-            };
-            var GeographyResult = new ExamResultModel
+                var HistoryResult = new ExamResultModel
+                {
+                    ExamId = 1,
+                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
+                    Code = 311,
+                    GradeId = 1,
+                    Marks = HistoryMarks
+                };
+                UpdateStudentsExamResults.Add(HistoryResult);
+            }
+            if (GeographyMarks > 0.0)
             {
-                ExamId = 1,
-                StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                Code = 101,
-                GradeId = 1,
-                Marks = GeographyMarks
-            };
-            var CreResult = new ExamResultModel
+                var GeographyResult = new ExamResultModel
+                {
+                    ExamId = 1,
+                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
+                    Code = 312,
+                    GradeId = 1,
+                    Marks = GeographyMarks
+                };
+                UpdateStudentsExamResults.Add(GeographyResult);
+            }
+            if (CreMarks > 0.0)
             {
-                ExamId = 1,
-                StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                Code = 101,
-                GradeId = 1,
-                Marks = CreMarks
-            };
-            var AgricultureResult = new ExamResultModel
+                var CreResult = new ExamResultModel
+                {
+                    ExamId = 1,
+                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
+                    Code = 313,
+                    GradeId = 1,
+                    Marks = CreMarks
+                };
+                UpdateStudentsExamResults.Add(CreResult);
+            }
+            if (AgricultureMarks > 0.0)
             {
-                ExamId = 1,
-                StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                Code = 101,
-                GradeId = 1,
-                Marks = AgricultureMarks
-            };
-            var BusinessResult = new ExamResultModel
+                var AgricultureResult = new ExamResultModel
+                {
+                    ExamId = 1,
+                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
+                    Code = 443,
+                    GradeId = 1,
+                    Marks = AgricultureMarks
+                };
+                UpdateStudentsExamResults.Add(AgricultureResult);
+            }
+            if (BusinessMarks > 0.0)
             {
-                ExamId = 1,
-                StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                Code = 101,
-                GradeId = 1,
-                Marks = BusinessMarks
-            };
-
-            UpdateStudentsExamResults.Add(EnglishResult);
-            UpdateStudentsExamResults.Add(KiswahiliResult);
-            UpdateStudentsExamResults.Add(MathematicsResult);
-            UpdateStudentsExamResults.Add(PhysicsResult);
-            UpdateStudentsExamResults.Add(ChemistryResult);
-            UpdateStudentsExamResults.Add(BiologyResult);
-            UpdateStudentsExamResults.Add(HistoryResult);
-            UpdateStudentsExamResults.Add(GeographyResult);
-            UpdateStudentsExamResults.Add(CreResult);
-            UpdateStudentsExamResults.Add(AgricultureResult);
-            UpdateStudentsExamResults.Add(BusinessResult);
+                var BusinessResult = new ExamResultModel
+                {
+                    ExamId = 1,
+                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
+                    Code = 101,
+                    GradeId = 565,
+                    Marks = BusinessMarks
+                };
+                UpdateStudentsExamResults.Add(BusinessResult);
+            }
 
             foreach (var subjectResult in UpdateStudentsExamResults)
             {
                 var response = await ExamResultService.AddExamResult(subjectResult);
+                var sub = UpdateStudentSubjects.First(x => x.Subject.Code == subjectResult.Code);
                 if (response.StatusCode == HttpStatusCode.Created)
                 {
-                    continue;
+                    Snackbar.Add($"{sub.Subject.SubjectName} result Submitted", MudBlazor.Severity.Success);
                 }
                 else
                 {
-                    Snackbar.Add("Failed submission", MudBlazor.Severity.Warning);
+                    Snackbar.Add($"{sub.Subject.SubjectName} failed submission", MudBlazor.Severity.Warning);
                     break;
                 }
             }
-        }
-        public async Task FindClass()
-        {
-            visible = true;
-            ClassModel classModel = new ClassModel();
-            classModel = await ClassService.GetClassByForeignKeys(SelectedForm.FormId, SelectedStream.StreamId, SchoolYear.SessionYearId);
-
-            UpdateStudent = await StudentService.GetStudentByStudentNumber(AdmissionNumber);
-            UpdateStudentSubjects = await SubjectService.GetSubjectsByStudentNumber(UpdateStudent.StudentNumber);
-            var studentClass = await StudentClassService.GetStudentClass(classModel.ClassId, UpdateStudent.StudentNumber);
-
-            UpdateStudentsExamResults.Add(
-                new ExamResultModel
-                {
-                    ExamId = 1,
-                    StudentClassId = studentClass.StudentClassId,
-                    Code = 101,
-                    GradeId = 1,
-                    Marks = EnglishMarks
-                });
-            UpdateStudentsExamResults.Add(
-                new ExamResultModel
-                {
-                    ExamId = 1,
-                    StudentClassId = studentClass.StudentClassId,
-                    Code = 101,
-                    GradeId = 1,
-                    Marks = EnglishMarks
-                });
-
-            StudentsSubjectPerformance = await ClassPerformanceService.GetStudentResultsByClass(classModel.ClassId, SchoolYear.SessionYearId, SelectedTerm.TermId, SelectedExamType.ExamTypeId);
-
-            if (StudentsSubjectPerformance.ToList().Count == 0)
-            {
-                Students = (await StudentService.MapClassOnStudent(classModel.ClassId));
-                foreach(var student in Students)
-                {
-                    Subjects = await SubjectService.GetSubjectsByStudentNumber(student.StudentNumber);
-                    //var studentClass = await StudentClassService.GetStudentClass(classModel.ClassId,student.StudentNumber);
-                    foreach (var subject in Subjects)
-                    {
-                        var result = await ExamResultService.AddExamResult(
-                            new ExamResultModel()
-                            {
-                                ExamId = 1,
-                                //StudentClassId = studentClass.StudentClassId,
-                                Code = subject.Code,
-                                GradeId = 1,
-                                Marks = 0
-                            });
-                    }
-                }
-                var response = await ClassPerformanceService.InitializeStudentResults();
-                StudentsSubjectPerformance = await ClassPerformanceService.GetStudentResultsByClass(classModel.ClassId, SchoolYear.SessionYearId, SelectedTerm.TermId, SelectedExamType.ExamTypeId);
-            }
-        }
-        public async void ItemHasBeenCommitted()
-        {
-            var response = await ClassPerformanceService.UpdateStudentResults(SelectedItem);
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                Snackbar.Add("Results Submitted", MudBlazor.Severity.Success);
-            }
-            else if(response.StatusCode == HttpStatusCode.InternalServerError)
-            {
-                Snackbar.Add("Failed submission", MudBlazor.Severity.Warning);
-            }
-        }
-        public void BackupItem(object model)
-        {
-            itemBeforeEdit = new()
-            {
-                StudentNumber = ((ClassPerformanceModel)model).StudentNumber,
-                FirstName = ((ClassPerformanceModel)model).FirstName,
-                MiddleName = ((ClassPerformanceModel)model).MiddleName,
-                Surname = ((ClassPerformanceModel)model).Surname,
-                English = ((ClassPerformanceModel)model).English,
-                Kiswahili = ((ClassPerformanceModel)model).Kiswahili,
-                Agriculture = ((ClassPerformanceModel)model).Agriculture,
-                Geography = ((ClassPerformanceModel)model).Geography,
-                HistoryAndGoverment = ((ClassPerformanceModel)model).HistoryAndGoverment,
-                Biology = ((ClassPerformanceModel)model).Biology,
-                Mathematics = ((ClassPerformanceModel)model).Mathematics,
-                Physics = ((ClassPerformanceModel)model).Physics,
-                Chemistry = ((ClassPerformanceModel)model).Chemistry,
-                ChristianReligion = ((ClassPerformanceModel)model).ChristianReligion,
-                HomeScience = ((ClassPerformanceModel)model).HomeScience,
-                BusinessStudies = ((ClassPerformanceModel)model).BusinessStudies
-            };
-        }
-        public void ResetItemToOriginalValues(object model)
-        {
-            ((ClassPerformanceModel)model).StudentNumber = itemBeforeEdit.StudentNumber;
-            ((ClassPerformanceModel)model).FirstName = itemBeforeEdit.FirstName;
-            ((ClassPerformanceModel)model).MiddleName = itemBeforeEdit.MiddleName;
-            ((ClassPerformanceModel)model).Surname = itemBeforeEdit.Surname;
-            ((ClassPerformanceModel)model).English = itemBeforeEdit.English;
-            ((ClassPerformanceModel)model).Kiswahili = itemBeforeEdit.Kiswahili;
-            ((ClassPerformanceModel)model).Agriculture = itemBeforeEdit.Agriculture;
-            ((ClassPerformanceModel)model).Geography = itemBeforeEdit.Geography;
-            ((ClassPerformanceModel)model).HistoryAndGoverment = itemBeforeEdit.HistoryAndGoverment;
-            ((ClassPerformanceModel)model).Biology = itemBeforeEdit.Biology;
-            ((ClassPerformanceModel)model).Mathematics = itemBeforeEdit.Mathematics;
-            ((ClassPerformanceModel)model).Physics = itemBeforeEdit.Physics;
-            ((ClassPerformanceModel)model).Chemistry = itemBeforeEdit.Chemistry;
-            ((ClassPerformanceModel)model).ChristianReligion = itemBeforeEdit.ChristianReligion;
-            ((ClassPerformanceModel)model).HomeScience = itemBeforeEdit.HomeScience;
-            ((ClassPerformanceModel)model).BusinessStudies = itemBeforeEdit.BusinessStudies;
+            ResetSubjectMarks();
         }
     }
 }
