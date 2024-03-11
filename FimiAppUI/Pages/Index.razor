@@ -64,7 +64,7 @@ else if (AllStudents is not null && AllTeachers is not null && AllParents is not
 <MudDivider DividerType="DividerType.FullWidth" />
 
 <MudGrid Class="pa-2">
-    <MudItem xs="6">
+    <!--<MudItem xs="6">
         <MudPaper Class="pa-2 rounded-lg" Elevation="0" Square="false">
             <SchoolPerformance Id="myChart" Type="@SchoolPerformance.ChartType.Bar" BackgroundColor="@(new[] { "yellow","red"})" Labels="@XAxisLabels"
                                LabelF1N="F1N" LabelF1S="F1S" LabelF2N="F2N" LabelF2S="F2S"
@@ -79,7 +79,7 @@ else if (AllStudents is not null && AllTeachers is not null && AllParents is not
                                DataF4S="@(new[]{F4SouthT1,F4SouthT2,F4SouthT3})">
             </SchoolPerformance>
         </MudPaper>
-    </MudItem>
+    </MudItem>-->
     <MudItem xs="6" Class="pa-2 rounded-lg">
         <RadzenScheduler @ref=@scheduler SlotRender=@OnSlotRender style="height: 500px;font-size:small;" TItem="EventModel" Data=@EventModels StartProperty="Start" EndProperty="End"
                           TextProperty="Text" SelectedIndex="1" AppointmentRender=@OnAppointmentRender>

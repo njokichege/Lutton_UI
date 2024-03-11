@@ -26,5 +26,9 @@ namespace FimiAppUI.Services
         {
             return await _httpClient.PutAsJsonAsync<ClassPerformanceModel>("api/classsubjectperformance/StudentResults", classPerformanceModel);
         }
+        public async Task<HttpResponseMessage> InitializeStudentResults()
+        {
+            return await _httpClient.PutAsJsonAsync<ClassPerformanceModel>("api/classsubjectperformance/createstudentresults",new ClassPerformanceModel());
+        }
     }
 }

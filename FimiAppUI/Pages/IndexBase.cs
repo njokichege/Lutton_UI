@@ -45,7 +45,7 @@ namespace FimiAppUI.Pages
 
             ExamResults = await ExamResultService.GetYearlySchoolResults(SchoolYear.SessionYearId);
 
-            foreach (var  examResult in ExamResults)
+            /*foreach (var  examResult in ExamResults)
             {
                 if (examResult.TermName.Equals("First") && examResult.Form.Equals("1") && examResult.Stream.Equals("North"))
                 {
@@ -145,7 +145,7 @@ namespace FimiAppUI.Pages
                 }
 
 
-            }
+            }*/
             Series.Add(new ChartSeries()
             {
                 Name = "F1N",

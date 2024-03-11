@@ -12,6 +12,7 @@ public class StudentModel
     public int KCPEResult { get; set; }
     public string PhoneNumber { get; set; }
     public ClassModel StudentClass { get; set; } = new ClassModel();
+    public StudentClassModel StudentClassModel { get; set; } = new StudentClassModel();
     public string StudentName()
     {
         return $"{FirstName} {MiddleName} {Surname}";

@@ -258,7 +258,7 @@ namespace FimiAppUI.Pages
                         {
                             ConfigureDataTable = _ => new ExcelDataTableConfiguration
                             {
-                                UseHeaderRow = true
+                                UseHeaderRow = false
                             }
                         };
                         DataSet dataset = reader.AsDataSet(conf);
