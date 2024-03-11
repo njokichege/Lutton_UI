@@ -98,7 +98,7 @@ namespace FimiAppUI.Pages
             StudentFoundVisible = true;
         }
 
-        private void ResetSubjectMarks()
+        private void ResetProperties()
         {
             EnglishMarks = 0;
             KiswahiliMarks = 0;
@@ -111,6 +111,11 @@ namespace FimiAppUI.Pages
             CreMarks = 0;
             AgricultureMarks = 0;
             BusinessMarks = 0;
+
+            UpdateStudent = new StudentModel();
+            UpdateStudentSubjects = new List<StudentSubjectModel>();
+            UpdateStudentStudentClass = new StudentClassModel();
+            UpdateStudentsExamResults = new List<ExamResultModel>();
         }
 
         public async Task SubmitStudentsResults()
@@ -258,11 +263,12 @@ namespace FimiAppUI.Pages
                 }
                 else
                 {
-                    Snackbar.Add($"{sub.Subject.SubjectName} failed submission", MudBlazor.Severity.Warning);
+                    Snackbar.Add($"{sub.Subject.SubjectName} failed submission", MudBlazor.Severity.Error);
                     break;
                 }
             }
-            ResetSubjectMarks();
+            
+            ResetProperties();
         }
     }
 }

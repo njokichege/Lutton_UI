@@ -1,13 +1,16 @@
-﻿using MudBlazor;
+﻿using Microsoft.AspNetCore.SignalR;
+using MudBlazor;
 
 namespace FimiAppUI.Pages
 {
     public class ManageExaminationBase : Microsoft.AspNetCore.Components.ComponentBase
     {
         [Inject] public ISchoolPerformanceService SchoolPerformanceService { get; set; }
+        [Inject] public IClassPerformanceService ClassPerformanceService { get; set; }
         [Inject] public IClassService ClassService { get; set; }
         [Inject] public IGradeService GradeService { get; set; }
         [Inject] public NavigationManager Navigation { get; set; }
+        [Inject] public ISnackbar Snackbar { get; set; }
         [CascadingParameter] public SessionYearModel SchoolYear { get; set; }
         public IEnumerable<SchoolPerformanceModel> TermOneMidTerm { get; set; }
         public IEnumerable<SchoolPerformanceModel> TermOneEndTerm { get; set; }
@@ -26,6 +29,11 @@ namespace FimiAppUI.Pages
         public bool showTermThreeEndTerm = false;
         protected override async Task OnInitializedAsync()
         {
+            var response = await ClassPerformanceService.InitializeStudentResults();
+            if(response.StatusCode != HttpStatusCode.OK)
+            {
+                Snackbar.Add("Failed to initialize students results", MudBlazor.Severity.Error);
+            }
             TermOneMidTerm = await GetTermResultsAsync(SchoolYear.SessionYearId,1,1);
             showTermOneMidTerm = true;
             TermOneEndTerm = await GetTermResultsAsync(SchoolYear.SessionYearId, 1, 2);

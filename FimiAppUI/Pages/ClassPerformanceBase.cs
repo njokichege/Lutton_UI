@@ -34,7 +34,7 @@
         }
         public async Task StudentRowClickEventAsync(TableRowClickEventArgs<ClassPerformanceModel> tableRowClickEventArgs)
         {
-            Navigation.NavigateTo($"https://localhost:7263/api/report/studentreportform/{tableRowClickEventArgs.Item.StudentNumber}/{SessionYearId}/{TermId}/{ExamTypeId}");
+            Navigation.NavigateTo($"https://luttonapp.azurewebsites.net/api/report/studentreportform/{tableRowClickEventArgs.Item.StudentNumber}/{SessionYearId}/{TermId}/{ExamTypeId}");
         }
         public string SelectedRowClassFunc(ClassPerformanceModel element, int rowNumber)
         {

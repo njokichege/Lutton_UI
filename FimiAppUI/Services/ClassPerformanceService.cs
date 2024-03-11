@@ -12,23 +12,23 @@ namespace FimiAppUI.Services
         }
         public async Task<IEnumerable<ClassPerformanceModel>> GetClassPerformancePerTerm(int sessionId, int termId, int classId, int studentNumber)
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<ClassPerformanceModel>>($"api/classsubjectperformance/classresult/{sessionId}/{termId}/{classId}/{studentNumber}");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<ClassPerformanceModel>>($"api/classperformance/classresult/{sessionId}/{termId}/{classId}/{studentNumber}");
         }
         public async Task<IEnumerable<ClassPerformanceModel>> GetStudentResults(int studentNumber)
         {
-            return await _httpClient.GetFromJsonAsync <IEnumerable<ClassPerformanceModel>> ($"api/classsubjectperformance/studentresult/{studentNumber}");
+            return await _httpClient.GetFromJsonAsync <IEnumerable<ClassPerformanceModel>> ($"api/classperformance/studentresult/{studentNumber}");
         }
         public async Task<IEnumerable<ClassPerformanceModel>> GetStudentResultsByClass(int classId, int sessionYearId, int termId, int examTypeId)
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<ClassPerformanceModel>>($"api/classsubjectperformance/{classId}/{sessionYearId}/{termId}/{examTypeId}");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<ClassPerformanceModel>>($"api/classperformance/{classId}/{sessionYearId}/{termId}/{examTypeId}");
         }
         public async Task<HttpResponseMessage> UpdateStudentResults(ClassPerformanceModel classPerformanceModel)
         {
-            return await _httpClient.PutAsJsonAsync<ClassPerformanceModel>("api/classsubjectperformance/StudentResults", classPerformanceModel);
+            return await _httpClient.PutAsJsonAsync<ClassPerformanceModel>("api/classperformance/StudentResults", classPerformanceModel);
         }
         public async Task<HttpResponseMessage> InitializeStudentResults()
         {
-            return await _httpClient.PutAsJsonAsync<ClassPerformanceModel>("api/classsubjectperformance/createstudentresults",new ClassPerformanceModel());
+            return await _httpClient.PutAsJsonAsync<ClassPerformanceModel>("api/classperformance/createstudentresults", new ClassPerformanceModel());
         }
     }
 }
