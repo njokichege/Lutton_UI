@@ -8,6 +8,7 @@
         [Inject] public IClassService ClassService { get; set; }
         [Inject] public IStudentService StudentService { get; set; }
         [Inject] public NavigationManager Navigation { get; set; }
+        [CascadingParameter] public SessionYearModel SchoolYear { get; set; }
         public IEnumerable<StudentModel> Students { get; set; }
         public IEnumerable<StudentModel> AllStudents { get; set; } 
         public ClassModel SelectedClass { get; set; }
@@ -24,13 +25,11 @@
         public bool showFailAlert = false;
         protected override async Task OnInitializedAsync()
         {
-            var date = DateTime.Now.Year;
-            var currdate = new DateTime(date, 1, 1);
+            SelectedStudentSchoolYear = SchoolYear;
 
             try
             {
-                var sessionId = await SessionYearService.GetSessionYearByStartDate(currdate.ToString("s"));
-                AllStudents = (await StudentService.GetAllStudentsBySessionYear(sessionId)).ToList();
+                AllStudents = (await StudentService.GetAllStudentsBySessionYear(SelectedStudentSchoolYear.SessionYearId)).ToList();
             }
             catch (Exception ex)
             {

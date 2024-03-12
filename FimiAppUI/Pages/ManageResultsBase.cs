@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.SignalR;
 using System.Net;
 using static MudBlazor.CategoryTypes;
 
@@ -89,13 +90,20 @@ namespace FimiAppUI.Pages
         public async Task FindStudent()
         {
             ClassModel classModel = new ClassModel();
-            classModel = await ClassService.GetClassByForeignKeys(SelectedForm.FormId, SelectedStream.StreamId, SchoolYear.SessionYearId);
-
-            UpdateStudent = await StudentService.GetStudentByStudentNumber(AdmissionNumber);
-            UpdateStudentSubjects = await SubjectService.GetSubjectsByStudentNumber(UpdateStudent.StudentNumber);
-            UpdateStudentStudentClass = await StudentClassService.GetStudentClass(classModel.ClassId, UpdateStudent.StudentNumber);
-
-            StudentFoundVisible = true;
+            
+            try
+            {
+                classModel = await ClassService.GetClassByForeignKeys(SelectedForm.FormId, SelectedStream.StreamId, SchoolYear.SessionYearId);
+                UpdateStudent = await StudentService.GetStudentByStudentNumber(AdmissionNumber);
+                UpdateStudentSubjects = await SubjectService.GetSubjectsByStudentNumber(UpdateStudent.StudentNumber);
+                UpdateStudentStudentClass = await StudentClassService.GetStudentClass(classModel.ClassId, UpdateStudent.StudentNumber);
+                StudentFoundVisible = true;
+            }
+            catch
+            {
+                Snackbar.Add($"Incorrect student details ", MudBlazor.Severity.Error);
+                StudentFoundVisible = false;
+            }
         }
 
         private void ResetProperties()
@@ -259,7 +267,7 @@ namespace FimiAppUI.Pages
                 var sub = UpdateStudentSubjects.First(x => x.Subject.Code == subjectResult.Code);
                 if (response.StatusCode == HttpStatusCode.Created)
                 {
-                    Snackbar.Add($"{sub.Subject.SubjectName} result Submitted", MudBlazor.Severity.Success);
+                    Snackbar.Add($"{sub.Subject.SubjectName} result submitted for {UpdateStudent.FirstName}", MudBlazor.Severity.Success);
                 }
                 else
                 {
@@ -267,8 +275,8 @@ namespace FimiAppUI.Pages
                     break;
                 }
             }
-            
             ResetProperties();
+            StudentFoundVisible = false;
         }
     }
 }

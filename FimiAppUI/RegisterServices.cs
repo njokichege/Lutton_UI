@@ -14,6 +14,10 @@
             {
                 client.BaseAddress = new Uri(uriLink);
             });
+            builder.Services.AddHttpClient<IClassService, ClassService>(client =>
+            {
+                client.BaseAddress = new Uri(uriLink);
+            });
             builder.Services.AddHttpClient<IFormService, FormService>(client =>
             {
                 client.BaseAddress = new Uri(uriLink);
