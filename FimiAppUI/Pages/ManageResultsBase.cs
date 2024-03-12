@@ -254,8 +254,8 @@ namespace FimiAppUI.Pages
                 {
                     ExamId = 1,
                     StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                    Code = 101,
-                    GradeId = 565,
+                    Code = 565,
+                    GradeId = 1,
                     Marks = BusinessMarks
                 };
                 UpdateStudentsExamResults.Add(BusinessResult);
