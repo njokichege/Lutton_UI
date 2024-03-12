@@ -61,25 +61,14 @@ namespace FimiAppUI.Pages
         {
             visible = true;
         }
-        public async Task AssignCompulsorySubjects(FormModel formModel, StudentModel studentModel)
+        public async Task AssignSubjects(FormModel formModel, StudentModel studentModel)
         {
             List<StudentSubjectModel> studentSubjects = new List<StudentSubjectModel>();
 
             foreach (var subject in Subjects)
             {
-                if (formModel.Form.Equals("1") || (formModel.Form.Equals("2")))
-                {
-                    var model = new StudentSubjectModel { Code = subject.Code, StudentNumber = studentModel.StudentNumber };
-                    studentSubjects.Add(model);
-                }
-                else if (formModel.Form.Equals("3") || formModel.Form.Equals("4"))
-                {
-                    if (subject.Code == 1 || subject.Code == 2 || subject.Code == 101 || subject.Code == 102 || subject.Code == 121 || subject.Code == 233 || subject.Code == 313)
-                    {
-                        var model = new StudentSubjectModel { Code = subject.Code, StudentNumber = studentModel.StudentNumber };
-                        studentSubjects.Add(model);
-                    }
-                }
+                var model = new StudentSubjectModel { Code = subject.Code, StudentNumber = studentModel.StudentNumber };
+                studentSubjects.Add(model);
             }
             foreach(var studentSubject in studentSubjects)
             {
@@ -140,7 +129,7 @@ namespace FimiAppUI.Pages
                             if (classResponse.StatusCode == HttpStatusCode.Created)
                             {
                                 Snackbar.Add($"Successfully added {Student.StudentName()}", MudBlazor.Severity.Success);
-                                await AssignCompulsorySubjects(NewStudentForm,InsertedStudent);
+                                await AssignSubjects(NewStudentForm,InsertedStudent);
                             }
                             else
                             {
@@ -214,7 +203,7 @@ namespace FimiAppUI.Pages
                 if (classResponse.StatusCode == HttpStatusCode.Created)
                 {
                     Snackbar.Add($"Successfully added {Student.StudentName()}", MudBlazor.Severity.Success);
-                    await AssignCompulsorySubjects(NewStudentForm, InsertedStudent);
+                    await AssignSubjects(NewStudentForm, InsertedStudent);
                 }
                 else
                 {
@@ -336,7 +325,7 @@ namespace FimiAppUI.Pages
                                 break;
                             }
                             var formModel = new FormModel { Form = form };
-                            await AssignCompulsorySubjects(formModel, student);
+                            await AssignSubjects(formModel, student);
 
                             if ( j == row.Count - 1)
                             {
