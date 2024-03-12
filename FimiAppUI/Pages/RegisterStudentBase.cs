@@ -262,7 +262,7 @@ namespace FimiAppUI.Pages
                             }
                         };
                         DataSet dataset = reader.AsDataSet(conf);
-                        DataRowCollection row = dataset.Tables["Result"].Rows;
+                        DataRowCollection row = dataset.Tables["Sheet1"].Rows;
 
                         ClassModel classModel = new ClassModel();
 
@@ -298,6 +298,22 @@ namespace FimiAppUI.Pages
                             if(splitName.Length > 2)
                             {
                                 student.Surname = splitName[i + 2];
+                            }
+                            if (rowDataList[i + 4].ToString().Equals(string.Empty))
+                            {
+                                student.KCPEResult = 0;
+                            }
+                            else
+                            {
+                                student.KCPEResult = Convert.ToInt32(rowDataList[i + 4]);
+                            }
+                            if (rowDataList[i + 5].ToString().Equals(string.Empty))
+                            {
+                                student.Gender = string.Empty;
+                            }
+                            else
+                            {
+                                student.Gender = rowDataList[i + 5].ToString();
                             }
 
                             StudentClassModel studentClass = new StudentClassModel

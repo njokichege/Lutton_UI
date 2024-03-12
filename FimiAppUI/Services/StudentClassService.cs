@@ -16,5 +16,9 @@
         {
             return await _httpClient.GetFromJsonAsync<StudentClassModel>($"api/studentclass/{classId}/{studentNumber}");
         }
+        public async Task<StudentClassModel> GetStudentClassByStudentNumber(int studentNumber)
+        {
+            return await _httpClient.GetFromJsonAsync<StudentClassModel>($"api/studentclass/getstudentclassbystudentnumber/{studentNumber}");
+        }
     }
 }

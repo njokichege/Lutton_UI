@@ -4,5 +4,6 @@
     {
         Task<HttpResponseMessage> AddStudentClass(StudentClassModel studentClassModel);
         Task<StudentClassModel> GetStudentClass(int classId, int studentNumber);
+        Task<StudentClassModel> GetStudentClassByStudentNumber(int studentNumber);
     }
 }
