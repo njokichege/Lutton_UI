@@ -5,5 +5,6 @@ namespace FimiAppUI.Contracts
     {
         Task<HttpResponseMessage> AddExamResult(ExamResultModel examResultModel);
         Task<IEnumerable<ExamResultModel>> GetYearlySchoolResults(int sessionYearId);
+        Task<HttpResponseMessage> UpdateExamResult(ExamResultModel examResultModel);
     }
 }

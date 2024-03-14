@@ -1,4 +1,9 @@
-﻿namespace FimiAppUI.Pages
+﻿using MudBlazor;
+using Newtonsoft.Json;
+using PSC.Blazor.Components.Chartjs.Models.Common;
+using System.Text;
+
+namespace FimiAppUI.Pages
 {
     public class ClassPerformanceBase : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -19,10 +24,18 @@
         private int selectedRowNumber = -1;
         protected override async Task OnInitializedAsync()
         {
-            ClassStudentResults = await StudentResultsService.GetStudentResultsByClass(int.Parse(ClassId));
-
-            StudentsSubjectPerformance = await SubjectPerformanceService.GetStudentResultsByClass(int.Parse(ClassId), int.Parse(SessionYearId), int.Parse(TermId), int.Parse(ExamTypeId));
-            Grades = await GradeService.GetAllGrades();
+            try
+            {
+                await SubjectPerformanceService.InitializeStudentResults();
+                StudentsSubjectPerformance = await SubjectPerformanceService.GetStudentResultsByClass(int.Parse(ClassId), int.Parse(SessionYearId), int.Parse(TermId), int.Parse(ExamTypeId));
+                Grades = await GradeService.GetAllGrades();
+            }
+            catch(HttpRequestException ex)
+            {
+                Console.WriteLine("\nException Caught!");
+                Console.WriteLine("Message :{0} ", ex.Message);
+            }
+            
             foreach (var studentPerformance in StudentsSubjectPerformance)
             {
                 foreach (GradeModel grade in Grades)
@@ -36,9 +49,24 @@
             }
             dataIsLoaded = true;
         }
+        public async Task GenerateAllReportForms()
+        {
+            var studentList = new List<int>();
+
+            foreach (var student in StudentsSubjectPerformance)
+            {
+                studentList.Add(student.StudentNumber);
+            }
+
+            var queryJson = JsonConvert.SerializeObject(studentList);
+            var apiEndpoint = $"https://localhost:5124/api/report/allstudentsreportform/{SessionYearId}/{TermId}/{ExamTypeId}/";
+            var fullUrl = $"{apiEndpoint}?students={queryJson}";
+
+            Navigation.NavigateTo(fullUrl);
+        }
         public async Task StudentRowClickEventAsync(TableRowClickEventArgs<ClassPerformanceModel> tableRowClickEventArgs)
         {
-            Navigation.NavigateTo($"https://luttonapp.azurewebsites.net/api/report/studentreportform/{tableRowClickEventArgs.Item.StudentNumber}/{SessionYearId}/{TermId}/{ExamTypeId}");
+            Navigation.NavigateTo($"https://localhost:5124/api/report/studentreportform/{tableRowClickEventArgs.Item.StudentNumber}/{SessionYearId}/{TermId}/{ExamTypeId}");
         }
         public string SelectedRowClassFunc(ClassPerformanceModel element, int rowNumber)
         {
