@@ -16,5 +16,9 @@
         {
             return await _httpClient.PostAsJsonAsync<ExamResultModel>("api/examresult", examResultModel);
         }
+        public async Task<HttpResponseMessage> UpdateExamResult(ExamResultModel examResultModel)
+        {
+            return await _httpClient.PutAsJsonAsync<ExamResultModel>("api/examresult", examResultModel);
+        }
     }
 }

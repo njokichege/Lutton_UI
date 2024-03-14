@@ -1,4 +1,5 @@
 ﻿
+using FimiAppLibrary.Models;
 using Microsoft.AspNetCore.SignalR;
 using System.Net;
 using static MudBlazor.CategoryTypes;
@@ -15,40 +16,24 @@ namespace FimiAppUI.Pages
         [Inject] public IStudentService StudentService { get; set; }
         [Inject] public IStudentClassService StudentClassService { get; set; }
         [Inject] public IClassService ClassService { get; set; }
-        [Inject] public IStudentSubjectService SubjectService { get; set; }
+        [Inject] public ISubjectService SubjectService { get; set; }
         [Inject] public ISnackbar Snackbar { get; set; }
-        [Inject] public IClassPerformanceService ClassPerformanceService { get; set; }
-        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         [CascadingParameter] public SessionYearModel SchoolYear { get; set; }
-        public IEnumerable<ClassPerformanceModel> StudentsSubjectPerformance { get; set; }
-        public List<ExamResultModel> UpdateStudentsExamResults { get; set; } = new List<ExamResultModel>();
         public IEnumerable<StudentModel> Students { get; set; }
-        public List<StudentSubjectModel> Subjects { get; set; }
-        public List<StudentSubjectModel> UpdateStudentSubjects { get; set; }
-        public ClassPerformanceModel SelectedItem { get; set; }
-        public StudentClassModel UpdateStudentStudentClass { get; set; }
-        public ClassPerformanceModel itemBeforeEdit { get; set; }
-        public ClassPerformanceModel UpdateResults { get; set; }
+        public List<StudentModel> StudentsToUpdate { get; set; } = new List<StudentModel>();
+        public ClassModel SelectedClass { get; set; }
         public TermModel SelectedTerm { get; set; }
         public ExamTypeModel SelectedExamType { get; set; }
         public FormModel SelectedForm { get; set; }
         public StreamModel SelectedStream { get; set; }
-        public StudentModel UpdateStudent { get; set; }
-        public int ClassId { get; set; }
-        public int AdmissionNumber { get; set; }
-        public double EnglishMarks { get; set; }
-        public double KiswahiliMarks { get; set; }
-        public double MathematicsMarks { get; set; }
-        public double PhysicsMarks { get; set; }
-        public double ChemistryMarks { get; set; }
-        public double BiologyMarks { get; set; }
-        public double HistoryMarks { get; set; }
-        public double GeographyMarks { get; set; }
-        public double CreMarks { get; set; }
-        public double AgricultureMarks { get; set; }
-        public double BusinessMarks { get; set; }
+        public SubjectModel SelectedSubject { get; set; }
+        public StudentModel StudentBeforeEdit { get; set; }
         public bool visible = false;
         public bool StudentFoundVisible = false;
+        public StudentModel selectedItem1 = null;
+        public TableEditTrigger editTrigger = TableEditTrigger.RowClick;
+        public TableApplyButtonPosition applyButtonPosition = TableApplyButtonPosition.End;
+        public TableEditButtonPosition editButtonPosition = TableEditButtonPosition.End;
         protected override async Task OnInitializedAsync()
         {
             var terms = await TermService.GetAllTerms();
@@ -71,6 +56,10 @@ namespace FimiAppUI.Pages
                 }
             }
         }
+        public async Task<IEnumerable<SubjectModel>> SubjectSearch(string value)
+        {
+            return (await SubjectService.GetSubjects()).Where(x => x.Code != 1 && x.Code != 2).ToList();
+        }
         public async Task<IEnumerable<TermModel>> SelectedTermSearch(string value)
         {
             return (await TermService.GetAllTerms()).ToList();
@@ -89,194 +78,73 @@ namespace FimiAppUI.Pages
         }
         public async Task FindStudent()
         {
-            ClassModel classModel = new ClassModel();
-            
             try
             {
-                classModel = await ClassService.GetClassByForeignKeys(SelectedForm.FormId, SelectedStream.StreamId, SchoolYear.SessionYearId);
-                UpdateStudent = await StudentService.GetStudentByStudentNumber(AdmissionNumber);
-                UpdateStudentSubjects = await SubjectService.GetSubjectsByStudentNumber(UpdateStudent.StudentNumber);
-                UpdateStudentStudentClass = await StudentClassService.GetStudentClass(classModel.ClassId, UpdateStudent.StudentNumber);
+                SelectedClass = await ClassService.GetClassByForeignKeys(SelectedForm.FormId, SelectedStream.StreamId, SchoolYear.SessionYearId);
+                Students = await StudentService.MapClassOnStudent(SelectedClass.ClassId);
                 StudentFoundVisible = true;
             }
             catch
             {
-                Snackbar.Add($"Incorrect student details ", MudBlazor.Severity.Error);
+                Snackbar.Add($"Check class details", MudBlazor.Severity.Error);
                 StudentFoundVisible = false;
             }
         }
-
-        private void ResetProperties()
+        public void ItemHasBeenCommitted(object element)
         {
-            EnglishMarks = 0;
-            KiswahiliMarks = 0;
-            MathematicsMarks = 0;
-            PhysicsMarks = 0;
-            ChemistryMarks = 0;
-            BiologyMarks = 0;
-            HistoryMarks = 0;
-            GeographyMarks = 0;
-            CreMarks = 0;
-            AgricultureMarks = 0;
-            BusinessMarks = 0;
-
-            UpdateStudent = new StudentModel();
-            UpdateStudentSubjects = new List<StudentSubjectModel>();
-            UpdateStudentStudentClass = new StudentClassModel();
-            UpdateStudentsExamResults = new List<ExamResultModel>();
+            StudentsToUpdate.Add((StudentModel)element);
         }
-
-        public async Task SubmitStudentsResults()
+        public void BackupItem(object element)
         {
-            if(EnglishMarks > 0.0)
+            StudentBeforeEdit = new()
             {
-                var EnglishResult = new ExamResultModel
+                StudentNumber = ((StudentModel)element).StudentNumber,
+                FirstName = ((StudentModel)element).FirstName,
+                MiddleName = ((StudentModel)element).MiddleName,
+                SubjectResult = ((StudentModel)element).SubjectResult
+            };
+        }
+        public void ResetItemToOriginalValues(object element)
+        {
+            ((StudentModel)element).StudentNumber = StudentBeforeEdit.StudentNumber;
+            ((StudentModel)element).FirstName = StudentBeforeEdit.FirstName;
+            ((StudentModel)element).MiddleName = StudentBeforeEdit.MiddleName;
+            ((StudentModel)element).SubjectResult = StudentBeforeEdit.SubjectResult;
+        }
+        public async Task SubmitResults()
+        {
+            foreach (var student in StudentsToUpdate)
+            {
+                var studentClass = await StudentClassService.GetStudentClass(SelectedClass.ClassId, student.StudentNumber);
+                var subjectResult = new ExamResultModel
                 {
                     ExamId = 1,
-                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                    Code = 101,
+                    StudentClassId = studentClass.StudentClassId,
+                    Code = SelectedSubject.Code,
                     GradeId = 1,
-                    Marks = EnglishMarks
+                    Marks = student.SubjectResult
                 };
-                UpdateStudentsExamResults.Add(EnglishResult);
-            }
-            if (KiswahiliMarks > 0.0)
-            {
-                var KiswahiliResult = new ExamResultModel
+                var existsResponse = await ExamResultService.UpdateExamResult(subjectResult);
+                if(!existsResponse.IsSuccessStatusCode)
                 {
-                    ExamId = 1,
-                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                    Code = 102,
-                    GradeId = 1,
-                    Marks = KiswahiliMarks
-                };
-                UpdateStudentsExamResults.Add(KiswahiliResult);
-            }
-            if (MathematicsMarks > 0.0)
-            {
-                var MathematicsResult = new ExamResultModel
-                {
-                    ExamId = 1,
-                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                    Code = 121,
-                    GradeId = 1,
-                    Marks = MathematicsMarks
-                };
-                UpdateStudentsExamResults.Add(MathematicsResult);
-            }
-            if (PhysicsMarks > 0.0)
-            {
-                var PhysicsResult = new ExamResultModel
-                {
-                    ExamId = 1,
-                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                    Code = 232,
-                    GradeId = 1,
-                    Marks = PhysicsMarks
-                };
-                UpdateStudentsExamResults.Add(PhysicsResult);
-            }
-            if (ChemistryMarks > 0.0)
-            {
-                var ChemistryResult = new ExamResultModel
-                {
-                    ExamId = 1,
-                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                    Code = 233,
-                    GradeId = 1,
-                    Marks = ChemistryMarks
-                };
-                UpdateStudentsExamResults.Add(ChemistryResult);
-            }
-            if (BiologyMarks > 0.0)
-            {
-                var BiologyResult = new ExamResultModel
-                {
-                    ExamId = 1,
-                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                    Code = 236,
-                    GradeId = 1,
-                    Marks = BiologyMarks
-                };
-                UpdateStudentsExamResults.Add(BiologyResult);
-            }
-            if (HistoryMarks > 0.0)
-            {
-                var HistoryResult = new ExamResultModel
-                {
-                    ExamId = 1,
-                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                    Code = 311,
-                    GradeId = 1,
-                    Marks = HistoryMarks
-                };
-                UpdateStudentsExamResults.Add(HistoryResult);
-            }
-            if (GeographyMarks > 0.0)
-            {
-                var GeographyResult = new ExamResultModel
-                {
-                    ExamId = 1,
-                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                    Code = 312,
-                    GradeId = 1,
-                    Marks = GeographyMarks
-                };
-                UpdateStudentsExamResults.Add(GeographyResult);
-            }
-            if (CreMarks > 0.0)
-            {
-                var CreResult = new ExamResultModel
-                {
-                    ExamId = 1,
-                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                    Code = 313,
-                    GradeId = 1,
-                    Marks = CreMarks
-                };
-                UpdateStudentsExamResults.Add(CreResult);
-            }
-            if (AgricultureMarks > 0.0)
-            {
-                var AgricultureResult = new ExamResultModel
-                {
-                    ExamId = 1,
-                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                    Code = 443,
-                    GradeId = 1,
-                    Marks = AgricultureMarks
-                };
-                UpdateStudentsExamResults.Add(AgricultureResult);
-            }
-            if (BusinessMarks > 0.0)
-            {
-                var BusinessResult = new ExamResultModel
-                {
-                    ExamId = 1,
-                    StudentClassId = UpdateStudentStudentClass.StudentClassId,
-                    Code = 565,
-                    GradeId = 1,
-                    Marks = BusinessMarks
-                };
-                UpdateStudentsExamResults.Add(BusinessResult);
-            }
-
-            foreach (var subjectResult in UpdateStudentsExamResults)
-            {
-                var response = await ExamResultService.AddExamResult(subjectResult);
-                var sub = UpdateStudentSubjects.First(x => x.Subject.Code == subjectResult.Code);
-                if (response.StatusCode == HttpStatusCode.Created)
-                {
-                    Snackbar.Add($"{sub.Subject.SubjectName} result submitted for {UpdateStudent.FirstName}", MudBlazor.Severity.Success);
-                }
-                else
-                {
-                    Snackbar.Add($"{sub.Subject.SubjectName} failed submission", MudBlazor.Severity.Error);
-                    break;
+                    var response = await ExamResultService.AddExamResult(subjectResult);
+                    if (response.StatusCode != HttpStatusCode.Created)
+                    {
+                        Snackbar.Add($"{SelectedSubject.SubjectName} failed submission", MudBlazor.Severity.Error);
+                        ResetProperties();
+                        StudentFoundVisible = false;
+                        break;
+                    }
                 }
             }
+            Snackbar.Add("Submission successful", MudBlazor.Severity.Success);
             ResetProperties();
             StudentFoundVisible = false;
+        }
+        private void ResetProperties()
+        {
+            StudentsToUpdate = new List<StudentModel>();
+            Students = new List<StudentModel>();
         }
     }
 }

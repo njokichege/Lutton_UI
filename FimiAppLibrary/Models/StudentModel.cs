@@ -10,6 +10,7 @@ public class StudentModel
     public DateTime? DateOfBirth { get; set; }
     public DateTime AdmissionDate { get; set; }
     public int KCPEResult { get; set; }
+    public int SubjectResult { get; set; }
     public string PhoneNumber { get; set; }
     public ClassModel StudentClass { get; set; } = new ClassModel();
     public StudentClassModel StudentClassModel { get; set; } = new StudentClassModel();
