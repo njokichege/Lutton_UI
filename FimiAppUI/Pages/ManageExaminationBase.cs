@@ -67,7 +67,14 @@ namespace FimiAppUI.Pages
         }
         public void ClassRowClickEvent(TableRowClickEventArgs<SchoolPerformanceModel> tableRowClickEventArgs)
         {
-            Navigation.NavigateTo($"/classperformance/{tableRowClickEventArgs.Item.ClassId}/{SchoolYear.SessionYearId}/{tableRowClickEventArgs.Item.TermId}/{tableRowClickEventArgs.Item.ExamTypeId}");
+            try
+            {
+                Navigation.NavigateTo($"/classperformance/{tableRowClickEventArgs.Item.ClassId}/{SchoolYear.SessionYearId}/{tableRowClickEventArgs.Item.TermId}/{tableRowClickEventArgs.Item.ExamTypeId}");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+            }
         }
         public string SelectedRowClassFunc(SchoolPerformanceModel element, int rowNumber)
         {

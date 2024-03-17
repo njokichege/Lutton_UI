@@ -8,7 +8,6 @@ namespace FimiAppUI.Pages
     public class ClassPerformanceBase : Microsoft.AspNetCore.Components.ComponentBase
     {
         [Inject] public IClassPerformanceService SubjectPerformanceService { get; set; }
-        [Inject] public IStudentResultsService StudentResultsService { get; set; }
         [Inject] public IGradeService GradeService { get; set;}
         [Inject] public NavigationManager Navigation { get; set; }
         [Inject] public IWebHostEnvironment WebHostEnvironment { get; set; }
