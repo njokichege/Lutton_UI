@@ -17,10 +17,9 @@
         public double Physics { get; set; }
         public double Chemistry { get; set; }
         public double Biology { get; set; }
-        public double HistoryAndGoverment { get; set; }
+        public double HistoryandGovernment { get; set; }
         public double Geography { get; set; }
         public double ChristianReligion { get; set; }
-        public double HomeScience { get; set; }
         public double Agriculture { get; set; }
         public double BusinessStudies { get; set; }
         public double Total { get; set; }
@@ -32,10 +31,9 @@
         public GradeModel PhysicsGrade { get; set; }
         public GradeModel ChemistryGrade { get; set; }
         public GradeModel BiologyGrade { get; set; }
-        public GradeModel HistoryAndGovermentGrade { get; set; }
+        public GradeModel HistoryandGovermentGrade { get; set; }
         public GradeModel GeographyGrade { get; set; }
         public GradeModel ChristianReligionGrade { get; set; }
-        public GradeModel HomeScienceGrade { get; set; }
         public GradeModel AgricultureGrade { get; set; }
         public GradeModel BusinessStudiesGrade { get; set; }
         public int EnglishPosition { get; set; }
@@ -47,7 +45,6 @@
         public int HistoryPosition { get; set; }
         public int GeographyPosition { get; set; }
         public int ChristianReligionPosition { get; set; }
-        public int HomesciencePosition { get; set; }
         public int AgriculturePosition { get; set; }
         public int BusinessPosition { get; set; }
         public int ClassPosition { get; set; }
@@ -58,10 +55,9 @@
         public static string PhysicsName { get { return "Physics"; } }
         public static string ChemistryName { get { return "Chemistry"; } }
         public static string BiologyName { get { return "Biology"; } }
-        public static string HistoryAndGovermentName { get { return "History and Goverment"; } }
+        public static string HistoryandGovermentName { get { return "History and Goverment"; } }
         public static string GeographyName { get { return "Geography"; } }
         public static string ChristianReligionName { get { return "Christian  Religion"; } }
-        public static string HomeScienceName { get { return "HomeScience"; } }
         public static string AgricultureName { get { return "Agriculture"; } }
         public static string BusinessStudiesName { get { return "Business Studies"; } }
     }

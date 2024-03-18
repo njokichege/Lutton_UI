@@ -1,7 +1,9 @@
-﻿namespace FimiAppUI.Contracts
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace FimiAppUI.Contracts
 {
     public interface IReportService
     {
-        Task<HttpResponseMessage> GetStudentListStudent(List<int> students);
+        Task<HttpResponseMessage> AllStudentReportCards([FromBody] List<int> studentNumbers, string sessionYearId, string termId, string examTypeId);
     }
 }
