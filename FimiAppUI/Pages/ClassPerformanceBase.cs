@@ -11,6 +11,7 @@ namespace FimiAppUI.Pages
         [Inject] public IGradeService GradeService { get; set;}
         [Inject] public NavigationManager Navigation { get; set; }
         [Inject] public IWebHostEnvironment WebHostEnvironment { get; set; }
+        [Inject] public IReportService ReportService { get; set; }
         [Parameter] public string ClassId { get; set; }
         [Parameter] public string SessionYearId { get; set; }
         [Parameter] public string TermId { get; set; }
@@ -56,6 +57,9 @@ namespace FimiAppUI.Pages
             {
                 studentList.Add(student.StudentNumber);
             }
+
+            var response = await ReportService.GetStudentListStudent(studentList);
+            Navigation.NavigateTo($"https://localhost:5124/api/report/allstudentsreportform/{SessionYearId}/{TermId}/{ExamTypeId}");
 
             var queryJson = JsonConvert.SerializeObject(studentList);
             var apiEndpoint = $"https://localhost:5124/api/report/allstudentsreportform/{SessionYearId}/{TermId}/{ExamTypeId}/";

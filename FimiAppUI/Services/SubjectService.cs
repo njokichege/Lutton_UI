@@ -12,6 +12,10 @@
         {
             return await _httpClient.GetFromJsonAsync<SubjectModel[]>("api/subject");
         }
+        public async Task<IEnumerable<SubjectModel>> GetAcademicSubjects()
+        {
+            return await _httpClient.GetFromJsonAsync<SubjectModel[]>("api/subject/getacademicsubjects");
+        }
         public async Task<HttpResponseMessage> CreateSubject(SubjectModel subjectModel)
         {
             return await _httpClient.PostAsJsonAsync<SubjectModel>("api/subject", subjectModel);

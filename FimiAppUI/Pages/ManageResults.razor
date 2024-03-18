@@ -55,7 +55,7 @@
             <MudCard Elevation="0">
                 <MudCardContent>
                     <MudAutocomplete T="SubjectModel" Label="Subject" @bind-Value="SelectedSubject" ShowProgressIndicator="true"
-                                     SearchFunc="@SubjectSearch" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" Variant="Variant.Outlined" />
+                                     SearchFunc="@SubjectSearch" MaxItems="null" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" Variant="Variant.Outlined" />
                 </MudCardContent>
             </MudCard>
         </MudItem>
