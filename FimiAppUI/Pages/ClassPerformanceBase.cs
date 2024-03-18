@@ -12,6 +12,7 @@ namespace FimiAppUI.Pages
         [Inject] public NavigationManager Navigation { get; set; }
         [Inject] public IWebHostEnvironment WebHostEnvironment { get; set; }
         [Inject] public IReportService ReportService { get; set; }
+        [Inject] public IJSRuntime JSRuntime { get; set; }
         [Parameter] public string ClassId { get; set; }
         [Parameter] public string SessionYearId { get; set; }
         [Parameter] public string TermId { get; set; }
@@ -58,14 +59,23 @@ namespace FimiAppUI.Pages
                 studentList.Add(student.StudentNumber);
             }
 
-            var response = await ReportService.GetStudentListStudent(studentList);
-            Navigation.NavigateTo($"https://localhost:5124/api/report/allstudentsreportform/{SessionYearId}/{TermId}/{ExamTypeId}");
+            var response = await ReportService.AllStudentReportCards( studentList, SessionYearId, TermId, ExamTypeId);
 
-            var queryJson = JsonConvert.SerializeObject(studentList);
+            if (response.IsSuccessStatusCode)
+            {
+                // Get the download link from the response
+                var downloadLink = await response.Content.ReadAsStringAsync();
+
+                // Trigger the download
+                await JSRuntime.InvokeVoidAsync("BlazorDownloadFile", "ReportForms.zip", "application/zip", downloadLink);
+            }
+            //Navigation.NavigateTo($"https://localhost:5124/api/report/allstudentsreportform/{SessionYearId}/{TermId}/{ExamTypeId}");
+
+            /*var queryJson = JsonConvert.SerializeObject(studentList);
             var apiEndpoint = $"https://localhost:5124/api/report/allstudentsreportform/{SessionYearId}/{TermId}/{ExamTypeId}/";
             var fullUrl = $"{apiEndpoint}?students={queryJson}";
 
-            Navigation.NavigateTo(fullUrl);
+            Navigation.NavigateTo(fullUrl);*/
         }
         public async Task StudentRowClickEventAsync(TableRowClickEventArgs<ClassPerformanceModel> tableRowClickEventArgs)
         {

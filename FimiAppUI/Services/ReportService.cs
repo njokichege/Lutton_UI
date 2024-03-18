@@ -12,9 +12,9 @@ namespace FimiAppUI.Services
             _httpClient = httpClient;
         }
 
-        public async Task<HttpResponseMessage> GetStudentListStudent(List<int> students)
+        public async Task<HttpResponseMessage> AllStudentReportCards([FromBody] List<int> studentNumbers, string sessionYearId, string termId, string examTypeId)
         {
-            return await _httpClient.PostAsJsonAsync<List<int>>("api/report", students);
+            return await _httpClient.PostAsJsonAsync<List<int>>($"api/report/allstudentsreportform/{sessionYearId}/{termId}/{examTypeId}", studentNumbers);
         }
     }
 }
