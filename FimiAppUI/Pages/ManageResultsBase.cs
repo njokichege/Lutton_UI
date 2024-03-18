@@ -58,7 +58,8 @@ namespace FimiAppUI.Pages
         }
         public async Task<IEnumerable<SubjectModel>> SubjectSearch(string value)
         {
-            return (await SubjectService.GetSubjects()).Where(x => x.Code != 1 && x.Code != 2).ToList();
+            var subjects = (await SubjectService.GetAcademicSubjects()).ToList();
+            return subjects;
         }
         public async Task<IEnumerable<TermModel>> SelectedTermSearch(string value)
         {
