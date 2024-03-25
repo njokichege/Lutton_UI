@@ -1,7 +1,5 @@
-﻿using MudBlazor;
-using Newtonsoft.Json;
-using PSC.Blazor.Components.Chartjs.Models.Common;
-using System.Text;
+﻿using Microsoft.JSInterop;
+using Radzen.Blazor;
 
 namespace FimiAppUI.Pages
 {
@@ -13,11 +11,13 @@ namespace FimiAppUI.Pages
         [Inject] public IWebHostEnvironment WebHostEnvironment { get; set; }
         [Inject] public IReportService ReportService { get; set; }
         [Inject] public IJSRuntime JSRuntime { get; set; }
+        [Inject] public ISnackbar Snackbar { get; set; }
         [Parameter] public string ClassId { get; set; }
         [Parameter] public string SessionYearId { get; set; }
         [Parameter] public string TermId { get; set; }
         [Parameter] public string ExamTypeId { get; set; }
         public IEnumerable<ClassPerformanceModel> StudentsSubjectPerformance { get; set; }
+        public List<ClassPerformanceModel> StudentsSubjectPerformanceList { get; set; } 
         public IEnumerable<StudentResultsModel> ClassStudentResults { get; set; }
         public IEnumerable<GradeModel> Grades { get; set; }
         public MudTable<ClassPerformanceModel> mudTable;
@@ -36,8 +36,9 @@ namespace FimiAppUI.Pages
                 Console.WriteLine("\nException Caught!");
                 Console.WriteLine("Message :{0} ", ex.Message);
             }
-            
-            foreach (var studentPerformance in StudentsSubjectPerformance)
+            StudentsSubjectPerformanceList = StudentsSubjectPerformance.ToList();
+            var removeZeroResults = new List<int>();
+            foreach (var studentPerformance in StudentsSubjectPerformanceList)
             {
                 foreach (GradeModel grade in Grades)
                 {
@@ -47,39 +48,40 @@ namespace FimiAppUI.Pages
                         break;
                     }
                 }
+                if(studentPerformance.Average == 0.00)
+                {
+                    removeZeroResults.Add(studentPerformance.StudentNumber);
+                }
             }
+            foreach(int studentNumber in removeZeroResults)
+            {
+                StudentsSubjectPerformanceList.RemoveAll(x => x.StudentNumber == studentNumber);
+            }
+            
             dataIsLoaded = true;
         }
         public async Task GenerateAllReportForms()
         {
-            var studentList = new List<int>();
-
-            foreach (var student in StudentsSubjectPerformance)
+            foreach(var student in StudentsSubjectPerformanceList)
             {
-                studentList.Add(student.StudentNumber);
+
             }
-
-            var response = await ReportService.AllStudentReportCards( studentList, SessionYearId, TermId, ExamTypeId);
-
-            if (response.IsSuccessStatusCode)
-            {
-                // Get the download link from the response
-                var downloadLink = await response.Content.ReadAsStringAsync();
-
-                // Trigger the download
-                await JSRuntime.InvokeVoidAsync("BlazorDownloadFile", "ReportForms.zip", "application/zip", downloadLink);
-            }
-            //Navigation.NavigateTo($"https://localhost:5124/api/report/allstudentsreportform/{SessionYearId}/{TermId}/{ExamTypeId}");
-
-            /*var queryJson = JsonConvert.SerializeObject(studentList);
-            var apiEndpoint = $"https://localhost:5124/api/report/allstudentsreportform/{SessionYearId}/{TermId}/{ExamTypeId}/";
-            var fullUrl = $"{apiEndpoint}?students={queryJson}";
-
-            Navigation.NavigateTo(fullUrl);*/
         }
         public async Task StudentRowClickEventAsync(TableRowClickEventArgs<ClassPerformanceModel> tableRowClickEventArgs)
         {
-            Navigation.NavigateTo($"https://localhost:5124/api/report/studentreportform/{tableRowClickEventArgs.Item.StudentNumber}/{SessionYearId}/{TermId}/{ExamTypeId}");
+            //Navigation.NavigateTo($"https://localhost:5124/api/report/studentreportform/{tableRowClickEventArgs.Item.StudentNumber}/{SessionYearId}/{TermId}/{ExamTypeId}");
+
+            byte[] reportData = await ReportService.StudentReportCardBytes(tableRowClickEventArgs.Item.StudentNumber,SessionYearId,TermId,ExamTypeId);
+            string mimeType = "application/pdf";
+            string fileName = $"ReportForm_{tableRowClickEventArgs.Item.StudentNumber}";
+            if (reportData == null)
+            {
+                Snackbar.Add("Failed to load report form", MudBlazor.Severity.Error);
+            }
+            else
+            {
+                JSRuntime.InvokeVoidAsync("saveFile", Convert.ToBase64String(reportData), mimeType, fileName);
+            }
         }
         public string SelectedRowClassFunc(ClassPerformanceModel element, int rowNumber)
         {
