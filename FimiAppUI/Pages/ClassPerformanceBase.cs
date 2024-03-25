@@ -79,7 +79,19 @@ namespace FimiAppUI.Pages
         }
         public async Task StudentRowClickEventAsync(TableRowClickEventArgs<ClassPerformanceModel> tableRowClickEventArgs)
         {
-            Navigation.NavigateTo($"https://luttonapp.azurewebsites.net/api/report/studentreportform/{tableRowClickEventArgs.Item.StudentNumber}/{SessionYearId}/{TermId}/{ExamTypeId}");
+            //Navigation.NavigateTo($"https://localhost:5124/api/report/studentreportform/{tableRowClickEventArgs.Item.StudentNumber}/{SessionYearId}/{TermId}/{ExamTypeId}");
+
+byte[] reportData = await ReportService.StudentReportCardBytes(tableRowClickEventArgs.Item.StudentNumber,SessionYearId,TermId,ExamTypeId);
+string mimeType = "application/pdf";
+string fileName = $"ReportForm_{tableRowClickEventArgs.Item.StudentNumber}";
+if (reportData == null)
+{
+    Snackbar.Add("Failed to load report form", MudBlazor.Severity.Error);
+}
+else
+{
+    JSRuntime.InvokeVoidAsync("saveFile", Convert.ToBase64String(reportData), mimeType, fileName);
+}
         }
         public string SelectedRowClassFunc(ClassPerformanceModel element, int rowNumber)
         {
