@@ -1,6 +1,8 @@
 ﻿@page "/classperformance/{classId}/{sessionYearId}/{termId}/{examTypeId}"
 @inherits ClassPerformanceBase
 
+<script src="lib/BlazorDownloadFile.js"></script>
+
 <style>
     .selected {
         background-color: #FFBC42 !important;
@@ -27,11 +29,11 @@
     </MudItem>
 </MudGrid>
 
-<!--<MudGrid Class="d-flex pa-4">
+<MudGrid Class="d-flex pa-4">
     <MudItem xs="3">
         <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@GenerateAllReportForms" StartIcon="@Icons.Material.Filled.Save" Color="Color.Primary" Style="background-color:#DA4167">Generate report forms</MudButton>
     </MudItem>
-</MudGrid>-->
+</MudGrid>
 
 @if (dataIsLoaded == false)
 {
@@ -41,11 +43,11 @@ else
 {
     <MudGrid Class="d-flex pa-4">
         <MudItem xs="12" Class="d-flex justify-space-between">
-            <MudTable Bordered="true" Elevation="0" RowClassFunc="@SelectedRowClassFunc" RowStyle="" Items="@StudentsSubjectPerformance" Dense="true" Hover="true" Striped="true" T="ClassPerformanceModel" @ref="mudTable" HorizontalScrollbar="true"
+            <MudTable Bordered="true" Elevation="0" RowClassFunc="@SelectedRowClassFunc" RowStyle="" Items="@StudentsSubjectPerformanceList" Dense="true" Hover="true" Striped="true" T="ClassPerformanceModel" @ref="mudTable" HorizontalScrollbar="true"
                       Breakpoint="Breakpoint.Sm" FixedHeader="true" FixedFooter="true" Style="max-width: 2000px; overflow: scroll;font-size:12px;" OnRowClick="StudentRowClickEventAsync">
                 <HeaderContent>
                     <MudTh Style="font-size:12px;">#</MudTh>
-                    <MudTh Style="font-size:12px;">Adm No</MudTh>
+                    <MudTh Style="font-size:12px;">Adm</MudTh>
                     <MudTh Style="font-size:12px;">Name</MudTh>
                     <MudTh Style="font-size:12px;">Grade</MudTh>
                     <MudTh Style="font-size:12px;">Total</MudTh>
