@@ -9,7 +9,7 @@
             builder.Services.AddServerSideBlazor();
             builder.Services.AddMemoryCache();
             builder.Services.AddScoped<Radzen.DialogService>();
-
+            builder.Services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
             builder.Services.AddHttpClient<IReportService, ReportService>(client =>
             {
                 client.BaseAddress = new Uri(uriLink);
