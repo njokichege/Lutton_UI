@@ -34,6 +34,15 @@
         <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@GenerateAllReportForms" StartIcon="@Icons.Material.Filled.Save" Color="Color.Primary" Style="background-color:#DA4167">Generate report forms</MudButton>
     </MudItem>
 </MudGrid>
+@if (showDownloadProgress is true)
+{
+    <MudGrid Class="d-flex pb-4">
+        <MudItem xs="3">
+            <MudProgressLinear Color="Color.Tertiary" Size="Size.Small" Indeterminate="true" Class="mt-4" />
+        </MudItem>
+    </MudGrid>
+}
+<MudDivider DividerType="DividerType.FullWidth" />
 
 @if (dataIsLoaded == false)
 {
@@ -44,7 +53,7 @@ else
     <MudGrid Class="d-flex pa-4">
         <MudItem xs="12" Class="d-flex justify-space-between">
             <MudTable Bordered="true" Elevation="0" RowClassFunc="@SelectedRowClassFunc" RowStyle="" Items="@StudentsSubjectPerformanceList" Dense="true" Hover="true" Striped="true" T="ClassPerformanceModel" @ref="mudTable" HorizontalScrollbar="true"
-                      Breakpoint="Breakpoint.Sm" FixedHeader="true" FixedFooter="true" Style="max-width: 2000px; overflow: scroll;font-size:12px;" OnRowClick="StudentRowClickEventAsync">
+                      Breakpoint="Breakpoint.Sm" FixedHeader="true"Height="500px" Style="max-width: 2000px; overflow: scroll;font-size:12px;" OnRowClick="StudentRowClickEventAsync">
                 <HeaderContent>
                     <MudTh Style="font-size:12px;">#</MudTh>
                     <MudTh Style="font-size:12px;">Adm</MudTh>
