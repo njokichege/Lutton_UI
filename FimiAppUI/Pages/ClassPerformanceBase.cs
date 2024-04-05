@@ -6,6 +6,9 @@ using System.IO;
 using System.Net.Mail;
 using Microsoft.AspNetCore.Mvc;
 using PSC.Blazor.Components.Chartjs.Models.Common;
+using System.Net.Http;
+using System.Reflection.Metadata;
+using System.Xml.Linq;
 
 namespace FimiAppUI.Pages
 {
@@ -72,7 +75,7 @@ namespace FimiAppUI.Pages
         }
         public async Task GenerateAllReportForms()
         {
-            showDownloadProgress = true;
+            /*showDownloadProgress = true;
 
             Dictionary<byte[],int> studentReportBytes = new Dictionary<byte[],int>();
             foreach (var student in StudentsSubjectPerformanceList)
@@ -106,7 +109,18 @@ namespace FimiAppUI.Pages
             {
                 FileUtil.SaveAs(JSRuntime, $"{ClassDetails.Form.Form}{ClassDetails.Stream.Stream}.zip", zippedFiles);
             }
-            showDownloadProgress = false;
+            showDownloadProgress = false;*/
+            
+            try
+            {
+                var response = await ReportService.GenerateReportCard(812, SessionYearId, TermId, ExamTypeId);
+                response.EnsureSuccessStatusCode(); // Throw an exception if the response is not successful
+                Snackbar.Add("Check Downloads folder for reports", MudBlazor.Severity.Success);
+            }
+            catch (HttpRequestException e)
+            {
+                Snackbar.Add($"Failed to load reports form \n {e.Message}", MudBlazor.Severity.Error);
+            }
         }
         public static class FileUtil
         {
