@@ -1,9 +1,4 @@
-﻿using FimiAppUI.Contracts;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.CompilerServices;
-
-namespace FimiAppUI.Services
+﻿namespace FimiAppUI.Services
 {
     public class StudentService : IStudentService
     {

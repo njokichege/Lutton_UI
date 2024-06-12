@@ -14,57 +14,52 @@
     </MudItem>
 </MudGrid>
 
-@if(SelectedTerm is not null && SelectedExamType is not null)
-{
-    <MudGrid Class="d-flex px-4 mt-4 align-center">
-        <MudItem xs="2">
-            <MudCard Elevation="0">
-                <MudCardContent>
-                    <MudField Label="Term" Variant="Variant.Outlined"><b>@SelectedTerm.TermName</b></MudField>
-                    <!--<MudAutocomplete T="TermModel" Label="Term" @bind-Value="SelectedTerm" ShowProgressIndicator="true"
-                                     SearchFunc="@SelectedTermSearch" ToStringFunc="@(e=> e==null?null : $"{e.TermName}")" Variant="Variant.Outlined" />-->
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
-        <MudItem xs="2">
-            <MudCard Elevation="0">
-                <MudCardContent>
-                    <MudField Label="Exam Type" Variant="Variant.Outlined"><b>@SelectedExamType.ExamName</b></MudField>
-                    <!--<MudAutocomplete T="ExamTypeModel" Label="Exam Type" @bind-Value="SelectedExamType" ShowProgressIndicator="true"
-                                     SearchFunc="@SelectedExamTypeSearch" ToStringFunc="@(e=> e==null?null : $"{e.ExamName}")" Variant="Variant.Outlined" />-->
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
-        <MudItem xs="2">
-            <MudCard Elevation="0">
-                <MudCardContent>
-                    <MudAutocomplete T="FormModel" Label="Form" @bind-Value="SelectedForm" ShowProgressIndicator="true"
-                                     SearchFunc="@SelectedFormSearch" ToStringFunc="@(e=> e==null?null : $"{e.Form}")" Variant="Variant.Outlined" />
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
-        <MudItem xs="2">
-            <MudCard Elevation="0">
-                <MudCardContent>
-                    <MudAutocomplete T="StreamModel" Label="Stream" @bind-Value="SelectedStream" ShowProgressIndicator="true"
-                                     SearchFunc="@SelectedStreamSearch" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" Variant="Variant.Outlined" />
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
-        <MudItem xs="2">
-            <MudCard Elevation="0">
-                <MudCardContent>
-                    <MudAutocomplete T="SubjectModel" Label="Subject" @bind-Value="SelectedSubject" ShowProgressIndicator="true"
-                                     SearchFunc="@SubjectSearch" MaxItems="null" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" Variant="Variant.Outlined" />
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
-        <MudItem xs="2">
-            <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@FindStudent" StartIcon="@Icons.Material.Filled.Save" Color="Color.Primary" Style="background-color:#DA4167">Submit</MudButton>
-        </MudItem>
-    </MudGrid>
-}
-
+<MudGrid Class="d-flex px-4 mt-4 align-center">
+    <MudItem xs="2">
+        <MudCard Elevation="0">
+            <MudCardContent>
+                <MudAutocomplete T="TermModel" Label="Term" @bind-Value="SelectedTerm" ShowProgressIndicator="true"
+                                 SearchFunc="@SelectedTermSearch" ToStringFunc="@(e=> e==null?null : $"{e.TermName}")" Variant="Variant.Outlined" />
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="2">
+        <MudCard Elevation="0">
+            <MudCardContent>
+                <MudAutocomplete T="ExamTypeModel" Label="Exam Type" @bind-Value="SelectedExamType" ShowProgressIndicator="true"
+                                 SearchFunc="@SelectedExamTypeSearch" ToStringFunc="@(e=> e==null?null : $"{e.ExamName}")" Variant="Variant.Outlined" />
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="2">
+        <MudCard Elevation="0">
+            <MudCardContent>
+                <MudAutocomplete T="FormModel" Label="Form" @bind-Value="SelectedForm" ShowProgressIndicator="true"
+                                 SearchFunc="@SelectedFormSearch" ToStringFunc="@(e=> e==null?null : $"{e.Form}")" Variant="Variant.Outlined" />
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="2">
+        <MudCard Elevation="0">
+            <MudCardContent>
+                <MudAutocomplete T="StreamModel" Label="Stream" @bind-Value="SelectedStream" ShowProgressIndicator="true"
+                                 SearchFunc="@SelectedStreamSearch" ToStringFunc="@(e=> e==null?null : $"{e.Stream}")" Variant="Variant.Outlined" />
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="2">
+        <MudCard Elevation="0">
+            <MudCardContent>
+                <MudAutocomplete T="SubjectModel" Label="Subject" @bind-Value="SelectedSubject" ShowProgressIndicator="true"
+                                 SearchFunc="@SubjectSearch" MaxItems="null" ToStringFunc="@(e=> e==null?null : $"{e.SubjectName}")" Variant="Variant.Outlined" />
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="2">
+        <MudButton Variant="Variant.Filled" FullWidth="true" OnClick="@FindStudent" StartIcon="@Icons.Material.Filled.Save" Color="Color.Primary" Style="background-color:#DA4167">Submit</MudButton>
+    </MudItem>
+</MudGrid>
+    
 <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
 
 <MudGrid Class="d-flex justify-start px-4" @bind-IsVisible="visible">

@@ -14,5 +14,9 @@ namespace FimiAppUI.Services
         {
             return await _httpClient.GetFromJsonAsync<IEnumerable<TermModel>>("api/term");
         }
+        public async Task<TermModel> GetTermIdByName(string termName)
+        {
+            return await _httpClient.GetFromJsonAsync<TermModel>($"api/term/{termName}");
+        }
     }
 }

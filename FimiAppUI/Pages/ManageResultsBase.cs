@@ -1,10 +1,4 @@
-﻿
-using FimiAppLibrary.Models;
-using Microsoft.AspNetCore.SignalR;
-using System.Net;
-using static MudBlazor.CategoryTypes;
-
-namespace FimiAppUI.Pages
+﻿namespace FimiAppUI.Pages
 {
     public class ManageResultsBase : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -18,6 +12,7 @@ namespace FimiAppUI.Pages
         [Inject] public IClassService ClassService { get; set; }
         [Inject] public ISubjectService SubjectService { get; set; }
         [Inject] public ISnackbar Snackbar { get; set; }
+        [Inject] public IExamService ExamService { get; set; }
         [CascadingParameter] public SessionYearModel SchoolYear { get; set; }
         public IEnumerable<StudentModel> Students { get; set; }
         public List<StudentModel> StudentsToUpdate { get; set; } = new List<StudentModel>();
@@ -37,24 +32,7 @@ namespace FimiAppUI.Pages
         protected override async Task OnInitializedAsync()
         {
             var terms = await TermService.GetAllTerms();
-            foreach(var term in terms)
-            {
-                if(term.TermName == "First")
-                {
-                    SelectedTerm = term;
-                    break;
-                }
-            }
-
             var examtypes = await ExamTypeService.GetAllExamTypes();
-            foreach(var examtype in examtypes)
-            {
-                if(examtype.ExamName == "Mid Term")
-                {
-                    SelectedExamType = examtype;
-                    break;
-                }
-            }
         }
         public async Task<IEnumerable<SubjectModel>> SubjectSearch(string value)
         {
@@ -114,12 +92,16 @@ namespace FimiAppUI.Pages
         }
         public async Task SubmitResults()
         {
+            var term = await TermService.GetTermIdByName(SelectedTerm.TermName);
+            var examType = await ExamTypeService.GetExamTypeIdByName(SelectedExamType.ExamName);
+            var exam = await ExamService.GetExamByTermAndExamType(term.TermId, examType.ExamTypeId, SchoolYear.StartDate.Year);
+
             foreach (var student in StudentsToUpdate)
             {
                 var studentClass = await StudentClassService.GetStudentClass(SelectedClass.ClassId, student.StudentNumber);
                 var subjectResult = new ExamResultModel
                 {
-                    ExamId = 1,
+                    ExamId = exam.ExamId,
                     StudentClassId = studentClass.StudentClassId,
                     Code = SelectedSubject.Code,
                     GradeId = 1,
