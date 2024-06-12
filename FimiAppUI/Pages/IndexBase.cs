@@ -1,4 +1,5 @@
-﻿using FimiAppUI.Shared;
+﻿using FimiAppLibrary.Models;
+using FimiAppUI.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Radzen;
 using Radzen.Blazor;
@@ -14,6 +15,8 @@ namespace FimiAppUI.Pages
         [Inject] public IExamResultService ExamResultService { get; set; }
         [Inject] public IClassService ClassService { get; set; }
         [Inject] public IEventService EventService { get; set; }
+        [Inject] public IExamService ExamService { get; set; }
+        [Inject] public ISnackbar Snackbar { get; set; }
         [CascadingParameter] public SessionYearModel SchoolYear { get; set; }
         public IEnumerable<StudentModel> AllStudents { get; set; } 
         public IEnumerable<TeacherModel> AllTeachers { get; set; }
@@ -22,6 +25,7 @@ namespace FimiAppUI.Pages
         public IEnumerable<ExamResultModel> ExamResults { get; set; }  
         public SessionYearModel SelectedRunningSession { get; set; }
         public IList<EventModel> EventModels { get; set; }
+        public IEnumerable<ExamModel> TotalExams { get; set; }
         public string SessionYearModelTitle { get; set; }
         public List<ChartSeries> Series = new List<ChartSeries>();
         public string[] XAxisLabels = { "Term1","Term2","Term3" };
@@ -44,6 +48,83 @@ namespace FimiAppUI.Pages
             SessionYearModelTitle = SchoolYear.SessionString();
 
             ExamResults = await ExamResultService.GetYearlySchoolResults(SchoolYear.SessionYearId);
+
+            TotalExams = await ExamService.GetExamsBySchoolYear(SchoolYear.StartDate.Year);
+
+            var examsToCreate = new List<ExamModel>()
+                {
+                    new ExamModel
+                    {
+                        SchoolYear = SchoolYear.StartDate.Year,
+                        TermId = 1,
+                        ExamTypeId = 1,
+                    },
+                    new ExamModel
+                    {
+                        SchoolYear = SchoolYear.StartDate.Year,
+                        TermId = 1,
+                        ExamTypeId = 2
+                    },
+                    new ExamModel
+                    {
+                        SchoolYear = SchoolYear.StartDate.Year,
+                        TermId = 2,
+                        ExamTypeId = 1,
+                    },
+                    new ExamModel
+                    {
+                        SchoolYear = SchoolYear.StartDate.Year,
+                        TermId = 2,
+                        ExamTypeId = 2
+                    },
+                    new ExamModel
+                    {
+                        SchoolYear = SchoolYear.StartDate.Year,
+                        TermId = 3,
+                        ExamTypeId = 1,
+                    },
+                    new ExamModel
+                    {
+                        SchoolYear = SchoolYear.StartDate.Year,
+                        TermId = 3,
+                        ExamTypeId = 2
+                    }
+                };
+
+            if (TotalExams.Count() == 0)
+            {
+                foreach (var exam in examsToCreate) 
+                {
+                    await ExamService.AddExam(exam);
+                }
+            }
+            else if (TotalExams.Count() != 6)
+            {
+                foreach(var totalExam in TotalExams)
+                {
+                    foreach(var exam in examsToCreate)
+                    {
+                        if(exam.TermId == totalExam.TermId && exam.ExamTypeId == totalExam.ExamTypeId)
+                        {
+                            examsToCreate.Remove(exam);
+                            break;
+                        }
+                    }
+                }
+                foreach (var exam in examsToCreate)
+                {
+                    var response = await ExamService.AddExam(exam);
+                    if (response.StatusCode == HttpStatusCode.Created)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        Snackbar.Add("Failed to add exam", MudBlazor.Severity.Error);
+                        break;
+                    }
+                }
+            }
 
             /*foreach (var  examResult in ExamResults)
             {

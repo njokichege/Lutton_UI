@@ -12,5 +12,9 @@
         {
             return await _httpClient.GetFromJsonAsync<IEnumerable<ExamTypeModel>>("api/examtype");
         }
+        public async Task<ExamTypeModel> GetExamTypeIdByName(string examName)
+        {
+            return await _httpClient.GetFromJsonAsync<ExamTypeModel>($"api/examtype/{examName}");
+        }
     }
 }
