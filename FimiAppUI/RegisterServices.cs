@@ -2,7 +2,8 @@
 {
     public static class RegisterServices
     {
-        static private readonly string uriLink = "https://luttonapp-development.azurewebsites.net/";
+        static private readonly string uriLink = "https://luttonapp.azurewebsites.net/";
+
         public static void ConfigureServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddRazorPages();
